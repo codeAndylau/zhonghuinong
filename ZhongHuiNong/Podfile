@@ -1,0 +1,40 @@
+# Uncomment the next line to define a global platform for your project
+  platform :ios, '10.0'
+
+target 'ZhongHuiNong' do
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    use_frameworks!
+    
+    # Pods for ZhongHuiNong
+    
+    # Network
+    pod 'Moya/RxSwift'
+    pod 'ObjectMapper'
+    pod 'Kingfisher'
+    pod 'ReachabilitySwift'
+    pod 'SwiftyJSON'
+    
+    # Rx
+    pod 'RxSwift'
+    pod 'RxCocoa'
+    pod 'NSObject+Rx'
+    
+    # UI
+    pod 'SnapKit'
+    pod 'KafkaRefresh'
+    
+    # Tools
+    pod 'Bugly'
+    pod 'Then'
+     
+    target 'ZhongHuiNongTests' do
+        inherit! :search_paths
+        # Pods for testing
+    end
+    
+    target 'ZhongHuiNongUITests' do
+        inherit! :search_paths
+        # Pods for testing
+    end
+    
+end

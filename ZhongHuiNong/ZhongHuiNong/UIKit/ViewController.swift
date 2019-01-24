@@ -1,0 +1,104 @@
+//
+//  ViewController.swift
+//  ZhongHuiNong
+//
+//  Created by Andylau on 2019/1/18.
+//  Copyright © 2019 Andylau. All rights reserved.
+//
+
+import UIKit
+import RxSwift
+import RxCocoa
+
+class ViewController: UIViewController, Navigatable {
+    
+    var navigator: Navigator = Navigator.shared
+
+    lazy var emptyDataSetTitle = ViewController.emptyTitle
+    lazy var emptyDataSetImage = ViewController.emptyImage
+    lazy var emptyDataSetImageTintColor = BehaviorRelay<UIColor?>(value: nil)
+    
+    lazy var isLoading = BehaviorRelay(value: false)
+    
+    lazy var contentView: View = {
+        let view = View()
+        self.view.addSubview(view)
+        view.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.edges.equalTo(self.view.safeAreaLayoutGuide)
+            } else {
+                make.left.right.equalToSuperview()
+                make.top.equalTo(self.topLayoutGuide.snp.bottom)
+                make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
+            }
+        }
+        return view
+    }()
+    
+    lazy var stackView: StackView = {
+        let subviews: [UIView] = []
+        let view = StackView(arrangedSubviews: subviews)
+        self.contentView.addSubview(view)
+        view.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
+        return view
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        makeUI()
+        bindViewModel()
+    }
+    
+    /// 创建UI
+    func makeUI() { updateUI() }
+    /// 绑定vm
+    func bindViewModel() { view.backgroundColor = UIColor.white }
+    /// 更新UI
+    func updateUI() {
+        navigator = Navigator.shared
+    }
+
+}
+
+extension ViewController {
+    static let emptyTitle = "暂无数据显示"
+    static let emptyImage = "图片显示"
+}
+
+//extension ViewController: DZNEmptyDataSetSource {
+//
+//    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+//        return NSAttributedString(string: emptyDataSetTitle)
+//    }
+//
+//    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+//        return emptyDataSetImage
+//    }
+//
+//    func imageTintColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+//        return emptyDataSetImageTintColor.value
+//    }
+//
+//    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+//        return .clear
+//    }
+//
+//    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+//        return -60
+//    }
+//}
+
+//extension ViewController: DZNEmptyDataSetDelegate {
+//
+//    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+//        return !isLoading.value
+//    }
+//
+//    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+//        return true
+//    }
+//}
+
+

@@ -1,0 +1,50 @@
+{
+    "架构及注意事项": [1 编码规范
+             2 设计模式的选择
+             3 项目目录结构
+             4 网络层
+             5 数据存储
+             6 日志收集
+             7 安全性
+             8 测试(功能,性能等)和自动化打包(比如持续集成管理工具)]
+    
+    "项目一般满足点": [(1) 功能内聚和数据耦合，是我们需要达成的目标。
+                    (2) 横向的内聚和耦合，通常体现在系统的各个模块、类之间的关系，而纵向的耦合，体现在系统的各个层次之间的关系。
+                    (3) 少继承, 多考虑协议
+                    (4) 最终: 易测试，易拓展]
+    
+    "Swift协议编程的几个点": [1 想要添加一些属性和方法,给需要的地方, 组件化
+                           2 为协议可以添加属性 和 方法 protocol xxxProtocol{}
+                           3 接受协议的结构体 struct xxxModel: xxxProtocol {}
+                           4 对协议进行扩展 extension  xxxProtocol {}
+                           5 协议的协议 protocol xxxProtocol xxxProtocol{}]
+    
+    
+    "项目目录结构": [*  Base : 存放一些基类,比如BaseViewController,BaseModel等,共性直接在基类中去修改
+                   *  Vendor : 三方,因为我的项目中使用cocopods管理三方,所以这个文件夹中我在此放的是一些比较小的功能的第三方或者不支持cocopods的
+                   *  Framework : 存放一些类库或者自己封装的一些静态库
+                   *  Resource : 存放app中一些索引资源,比如图片,文本等,或者将图片打包的Bundle
+                   *  Custom : 这个文件夹我用来存放自己项目或者公司自己风格的一些自定义的视图框架( 或SDK )
+                   *  Network : 这个只专门用来做网络处理的,因为这个项目基本上都会用到网络请求,算是比较重要的一个部分,所以在此单独拿出来作为一个分类
+                   *  Expand : 扩展文件
+                               -- Tool : 工具
+                               -- DataBase: 数据存储相关
+                               -- Macros : 宏定义
+                               -- Const : 常量
+                  *  Main : AppDelegate或者AppDelegate的Category 等等
+                  *  Class : 存放的是App中所有的模块功能
+                             - Public : 公用
+                             - Home : 比如首页
+                                      -- Controller
+                                      -- Model
+                                      -- View
+                                      -- ViewModel
+                                      -- Other
+        
+                 * XXX-Tests :        单元测试
+                 * XXX-UITests  :   UI测试
+                 * Products :         系统自动生成的.app所在文件夹
+                 * Pods  :               Pods第三方库]
+    
+    
+}

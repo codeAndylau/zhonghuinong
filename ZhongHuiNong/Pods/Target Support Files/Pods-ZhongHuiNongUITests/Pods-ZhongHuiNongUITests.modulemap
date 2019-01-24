@@ -1,0 +1,6 @@
+framework module Pods_ZhongHuiNongUITests {
+  umbrella header "Pods-ZhongHuiNongUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
