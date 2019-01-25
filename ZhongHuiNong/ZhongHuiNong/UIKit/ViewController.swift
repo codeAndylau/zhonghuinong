@@ -45,16 +45,32 @@ class ViewController: UIViewController, Navigatable {
         return view
     }()
     
+    let statusBarStyle = BehaviorRelay(value: false)
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        get {
+            if statusBarStyle.value {
+                return .lightContent
+            }
+            return .default
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
         bindViewModel()
+        
+        // 更改状态栏的颜色
+        statusBarStyle.asObservable().subscribe(onNext: { (flag) in
+           self.setNeedsStatusBarAppearanceUpdate()
+        }).disposed(by: rx.disposeBag)
     }
     
     /// 创建UI
     func makeUI() { updateUI() }
     /// 绑定vm
-    func bindViewModel() { view.backgroundColor = UIColor.white }
+    func bindViewModel() { view.backgroundColor = Color.backdropColor }
     /// 更新UI
     func updateUI() {
         navigator = Navigator.shared

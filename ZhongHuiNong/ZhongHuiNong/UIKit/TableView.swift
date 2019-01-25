@@ -25,7 +25,7 @@ class TableView: UITableView {
     }
     
     func makeUI() {
-        backgroundColor = UIColor.white
+        backgroundColor = Color.whiteColor
         rowHeight = UITableView.automaticDimension
         sectionHeaderHeight = Configs.Size.tableHeaderHeight
         estimatedRowHeight = Configs.Size.tableRowHeight

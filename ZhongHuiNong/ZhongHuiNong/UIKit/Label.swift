@@ -24,10 +24,22 @@ class Label: UILabel {
     }
 
     // MARK: - convenience
+    
+    convenience init(nums: Int) {
+        self.init()
+        self.numberOfLines = nums
+    }
+    
     convenience init(title: String, font: CGFloat) {
         self.init()
-        self.backgroundColor = UIColor.cyan
         self.text = title
+        self.font = UIFont.systemFont(ofSize: font)
+    }
+    
+    convenience init(title: String, color: UIColor, font: CGFloat) {
+        self.init()
+        self.text = title
+        self.textColor = color
         self.font = UIFont.systemFont(ofSize: font)
     }
     

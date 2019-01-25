@@ -23,6 +23,7 @@ class HomeViewController: TableViewController {
         navigationItem.title = HomeViewController.homeTitle
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.resueIdentifier)
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        isRefresh.accept(true)
     }
     
     override func bindViewModel() {
@@ -43,12 +44,12 @@ class HomeViewController: TableViewController {
             }.disposed(by: rx.disposeBag)
         
         tableView.rx.modelSelected(HomePublicityEntity.self).subscribe(onNext: { (item) in
-            print("mmp---\(item.texts)")
-            self.navigator.show(segue: .tabs, sender: self)
+            LogInfo("mmp---\(item.texts)")
+            
         }).disposed(by: rx.disposeBag)
         
         isLoading.subscribe(onNext: { (flag) in
-            print("正在加载数据---\(flag)")
+            LogInfo("正在加载数据---\(flag)")
         }).disposed(by: rx.disposeBag)
         
     }

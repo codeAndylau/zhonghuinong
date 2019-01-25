@@ -12,33 +12,49 @@ import RxCocoa
 import KafkaRefresh
 
 class TableViewController: ViewController {
-
+    
     let headerRefreshTrigger = PublishSubject<Void>()
     let footerRefreshTrigger = PublishSubject<Void>()
     
     let isHeaderLoading = BehaviorRelay(value: false)
     let isFooterLoading = BehaviorRelay(value: false)
     
+    let isRefresh = BehaviorRelay(value: false)
+    
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kTabBarH), style: .plain)
         //        view.emptyDataSetSource = self
         //        view.emptyDataSetDelegate = self
         return view
     }()
     
-    var clearsSelectionOnViewWillAppear = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
+    
     override func makeUI() {
         super.makeUI()
-        
-        stackView.spacing = 0
-        stackView.addArrangedSubview(tableView)
-        
+        view.addSubview(tableView)
+        isRefresh.asObservable().subscribe(onNext: { [weak self] (flag) in
+            guard let self = self else { return }
+            if flag { self.refreshTrigger() }
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
+    }
+    
+    func bringLayertoFront() {
+        extendedLayoutIncludesOpaqueBars = true
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+    }
+    
+    func refreshTrigger() {
         /// 数据刷新
         tableView.bindGlobalStyle(forHeadRefreshHandler: { [weak self] in
             if self?.tableView.headRefreshControl.isTriggeredRefreshByUser == false {
@@ -53,17 +69,12 @@ class TableViewController: ViewController {
         isHeaderLoading.bind(to: tableView.headRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
         isFooterLoading.bind(to: tableView.footRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
         
-        tableView.footRefreshControl.autoRefreshOnFoot = true
+        tableView.footRefreshControl.autoRefreshOnFoot = false
         
-//        let updateEmptyDataSet = Observable.of(isLoading.mapToVoid().asObservable(), emptyDataSetImageTintColor.mapToVoid()).merge()
-//        updateEmptyDataSet.subscribe(onNext: { [weak self] () in
-//            self?.tableView.reloadEmptyDataSet()
-//        }).disposed(by: rx.disposeBag)
-        
-    }
-    
-    override func updateUI() {
-        super.updateUI()
+        //        let updateEmptyDataSet = Observable.of(isLoading.mapToVoid().asObservable(), emptyDataSetImageTintColor.mapToVoid()).merge()
+        //        updateEmptyDataSet.subscribe(onNext: { [weak self] () in
+        //            self?.tableView.reloadEmptyDataSet()
+        //        }).disposed(by: rx.disposeBag)
     }
     
 }

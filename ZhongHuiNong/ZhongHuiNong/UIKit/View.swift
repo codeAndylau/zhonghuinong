@@ -35,8 +35,7 @@ class View: UIView {
     }
     
     func makeUI() {
-        layer.masksToBounds = true
-        updateUI()
+        backgroundColor = Color.whiteColor
     }
     
     func updateUI() {

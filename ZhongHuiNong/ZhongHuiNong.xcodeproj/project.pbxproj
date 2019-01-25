@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
+		1411F75021F943590076D763 /* FarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74F21F943590076D763 /* FarmViewController.swift */; };
+		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
+		1411F75421F943A50076D763 /* FairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75321F943A50076D763 /* FairViewModel.swift */; };
+		1411F75621F943B00076D763 /* FairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75521F943B00076D763 /* FairViewController.swift */; };
+		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
+		1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75921F943EC0076D763 /* BasketViewModel.swift */; };
+		1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75B21F943FA0076D763 /* MineViewModel.swift */; };
+		1411F75E21F944040076D763 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75D21F944040076D763 /* MineViewController.swift */; };
+		1411F76021F948770076D763 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75F21F948770076D763 /* RootNavigationController.swift */; };
+		1411F76221F982BC0076D763 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F76121F982BC0076D763 /* Image.swift */; };
+		1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C221FAAA5E00347050 /* BarButtonItem.swift */; };
+		1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C421FAB74400347050 /* FarmSegmentedView.swift */; };
+		1414E0C721FABA5600347050 /* View+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C621FABA5600347050 /* View+Ex.swift */; };
+		1414E0C921FACCE300347050 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C821FACCE200347050 /* Button.swift */; };
+		1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */; };
+		1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */; };
 		1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389921F8065B0038AFC6 /* WebAPI.swift */; };
 		1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389B21F80A6E0038AFC6 /* Networking.swift */; };
 		1451389E21F80A960038AFC6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389D21F80A960038AFC6 /* Reachability.swift */; };
@@ -87,6 +104,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
+		1411F74F21F943590076D763 /* FarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewController.swift; sourceTree = "<group>"; };
+		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
+		1411F75321F943A50076D763 /* FairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FairViewModel.swift; sourceTree = "<group>"; };
+		1411F75521F943B00076D763 /* FairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FairViewController.swift; sourceTree = "<group>"; };
+		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		1411F75921F943EC0076D763 /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
+		1411F75B21F943FA0076D763 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		1411F75D21F944040076D763 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		1411F75F21F948770076D763 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		1411F76121F982BC0076D763 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		1414E0C221FAAA5E00347050 /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BarButtonItem.swift; path = ../../../../ZhongHuiNong/ZhongHuiNong/ZhongHuiNong/UIKit/BarButtonItem.swift; sourceTree = "<group>"; };
+		1414E0C421FAB74400347050 /* FarmSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSegmentedView.swift; sourceTree = "<group>"; };
+		1414E0C621FABA5600347050 /* View+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ex.swift"; sourceTree = "<group>"; };
+		1414E0C821FACCE200347050 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmMembersViewController.swift; sourceTree = "<group>"; };
+		1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonmembersHeaderView.swift; sourceTree = "<group>"; };
 		1451389921F8065B0038AFC6 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
 		1451389B21F80A6E0038AFC6 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		1451389D21F80A960038AFC6 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -192,7 +226,9 @@
 		145138A721F851490038AFC6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */,
 				145138A821F851C70038AFC6 /* MainTabBarViewController.swift */,
+				1411F75F21F948770076D763 /* RootNavigationController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -200,6 +236,11 @@
 		145138AA21F853D60038AFC6 /* Farm */ = {
 			isa = PBXGroup;
 			children = (
+				1411F74F21F943590076D763 /* FarmViewController.swift */,
+				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
+				1411F75121F943940076D763 /* FarmViewModel.swift */,
+				1414E0C421FAB74400347050 /* FarmSegmentedView.swift */,
+				1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */,
 			);
 			path = Farm;
 			sourceTree = "<group>";
@@ -207,6 +248,8 @@
 		145138AB21F8541A0038AFC6 /* Fair  */ = {
 			isa = PBXGroup;
 			children = (
+				1411F75521F943B00076D763 /* FairViewController.swift */,
+				1411F75321F943A50076D763 /* FairViewModel.swift */,
 			);
 			path = "Fair ";
 			sourceTree = "<group>";
@@ -214,6 +257,8 @@
 		145138AC21F854570038AFC6 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				1411F75721F943DD0076D763 /* BasketViewController.swift */,
+				1411F75921F943EC0076D763 /* BasketViewModel.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -221,6 +266,8 @@
 		145138AD21F854690038AFC6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1411F75D21F944040076D763 /* MineViewController.swift */,
+				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -263,6 +310,8 @@
 				14974BCC21F6C31B0088ABC3 /* Date.swift */,
 				14974BD621F6F49D0088ABC3 /* String.swift */,
 				14974BFD21F717080088ABC3 /* Color.swift */,
+				1411F76121F982BC0076D763 /* Image.swift */,
+				1414E0C621FABA5600347050 /* View+Ex.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -421,6 +470,7 @@
 			children = (
 				14DC343821F17A14006EF1CF /* Label.swift */,
 				14974BDA21F706500088ABC3 /* View.swift */,
+				1414E0C821FACCE200347050 /* Button.swift */,
 				14974BFB21F716DA0088ABC3 /* ImageView.swift */,
 				14974BDE21F707C50088ABC3 /* StackView.swift */,
 				14974BF321F714910088ABC3 /* CollectionView.swift */,
@@ -432,6 +482,7 @@
 				14974BE021F70A050088ABC3 /* TableViewController.swift */,
 				14974BE821F710230088ABC3 /* WebViewController.swift */,
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
+				1414E0C221FAAA5E00347050 /* BarButtonItem.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -662,6 +713,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
@@ -681,6 +733,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
@@ -746,9 +799,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
+				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
+				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
@@ -759,39 +815,53 @@
 				145138A421F82E7E0038AFC6 /* LibsManager.swift in Sources */,
 				14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */,
 				145138A621F83A060038AFC6 /* Navigator.swift in Sources */,
+				1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */,
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
+				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
+				1411F75421F943A50076D763 /* FairViewModel.swift in Sources */,
+				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
 				14974BE921F710230088ABC3 /* WebViewController.swift in Sources */,
 				14DC342D21F17578006EF1CF /* HomeView.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
+				1411F75021F943590076D763 /* FarmViewController.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
 				14DC342B21F17561006EF1CF /* HomeModel.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
+				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
 				14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */,
+				1411F76021F948770076D763 /* RootNavigationController.swift in Sources */,
 				14DC342521F17502006EF1CF /* HomeViewController.swift in Sources */,
 				14974BF221F713100088ABC3 /* ViewModel.swift in Sources */,
 				145138A221F81B600038AFC6 /* HomeTableViewCell.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
+				1411F75621F943B00076D763 /* FairViewController.swift in Sources */,
+				1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */,
 				145138B121F858940038AFC6 /* Defaults.swift in Sources */,
+				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
 				14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
+				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
+				1411F76221F982BC0076D763 /* Image.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
+				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
+				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
 				14974BDD21F706FE0088ABC3 /* Configs.swift in Sources */,
