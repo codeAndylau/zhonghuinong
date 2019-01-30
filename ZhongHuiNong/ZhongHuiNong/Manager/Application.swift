@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
+let globalStatusBarStyle = BehaviorRelay<UIStatusBarStyle>(value: .default)
 
 class Application: NSObject {
     
@@ -25,18 +29,23 @@ class Application: NSObject {
         super.init()
         
         authManager.tokenChanged.subscribe(onNext: { (token) in
-            
-            
-            
+            LogInfo("用户token过期")
         }).disposed(by: rx.disposeBag)
         
     }
     
-    
     func presentInitialScreen(in window: UIWindow) {
         self.window = window
-        //let loginIn = authManager.hasToken
-        navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))
+
+        let loginIn = authManager.hasToken /// 判断当前用户是否登录过
+        let viewModel = MainTabbarViewModel(members: loginIn) // 用这个是未来判断是否是非会员
+        
+        if loginIn {
+            navigator.show(segue: .tabs(vm: viewModel), sender: nil, transition: .root(window: window))  // 登录了直接进入首页
+        }else {
+            navigator.show(segue: .login, sender: nil, transition: .root(window: window))  // 没有登录就直接进入登录页面
+        }
+        
     }
     
     func showRootWindow(in window: UIWindow?) {
@@ -48,3 +57,4 @@ class Application: NSObject {
     }
 
 }
+

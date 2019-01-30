@@ -19,11 +19,13 @@ class Navigator {
     
     // MARK: - segues list, all app scenes
     enum Scene {
-        case tabs
+        case login
+        case tabs(vm: MainTabbarViewModel)
         case detail
     }
     
     enum Transition {
+        case login(window: UIWindow)
         case root(window: UIWindow)
         case navigation
         case modal
@@ -35,14 +37,14 @@ class Navigator {
     // MARK: - get a single VC
     func get(with segue: Scene) -> UIViewController? {
         switch segue {
-        case .tabs:
-//            let v = UIViewController()
-//            v.title = "测试导航路由"
-//            v.view.backgroundColor = UIColor.orange
-            let v = UINavigationController(rootViewController: HomeViewController())
-            return v
+        case .login:
+            return HomeViewController()
+        case .tabs(let viewModel):
+            let mainVC = MainTabBarViewController()
+            mainVC.viewModel = viewModel
+            return mainVC
         default:
-            return UIViewController()
+            return HomeViewController()
         }
     }
     
@@ -103,10 +105,10 @@ extension Navigator {
         injectNavigator(in: target)
         
         switch transition {
-        case .root(let window):
-//            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromBottom, animations: {
-//                window.rootViewController = target
-//            }, completion: nil)
+        case .login(let window), .root(let window):
+            //            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromBottom, animations: {
+            //                window.rootViewController = target
+            //            }, completion: nil)
             
             let animate = CATransition()
             animate.duration = 0.5
@@ -123,6 +125,7 @@ extension Navigator {
             return
         }
         
+        //        case login
         //        case root
         //        case navigation
         //        case modal

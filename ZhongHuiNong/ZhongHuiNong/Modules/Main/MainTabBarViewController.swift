@@ -10,21 +10,15 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
+    var viewModel: MainTabbarViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        viewModel.tabBarItems().drive(onNext: { [weak self] (item) in
+            guard let self = self  else { return }
+            let _ = item.map({ self.addChild($0.getController()) })
+        }).disposed(by: rx.disposeBag)
+
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

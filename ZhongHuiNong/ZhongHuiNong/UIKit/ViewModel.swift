@@ -28,11 +28,11 @@ class ViewModel: NSObject {
         provider = NetworkTool.shared
         super.init()
         error.asDriver().drive(onNext: { (error) in
-            print("ViewModel网络请求出错---\(error.localizedDescription)")
+            LogInfo("ViewModel网络请求出错---\(error.localizedDescription)")
         }).disposed(by: rx.disposeBag)
     }
     
     deinit {
-        print("ViewModel生命已结束---Deinited")
+        LogInfo("ViewModel生命已结束---Deinited")
     }
 }

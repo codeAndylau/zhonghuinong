@@ -81,6 +81,7 @@
 		14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */; };
 		14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */; };
 		14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */; };
+		14F185EB220197570037291B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F185EA220197570037291B /* AppUtils.swift */; };
 		1B35C53F9BC00E4C6D8517C8 /* Pods_ZhongHuiNongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */; };
 		3ADB098A91B380A45D85F7E2 /* Pods_ZhongHuiNongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */; };
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
@@ -184,6 +185,7 @@
 		14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
+		14F185EA220197570037291B /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.debug.xcconfig"; sourceTree = "<group>"; };
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -410,6 +412,7 @@
 				14641B8321F55C5C00F4E032 /* Const.swift */,
 				14974BDC21F706FE0088ABC3 /* Configs.swift */,
 				14974BD821F6F7080088ABC3 /* Method.swift */,
+				14F185EA220197570037291B /* AppUtils.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
 				1411F75021F943590076D763 /* FarmViewController.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
+				14F185EB220197570037291B /* AppUtils.swift in Sources */,
 				14DC342B21F17561006EF1CF /* HomeModel.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,

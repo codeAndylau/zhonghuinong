@@ -11,6 +11,8 @@ import UIKit
 /// 农场非会员
 class FarmViewController: TableViewController {
 
+    var isMember = false
+    
     lazy var topView: FarmNonmembersHeaderView = {
         let view = FarmNonmembersHeaderView()
         view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 650)
@@ -26,6 +28,9 @@ class FarmViewController: TableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        
+        // 切换bool值
+        isMember.toggle()
     }
     
     override func bringLayertoFront() {

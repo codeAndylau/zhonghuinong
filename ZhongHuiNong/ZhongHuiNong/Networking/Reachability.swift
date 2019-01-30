@@ -43,7 +43,7 @@ class ReachabilityManager: NSObject {
             try reachability?.startNotifier()
             reachreplay.onNext(reachability?.connection != .none)
         } catch {
-            print("Unable to start notifier")
+            LogInfo("Unable to start notifier")
         }
     }
     

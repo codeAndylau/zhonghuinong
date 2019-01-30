@@ -26,6 +26,7 @@ target 'ZhongHuiNong' do
     # Tools
     pod 'Bugly'
     pod 'Then'
+    pod 'RTRootNavigationController'
      
     target 'ZhongHuiNongTests' do
         inherit! :search_paths
