@@ -12,7 +12,7 @@ import RxCocoa
 
 class ViewController: UIViewController, Navigatable {
     
-    var navigator: Navigator = Navigator.shared
+    lazy var navigator: Navigator = Navigator.shared
 
     lazy var emptyDataSetTitle = ViewController.emptyTitle
     lazy var emptyDataSetImage = ViewController.emptyImage
@@ -72,9 +72,7 @@ class ViewController: UIViewController, Navigatable {
     /// 绑定vm
     func bindViewModel() { view.backgroundColor = Color.backdropColor }
     /// 更新UI
-    func updateUI() {
-        navigator = Navigator.shared
-    }
+    func updateUI() {}
 
 }
 

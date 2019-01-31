@@ -19,9 +19,6 @@ class RootNavigationController: RTRootNavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //navigationBar.backIndicatorImage = RootNavigationController.navigation_back_icon
-        //navigationBar.backIndicatorTransitionMaskImage = RootNavigationController.navigation_back_icon
         self.interactivePopGestureRecognizer?.delegate = self
         
         globalStatusBarStyle.mapToVoid().subscribe(onNext: { [weak self] () in

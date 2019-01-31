@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import KafkaRefresh
+import SnapKit
 
 class TableViewController: ViewController {
     
@@ -22,7 +23,11 @@ class TableViewController: ViewController {
     let isRefresh = BehaviorRelay(value: false)
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kTabBarH), style: .plain)
+        let view = TableView(frame: CGRect.zero, style: .grouped)
+        self.view.addSubview(view)
+        view.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
         //        view.emptyDataSetSource = self
         //        view.emptyDataSetDelegate = self
         return view
@@ -34,7 +39,7 @@ class TableViewController: ViewController {
     
     override func makeUI() {
         super.makeUI()
-        view.addSubview(tableView)
+        tableView.backgroundColor = .white
         isRefresh.asObservable().subscribe(onNext: { [weak self] (flag) in
             guard let self = self else { return }
             if flag { self.refreshTrigger() }

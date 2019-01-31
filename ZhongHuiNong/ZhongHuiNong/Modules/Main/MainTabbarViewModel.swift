@@ -12,16 +12,18 @@ import RxCocoa
 
 enum TabbarItem {
     
-    case farm
-    case fair
+    case farms      // 农场会员
+    case farm       // 非会员
+    case store
     case basket
     case mine
     
     
     var title: String {
         switch self {
+        case .farms:return localized("农场")
         case .farm: return localized("农场")
-        case .fair: return localized("集市")
+        case .store: return localized("集市")
         case .basket: return localized("菜篮")
         case .mine: return localized("我的")
         }
@@ -29,8 +31,9 @@ enum TabbarItem {
     
     var image: UIImage? {
         switch self {
+        case .farms:return UIImage(named: "tabbar_farm_icon")?.withRenderingMode(.alwaysOriginal)
         case .farm: return UIImage(named: "tabbar_farm_icon")?.withRenderingMode(.alwaysOriginal)
-        case .fair: return UIImage(named: "tabbar_fair_icon")?.withRenderingMode(.alwaysOriginal)
+        case .store: return UIImage(named: "tabbar_fair_icon")?.withRenderingMode(.alwaysOriginal)
         case .basket: return UIImage(named: "tabbar_basket_icon")?.withRenderingMode(.alwaysOriginal)
         case .mine: return UIImage(named: "tabbar_mine_icon")?.withRenderingMode(.alwaysOriginal)
         }
@@ -38,8 +41,9 @@ enum TabbarItem {
     
     var selectedImage: UIImage? {
         switch self {
+        case .farms:return UIImage(named: "tabbar_farm_icon_h")?.withRenderingMode(.alwaysOriginal)
         case .farm: return UIImage(named: "tabbar_farm_icon_h")?.withRenderingMode(.alwaysOriginal)
-        case .fair: return UIImage(named: "tabbar_fair_icon_h")?.withRenderingMode(.alwaysOriginal)
+        case .store: return UIImage(named: "tabbar_fair_icon_h")?.withRenderingMode(.alwaysOriginal)
         case .basket: return UIImage(named: "tabbar_basket_icon_h")?.withRenderingMode(.alwaysOriginal)
         case .mine: return UIImage(named: "tabbar_mine_icon_h")?.withRenderingMode(.alwaysOriginal)
         }
@@ -47,14 +51,20 @@ enum TabbarItem {
     
     func getController() -> UIViewController {
         switch self {
-        case .farm:
-            let vc = FarmViewController()
-            vc.title = title
+        case .farms:
+            let vc = FarmMembersViewController()
+            vc.tabBarItem.title = title
             vc.tabBarItem.image = image
             vc.tabBarItem.selectedImage = selectedImage
             return RootNavigationController(rootViewController: vc)
-        case .fair:
-            let vc = FairViewController()
+        case .farm:
+            let vc = FarmNonMemberViewController()
+            vc.tabBarItem.title = title
+            vc.tabBarItem.image = image
+            vc.tabBarItem.selectedImage = selectedImage
+            return RootNavigationController(rootViewController: vc)
+        case .store:
+            let vc = StoreViewController()
             vc.title = title
             vc.tabBarItem.image = image
             vc.tabBarItem.selectedImage = selectedImage
@@ -78,17 +88,18 @@ enum TabbarItem {
 class MainTabbarViewModel: NSObject {
     
     /// 是否是会员
-    var member: BehaviorRelay<Bool>
+    var member = true
     
-    init(members: Bool) {
-        self.member = BehaviorRelay(value: members)
-        super.init()
-    }
-
     func tabBarItems() -> Driver<[TabbarItem]> {
         tabbarConfig()
         navbarConfig()
-        let items: [TabbarItem] = [.farm, .fair, .basket, .mine]
+        
+        var items: [TabbarItem] = []
+        if member {
+            items = [.farms, .store, .basket, .mine]
+        }else {
+            items = [.farm, .store, .basket, .mine]
+        }
         return Observable.from(optional: items).asDriver(onErrorJustReturn: [])
     }
     

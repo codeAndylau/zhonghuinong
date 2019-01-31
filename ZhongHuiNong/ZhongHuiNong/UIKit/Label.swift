@@ -43,6 +43,22 @@ class Label: UILabel {
         self.font = UIFont.systemFont(ofSize: font)
     }
     
+    convenience init(title: String, color: UIColor, backColor: UIColor, font: CGFloat) {
+        self.init()
+        self.text = title
+        self.textColor = color
+        self.font = UIFont.systemFont(ofSize: font)
+        self.textAlignment = .center
+        self.backgroundColor  = backColor
+    }
+    
+    convenience init(title: String, color: UIColor, boldFont: CGFloat) {
+        self.init()
+        self.text = title
+        self.textColor = color
+        self.font = UIFont.boldSystemFont(ofSize: boldFont)
+    }
+    
 }
 
 extension Label {

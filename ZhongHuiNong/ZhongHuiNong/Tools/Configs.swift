@@ -22,6 +22,7 @@ struct Configs {
     }
     
     struct Size {
+        static let left: CGFloat = 16
         static let inset: CGFloat = 10
         static let tabBarHeight: CGFloat = 58
         static let toolBarHeight: CGFloat = 66

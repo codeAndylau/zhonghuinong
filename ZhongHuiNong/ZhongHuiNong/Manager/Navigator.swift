@@ -20,7 +20,7 @@ class Navigator {
     // MARK: - segues list, all app scenes
     enum Scene {
         case login
-        case tabs(vm: MainTabbarViewModel)
+        case tabs
         case detail
     }
     
@@ -39,9 +39,8 @@ class Navigator {
         switch segue {
         case .login:
             return HomeViewController()
-        case .tabs(let viewModel):
+        case .tabs:
             let mainVC = MainTabBarViewController()
-            mainVC.viewModel = viewModel
             return mainVC
         default:
             return HomeViewController()

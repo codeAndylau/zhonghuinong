@@ -37,11 +37,10 @@ class Application: NSObject {
     func presentInitialScreen(in window: UIWindow) {
         self.window = window
 
-        let loginIn = authManager.hasToken /// 判断当前用户是否登录过
-        let viewModel = MainTabbarViewModel(members: loginIn) // 用这个是未来判断是否是非会员
+        let loginIn = !authManager.hasToken /// 判断当前用户是否登录过
         
         if loginIn {
-            navigator.show(segue: .tabs(vm: viewModel), sender: nil, transition: .root(window: window))  // 登录了直接进入首页
+            navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))  // 登录了直接进入首页
         }else {
             navigator.show(segue: .login, sender: nil, transition: .root(window: window))  // 没有登录就直接进入登录页面
         }

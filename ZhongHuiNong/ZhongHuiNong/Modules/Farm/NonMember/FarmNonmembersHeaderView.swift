@@ -11,7 +11,7 @@ import UIKit
 class FarmNonmembersHeaderView: UIView {
 
     lazy var topImg: ImageView = {
-        let img = ImageView(image: UIImage(named: "farm_nonmembers_icon"))
+        let img = ImageView(image: UIImage(named: "farm_nonmembers"))
         img.backgroundColor = Color.whiteColor
         img.contentMode = .scaleAspectFit
         return img

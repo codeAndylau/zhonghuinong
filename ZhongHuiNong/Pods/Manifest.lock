@@ -59,6 +59,7 @@ PODS:
   - SnapKit (4.2.0)
   - SwiftyJSON (4.2.0)
   - Then (2.4.0)
+  - TYCyclePagerView (1.1.2)
 
 DEPENDENCIES:
   - Bugly
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - SnapKit
   - SwiftyJSON
   - Then
+  - TYCyclePagerView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -93,6 +95,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftyJSON
     - Then
+    - TYCyclePagerView
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
@@ -111,7 +114,8 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
+  TYCyclePagerView: 0f67b0986995fd614843e819bc974cadd7f98008
 
-PODFILE CHECKSUM: c2d678ebd5aeb9e570eaac28914b338eaaa79b87
+PODFILE CHECKSUM: 9e6c76487af0215e32c4261f6cbdc95c944b2c3e
 
 COCOAPODS: 1.5.3

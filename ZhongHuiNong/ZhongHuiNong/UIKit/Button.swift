@@ -20,9 +20,16 @@ class Button: UIButton {
 
     convenience init(title: String, color: UIColor, font: CGFloat) {
         self.init()
-        self.titleLabel?.text = title
-        self.titleLabel?.textColor = color
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(color, for: .normal)
         self.titleLabel?.font = UIFont.systemFont(ofSize: font)
+    }
+    
+    convenience init(title: String, color: UIColor, img: String) {
+        self.init()
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(color, for: .normal)
+        self.setImage(UIImage(named: img), for: .normal)
     }
     
 }

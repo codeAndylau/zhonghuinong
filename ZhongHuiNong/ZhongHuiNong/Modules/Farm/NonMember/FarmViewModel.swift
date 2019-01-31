@@ -48,7 +48,6 @@ enum Shape: CaseIterable {
         if case ("hhh", "xxx") = (username, password) {
             print("用户名和密码满足条件")
         }
-        
     }
 }
 

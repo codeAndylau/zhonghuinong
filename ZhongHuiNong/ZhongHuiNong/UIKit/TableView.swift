@@ -25,6 +25,7 @@ class TableView: UITableView {
     }
     
     func makeUI() {
+        separatorStyle = .none
         backgroundColor = Color.whiteColor
         rowHeight = UITableView.automaticDimension
         sectionHeaderHeight = Configs.Size.tableHeaderHeight

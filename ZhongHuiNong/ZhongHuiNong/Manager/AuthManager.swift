@@ -33,6 +33,10 @@ class AuthManager {
         return true
     }
     
+    var hasMember: Bool {
+        return false  // 默认不是会员
+    }
+    
     class func setToken(token: String) {
         AuthManager.shared.token = token
     }

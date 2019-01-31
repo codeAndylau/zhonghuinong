@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
-		1411F75021F943590076D763 /* FarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74F21F943590076D763 /* FarmViewController.swift */; };
 		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
-		1411F75421F943A50076D763 /* FairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75321F943A50076D763 /* FairViewModel.swift */; };
-		1411F75621F943B00076D763 /* FairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75521F943B00076D763 /* FairViewController.swift */; };
 		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
 		1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75921F943EC0076D763 /* BasketViewModel.swift */; };
 		1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75B21F943FA0076D763 /* MineViewModel.swift */; };
@@ -82,6 +79,19 @@
 		14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */; };
 		14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */; };
 		14F185EB220197570037291B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F185EA220197570037291B /* AppUtils.swift */; };
+		14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */; };
+		14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */; };
+		14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C692202A2EA002122B6 /* StoreViewModel.swift */; };
+		14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6B2202A300002122B6 /* StoreViewController.swift */; };
+		14F35C6E2202A418002122B6 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6D2202A418002122B6 /* MemberSearchView.swift */; };
+		14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6F2202A907002122B6 /* MemberHeaderView.swift */; };
+		14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C712202BE7C002122B6 /* MemberSectionView.swift */; };
+		14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C742202D297002122B6 /* MemberTuijianCell.swift */; };
+		14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C782202D39F002122B6 /* TabCellProtocol.swift */; };
+		14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C7A2202D86F002122B6 /* MemberRexiaoCell.swift */; };
+		14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C7C2202DA6F002122B6 /* MemberQianggouCell.swift */; };
+		14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C7E2202DB6C002122B6 /* MemberXinpinCell.swift */; };
+		14F35C812202DCB7002122B6 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C802202DCB7002122B6 /* BannerView.swift */; };
 		1B35C53F9BC00E4C6D8517C8 /* Pods_ZhongHuiNongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */; };
 		3ADB098A91B380A45D85F7E2 /* Pods_ZhongHuiNongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */; };
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
@@ -106,10 +116,7 @@
 
 /* Begin PBXFileReference section */
 		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
-		1411F74F21F943590076D763 /* FarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewController.swift; sourceTree = "<group>"; };
 		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
-		1411F75321F943A50076D763 /* FairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FairViewModel.swift; sourceTree = "<group>"; };
-		1411F75521F943B00076D763 /* FairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FairViewController.swift; sourceTree = "<group>"; };
 		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		1411F75921F943EC0076D763 /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
 		1411F75B21F943FA0076D763 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
@@ -186,6 +193,19 @@
 		14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14F185EA220197570037291B /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
+		14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonMemberViewController.swift; sourceTree = "<group>"; };
+		14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberLeftBarView.swift; sourceTree = "<group>"; };
+		14F35C692202A2EA002122B6 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
+		14F35C6B2202A300002122B6 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
+		14F35C6D2202A418002122B6 /* MemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchView.swift; sourceTree = "<group>"; };
+		14F35C6F2202A907002122B6 /* MemberHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHeaderView.swift; sourceTree = "<group>"; };
+		14F35C712202BE7C002122B6 /* MemberSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSectionView.swift; sourceTree = "<group>"; };
+		14F35C742202D297002122B6 /* MemberTuijianCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTuijianCell.swift; sourceTree = "<group>"; };
+		14F35C782202D39F002122B6 /* TabCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCellProtocol.swift; sourceTree = "<group>"; };
+		14F35C7A2202D86F002122B6 /* MemberRexiaoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRexiaoCell.swift; sourceTree = "<group>"; };
+		14F35C7C2202DA6F002122B6 /* MemberQianggouCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberQianggouCell.swift; sourceTree = "<group>"; };
+		14F35C7E2202DB6C002122B6 /* MemberXinpinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberXinpinCell.swift; sourceTree = "<group>"; };
+		14F35C802202DCB7002122B6 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.debug.xcconfig"; sourceTree = "<group>"; };
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,22 +258,19 @@
 		145138AA21F853D60038AFC6 /* Farm */ = {
 			isa = PBXGroup;
 			children = (
-				1411F74F21F943590076D763 /* FarmViewController.swift */,
-				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
-				1411F75121F943940076D763 /* FarmViewModel.swift */,
-				1414E0C421FAB74400347050 /* FarmSegmentedView.swift */,
-				1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */,
+				14F35C5F220294A6002122B6 /* Member */,
+				14F35C60220294AF002122B6 /* NonMember */,
 			);
 			path = Farm;
 			sourceTree = "<group>";
 		};
-		145138AB21F8541A0038AFC6 /* Fair  */ = {
+		145138AB21F8541A0038AFC6 /* Classify */ = {
 			isa = PBXGroup;
 			children = (
-				1411F75521F943B00076D763 /* FairViewController.swift */,
-				1411F75321F943A50076D763 /* FairViewModel.swift */,
+				14F35C6B2202A300002122B6 /* StoreViewController.swift */,
+				14F35C692202A2EA002122B6 /* StoreViewModel.swift */,
 			);
-			path = "Fair ";
+			path = Classify;
 			sourceTree = "<group>";
 		};
 		145138AC21F854570038AFC6 /* Basket */ = {
@@ -288,13 +305,6 @@
 				14641B8821F5BFDD00F4E032 /* Operator.swift */,
 			);
 			path = Operator;
-			sourceTree = "<group>";
-		};
-		14974BCB21F6C3040088ABC3 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UIKit;
 			sourceTree = "<group>";
 		};
 		14974BCE21F6C3760088ABC3 /* NSObject+Rx */ = {
@@ -349,6 +359,7 @@
 				14DC341521F170CB006EF1CF /* Tools */,
 				14DC341321F170B6006EF1CF /* Library */,
 				14DC342321F1739C006EF1CF /* Manager */,
+				14F35C772202D342002122B6 /* Protocol */,
 				14DC342021F172C3006EF1CF /* Extensions */,
 				14DC341421F170C1006EF1CF /* Networking */,
 				14DC341221F170AA006EF1CF /* Resources */,
@@ -435,7 +446,7 @@
 				145138B221F8594E0038AFC6 /* Login */,
 				145138A721F851490038AFC6 /* Main */,
 				145138AA21F853D60038AFC6 /* Farm */,
-				145138AB21F8541A0038AFC6 /* Fair  */,
+				145138AB21F8541A0038AFC6 /* Classify */,
 				145138AC21F854570038AFC6 /* Basket */,
 				145138AD21F854690038AFC6 /* Mine */,
 				14DC341B21F1711A006EF1CF /* Home */,
@@ -458,7 +469,6 @@
 		14DC342021F172C3006EF1CF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				14974BCB21F6C3040088ABC3 /* UIKit */,
 				14974BD521F6F4810088ABC3 /* Foundation */,
 				14974BCE21F6C3760088ABC3 /* NSObject+Rx */,
 				14641B8721F5BFA800F4E032 /* Operator */,
@@ -520,6 +530,50 @@
 				14974BEE21F711730088ABC3 /* Observable+Operators.swift */,
 			);
 			path = RxSwift;
+			sourceTree = "<group>";
+		};
+		14F35C5F220294A6002122B6 /* Member */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C732202D269002122B6 /* TabCell */,
+				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
+				14F35C6F2202A907002122B6 /* MemberHeaderView.swift */,
+				14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */,
+				14F35C6D2202A418002122B6 /* MemberSearchView.swift */,
+				14F35C712202BE7C002122B6 /* MemberSectionView.swift */,
+				14F35C802202DCB7002122B6 /* BannerView.swift */,
+			);
+			path = Member;
+			sourceTree = "<group>";
+		};
+		14F35C60220294AF002122B6 /* NonMember */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */,
+				1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */,
+				1411F75121F943940076D763 /* FarmViewModel.swift */,
+				1414E0C421FAB74400347050 /* FarmSegmentedView.swift */,
+			);
+			path = NonMember;
+			sourceTree = "<group>";
+		};
+		14F35C732202D269002122B6 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C7E2202DB6C002122B6 /* MemberXinpinCell.swift */,
+				14F35C7C2202DA6F002122B6 /* MemberQianggouCell.swift */,
+				14F35C7A2202D86F002122B6 /* MemberRexiaoCell.swift */,
+				14F35C742202D297002122B6 /* MemberTuijianCell.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		14F35C772202D342002122B6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C782202D39F002122B6 /* TabCellProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		37A1CDAE3CA6026C7524A3B6 /* Frameworks */ = {
@@ -724,6 +778,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/TYCyclePagerView/TYCyclePagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -744,6 +799,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TYCyclePagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -803,16 +859,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
+				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
 				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
+				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
+				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
+				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14974BDF21F707C50088ABC3 /* StackView.swift in Sources */,
 				14974BE321F70A4C0088ABC3 /* TableView.swift in Sources */,
+				14F35C6E2202A418002122B6 /* MemberSearchView.swift in Sources */,
 				14974BDB21F706500088ABC3 /* View.swift in Sources */,
 				145138A921F851C70038AFC6 /* MainTabBarViewController.swift in Sources */,
 				145138A421F82E7E0038AFC6 /* LibsManager.swift in Sources */,
@@ -826,14 +887,14 @@
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
-				1411F75421F943A50076D763 /* FairViewModel.swift in Sources */,
 				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
+				14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */,
 				14974BE921F710230088ABC3 /* WebViewController.swift in Sources */,
 				14DC342D21F17578006EF1CF /* HomeView.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
-				1411F75021F943590076D763 /* FarmViewController.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
 				14F185EB220197570037291B /* AppUtils.swift in Sources */,
+				14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */,
 				14DC342B21F17561006EF1CF /* HomeModel.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
@@ -841,13 +902,13 @@
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
+				14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */,
 				14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */,
 				1411F76021F948770076D763 /* RootNavigationController.swift in Sources */,
 				14DC342521F17502006EF1CF /* HomeViewController.swift in Sources */,
 				14974BF221F713100088ABC3 /* ViewModel.swift in Sources */,
 				145138A221F81B600038AFC6 /* HomeTableViewCell.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
-				1411F75621F943B00076D763 /* FairViewController.swift in Sources */,
 				1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */,
 				145138B121F858940038AFC6 /* Defaults.swift in Sources */,
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
@@ -855,11 +916,15 @@
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
+				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
 				1411F76221F982BC0076D763 /* Image.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
+				14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */,
+				14F35C812202DCB7002122B6 /* BannerView.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
+				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
 				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
@@ -868,6 +933,7 @@
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
+				14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */,
 				14974BDD21F706FE0088ABC3 /* Configs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

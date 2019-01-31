@@ -10,7 +10,7 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
-    var viewModel: MainTabbarViewModel!
+    lazy var viewModel = MainTabbarViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
