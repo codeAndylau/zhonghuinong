@@ -65,7 +65,7 @@ enum TabbarItem {
             return RootNavigationController(rootViewController: vc)
         case .store:
             let vc = StoreViewController()
-            vc.title = title
+            vc.tabBarItem.title = title
             vc.tabBarItem.image = image
             vc.tabBarItem.selectedImage = selectedImage
             return RootNavigationController(rootViewController: vc)

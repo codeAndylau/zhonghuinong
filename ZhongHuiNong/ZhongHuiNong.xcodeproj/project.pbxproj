@@ -35,6 +35,8 @@
 		14641B8421F55C5C00F4E032 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8321F55C5C00F4E032 /* Const.swift */; };
 		14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8521F57DBE00F4E032 /* FirstLaunch.swift */; };
 		14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8821F5BFDD00F4E032 /* Operator.swift */; };
+		1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43D2203EB1C009E394E /* StoreLeftCell.swift */; };
+		1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43F2203EB2C009E394E /* StoreRightCell.swift */; };
 		14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCC21F6C31B0088ABC3 /* Date.swift */; };
 		14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */; };
 		14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */; };
@@ -143,6 +145,8 @@
 		14641B8321F55C5C00F4E032 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		14641B8521F57DBE00F4E032 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		14641B8821F5BFDD00F4E032 /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		1493B43D2203EB1C009E394E /* StoreLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLeftCell.swift; sourceTree = "<group>"; };
+		1493B43F2203EB2C009E394E /* StoreRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRightCell.swift; sourceTree = "<group>"; };
 		14974BCC21F6C31B0088ABC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
 		14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasDisposeBag.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 			isa = PBXGroup;
 			children = (
 				14F35C6B2202A300002122B6 /* StoreViewController.swift */,
+				1493B43D2203EB1C009E394E /* StoreLeftCell.swift */,
+				1493B43F2203EB2C009E394E /* StoreRightCell.swift */,
 				14F35C692202A2EA002122B6 /* StoreViewModel.swift */,
 			);
 			path = Classify;
@@ -868,6 +874,7 @@
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
+				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
@@ -909,6 +916,7 @@
 				14974BF221F713100088ABC3 /* ViewModel.swift in Sources */,
 				145138A221F81B600038AFC6 /* HomeTableViewCell.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
+				1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */,
 				1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */,
 				145138B121F858940038AFC6 /* Defaults.swift in Sources */,
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
