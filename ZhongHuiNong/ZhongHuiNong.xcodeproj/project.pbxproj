@@ -97,6 +97,8 @@
 		1B35C53F9BC00E4C6D8517C8 /* Pods_ZhongHuiNongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */; };
 		3ADB098A91B380A45D85F7E2 /* Pods_ZhongHuiNongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */; };
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
+		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
+		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +214,8 @@
 		14F35C802202DCB7002122B6 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.debug.xcconfig"; sourceTree = "<group>"; };
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
+		8B31B5BB221028F4003F475A /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
+		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3B4A1761C56E72801D98B5 /* Pods-ZhongHuiNongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNongTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNongTests/Pods-ZhongHuiNongTests.release.xcconfig"; sourceTree = "<group>"; };
 		C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -293,6 +297,8 @@
 			children = (
 				1411F75D21F944040076D763 /* MineViewController.swift */,
 				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
+				8B31B5BD22106164003F475A /* MineTabCell.swift */,
+				8B31B5BB221028F4003F475A /* MineHeaderView.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -769,7 +775,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -810,7 +816,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABBE84CE2BD52BC317448F49 /* [CP] Check Pods Manifest.lock */ = {
@@ -872,6 +878,7 @@
 				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
+				8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
 				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
@@ -908,6 +915,7 @@
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
+				8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
 				14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */,
 				14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */,
