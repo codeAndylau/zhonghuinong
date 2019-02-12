@@ -10,27 +10,33 @@ import UIKit
 
 class MineViewController: TableViewController {
 
-    let addImg = UIButton().then { (btn) in
-        btn.setImage(UIImage(named: "farm_add")!, for: .normal)
-    }
-    
-    lazy var rightAddItem = BarButtonItem(customView: addImg)
-    
-    lazy var headerView = MineHeaderView.loadView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func makeUI() {
         super.makeUI()
-        
-        navigationItem.rightBarButtonItems = [rightAddItem, rightAddItem]
-        
+        navigationItem.rightBarButtonItems = [settingItem, messageItem]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+    }
+    
+    // MARK: - Lazy
+    
+    lazy var headerView = MineHeaderView.loadView()
+    lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
+    lazy var messageItem = BarButtonItem(image: UIImage(named: "mine_messge"), target: self, action: #selector(messageAction))
+
+    // MARK: - Public methods
+    
+    @objc func settingAction() {
+        debugPrints("设置")
+    }
+    
+    @objc func messageAction() {
+        debugPrints("消息")
     }
     
 }

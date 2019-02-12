@@ -1,0 +1,37 @@
+//
+//  CartSectionHeaderView.swift
+//  ZhongHuiNong
+//
+//  Created by Andylau on 2019/2/12.
+//  Copyright © 2019 Andylau. All rights reserved.
+//
+
+import UIKit
+
+class CartSectionHeaderView: View {
+
+    lazy var titleLab = Label().then { (lab) in
+        lab.frame = CGRect(x: 20, y: 0, width: kScreenW-20, height: 20)
+        lab.text = "共1件商品"
+        lab.font = UIFont.systemFont(ofSize: 16)
+        lab.textColor = UIColor.hexColor(0x4A4A4A)
+    }
+    
+    override func makeUI() {
+        super.makeUI()
+        addSubview(titleLab)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
+    }
+
+    /// - Public methods
+    class func loadView() -> CartSectionHeaderView {
+        let view = CartSectionHeaderView()
+        view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 20)
+        view.backgroundColor = Color.whiteColor
+        return view
+    }
+    
+}

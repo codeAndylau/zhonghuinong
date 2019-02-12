@@ -44,12 +44,12 @@ class HomeViewController: TableViewController {
             }.disposed(by: rx.disposeBag)
         
         tableView.rx.modelSelected(HomePublicityEntity.self).subscribe(onNext: { (item) in
-            LogInfo("mmp---\(item.texts)")
+            debugPrints("mmp---\(item.texts)")
             
         }).disposed(by: rx.disposeBag)
         
         isLoading.subscribe(onNext: { (flag) in
-            LogInfo("正在加载数据---\(flag)")
+            debugPrints("正在加载数据---\(flag)")
         }).disposed(by: rx.disposeBag)
         
     }

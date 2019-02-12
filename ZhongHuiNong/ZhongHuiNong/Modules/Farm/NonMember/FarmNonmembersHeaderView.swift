@@ -174,7 +174,7 @@ class FarmNonmembersHeaderView: UIView {
         updateUI()
         gradientBtn()
         
-        LogInfo("细线的y---\(lineView.y)")
+        debugPrints("细线的y---\(lineView.y)")
         
     }
 

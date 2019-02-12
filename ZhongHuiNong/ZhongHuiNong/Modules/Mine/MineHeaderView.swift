@@ -9,31 +9,25 @@
 import UIKit
 
 class MineHeaderView: View {
-
-    var viewNotReady = true
     
     let headerImg = ImageView().then { (img) in
-        img.image = UIImage(named: "farm_head")
-        img.backgroundColor = Color.themeColor
+        img.image = UIImage(named: "mine_default_ portrait")
     }
     
     let memberImg = ImageView().then { (img) in
-        img.image = UIImage(named: "farm_head")
-        img.backgroundColor = Color.themeColor
+        img.image = UIImage(named: "mine_default_ portrait")
     }
     
     let nameLab = Label().then { (lab) in
         lab.text = "欧阳雨"
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.boldSystemFont(ofSize: 18)
-        lab.backgroundColor = Color.themeColor
     }
     
     let phoneLab = Label().then { (lab) in
         lab.text = "135****8888"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
-        lab.backgroundColor = Color.themeColor
     }
     
     let priceLab = Label().then { (lab) in
@@ -41,7 +35,6 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)
-        lab.backgroundColor = Color.themeColor
     }
     
     let priceNameLab = Label().then { (lab) in
@@ -49,7 +42,6 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x757882)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 13)
-        lab.backgroundColor = Color.themeColor
     }
     
     let cardLab = Label().then { (lab) in
@@ -57,7 +49,6 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)
-        lab.backgroundColor = Color.greyColor
     }
     
     let cardNameLab = Label().then { (lab) in
@@ -65,7 +56,6 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x757882)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 13)
-        lab.backgroundColor = Color.themeColor
     }
     
     let timesLab = Label().then { (lab) in
@@ -73,7 +63,6 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)
-        lab.backgroundColor = Color.themeColor
     }
     
     let timesNameLab = Label().then { (lab) in
@@ -81,10 +70,9 @@ class MineHeaderView: View {
         lab.textColor = UIColor.hexColor(0x757882)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 13)
-        lab.backgroundColor = Color.themeColor
     }
     
-    let orderView = View().then { (view) in
+    let orderView = MineOrderView().then { (view) in
         view.backgroundColor = UIColor.white
     }
     
@@ -97,9 +85,8 @@ class MineHeaderView: View {
         return view
     }
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        guard viewNotReady else { return }
+    override func makeUI() {
+        super.makeUI()
         addSubview(headerImg)
         addSubview(memberImg)
         addSubview(nameLab)
@@ -128,7 +115,7 @@ class MineHeaderView: View {
         }
         
         nameLab.snp.makeConstraints { (make) in
-            make.left.equalTo(headerImg.snp.right)
+            make.left.equalTo(headerImg.snp.right).offset(10)
             make.right.greaterThanOrEqualTo(memberImg.snp.left).offset(-15)
             make.top.equalTo(headerImg)
         }
@@ -179,6 +166,8 @@ class MineHeaderView: View {
             make.width.equalTo(kScreenW-30)
             make.height.equalTo(110)
         }
+        
+        
     }
     
     override func layoutSubviews() {
@@ -191,7 +180,7 @@ class MineHeaderView: View {
         orderView.layer.shadowRadius = 16
         orderView.layer.cornerRadius = 10
         
-        LogInfo("哈哈哈 --- \(self.bounds.maxY)")
+        debugPrints("哈哈哈 --- \(self.bounds.maxY)")
     }
 
 }

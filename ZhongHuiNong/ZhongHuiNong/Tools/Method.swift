@@ -16,9 +16,9 @@ import Photos
 ///   - file: 文件
 ///   - method: 方法名
 ///   - line: 那一行
-public func LogInfo<T>(_ message: T,file: String = #file,method: String = #function,line: Int = #line) {
+public func debugPrints<T>(_ items: T,file: String = #file,method: String = #function,line: Int = #line) {
     #if DEBUG
-    print("[\((file as NSString).lastPathComponent)-第\(line)行-\(method)]: \(message)")
+    print("[\((file as NSString).lastPathComponent)-第\(line)行-\(method)]: \(items)")
     #endif
 }
 
@@ -48,7 +48,7 @@ public func delay(by delayTime: TimeInterval, qosClass: DispatchQoS.QoSClass? = 
 /// - Returns: bool
 public func isRightPhotoAlbum() -> Bool {
     let authStatus = PHPhotoLibrary.authorizationStatus()
-    LogInfo("相册权限状态为---\(authStatus.rawValue)")
+    debugPrints("相册权限状态为---\(authStatus.rawValue)")
     if authStatus == .authorized {
         return true
     }else {
@@ -61,7 +61,7 @@ public func isRightPhotoAlbum() -> Bool {
 /// - Returns: bool
 public func isRightCamera() -> Bool {
     let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-    LogInfo("相机权限状态为---\(authStatus.rawValue)")
+    debugPrints("相机权限状态为---\(authStatus.rawValue)")
     if authStatus == .authorized {
         return true
     }else {
@@ -75,7 +75,7 @@ public func isRightCamera() -> Bool {
 /// - Returns: bool
 public func isRightMicrophone() -> Bool {
     let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
-    LogInfo("麦克风权限权限状态为---\(authStatus.rawValue)")
+    debugPrints("麦克风权限权限状态为---\(authStatus.rawValue)")
     if authStatus == .authorized {
         return true
     }else {
@@ -174,10 +174,10 @@ public func isPhone(mobile: String) -> Bool {
     let phone = "^1[0-9]{10}$"
     let regextest = NSPredicate(format: "SELF MATCHES %@", phone)
     if regextest.evaluate(with: mobile) == true {
-        LogInfo("手机校验成功")
+        debugPrints("手机校验成功")
         return true
     }else {
-        LogInfo("手机校验失败--手机无效")
+        debugPrints("手机校验失败--手机无效")
         return false
     }
 }
@@ -189,7 +189,7 @@ public func getIntFromString(str:String) -> String {
     scanner.scanUpToCharacters(from: CharacterSet.decimalDigits, into: nil)
     var number :Int = 0
     scanner.scanInt(&number)
-    LogInfo("提取正确的号码---\(number)")
+    debugPrints("提取正确的号码---\(number)")
     return String(number)
 }
 

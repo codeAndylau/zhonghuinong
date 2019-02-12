@@ -13,6 +13,7 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
     lazy var ImgView: ImageView = {
         let img = ImageView()
         img.backgroundColor = Color.backdropColor
+        img.cuttingCorner(radius: 6)
         return img
     }()
     
@@ -63,8 +64,10 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
     
     lazy var numLab: Label = {
         let lab = Label()
-        lab.textAlignment = .center
         lab.text = "1"
+        lab.textColor = UIColor.hexColor(0x9B9B9B)
+        lab.textAlignment = .center
+        lab.font = UIFont.boldSystemFont(ofSize: 12)
         return lab
     }()
     

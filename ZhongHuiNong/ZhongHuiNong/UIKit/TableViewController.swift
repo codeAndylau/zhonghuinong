@@ -23,7 +23,8 @@ class TableViewController: ViewController {
     let isRefresh = BehaviorRelay(value: false)
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect.zero, style: .grouped)
+        let view = TableView(frame: CGRect.zero, style: .plain)
+        view.separatorStyle = .none
         self.view.addSubview(view)
         view.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()

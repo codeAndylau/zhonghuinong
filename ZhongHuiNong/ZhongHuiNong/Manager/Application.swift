@@ -29,7 +29,7 @@ class Application: NSObject {
         super.init()
         
         authManager.tokenChanged.subscribe(onNext: { (token) in
-            LogInfo("用户token过期")
+            debugPrints("用户token过期")
         }).disposed(by: rx.disposeBag)
         
     }

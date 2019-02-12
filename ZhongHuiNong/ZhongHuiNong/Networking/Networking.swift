@@ -34,7 +34,7 @@ class OnlineProvider<Target> where Target: Moya.TargetType {
         let actualRequest = provider.rx.request(target)
         return online //.ignore(value: false)// 等我们上线后再说
             .map({ (flag) -> (Bool) in
-                LogInfo("是否有网络请求---\(flag)")
+                debugPrints("是否有网络请求---\(flag)")
                 return flag
             })
             .take(1)               // 使用1确保API只调用一次
@@ -43,14 +43,14 @@ class OnlineProvider<Target> where Target: Moya.TargetType {
                     .do(onSuccess: { (response) in
                         do {
                             let value = try JSON(response.mapJSON())
-                            LogInfo(value)
+                            debugPrints(value)
                             let msg = value["msg"].stringValue
                             let success = value["success"].boolValue
                             if (msg == "Token invalid" || msg == "No incoming token") && success == false {
                                 //AuthManager.removeToken()  // token 失效
                             }
                         }catch let error {
-                            LogInfo("接口请求失败---\(error)")
+                            debugPrints("接口请求失败---\(error)")
                         }
                     }, onError: { (error) in
                         if let error = error as? MoyaError {
@@ -67,12 +67,12 @@ class OnlineProvider<Target> where Target: Moya.TargetType {
             .retryWhen({ (e) in
                 e.enumerated()
                     .flatMap { (attempt, error) -> Observable<Int> in
-                        LogInfo("重连接---\(attempt)")
+                        debugPrints("重连接---\(attempt)")
                         if attempt >= 3 {
-                            LogInfo("重连接end---\(attempt)")
+                            debugPrints("重连接end---\(attempt)")
                             return Observable.error(error)
                         }else {
-                            LogInfo("重连接start---\(attempt)")
+                            debugPrints("重连接start---\(attempt)")
                             return Observable<Int>.timer(Double(attempt + 1), scheduler: MainScheduler.instance).take(1)
                         }
                 }

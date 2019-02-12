@@ -52,15 +52,15 @@ class FarmMembersViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
-        //tableView.addSubview(segmentedControl)
+        
+        navigationItem.leftBarButtonItem = leftBarItem
+        navigationItem.rightBarButtonItem = rightAddItem
+        addImg.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-        navigationItem.leftBarButtonItem = leftBarItem
-        navigationItem.rightBarButtonItem = rightAddItem
-        tableView.tableHeaderView = headerView
-        addImg.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
-        
+        tableView.tableHeaderView = headerView        
         tableView.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
         tableView.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         tableView.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
@@ -103,17 +103,8 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             return cell
         }
         
-//        if indexPath.section == 3 {
-//
-//        }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
         return cell
-        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-//        cell.selectionStyle = .none
-//        cell.textLabel?.text = "---\(indexPath.row)---"
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
