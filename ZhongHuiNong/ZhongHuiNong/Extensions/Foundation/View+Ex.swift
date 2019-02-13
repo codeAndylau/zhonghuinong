@@ -24,6 +24,27 @@ extension UIView {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
     }
+    
+    /// 砌任意圆角
+    func cuttingAnyCorner(roundingCorners: UIRectCorner, corner: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: roundingCorners, cornerRadii: CGSize(width: corner, height: corner))
+        let cornerLayer = CAShapeLayer()
+        cornerLayer.frame = self.bounds
+        cornerLayer.path = path.cgPath
+        self.layer.mask = cornerLayer
+    }
+    
+    /// 圆角和阴影同时
+    func setupCornerAndBorder(radius: CGFloat, color: UIColor = UIColor.hexColor(0xECECEC), size: CGSize = CGSize(width: 4, height: 4), shadowOpacity: Float = 0.8, shadowRadius: CGFloat = 3) {
+        
+        layer.cornerRadius = radius // 如果view上面还有子试图的时候就要注意了 子试图也要进行切割
+        
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = size
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = shadowRadius
+        layer.masksToBounds = false
+    }
 }
 
 

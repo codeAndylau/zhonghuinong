@@ -10,8 +10,8 @@ import UIKit
 
 class MemberSearchView: UIView {
 
-    lazy var searchImg = UIImageView(image: UIImage(named: "farm_search"))
-    lazy var titlelab = Label(title: "搜索食材", color: UIColor.hexColor(0x8E8E93), font: 14)
+    var searchImg = UIImageView(image: UIImage(named: "farm_search"))
+    var titlelab = Label(title: "搜索食材", color: UIColor.hexColor(0x8E8E93), font: 14)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,7 +40,8 @@ class MemberSearchView: UIView {
     
     class func loadView() -> MemberSearchView {
         let view = MemberSearchView(frame: CGRect(x: 16, y: 0, width: kScreenW - 32, height: 38))
-        view.backgroundColor = UIColor.hexColor(0xF3F3F3)
+        view.backgroundColor = UIColor.hexColor(0xEFEFEF)
+        view.cuttingCorner(radius: 19)
         return view
     }
     

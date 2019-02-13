@@ -34,6 +34,18 @@ class TableViewController: ViewController {
         return view
     }()
     
+    lazy var tableViews: TableView = {
+        let view = TableView(frame: CGRect.zero, style: .grouped)
+        view.separatorStyle = .none
+        self.view.addSubview(view)
+        view.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
+        //        view.emptyDataSetSource = self
+        //        view.emptyDataSetDelegate = self
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

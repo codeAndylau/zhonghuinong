@@ -74,6 +74,9 @@
 		14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BF921F7160A0088ABC3 /* CollectionViewController.swift */; };
 		14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFB21F716DA0088ABC3 /* ImageView.swift */; };
 		14974BFE21F717080088ABC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFD21F717080088ABC3 /* Color.swift */; };
+		14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8A92213C41B00603D41 /* PaySuccessView.swift */; };
+		14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */; };
+		14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AE2213EA0000603D41 /* PaySureView.swift */; };
 		14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC33E021F1705E006EF1CF /* AppDelegate.swift */; };
 		14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC33E221F1705E006EF1CF /* ViewController.swift */; };
 		14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14DC33E721F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld */; };
@@ -200,6 +203,9 @@
 		14974BF921F7160A0088ABC3 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		14974BFB21F716DA0088ABC3 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		14974BFD21F717080088ABC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		14D8D8A92213C41B00603D41 /* PaySuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessView.swift; sourceTree = "<group>"; };
+		14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableTabCell.swift; sourceTree = "<group>"; };
+		14D8D8AE2213EA0000603D41 /* PaySureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySureView.swift; sourceTree = "<group>"; };
 		14DC33DD21F1705E006EF1CF /* ZhongHuiNong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhongHuiNong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DC33E021F1705E006EF1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14DC33E221F1705E006EF1CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -306,6 +312,7 @@
 			children = (
 				14043D5E2212B0770023AA11 /* OrderHeaderView.swift */,
 				14043D5C2212AB080023AA11 /* OrderAddressView.swift */,
+				14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,6 +332,8 @@
 			children = (
 				14043D672212BF400023AA11 /* PaySelectViewController.swift */,
 				14043D692212C5300023AA11 /* PaySelectView.swift */,
+				14D8D8A92213C41B00603D41 /* PaySuccessView.swift */,
+				14D8D8AE2213EA0000603D41 /* PaySureView.swift */,
 			);
 			path = PaySelect;
 			sourceTree = "<group>";
@@ -970,6 +979,7 @@
 				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
+				14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
@@ -1024,11 +1034,13 @@
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
 				14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
+				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
 				1411F76221F982BC0076D763 /* Image.swift in Sources */,
+				14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */,
 				14043D622212BD030023AA11 /* SwiftPopup.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
 				14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */,

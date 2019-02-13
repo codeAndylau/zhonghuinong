@@ -9,14 +9,34 @@
 import UIKit
 
 class PaySelectViewController: SwiftPopup {
-
+    
+    lazy var pop = PaySuccessView.loadView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let popView = UIView(frame: CGRect(x: 0, y: kScreenH-400, width: kScreenW, height: 400))
-        popView.backgroundColor = UIColor.orange
-        view.addSubview(popView)
+        view.addSubview(pop)
+        
+        pop.cancelBtn.rx.tap.subscribe(onNext: { (_) in
+            self.dismiss()
+        }).disposed(by: rx.disposeBag)
+        
+        pop.orderBtn.rx.tap.subscribe(onNext: { (_) in
+            self.dismiss()
+        }).disposed(by: rx.disposeBag)
+        
+        pop.continueBtn.rx.tap.subscribe(onNext: { (_) in
+            self.dismiss()
+        }).disposed(by: rx.disposeBag)
+        
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe(onNext: { (gesture) in
+            if !self.pop.frame.contains(gesture.location(in: self.view)) {
+                self.dismiss()
+            }
+        }).disposed(by: rx.disposeBag)
+        view.addGestureRecognizer(tap)
     }
-
-
+    
+    
 }

@@ -15,15 +15,78 @@ enum MemberSectionType {
     case tuijian
 }
 
+class CountDownView: View {
+    
+    // 倒计时lab
+    lazy var hourLab = Label(title: "06", color: .white, backColor: UIColor.hexColor(0x666666), font: 10)
+    lazy var minLab = Label(title: "50", color: .white, backColor: UIColor.hexColor(0x666666), font: 10)
+    lazy var secondLab = Label(title: "06", color: .white, backColor: UIColor.hexColor(0x666666), font: 10)
+    lazy var dot1Lab = Label(title: ":", color: UIColor.hexColor(0xA3A3A3), backColor: UIColor.white, font: 8)
+    lazy var dot2Lab = Label(title: ":", color: UIColor.hexColor(0xA3A3A3), backColor: UIColor.white, font: 8)
+    
+    override func makeUI() {
+        super.makeUI()
+        hourLab.cuttingCorner(radius: 2)
+        minLab.cuttingCorner(radius: 2)
+        secondLab.cuttingCorner(radius: 2)
+        addSubview(hourLab)
+        addSubview(minLab)
+        addSubview(secondLab)
+        addSubview(dot1Lab)
+        addSubview(dot2Lab)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
+        hourLab.snp.makeConstraints { (make) in
+            make.left.centerY.equalTo(self)
+            make.width.height.equalTo(15)
+        }
+        
+        dot1Lab.snp.makeConstraints { (make) in
+            make.left.equalTo(hourLab.snp.right)
+            make.centerY.equalTo(self)
+            make.width.equalTo(7)
+            make.height.equalTo(15)
+        }
+        
+        minLab.snp.makeConstraints { (make) in
+            make.left.equalTo(dot1Lab.snp.right)
+            make.centerY.equalTo(self)
+            make.width.height.equalTo(15)
+        }
+        
+        dot2Lab.snp.makeConstraints { (make) in
+            make.left.equalTo(minLab.snp.right)
+            make.centerY.equalTo(self)
+            make.width.equalTo(7)
+            make.height.equalTo(15)
+        }
+        
+        secondLab.snp.makeConstraints { (make) in
+            make.left.equalTo(dot2Lab.snp.right)
+            make.centerY.equalTo(self)
+            make.width.height.equalTo(15)
+        }
+        
+    }
+    
+    /// - Public methods
+    class func loadView() -> CountDownView {
+        let view = CountDownView()
+        view.frame = CGRect(x: 0, y: 0, width: 65, height: 20)
+        return view
+    }
+    
+}
+
 class MemberSectionView: UIView {
 
     lazy var titleLab = Label(title: "新品上架", color: UIColor.black, boldFont: 22)
     lazy var detailLab = Label(title: "排序由销量、搜索等综合得出", color: UIColor.hexColor(0x999999), font: 12)
    
     // 倒计时lab
-    lazy var hourLab = Label(title: "06", color: .white, backColor: .black, font: 10)
-    lazy var minLab = Label(title: "50", color: .white, backColor: .black, font: 10)
-    lazy var secondLab = Label(title: "06", color: .white, backColor: .black, font: 10)
+    lazy var countdownView = CountDownView.loadView()
 
     var moreBtn = Button(title: "更多", color: UIColor.hexColor(0x999999), font: 12)
     var arrorImg = UIImageView(image: UIImage(named: "farm_arrowdown"))
@@ -61,32 +124,20 @@ class MemberSectionView: UIView {
     func setupQianggou() {
         titleLab.text = "超值抢购"
         addSubview(titleLab)
-        addSubview(hourLab)
-        addSubview(minLab)
-        addSubview(secondLab)
+        addSubview(countdownView)
         addSubview(moreBtn)
         moreBtn.addSubview(arrorImg)
+        
         titleLab.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(15)
             make.centerY.equalTo(self)
         }
         
-        hourLab.snp.makeConstraints { (make) in
+        countdownView.snp.makeConstraints { (make) in
             make.left.equalTo(titleLab.snp.right).offset(10)
             make.centerY.equalTo(self)
-            make.width.height.equalTo(15)
-        }
-        
-        minLab.snp.makeConstraints { (make) in
-            make.left.equalTo(hourLab.snp.right).offset(7)
-            make.centerY.equalTo(self)
-            make.width.height.equalTo(15)
-        }
-        
-        secondLab.snp.makeConstraints { (make) in
-            make.left.equalTo(minLab.snp.right).offset(7)
-            make.centerY.equalTo(self)
-            make.width.height.equalTo(15)
+            make.width.equalTo(65)
+            make.height.equalTo(20)
         }
         
         moreBtn.snp.makeConstraints { (make) in

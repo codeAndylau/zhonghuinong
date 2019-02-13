@@ -42,7 +42,7 @@ class OrderHeaderView: View {
         super.updateUI()
         
         addressView.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(7)
+            make.top.equalTo(self).offset(12)
             make.centerX.equalToSuperview()
             make.width.equalTo(kScreenW-30)
             make.height.equalTo(97)
@@ -90,7 +90,7 @@ class OrderHeaderView: View {
     /// - Public methods
     class func loadView() -> OrderHeaderView {
         let view = OrderHeaderView()
-        view.frame = CGRect(x: 0, y: 10, width: kScreenW, height: 170)
+        view.frame = CGRect(x: 0, y: 10, width: kScreenW, height: 175)
         view.backgroundColor = Color.backdropColor
         return view
     }

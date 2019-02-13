@@ -10,9 +10,21 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        makeUI()
+        updateUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        makeUI()
+        updateUI()
+    }
+    
+    
     func makeUI() {
         self.layer.masksToBounds = true
-        updateUI()
     }
     
     func updateUI() {

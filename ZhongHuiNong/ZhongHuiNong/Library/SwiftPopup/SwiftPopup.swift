@@ -62,12 +62,6 @@ class SwiftPopup: UIViewController {
     fileprivate func commonInit() {
         modalPresentationStyle = .custom
         transitioningDelegate = self
-        
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe(onNext: { (_) in
-            self.dismiss()
-        }).disposed(by: rx.disposeBag)
-        view.addGestureRecognizer(tap)
     }
 }
 
