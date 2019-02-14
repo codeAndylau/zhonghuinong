@@ -12,6 +12,7 @@ class MemberSearchView: UIView {
 
     var searchImg = UIImageView(image: UIImage(named: "farm_search"))
     var titlelab = Label(title: "搜索食材", color: UIColor.hexColor(0x8E8E93), font: 14)
+    var sureBtn = Button()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +27,7 @@ class MemberSearchView: UIView {
     func makeUI() {
         addSubview(searchImg)
         addSubview(titlelab)
+        addSubview(sureBtn)
         
         searchImg.snp.makeConstraints { (make) in
             make.left.equalTo(12)
@@ -35,6 +37,10 @@ class MemberSearchView: UIView {
         titlelab.snp.makeConstraints { (make) in
             make.left.equalTo(searchImg.snp.right).offset(8)
             make.centerY.equalToSuperview()
+        }
+        
+        sureBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
         }
     }
     

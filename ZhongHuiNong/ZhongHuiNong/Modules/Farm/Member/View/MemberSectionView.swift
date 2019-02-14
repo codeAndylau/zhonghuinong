@@ -23,6 +23,7 @@ class CountDownView: View {
     lazy var secondLab = Label(title: "06", color: .white, backColor: UIColor.hexColor(0x666666), font: 10)
     lazy var dot1Lab = Label(title: ":", color: UIColor.hexColor(0xA3A3A3), backColor: UIColor.white, font: 8)
     lazy var dot2Lab = Label(title: ":", color: UIColor.hexColor(0xA3A3A3), backColor: UIColor.white, font: 8)
+    lazy var sureBtn = Button()
     
     override func makeUI() {
         super.makeUI()
@@ -34,6 +35,7 @@ class CountDownView: View {
         addSubview(secondLab)
         addSubview(dot1Lab)
         addSubview(dot2Lab)
+        addSubview(sureBtn)
     }
     
     override func updateUI() {
@@ -67,6 +69,10 @@ class CountDownView: View {
             make.left.equalTo(dot2Lab.snp.right)
             make.centerY.equalTo(self)
             make.width.height.equalTo(15)
+        }
+        
+        sureBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
         }
         
     }

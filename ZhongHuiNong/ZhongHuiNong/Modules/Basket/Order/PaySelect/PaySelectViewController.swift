@@ -10,28 +10,31 @@ import UIKit
 
 class PaySelectViewController: SwiftPopup {
     
-    lazy var pop = PaySuccessView.loadView()
+    lazy var paySuccessView = PaySuccessView.loadView()
+    lazy var paySureView = PaySureView.loadView()
+    lazy var mineCenterView = MineCenterView.loadView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(pop)
+        view.addSubview(mineCenterView)
         
-        pop.cancelBtn.rx.tap.subscribe(onNext: { (_) in
+        paySuccessView.cancelBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
         }).disposed(by: rx.disposeBag)
         
-        pop.orderBtn.rx.tap.subscribe(onNext: { (_) in
+        paySuccessView.orderBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
         }).disposed(by: rx.disposeBag)
         
-        pop.continueBtn.rx.tap.subscribe(onNext: { (_) in
+        paySuccessView.continueBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
         }).disposed(by: rx.disposeBag)
         
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe(onNext: { (gesture) in
-            if !self.pop.frame.contains(gesture.location(in: self.view)) {
+            if !self.paySuccessView.frame.contains(gesture.location(in: self.view)) {
                 self.dismiss()
             }
         }).disposed(by: rx.disposeBag)

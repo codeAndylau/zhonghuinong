@@ -100,7 +100,6 @@ class PaySureView: View {
         sureBtn.layer.cornerRadius = 20
     }
     
-    
     /// - Public methods
     class func loadView() -> PaySureView {
         let view = PaySureView()

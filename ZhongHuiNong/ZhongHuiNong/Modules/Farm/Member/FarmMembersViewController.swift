@@ -11,15 +11,19 @@ import UIKit
 /// 农场会员
 class FarmMembersViewController: TableViewController {
 
+    // MARK: - Property
+    var isShadowColor = false
+    var searchView = MemberSearchView().then { (view) in
+        view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
+        view.backgroundColor = UIColor.cyan
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func makeUI() {
         super.makeUI()
-        
-        //searchView.alpha = 0.0
-        //navigationItem.titleView = titleViews
         navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightAddItem
         addImg.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
@@ -34,18 +38,22 @@ class FarmMembersViewController: TableViewController {
         tableViews.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         tableViews.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableViews.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
-    }
-    
-    // MARK: - Property
-    var isShadowColor = false
-    var searchView = MemberSearchView().then { (view) in
-        view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
-        view.backgroundColor = UIColor.cyan
+        
+        headerView.searchView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            let search = SearchViewController()
+            self?.navigationController?.pushViewController(search, animated: true)
+        }).disposed(by: rx.disposeBag)
     }
     
     // MARK: - Lazy
     lazy var paySelectDemo = PaySelectViewController()
     lazy var headerView = MemberHeaderView.loadView()
+    
+    lazy var textView: View = {
+        let view = View(frame: CGRect(x: 0, y: kStaBarH, width: kScreenW, height: kScreenH-kStaBarH))
+        view.backgroundColor = UIColor.orange
+        return view
+    }()
     
     let titleViews = UIView().then { (b) in
         b.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
@@ -85,7 +93,7 @@ class FarmMembersViewController: TableViewController {
         //切换按钮的选中状态
         addImg.isSelected = !addImg.isSelected
         
-        paySelectDemo.show()
+        //paySelectDemo.show()
         
     }
 }
@@ -134,7 +142,12 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         case 0:
             return MemberSectionView(type: .xinpin)
         case 1:
-            return MemberSectionView(type: .qianggou)
+            let view = MemberSectionView(type: .qianggou)
+            view.backgroundColor = UIColor.white
+            view.countdownView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+                debugPrints("点击了倒计时")
+            }).disposed(by: rx.disposeBag)
+            return view
         case 2:
             return MemberSectionView(type: .rexiao)
         case 3:
@@ -144,7 +157,6 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let view = MemberSectionView(type: .xinpin)
-        view.backgroundColor = UIColor.white
         return view
     }
     
@@ -198,13 +210,6 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         if offsetY <= 0 {
             navigationController?.navigationBar.layer.shadowColor = UIColor.white.cgColor
         }
-        
-//        if offsetY > 30 {
-//            searchView.alpha = 1
-//            searchView.backgroundColor = UIColor.orange
-//        }else {
-//            searchView.alpha = 0.0
-//        }
     }
     
 }

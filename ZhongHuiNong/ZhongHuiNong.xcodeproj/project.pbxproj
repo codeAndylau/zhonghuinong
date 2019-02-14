@@ -49,6 +49,13 @@
 		14641B8421F55C5C00F4E032 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8321F55C5C00F4E032 /* Const.swift */; };
 		14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8521F57DBE00F4E032 /* FirstLaunch.swift */; };
 		14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8821F5BFDD00F4E032 /* Operator.swift */; };
+		1468B15622150953002B971F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15522150953002B971F /* SearchViewController.swift */; };
+		1468B15822150B82002B971F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15722150B82002B971F /* SearchTextField.swift */; };
+		1468B15A22150EF8002B971F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15922150EF8002B971F /* SearchView.swift */; };
+		1468B15C221513AA002B971F /* SearchHotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15B221513AA002B971F /* SearchHotView.swift */; };
+		1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15D22153914002B971F /* SearchGoodsTabCell.swift */; };
+		1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15F22153CF0002B971F /* SearchEmptyView.swift */; };
+		1468B1632215444D002B971F /* MineCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B1622215444D002B971F /* MineCenterView.swift */; };
 		1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43D2203EB1C009E394E /* StoreLeftCell.swift */; };
 		1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43F2203EB2C009E394E /* StoreRightCell.swift */; };
 		14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCC21F6C31B0088ABC3 /* Date.swift */; };
@@ -178,6 +185,13 @@
 		14641B8321F55C5C00F4E032 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		14641B8521F57DBE00F4E032 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		14641B8821F5BFDD00F4E032 /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		1468B15522150953002B971F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1468B15722150B82002B971F /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		1468B15922150EF8002B971F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		1468B15B221513AA002B971F /* SearchHotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHotView.swift; sourceTree = "<group>"; };
+		1468B15D22153914002B971F /* SearchGoodsTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGoodsTabCell.swift; sourceTree = "<group>"; };
+		1468B15F22153CF0002B971F /* SearchEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmptyView.swift; sourceTree = "<group>"; };
+		1468B1622215444D002B971F /* MineCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCenterView.swift; sourceTree = "<group>"; };
 		1493B43D2203EB1C009E394E /* StoreLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLeftCell.swift; sourceTree = "<group>"; };
 		1493B43F2203EB2C009E394E /* StoreRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRightCell.swift; sourceTree = "<group>"; };
 		14974BCC21F6C31B0088ABC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -383,11 +397,10 @@
 		145138AD21F854690038AFC6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1468B1612215441A002B971F /* View */,
 				1411F75D21F944040076D763 /* MineViewController.swift */,
 				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
 				8B31B5BD22106164003F475A /* MineTabCell.swift */,
-				8B31B5BB221028F4003F475A /* MineHeaderView.swift */,
-				14043D4C2212773B0023AA11 /* MineOrderView.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -406,6 +419,41 @@
 				14641B8821F5BFDD00F4E032 /* Operator.swift */,
 			);
 			path = Operator;
+			sourceTree = "<group>";
+		};
+		1468B153221508E1002B971F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C6F2202A907002122B6 /* MemberHeaderView.swift */,
+				14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */,
+				14F35C6D2202A418002122B6 /* MemberSearchView.swift */,
+				14F35C712202BE7C002122B6 /* MemberSectionView.swift */,
+				14F35C802202DCB7002122B6 /* BannerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1468B154221508F8002B971F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				1468B15522150953002B971F /* SearchViewController.swift */,
+				1468B15F22153CF0002B971F /* SearchEmptyView.swift */,
+				1468B15922150EF8002B971F /* SearchView.swift */,
+				1468B15B221513AA002B971F /* SearchHotView.swift */,
+				1468B15D22153914002B971F /* SearchGoodsTabCell.swift */,
+				1468B15722150B82002B971F /* SearchTextField.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		1468B1612215441A002B971F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8B31B5BB221028F4003F475A /* MineHeaderView.swift */,
+				14043D4C2212773B0023AA11 /* MineOrderView.swift */,
+				1468B1622215444D002B971F /* MineCenterView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		14974BCE21F6C3760088ABC3 /* NSObject+Rx */ = {
@@ -638,13 +686,10 @@
 		14F35C5F220294A6002122B6 /* Member */ = {
 			isa = PBXGroup;
 			children = (
+				1468B153221508E1002B971F /* View */,
 				14F35C732202D269002122B6 /* TabCell */,
 				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
-				14F35C6F2202A907002122B6 /* MemberHeaderView.swift */,
-				14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */,
-				14F35C6D2202A418002122B6 /* MemberSearchView.swift */,
-				14F35C712202BE7C002122B6 /* MemberSectionView.swift */,
-				14F35C802202DCB7002122B6 /* BannerView.swift */,
+				1468B154221508F8002B971F /* Search */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -961,6 +1006,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */,
+				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
 				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
 				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
@@ -973,6 +1020,8 @@
 				14043D6A2212C5300023AA11 /* PaySelectView.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
+				1468B1632215444D002B971F /* MineCenterView.swift in Sources */,
+				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
@@ -1007,6 +1056,7 @@
 				14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */,
 				14974BE921F710230088ABC3 /* WebViewController.swift in Sources */,
 				14DC342D21F17578006EF1CF /* HomeView.swift in Sources */,
+				1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
 				14F185EB220197570037291B /* AppUtils.swift in Sources */,
@@ -1015,6 +1065,7 @@
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
+				1468B15822150B82002B971F /* SearchTextField.swift in Sources */,
 				14043D5D2212AB080023AA11 /* OrderAddressView.swift in Sources */,
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
@@ -1047,6 +1098,7 @@
 				14F35C812202DCB7002122B6 /* BannerView.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
+				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,

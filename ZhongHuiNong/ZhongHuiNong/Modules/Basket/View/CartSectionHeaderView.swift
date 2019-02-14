@@ -11,7 +11,6 @@ import UIKit
 class CartSectionHeaderView: View {
 
     lazy var titleLab = Label().then { (lab) in
-        lab.frame = CGRect(x: 20, y: 0, width: kScreenW-20, height: 20)
         lab.text = "共1件商品"
         lab.font = UIFont.systemFont(ofSize: 16)
         lab.textColor = UIColor.hexColor(0x4A4A4A)
@@ -24,6 +23,10 @@ class CartSectionHeaderView: View {
     
     override func updateUI() {
         super.updateUI()
+        titleLab.snp.makeConstraints { (make) in
+            make.left.equalTo(20)
+            make.centerY.equalTo(self)
+        }
     }
 
     /// - Public methods
@@ -31,6 +34,15 @@ class CartSectionHeaderView: View {
         let view = CartSectionHeaderView()
         view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 20)
         view.backgroundColor = Color.whiteColor
+        return view
+    }
+    
+    class func loadOtherView() -> CartSectionHeaderView {
+        let view = CartSectionHeaderView()
+        view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 50)
+        view.backgroundColor = Color.whiteColor
+        view.titleLab.font = UIFont.boldSystemFont(ofSize: 18)
+        view.titleLab.textColor = UIColor.hexColor(0x333333)
         return view
     }
     

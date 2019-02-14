@@ -73,6 +73,7 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
     
     override func makeUI() {
         super.makeUI()
+        
         addSubview(ImgView)
         addSubview(titleLab)
         addSubview(priceLab)
@@ -82,6 +83,10 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
         calculateView.addSubview(jianhaoBtn)
         calculateView.addSubview(numLab)
         calculateView.addSubview(jiahaoBtn)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
         
         ImgView.snp.makeConstraints { (make) in
             make.left.equalTo(self)
@@ -129,11 +134,6 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
             make.centerY.equalTo(calculateView)
             make.width.height.equalTo(25)
         }
-        
-    }
-    
-    override func updateUI() {
-        super.updateUI()
     }
     
 }
