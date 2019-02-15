@@ -38,7 +38,6 @@ class SearchHotView: View {
         addSubview(titleLabel)
         
         deleteBtn.frame = CGRect(x: kScreenW-38-22, y: 0, width: 44, height: 46)
-        deleteBtn.backgroundColor = UIColor.orange
         deleteBtn.centerY = titleLabel.centerY
         deleteBtn.setImage(UIImage(named: "search_delete"), for: .normal)
         deleteBtn.addTarget(self, action: #selector(deleteBtnClick(sender:)), for: .touchUpInside)

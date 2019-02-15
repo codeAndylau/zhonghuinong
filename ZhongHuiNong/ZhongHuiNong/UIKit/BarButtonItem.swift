@@ -15,7 +15,8 @@ class BarButtonItem: UIBarButtonItem {
     }
     
     class func leftBarView() -> BarButtonItem {
-        let view = MemberLeftBarView(frame: CGRect(x: 0, y: 0, width: 118, height: 30))
+        //let view = MemberLeftBarView(frame: CGRect(x: 0, y: 0, width: 118, height: 30))
+        let view = FarmHeaderView.loadView()
         return BarButtonItem(customView: view)
     }
     

@@ -13,9 +13,20 @@ class FarmMembersViewController: TableViewController {
 
     // MARK: - Property
     var isShadowColor = false
+    var menuView: DropdownMenu!
+    var dropupView: DropupMenu!
+    
+    var addBtn = UIButton().then { (btn) in
+        btn.setImage(UIImage(named: "farm_add")!, for: .normal)
+    }
+    
     var searchView = MemberSearchView().then { (view) in
         view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
         view.backgroundColor = UIColor.cyan
+    }
+    
+    let segmentedControl = FarmSegmentedView().then { (view) in
+        view.frame = CGRect(x: 20, y: 150, width: kScreenW - 40, height: 40)
     }
     
     override func viewDidLoad() {
@@ -25,14 +36,12 @@ class FarmMembersViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         navigationItem.leftBarButtonItem = leftBarItem
-        navigationItem.rightBarButtonItem = rightAddItem
-        addImg.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
-        
+        navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
+        addBtn.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
         //去除表格上放多余的空隙
         tableViews.dataSource = self
         tableViews.delegate = self
-        tableViews.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         tableViews.tableHeaderView = headerView
         tableViews.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
         tableViews.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
@@ -43,59 +52,86 @@ class FarmMembersViewController: TableViewController {
             let search = SearchViewController()
             self?.navigationController?.pushViewController(search, animated: true)
         }).disposed(by: rx.disposeBag)
+        
+        let orangeView = UIView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 300))
+        orangeView.backgroundColor = UIColor.orange
+        
+        // 下拉
+        menuView = DropdownMenu(containerView: UIApplication.shared.keyWindow!, contentView: dropView)
+        
+        // 上啦
+        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView)
+        
+        dropView.cardView.rx.tap.subscribe(onNext: { (_) in
+            self.menuView.hide()
+        }).disposed(by: rx.disposeBag)
+        
+        dropView.scanView.rx.tap.subscribe(onNext: { (_) in
+            self.menuView.hide()
+        }).disposed(by: rx.disposeBag)
     }
     
     // MARK: - Lazy
+    
+    lazy var mineCenterView = MineCenterView.loadView()
+    lazy var dropView = MemberDropdownView.loadView()
     lazy var paySelectDemo = PaySelectViewController()
     lazy var headerView = MemberHeaderView.loadView()
-    
-    lazy var textView: View = {
-        let view = View(frame: CGRect(x: 0, y: kStaBarH, width: kScreenW, height: kScreenH-kStaBarH))
-        view.backgroundColor = UIColor.orange
-        return view
-    }()
-    
-    let titleViews = UIView().then { (b) in
-        b.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
-        b.backgroundColor = UIColor.cyan
-    }
-    
-    let segmentedControl = FarmSegmentedView().then { (view) in
-        view.frame = CGRect(x: 20, y: 150, width: kScreenW - 40, height: 40)
-        
-    }
-    
     lazy var leftBarItem = BarButtonItem.leftBarView()
-    
-    let addImg = UIButton().then { (btn) in
-        btn.setImage(UIImage(named: "farm_add")!, for: .normal)
-    }
-    
-    lazy var rightAddItem = BarButtonItem(customView: addImg)
+    lazy var rightAddItem = BarButtonItem(customView: addBtn)
+    lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
     // MARK: - Public methods
     
     @objc func addAction() {
-        print("点击了家好")
-        let anim = CABasicAnimation()
-        //目标值
-        if addImg.isSelected {
-            anim.toValue = Double.pi/2
+        if menuView.isShown {
+            menuView.hideMenu()
         }else {
+            menuView.showMenu()
+        }
+    }
+    
+    @objc func messageAction() {
+        debugPrints("点击了消息按钮")
+        if dropupView.isShown {
+            dropupView.hideMenu()
+        }else {
+            dropupView.showMenu()
+        }
+    }
+    
+    func roateArrow() {
+        let anim = CABasicAnimation()
+        if addBtn.isSelected {
+            anim.fromValue = Double.pi/4
+            anim.toValue = 0
+        }else {
+            anim.fromValue = 0
             anim.toValue = Double.pi/4
         }
         anim.keyPath = "transform.rotation"
         anim.duration = 0.3
         anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
         anim.fillMode = CAMediaTimingFillMode.forwards
-        addImg.imageView?.layer.add(anim, forKey: nil)
-        
+        addBtn.imageView?.layer.add(anim, forKey: nil)
         //切换按钮的选中状态
-        addImg.isSelected = !addImg.isSelected
+        addBtn.isSelected = !addBtn.isSelected
         
-        //paySelectDemo.show()
-        
+        if addBtn.isSelected {
+            menuView.showMenu()
+        }else {
+            menuView.hideMenu()
+            let anim = CABasicAnimation()
+            anim.fromValue = Double.pi/4
+            anim.toValue = 0
+            anim.keyPath = "transform.rotation"
+            anim.duration = 0.3
+            anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
+            anim.fillMode = CAMediaTimingFillMode.forwards
+            addBtn.imageView?.layer.add(anim, forKey: nil)
+        }
     }
+
 }
 
 extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate {
@@ -146,6 +182,8 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             view.backgroundColor = UIColor.white
             view.countdownView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
                 debugPrints("点击了倒计时")
+                let flash = FlashViewController()
+                self?.navigationController?.pushViewController(flash, animated: true)                
             }).disposed(by: rx.disposeBag)
             return view
         case 2:

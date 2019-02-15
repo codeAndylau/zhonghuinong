@@ -29,7 +29,6 @@ class CartTabCell: StoreRightCell {
     }
     
     override func updateUI() {
-        super.updateUI()
         activateConstraints()
     }
 

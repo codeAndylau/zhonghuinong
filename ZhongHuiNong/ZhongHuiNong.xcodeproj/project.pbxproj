@@ -104,6 +104,12 @@
 		14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */; };
 		14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */; };
 		14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */; };
+		14ED1106221663DF0021D185 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED1105221663DF0021D185 /* DropdownMenu.swift */; };
+		14ED11082216668B0021D185 /* ViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11072216668B0021D185 /* ViewController+Ex.swift */; };
+		14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED1109221694A40021D185 /* MemberDropdownView.swift */; };
+		14ED110C22169D510021D185 /* DropupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED110B22169D510021D185 /* DropupMenu.swift */; };
+		14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED110E2216ADD80021D185 /* FlashViewController.swift */; };
+		14ED11122216AF560021D185 /* FlashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11112216AF560021D185 /* FlashView.swift */; };
 		14F185EB220197570037291B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F185EA220197570037291B /* AppUtils.swift */; };
 		14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */; };
 		14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */; };
@@ -246,6 +252,12 @@
 		14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
+		14ED1105221663DF0021D185 /* DropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
+		14ED11072216668B0021D185 /* ViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ex.swift"; sourceTree = "<group>"; };
+		14ED1109221694A40021D185 /* MemberDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDropdownView.swift; sourceTree = "<group>"; };
+		14ED110B22169D510021D185 /* DropupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropupMenu.swift; sourceTree = "<group>"; };
+		14ED110E2216ADD80021D185 /* FlashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashViewController.swift; sourceTree = "<group>"; };
+		14ED11112216AF560021D185 /* FlashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashView.swift; sourceTree = "<group>"; };
 		14F185EA220197570037291B /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonMemberViewController.swift; sourceTree = "<group>"; };
 		14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberLeftBarView.swift; sourceTree = "<group>"; };
@@ -366,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				14F35C5F220294A6002122B6 /* Member */,
+				14ED110D2216ADB70021D185 /* Flash */,
 				14F35C60220294AF002122B6 /* NonMember */,
 			);
 			path = Farm;
@@ -429,6 +442,7 @@
 				14F35C6D2202A418002122B6 /* MemberSearchView.swift */,
 				14F35C712202BE7C002122B6 /* MemberSectionView.swift */,
 				14F35C802202DCB7002122B6 /* BannerView.swift */,
+				14ED1109221694A40021D185 /* MemberDropdownView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -474,6 +488,7 @@
 				1411F76121F982BC0076D763 /* Image.swift */,
 				1414E0C621FABA5600347050 /* View+Ex.swift */,
 				14043D4A221272D60023AA11 /* Button+Ex.swift */,
+				14ED11072216668B0021D185 /* ViewController+Ex.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -549,6 +564,7 @@
 		14DC341321F170B6006EF1CF /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				14ED11042216634B0021D185 /* DropdownMenu */,
 				14043D602212BCE70023AA11 /* SwiftPopup */,
 				145138B021F858940038AFC6 /* Defaults.swift */,
 				14974BEA21F710D80088ABC3 /* ActivityIndicator.swift */,
@@ -681,6 +697,32 @@
 				14974BEE21F711730088ABC3 /* Observable+Operators.swift */,
 			);
 			path = RxSwift;
+			sourceTree = "<group>";
+		};
+		14ED11042216634B0021D185 /* DropdownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				14ED1105221663DF0021D185 /* DropdownMenu.swift */,
+				14ED110B22169D510021D185 /* DropupMenu.swift */,
+			);
+			path = DropdownMenu;
+			sourceTree = "<group>";
+		};
+		14ED110D2216ADB70021D185 /* Flash */ = {
+			isa = PBXGroup;
+			children = (
+				14ED11102216AF440021D185 /* View */,
+				14ED110E2216ADD80021D185 /* FlashViewController.swift */,
+			);
+			path = Flash;
+			sourceTree = "<group>";
+		};
+		14ED11102216AF440021D185 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14ED11112216AF560021D185 /* FlashView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		14F35C5F220294A6002122B6 /* Member */ = {
@@ -1029,6 +1071,7 @@
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
 				14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */,
+				14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
@@ -1050,6 +1093,7 @@
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
 				14043D51221298B10023AA11 /* CartTabCell.swift in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
+				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,
 				14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */,
 				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
@@ -1085,8 +1129,10 @@
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
 				14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
+				14ED1106221663DF0021D185 /* DropdownMenu.swift in Sources */,
 				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
+				14ED11122216AF560021D185 /* FlashView.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
@@ -1097,6 +1143,7 @@
 				14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */,
 				14F35C812202DCB7002122B6 /* BannerView.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
+				14ED11082216668B0021D185 /* ViewController+Ex.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
 				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
@@ -1105,6 +1152,7 @@
 				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
+				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,

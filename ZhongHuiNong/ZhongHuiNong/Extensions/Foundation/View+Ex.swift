@@ -8,6 +8,23 @@
 
 import UIKit
 
+// 给试图添加唯一表示
+extension UIView {
+    
+    struct Static {
+        static var key = "key"
+    }
+    
+    var viewIdentifier: String? {
+        get {
+            return objc_getAssociatedObject( self, &Static.key ) as? String
+        }
+        set {
+            objc_setAssociatedObject(self, &Static.key, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+}
+
 extension UIView {
     
     func cuttingCorner(radius: CGFloat) {

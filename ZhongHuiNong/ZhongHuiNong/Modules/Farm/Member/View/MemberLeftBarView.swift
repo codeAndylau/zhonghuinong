@@ -8,6 +8,60 @@
 
 import UIKit
 
+class FarmHeaderView: Button {
+    
+    let vip = ImageView().then { (img) in
+        img.image = UIImage(named: "mine_vip_1")
+    }
+    
+    let header = ImageView().then { (img) in
+        img.image = UIImage(named: "mine_default_ portrait") // farm_head 
+    }
+    
+    override func makeUI() {
+        super.makeUI()
+        addSubview(header)
+        addSubview(vip)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
+        
+        vip.snp.makeConstraints { (make) in
+            make.bottom.equalTo(header.snp.top).offset(5)
+            make.centerX.equalTo(self)
+            make.width.equalTo(27)
+            make.height.equalTo(19)
+        }
+        
+        header.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.centerY.equalTo(self).offset(5)
+            make.width.height.equalTo(30)
+        }
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // shadowCode
+        header.layer.shadowColor = UIColor(red: 0.44, green: 0.44, blue: 0.44, alpha: 0.24).cgColor
+        header.layer.shadowOffset = CGSize(width: 0, height: 3)
+        header.layer.shadowOpacity = 1
+        header.layer.shadowRadius = 4
+        header.layer.cornerRadius = 15
+    }
+    
+    /// - Public methods
+    class func loadView() -> FarmHeaderView {
+        let view = FarmHeaderView()
+        view.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        view.backgroundColor = Color.whiteColor
+        return view
+    }
+    
+}
+
 class MemberLeftBarView: UIButton {
     
     lazy var localImg = UIImageView()
@@ -31,7 +85,6 @@ class MemberLeftBarView: UIButton {
             return UIView.layoutFittingExpandedSize
         }
     }
-    
     
     func setupUI() {
         

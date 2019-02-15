@@ -10,6 +10,42 @@ import UIKit
 
 /// 商店
 class StoreViewController: ViewController {
+
+    var currentIndex = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+    
+    override func makeUI() {
+        super.makeUI()
+        view.backgroundColor = UIColor.white
+        navigationItem.leftBarButtonItem = leftBarItem
+        navigationItem.rightBarButtonItem = rightMsgItem
+        navigationItem.titleView = searchView
+        view.addSubview(leftTableView)
+        view.addSubview(rightTableView)
+        leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+    }
+    
+    override func updateUI() {
+        super.updateUI()
+    }
+    
+    // MARK: - Lazy
+    
+    lazy var leftArray = ["store_qianggou_h","store_jingpin","store_shuiguo","store_danlei",
+                          "store_liangyou","store_rupin","store_tiaowei","store_gaodian","store_renquan"]
+    
+    lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
+    
+    lazy var leftBarItem = BarButtonItem.leftBarView()
+    lazy var searchView = MemberSearchView.loadView()
     
     //左侧表格
     lazy var leftTableView : UITableView = {
@@ -39,29 +75,9 @@ class StoreViewController: ViewController {
         return rightTableView
     }()
     
-    var currentIndex = 0
-    lazy var leftArray = ["store_qianggou_h","store_jingpin","store_shuiguo","store_danlei",
-                          "store_liangyou","store_rupin","store_tiaowei","store_gaodian"]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func makeUI() {
-        super.makeUI()
-        view.backgroundColor = UIColor.white
-        view.addSubview(leftTableView)
-        view.addSubview(rightTableView)
-        leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
-    }
-    
-    override func bindViewModel() {
-        super.bindViewModel()
-    }
-    
-    override func updateUI() {
-        super.updateUI()
+    // MAKR: - Action
+    @objc func messageAction() {
+        
     }
     
 }

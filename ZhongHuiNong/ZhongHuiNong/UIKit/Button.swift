@@ -12,6 +12,8 @@ class Button: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        makeUI()
+        updateUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +32,14 @@ class Button: UIButton {
         self.setTitle(title, for: .normal)
         self.setTitleColor(color, for: .normal)
         self.setImage(UIImage(named: img), for: .normal)
+    }
+    
+    func makeUI() {
+        
+    }
+    
+    func updateUI() {
+        setNeedsDisplay()
     }
     
 }

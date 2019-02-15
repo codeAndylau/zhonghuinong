@@ -14,6 +14,10 @@ class MemberSearchView: UIView {
     var titlelab = Label(title: "搜索食材", color: UIColor.hexColor(0x8E8E93), font: 14)
     var sureBtn = Button()
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: kScreenW-120, height: 34)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeUI()
