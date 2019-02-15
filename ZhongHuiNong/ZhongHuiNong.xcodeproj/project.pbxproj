@@ -110,6 +110,7 @@
 		14ED110C22169D510021D185 /* DropupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED110B22169D510021D185 /* DropupMenu.swift */; };
 		14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED110E2216ADD80021D185 /* FlashViewController.swift */; };
 		14ED11122216AF560021D185 /* FlashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11112216AF560021D185 /* FlashView.swift */; };
+		14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11132216BFB20021D185 /* PinterestSegment.swift */; };
 		14F185EB220197570037291B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F185EA220197570037291B /* AppUtils.swift */; };
 		14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */; };
 		14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */; };
@@ -258,6 +259,7 @@
 		14ED110B22169D510021D185 /* DropupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropupMenu.swift; sourceTree = "<group>"; };
 		14ED110E2216ADD80021D185 /* FlashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashViewController.swift; sourceTree = "<group>"; };
 		14ED11112216AF560021D185 /* FlashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashView.swift; sourceTree = "<group>"; };
+		14ED11132216BFB20021D185 /* PinterestSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestSegment.swift; sourceTree = "<group>"; };
 		14F185EA220197570037291B /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonMemberViewController.swift; sourceTree = "<group>"; };
 		14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberLeftBarView.swift; sourceTree = "<group>"; };
@@ -721,6 +723,7 @@
 			isa = PBXGroup;
 			children = (
 				14ED11112216AF560021D185 /* FlashView.swift */,
+				14ED11132216BFB20021D185 /* PinterestSegment.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1050,6 +1053,7 @@
 			files = (
 				1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */,
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
+				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
 				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
 				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
