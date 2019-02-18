@@ -21,6 +21,7 @@ class WechatLoginView: View {
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.setupBorder(width: 3, color: UIColor.hexColor(0x1DD1A8, alpha: 0.1))
         btn.cuttingCorner(radius: 27)
+        btn.showsTouchWhenHighlighted = true
     }
     
     let otherBtn = Button(type: .custom).then { (btn) in
@@ -28,16 +29,6 @@ class WechatLoginView: View {
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
     }
-
-    let stackView: StackView = {
-        let subviews: [UIView] = []
-        let view = StackView(arrangedSubviews: subviews)
-        view.spacing = 0
-        view.axis = .horizontal
-        view.alignment = .center
-        view.distribution = .fill
-        return view
-    }()
     
     let tipsLab = Label().then { (lab) in
         lab.text = "登录代表你阅读并同意"

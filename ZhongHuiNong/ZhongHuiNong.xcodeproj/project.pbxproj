@@ -143,6 +143,8 @@
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
 		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
 		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
+		8BDF075C221AD88900CBFBE4 /* DeliveryTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */; };
+		8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,6 +307,8 @@
 		8B31B5BB221028F4003F475A /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTabCell.swift; sourceTree = "<group>"; };
+		8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryFooterView.swift; sourceTree = "<group>"; };
 		9D3B4A1761C56E72801D98B5 /* Pods-ZhongHuiNongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNongTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNongTests/Pods-ZhongHuiNongTests.release.xcconfig"; sourceTree = "<group>"; };
 		C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +348,7 @@
 		14043D562212A9760023AA11 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				14043D50221298B10023AA11 /* CartTabCell.swift */,
 				14043D4E221290930023AA11 /* CartEmptyView.swift */,
 				14043D5222129F9F0023AA11 /* SettlementView.swift */,
 				14043D542212A5A70023AA11 /* CartSectionHeaderView.swift */,
@@ -517,6 +522,8 @@
 			isa = PBXGroup;
 			children = (
 				1492DD9C221A546100C79D88 /* DeliveryCollectionCell.swift */,
+				8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */,
+				8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */,
 			);
 			path = TabCell;
 			sourceTree = "<group>";
@@ -527,7 +534,6 @@
 				14043D562212A9760023AA11 /* View */,
 				1411F75721F943DD0076D763 /* BasketViewController.swift */,
 				1411F75921F943EC0076D763 /* BasketViewModel.swift */,
-				14043D50221298B10023AA11 /* CartTabCell.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -1279,6 +1285,7 @@
 				145138A221F81B600038AFC6 /* HomeTableViewCell.swift in Sources */,
 				1492DDB3221A870A00C79D88 /* WechatLoginViewController.swift in Sources */,
 				14043D5322129F9F0023AA11 /* SettlementView.swift in Sources */,
+				8BDF075C221AD88900CBFBE4 /* DeliveryTabCell.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
 				1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */,
 				1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */,
@@ -1287,6 +1294,7 @@
 				14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
 				14ED1106221663DF0021D185 /* DropdownMenu.swift in Sources */,
+				8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */,
 				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
 				14ED11122216AF560021D185 /* FlashView.swift in Sources */,

@@ -65,6 +65,7 @@ class PasswordLoginView: View {
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.setupBorder(width: 3, color: UIColor.hexColor(0x1DD1A8, alpha: 0.1))
         btn.cuttingCorner(radius: 30)
+        btn.showsTouchWhenHighlighted = true
     }
     
     override func makeUI() {

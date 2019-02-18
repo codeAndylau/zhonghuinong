@@ -12,17 +12,19 @@ import UIKit
 class DeliveryViewController: ViewController {
 
     var isMember = true
-    var isSelected = true
+    var isSelected = false
     
     override func makeUI() {
         super.makeUI()
-        navigationItem.title = "配送选货"
+        
         navigationItem.rightBarButtonItem = rightMsgItem
         view.addSubview(headerView)
         
         if isSelected {
+            navigationItem.title = "本周订单"
             view.addSubview(tableView)
         }else {
+            navigationItem.title = "配送选货"
             view.addSubview(collectionView)
             view.addSubview(commitVew)
         }
@@ -66,6 +68,7 @@ class DeliveryViewController: ViewController {
     // MAKR: - Lazy
     lazy var emptyView = CartEmptyView()
     lazy var headerView = DeliveryHeaderView.loadView()
+    lazy var footerView = DeliveryFooterView.loadView()
     lazy var commitVew = DeliveryCommitOrderView.loadView()
     
     lazy var tableView: TableView = {
@@ -73,7 +76,8 @@ class DeliveryViewController: ViewController {
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
-        view.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+        view.tableFooterView = footerView
+        view.register(DeliveryTabCell.self, forCellReuseIdentifier: DeliveryTabCell.identifier)
         return view
     }()
     
@@ -112,13 +116,14 @@ extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MineTabCell.identifier, for: indexPath) as! MineTabCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DeliveryTabCell.identifier, for: indexPath) as! DeliveryTabCell
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
 
 }
 
