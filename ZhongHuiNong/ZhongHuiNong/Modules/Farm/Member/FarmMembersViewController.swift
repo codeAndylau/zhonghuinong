@@ -16,7 +16,7 @@ class FarmMembersViewController: TableViewController {
     var menuView: DropdownMenu!
     var dropupView: DropupMenu!
     
-    var addBtn = UIButton().then { (btn) in
+    var addItem = UIButton().then { (btn) in
         btn.setImage(UIImage(named: "farm_add")!, for: .normal)
     }
     
@@ -37,7 +37,7 @@ class FarmMembersViewController: TableViewController {
         super.makeUI()
         navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
-        addBtn.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
+        addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
         //去除表格上放多余的空隙
         tableViews.dataSource = self
@@ -69,16 +69,32 @@ class FarmMembersViewController: TableViewController {
         dropView.scanView.rx.tap.subscribe(onNext: { (_) in
             self.menuView.hide()
         }).disposed(by: rx.disposeBag)
+        
+        vipItem.sureBtn.rx.tap.subscribe(onNext: { (_) in
+            self.showCenterView()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.cellDidSelectedClosure = { index in
+            switch index {
+            case 0:
+                /// 配送选货
+                let deliveryVC = DeliveryViewController()
+                self.navigationController?.pushViewController(deliveryVC, animated: true)
+            default:
+                break
+            }
+        }
     }
     
     // MARK: - Lazy
     
+    lazy var vipItem = FarmHeaderView.loadView()
     lazy var mineCenterView = MineCenterView.loadView()
     lazy var dropView = MemberDropdownView.loadView()
     lazy var paySelectDemo = PaySelectViewController()
     lazy var headerView = MemberHeaderView.loadView()
-    lazy var leftBarItem = BarButtonItem.leftBarView()
-    lazy var rightAddItem = BarButtonItem(customView: addBtn)
+    lazy var leftBarItem = BarButtonItem(customView: vipItem)
+    lazy var rightAddItem = BarButtonItem(customView: addItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
     // MARK: - Public methods
@@ -93,6 +109,10 @@ class FarmMembersViewController: TableViewController {
     
     @objc func messageAction() {
         debugPrints("点击了消息按钮")
+        
+    }
+    
+    func showCenterView() {
         if dropupView.isShown {
             dropupView.hideMenu()
         }else {
@@ -102,7 +122,7 @@ class FarmMembersViewController: TableViewController {
     
     func roateArrow() {
         let anim = CABasicAnimation()
-        if addBtn.isSelected {
+        if addItem.isSelected {
             anim.fromValue = Double.pi/4
             anim.toValue = 0
         }else {
@@ -113,11 +133,11 @@ class FarmMembersViewController: TableViewController {
         anim.duration = 0.3
         anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
         anim.fillMode = CAMediaTimingFillMode.forwards
-        addBtn.imageView?.layer.add(anim, forKey: nil)
+        addItem.imageView?.layer.add(anim, forKey: nil)
         //切换按钮的选中状态
-        addBtn.isSelected = !addBtn.isSelected
+        addItem.isSelected = !addItem.isSelected
         
-        if addBtn.isSelected {
+        if addItem.isSelected {
             menuView.showMenu()
         }else {
             menuView.hideMenu()
@@ -128,7 +148,7 @@ class FarmMembersViewController: TableViewController {
             anim.duration = 0.3
             anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
             anim.fillMode = CAMediaTimingFillMode.forwards
-            addBtn.imageView?.layer.add(anim, forKey: nil)
+            addItem.imageView?.layer.add(anim, forKey: nil)
         }
     }
 

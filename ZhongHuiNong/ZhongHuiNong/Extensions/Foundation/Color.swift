@@ -32,7 +32,9 @@ extension UIColor {
 
 /// 主题颜色
 struct Color {
+    static let clearColor = UIColor.clear
     static let whiteColor = UIColor.white
+    static let theme1DD1A8 = UIColor.hexColor(0x1DD1A8)
     static let themeColor = UIColor.hexColor(0x16C6A3)
     static let barTintColor = UIColor.hexColor(0xE5E5E5)
     static let barTitleColor = UIColor.hexColor(0x999999)

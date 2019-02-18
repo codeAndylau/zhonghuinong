@@ -82,10 +82,10 @@ class MineOrderView: View {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        fukuanBtn.set(image: UIImage(named: "mine_default_ portrait"), title: "待付款", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
-        peisongBtn.set(image: UIImage(named: "mine_default_ portrait"), title: "待配送", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
-        shouhuoBtn.set(image: UIImage(named: "mine_default_ portrait"), title: "待收货", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
-        orderBtn.set(image: UIImage(named: "mine_default_ portrait"), title: "全部订单", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        fukuanBtn.set(image: UIImage(named: "mine_fukuan"), title: "待付款", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        peisongBtn.set(image: UIImage(named: "mine_peisong"), title: "待配送", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        shouhuoBtn.set(image: UIImage(named: "mine_shouhuo"), title: "待收货", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        orderBtn.set(image: UIImage(named: "mine_order"), title: "全部订单", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
     }
     
 }

@@ -107,7 +107,7 @@ extension PinterestSegment {
 
         selectIndex = index
         valueChange?(index)
-        sendActions(for: UIControlEvents.valueChanged)
+        sendActions(for: UIControl.Event.valueChanged)
     }
 }
 
@@ -131,7 +131,7 @@ extension PinterestSegment {
         scrollView.frame = bounds
 
         let toToSize: (String) -> CGFloat = { text in
-            return (text as NSString).boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: 0.0), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).width
+            return (text as NSString).boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: 0.0), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil).width
         }
 
         for (index, title) in style.titles.enumerated() {

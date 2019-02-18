@@ -9,7 +9,7 @@
 import UIKit
 
 class MineViewController: TableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -25,9 +25,10 @@ class MineViewController: TableViewController {
     
     // MARK: - Lazy
     
+    lazy var sectionTitleArray = ["我的地块","收货地址","我的收藏","好友推荐","关于我们","设置"]
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
-    lazy var messageItem = BarButtonItem(image: UIImage(named: "mine_messge"), target: self, action: #selector(messageAction))
+    lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
 
     // MARK: - Public methods
     
@@ -50,11 +51,16 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineTabCell.identifier, for: indexPath) as! MineTabCell
+        cell.titleLab.text = sectionTitleArray[indexPath.row]
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
-    }    
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
 }

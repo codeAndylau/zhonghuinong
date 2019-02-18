@@ -11,6 +11,8 @@ import UIKit
 /// 会员headerView
 class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    var cellDidSelectedClosure: ((Int) ->())?
+    
     lazy var searchView = MemberSearchView.loadView()
     lazy var classView = MemberClassView()
     
@@ -79,6 +81,10 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberHeaderCell.identifier, for: indexPath) as! MemberHeaderCell
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cellDidSelectedClosure?(indexPath.item)
     }
     
     //定义每个Cell的大小

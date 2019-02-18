@@ -14,8 +14,8 @@ class MineHeaderView: View {
         img.image = UIImage(named: "mine_default_ portrait")
     }
     
-    let memberImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait")
+    let memberBtn = Button().then { (btn) in
+        btn.setTitleColor(UIColor.hexColor(0x9B9B9B), for: .normal)
     }
     
     let nameLab = Label().then { (lab) in
@@ -88,7 +88,7 @@ class MineHeaderView: View {
     override func makeUI() {
         super.makeUI()
         addSubview(headerImg)
-        addSubview(memberImg)
+        addSubview(memberBtn)
         addSubview(nameLab)
         addSubview(phoneLab)
         addSubview(priceLab)
@@ -108,7 +108,7 @@ class MineHeaderView: View {
             make.width.height.equalTo(50)
         }
         
-        memberImg.snp.makeConstraints { (make) in
+        memberBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(15)
             make.centerY.equalTo(headerImg)
             make.width.height.equalTo(50)
@@ -116,7 +116,7 @@ class MineHeaderView: View {
         
         nameLab.snp.makeConstraints { (make) in
             make.left.equalTo(headerImg.snp.right).offset(10)
-            make.right.greaterThanOrEqualTo(memberImg.snp.left).offset(-15)
+            make.right.greaterThanOrEqualTo(memberBtn.snp.left).offset(-15)
             make.top.equalTo(headerImg)
         }
         
@@ -180,7 +180,7 @@ class MineHeaderView: View {
         orderView.layer.shadowRadius = 16
         orderView.layer.cornerRadius = 10
         
-        debugPrints("哈哈哈 --- \(self.bounds.maxY)")
+        memberBtn.set(image: UIImage(named: "mine_vip_1"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
     }
 
 }

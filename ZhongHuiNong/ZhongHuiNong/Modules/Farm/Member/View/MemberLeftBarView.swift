@@ -18,10 +18,13 @@ class FarmHeaderView: Button {
         img.image = UIImage(named: "mine_default_ portrait") // farm_head 
     }
     
+    let sureBtn = Button()
+    
     override func makeUI() {
         super.makeUI()
         addSubview(header)
         addSubview(vip)
+        addSubview(sureBtn)
     }
     
     override func updateUI() {
@@ -38,6 +41,10 @@ class FarmHeaderView: Button {
             make.centerX.equalTo(self)
             make.centerY.equalTo(self).offset(5)
             make.width.height.equalTo(30)
+        }
+        
+        sureBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
         }
         
     }

@@ -22,8 +22,10 @@ class ViewController: UIViewController, Navigatable {
     
     lazy var contentView: View = {
         let view = View()
+        view.backgroundColor = UIColor.orange
         self.view.addSubview(view)
         view.snp.makeConstraints { (make) in
+            //make.edges.equalTo(self.view)
             if #available(iOS 11.0, *) {
                 make.edges.equalTo(self.view.safeAreaLayoutGuide)
             } else {
@@ -46,6 +48,7 @@ class ViewController: UIViewController, Navigatable {
     }()
     
     let statusBarStyle = BehaviorRelay(value: false)
+    let navigationBarHidden = BehaviorRelay(value: false)
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         get {
@@ -65,14 +68,18 @@ class ViewController: UIViewController, Navigatable {
         statusBarStyle.asObservable().subscribe(onNext: { (flag) in
            self.setNeedsStatusBarAppearanceUpdate()
         }).disposed(by: rx.disposeBag)
+        
+        navigationBarHidden.asObservable().subscribe(onNext: { (flag) in
+            self.navigationController?.navigationBar.isHidden = flag
+        }).disposed(by: rx.disposeBag)
     }
     
     /// 创建UI
     func makeUI() {}
-    /// 绑定vm
-    func bindViewModel() {}
     /// 更新UI
     func updateUI() {}
+    /// 绑定vm
+    func bindViewModel() {}
 
 }
 

@@ -72,7 +72,7 @@ class OrderAddressView: View {
             make.top.equalTo(nameLab.snp.bottom).offset(6)
             make.left.equalTo(nameLab.snp.left)
             make.right.equalTo(self).offset(-50)
-            make.bottom.lessThanOrEqualTo(self).offset(-15)
+            make.bottom.lessThanOrEqualTo(self).offset(-10)
         }
 
         arrowImg.snp.makeConstraints { (make) in

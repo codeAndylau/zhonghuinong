@@ -20,6 +20,7 @@ class Navigator {
     // MARK: - segues list, all app scenes
     enum Scene {
         case login
+        case psdLogin
         case tabs
         case detail
     }
@@ -38,7 +39,11 @@ class Navigator {
     func get(with segue: Scene) -> UIViewController? {
         switch segue {
         case .login:
-            return HomeViewController()
+            let login = RootNavigationController(rootViewController: WechatLoginViewController())
+            return login
+        case .psdLogin:
+            let wechatLogin = PasswordLoginViewController()
+            return wechatLogin
         case .tabs:
             let mainVC = MainTabBarViewController()
             return mainVC

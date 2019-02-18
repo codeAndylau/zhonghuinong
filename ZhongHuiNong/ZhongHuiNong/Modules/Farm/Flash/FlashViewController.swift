@@ -10,7 +10,6 @@ import UIKit
 
 class FlashViewController: ViewController {
     
-    
     let topView = FlashView().then { (v) in
         v.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 120+kStaBarH)
         v.backgroundColor = UIColor.red

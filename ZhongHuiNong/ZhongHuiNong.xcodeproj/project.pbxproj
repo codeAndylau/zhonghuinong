@@ -56,6 +56,19 @@
 		1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15D22153914002B971F /* SearchGoodsTabCell.swift */; };
 		1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15F22153CF0002B971F /* SearchEmptyView.swift */; };
 		1468B1632215444D002B971F /* MineCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B1622215444D002B971F /* MineCenterView.swift */; };
+		1492DD98221A4B6B00C79D88 /* DeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DD97221A4B6B00C79D88 /* DeliveryViewController.swift */; };
+		1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DD9A221A4BE300C79D88 /* DeliveryHeaderView.swift */; };
+		1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DD9C221A546100C79D88 /* DeliveryCollectionCell.swift */; };
+		1492DDA4221A5AD200C79D88 /* AddSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDA3221A5AD200C79D88 /* AddSelectedView.swift */; };
+		1492DDA6221A5DC900C79D88 /* DeliveryDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDA5221A5DC900C79D88 /* DeliveryDateView.swift */; };
+		1492DDA8221A621A00C79D88 /* DeliveryCommitOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDA7221A621A00C79D88 /* DeliveryCommitOrderView.swift */; };
+		1492DDAB221A67EF00C79D88 /* SpecificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDAA221A67EF00C79D88 /* SpecificationViewController.swift */; };
+		1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDAD221A763600C79D88 /* SpecificationSelectedView.swift */; };
+		1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDB0221A7EED00C79D88 /* SpecificationCollectionCell.swift */; };
+		1492DDB3221A870A00C79D88 /* WechatLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDB2221A870A00C79D88 /* WechatLoginViewController.swift */; };
+		1492DDB7221A8B8200C79D88 /* WechatLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDB6221A8B8200C79D88 /* WechatLoginView.swift */; };
+		1492DDB9221A9ACF00C79D88 /* PasswordLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDB8221A9ACF00C79D88 /* PasswordLoginViewController.swift */; };
+		1492DDBB221A9B7B00C79D88 /* PasswordLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */; };
 		1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43D2203EB1C009E394E /* StoreLeftCell.swift */; };
 		1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43F2203EB2C009E394E /* StoreRightCell.swift */; };
 		14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCC21F6C31B0088ABC3 /* Date.swift */; };
@@ -199,6 +212,19 @@
 		1468B15D22153914002B971F /* SearchGoodsTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGoodsTabCell.swift; sourceTree = "<group>"; };
 		1468B15F22153CF0002B971F /* SearchEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmptyView.swift; sourceTree = "<group>"; };
 		1468B1622215444D002B971F /* MineCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCenterView.swift; sourceTree = "<group>"; };
+		1492DD97221A4B6B00C79D88 /* DeliveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryViewController.swift; sourceTree = "<group>"; };
+		1492DD9A221A4BE300C79D88 /* DeliveryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryHeaderView.swift; sourceTree = "<group>"; };
+		1492DD9C221A546100C79D88 /* DeliveryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryCollectionCell.swift; sourceTree = "<group>"; };
+		1492DDA3221A5AD200C79D88 /* AddSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSelectedView.swift; sourceTree = "<group>"; };
+		1492DDA5221A5DC900C79D88 /* DeliveryDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryDateView.swift; sourceTree = "<group>"; };
+		1492DDA7221A621A00C79D88 /* DeliveryCommitOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryCommitOrderView.swift; sourceTree = "<group>"; };
+		1492DDAA221A67EF00C79D88 /* SpecificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificationViewController.swift; sourceTree = "<group>"; };
+		1492DDAD221A763600C79D88 /* SpecificationSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificationSelectedView.swift; sourceTree = "<group>"; };
+		1492DDB0221A7EED00C79D88 /* SpecificationCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificationCollectionCell.swift; sourceTree = "<group>"; };
+		1492DDB2221A870A00C79D88 /* WechatLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatLoginViewController.swift; sourceTree = "<group>"; };
+		1492DDB6221A8B8200C79D88 /* WechatLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatLoginView.swift; sourceTree = "<group>"; };
+		1492DDB8221A9ACF00C79D88 /* PasswordLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordLoginViewController.swift; sourceTree = "<group>"; };
+		1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordLoginView.swift; sourceTree = "<group>"; };
 		1493B43D2203EB1C009E394E /* StoreLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLeftCell.swift; sourceTree = "<group>"; };
 		1493B43F2203EB2C009E394E /* StoreRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRightCell.swift; sourceTree = "<group>"; };
 		14974BCC21F6C31B0088ABC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -380,6 +406,9 @@
 			isa = PBXGroup;
 			children = (
 				14F35C5F220294A6002122B6 /* Member */,
+				1468B154221508F8002B971F /* Search */,
+				1492DD96221A4A9300C79D88 /* Delivery-配送 */,
+				1492DDA9221A67C700C79D88 /* Specification-规格选择 */,
 				14ED110D2216ADB70021D185 /* Flash */,
 				14F35C60220294AF002122B6 /* NonMember */,
 			);
@@ -389,10 +418,7 @@
 		145138AB21F8541A0038AFC6 /* Classify */ = {
 			isa = PBXGroup;
 			children = (
-				14F35C6B2202A300002122B6 /* StoreViewController.swift */,
-				1493B43D2203EB1C009E394E /* StoreLeftCell.swift */,
-				1493B43F2203EB2C009E394E /* StoreRightCell.swift */,
-				14F35C692202A2EA002122B6 /* StoreViewModel.swift */,
+				1492DDA0221A5A4F00C79D88 /* Classify */,
 			);
 			path = Classify;
 			sourceTree = "<group>";
@@ -400,10 +426,7 @@
 		145138AC21F854570038AFC6 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
-				14043D562212A9760023AA11 /* View */,
-				1411F75721F943DD0076D763 /* BasketViewController.swift */,
-				1411F75921F943EC0076D763 /* BasketViewModel.swift */,
-				14043D50221298B10023AA11 /* CartTabCell.swift */,
+				1492DD9F221A5A1700C79D88 /* Basket */,
 				14043D582212A9C70023AA11 /* Order */,
 			);
 			path = Basket;
@@ -412,10 +435,7 @@
 		145138AD21F854690038AFC6 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				1468B1612215441A002B971F /* View */,
-				1411F75D21F944040076D763 /* MineViewController.swift */,
-				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
-				8B31B5BD22106164003F475A /* MineTabCell.swift */,
+				1492DDBC221AAECD00C79D88 /* Mine */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -423,7 +443,8 @@
 		145138B221F8594E0038AFC6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				145138B321F8595D0038AFC6 /* Token.swift */,
+				1492DDB4221A8B3F00C79D88 /* Wechat */,
+				1492DDB5221A8B5700C79D88 /* Password */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -470,6 +491,129 @@
 				1468B1622215444D002B971F /* MineCenterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1492DD96221A4A9300C79D88 /* Delivery-配送 */ = {
+			isa = PBXGroup;
+			children = (
+				1492DD97221A4B6B00C79D88 /* DeliveryViewController.swift */,
+				1492DD9E221A54FA00C79D88 /* TabCell */,
+				1492DD99221A4BBE00C79D88 /* View */,
+			);
+			path = "Delivery-配送";
+			sourceTree = "<group>";
+		};
+		1492DD99221A4BBE00C79D88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1492DD9A221A4BE300C79D88 /* DeliveryHeaderView.swift */,
+				1492DDA5221A5DC900C79D88 /* DeliveryDateView.swift */,
+				1492DDA7221A621A00C79D88 /* DeliveryCommitOrderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1492DD9E221A54FA00C79D88 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				1492DD9C221A546100C79D88 /* DeliveryCollectionCell.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		1492DD9F221A5A1700C79D88 /* Basket */ = {
+			isa = PBXGroup;
+			children = (
+				14043D562212A9760023AA11 /* View */,
+				1411F75721F943DD0076D763 /* BasketViewController.swift */,
+				1411F75921F943EC0076D763 /* BasketViewModel.swift */,
+				14043D50221298B10023AA11 /* CartTabCell.swift */,
+			);
+			path = Basket;
+			sourceTree = "<group>";
+		};
+		1492DDA0221A5A4F00C79D88 /* Classify */ = {
+			isa = PBXGroup;
+			children = (
+				14F35C6B2202A300002122B6 /* StoreViewController.swift */,
+				14F35C692202A2EA002122B6 /* StoreViewModel.swift */,
+				1492DDA2221A5A8B00C79D88 /* TabCell */,
+				1492DDA1221A5A8200C79D88 /* View */,
+			);
+			path = Classify;
+			sourceTree = "<group>";
+		};
+		1492DDA1221A5A8200C79D88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1492DDA2221A5A8B00C79D88 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				1493B43D2203EB1C009E394E /* StoreLeftCell.swift */,
+				1493B43F2203EB2C009E394E /* StoreRightCell.swift */,
+				1492DDA3221A5AD200C79D88 /* AddSelectedView.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		1492DDA9221A67C700C79D88 /* Specification-规格选择 */ = {
+			isa = PBXGroup;
+			children = (
+				1492DDAA221A67EF00C79D88 /* SpecificationViewController.swift */,
+				1492DDAC221A755100C79D88 /* View */,
+			);
+			path = "Specification-规格选择";
+			sourceTree = "<group>";
+		};
+		1492DDAC221A755100C79D88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1492DDAD221A763600C79D88 /* SpecificationSelectedView.swift */,
+				1492DDB0221A7EED00C79D88 /* SpecificationCollectionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1492DDB4221A8B3F00C79D88 /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				145138B321F8595D0038AFC6 /* Token.swift */,
+				1492DDB2221A870A00C79D88 /* WechatLoginViewController.swift */,
+				1492DDB6221A8B8200C79D88 /* WechatLoginView.swift */,
+			);
+			path = Wechat;
+			sourceTree = "<group>";
+		};
+		1492DDB5221A8B5700C79D88 /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				1492DDB8221A9ACF00C79D88 /* PasswordLoginViewController.swift */,
+				1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */,
+			);
+			path = Password;
+			sourceTree = "<group>";
+		};
+		1492DDBC221AAECD00C79D88 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1411F75D21F944040076D763 /* MineViewController.swift */,
+				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
+				1492DDBD221AAEE100C79D88 /* TabCell */,
+				1468B1612215441A002B971F /* View */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		1492DDBD221AAEE100C79D88 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				8B31B5BD22106164003F475A /* MineTabCell.swift */,
+			);
+			path = TabCell;
 			sourceTree = "<group>";
 		};
 		14974BCE21F6C3760088ABC3 /* NSObject+Rx */ = {
@@ -614,11 +758,11 @@
 			children = (
 				145138B221F8594E0038AFC6 /* Login */,
 				145138A721F851490038AFC6 /* Main */,
-				14DC341B21F1711A006EF1CF /* Home */,
 				145138AA21F853D60038AFC6 /* Farm */,
 				145138AB21F8541A0038AFC6 /* Classify */,
 				145138AC21F854570038AFC6 /* Basket */,
 				145138AD21F854690038AFC6 /* Mine */,
+				14DC341B21F1711A006EF1CF /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -731,10 +875,9 @@
 		14F35C5F220294A6002122B6 /* Member */ = {
 			isa = PBXGroup;
 			children = (
+				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
 				1468B153221508E1002B971F /* View */,
 				14F35C732202D269002122B6 /* TabCell */,
-				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
-				1468B154221508F8002B971F /* Search */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -1052,6 +1195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */,
+				1492DD98221A4B6B00C79D88 /* DeliveryViewController.swift in Sources */,
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
@@ -1067,6 +1211,7 @@
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
 				1468B1632215444D002B971F /* MineCenterView.swift in Sources */,
+				1492DDAB221A67EF00C79D88 /* SpecificationViewController.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
@@ -1075,11 +1220,15 @@
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
 				14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */,
+				1492DDA6221A5DC900C79D88 /* DeliveryDateView.swift in Sources */,
 				14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
+				1492DDA8221A621A00C79D88 /* DeliveryCommitOrderView.swift in Sources */,
 				14974BDF21F707C50088ABC3 /* StackView.swift in Sources */,
+				1492DDB7221A8B8200C79D88 /* WechatLoginView.swift in Sources */,
+				1492DDBB221A9B7B00C79D88 /* PasswordLoginView.swift in Sources */,
 				14974BE321F70A4C0088ABC3 /* TableView.swift in Sources */,
 				14F35C6E2202A418002122B6 /* MemberSearchView.swift in Sources */,
 				14974BDB21F706500088ABC3 /* View.swift in Sources */,
@@ -1090,6 +1239,7 @@
 				1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */,
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
+				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14043D5A2212AA140023AA11 /* OrderViewController.swift in Sources */,
@@ -1097,6 +1247,7 @@
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
 				14043D51221298B10023AA11 /* CartTabCell.swift in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
+				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,
 				14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */,
@@ -1117,6 +1268,7 @@
 				14043D5D2212AB080023AA11 /* OrderAddressView.swift in Sources */,
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
+				1492DDB9221A9ACF00C79D88 /* PasswordLoginViewController.swift in Sources */,
 				8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
 				14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */,
@@ -1125,6 +1277,7 @@
 				14DC342521F17502006EF1CF /* HomeViewController.swift in Sources */,
 				14974BF221F713100088ABC3 /* ViewModel.swift in Sources */,
 				145138A221F81B600038AFC6 /* HomeTableViewCell.swift in Sources */,
+				1492DDB3221A870A00C79D88 /* WechatLoginViewController.swift in Sources */,
 				14043D5322129F9F0023AA11 /* SettlementView.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
 				1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */,
@@ -1157,6 +1310,9 @@
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
 				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
+				1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */,
+				1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */,
+				1492DDA4221A5AD200C79D88 /* AddSelectedView.swift in Sources */,
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
