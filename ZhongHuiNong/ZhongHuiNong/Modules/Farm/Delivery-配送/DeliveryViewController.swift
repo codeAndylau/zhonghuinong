@@ -14,50 +14,87 @@ class DeliveryViewController: ViewController {
     var isMember = true
     var isSelected = false
     
+    var isDay2 = true
+    var isDay5 = false
+    
+    var day2Array: [Int] = []
+    var day5Array: [Int] = []
+    
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.rightBarButtonItem = rightMsgItem
+        view.backgroundColor = UIColor.white
         view.addSubview(headerView)
+        
+        navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
         
         if isSelected {
             navigationItem.title = "本周订单"
             view.addSubview(tableView)
+            tableView.addSubview(headerView)
         }else {
             navigationItem.title = "配送选货"
             view.addSubview(collectionView)
             view.addSubview(commitVew)
+            collectionView.addSubview(headerView)
         }
 
         if !isMember {
             view.addSubview(emptyView)
             emptyView.sureBtn.setTitle("去开通", for: .normal)
             emptyView.titleLab.text = "您暂不是会员用户，还没有该项服务"
-        }
-    }
-    
-    override func updateUI() {
-        super.updateUI()
-        
-        if isSelected {
-            tableView.snp.makeConstraints { (make) in
-                make.top.equalTo(headerView.snp.bottom)
-                make.left.bottom.right.equalToSuperview()
-            }
-        }else {
-            collectionView.snp.makeConstraints { (make) in
-                make.top.equalTo(headerView.snp.bottom)
-                make.left.bottom.right.equalToSuperview()
-            }
-        }
-        
-        if !isMember {
             emptyView.snp.makeConstraints { (make) in
                 make.top.equalTo(kNavBarH)
                 make.left.bottom.right.equalTo(self.view)
             }
         }
         
+        headerView.addressView.modifyBtn.rx.tap.subscribe(onNext: { (_) in
+            let addressVC = DeliveryAddressViewController()
+            addressVC.show()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.dateView.day2Btn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.isDay2 = true
+            self.isDay5 = false
+            self.headerView.dateView.day2Height()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.dateView.day5Btn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.isDay2 = false
+            self.isDay5 = true
+            self.headerView.dateView.day5Height()
+        }).disposed(by: rx.disposeBag)
+        
+        
+        commitVew.orderBtn.rx.tap.subscribe(onNext: {  [weak self] (_) in
+            guard let self = self else {
+                debugPrints("没有self吗,zz")
+                return
+            }
+            guard self.day2Array.count != 0 else {
+                ZYToast.showCenterWithText(text: "请选择周二配送菜单")
+                return
+            }
+            
+            guard self.day5Array.count != 0 else {
+                ZYToast.showCenterWithText(text: "请选择周五配送菜单")
+                return
+            }
+            
+            debugPrints("周二菜单---\(self.day2Array)")
+            debugPrints("周五菜单---\(self.day5Array)")
+            
+            let orderVC = DeliveryOrderViewController()
+            orderVC.show()
+            
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    override func updateUI() {
+        super.updateUI()
     }
     
     override func bindViewModel() {
@@ -72,12 +109,15 @@ class DeliveryViewController: ViewController {
     lazy var commitVew = DeliveryCommitOrderView.loadView()
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect.zero, style: .plain)
+        let viewH = IPhone_X == true ? 56+kIndicatorH : 56
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-viewH-15), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
         view.tableFooterView = footerView
+        view.showsVerticalScrollIndicator = false
         view.register(DeliveryTabCell.self, forCellReuseIdentifier: DeliveryTabCell.identifier)
+        view.contentInset = UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
         return view
     }()
     
@@ -86,20 +126,23 @@ class DeliveryViewController: ViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        
+        let viewH = IPhone_X == true ? 56+kIndicatorH : 56
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-viewH-15), collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
-        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DeliveryCollectionCell.self, forCellWithReuseIdentifier: DeliveryCollectionCell.identifier)
         return collectionView
     }()
     
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
+    lazy var rightRecordItem = BarButtonItem(image: UIImage(named: "farm_record"), target: self, action: #selector(recordAction))
     
     // MARK: - Action
     
-    @objc func editAction() {
+    @objc func recordAction() {
         
     }
     
@@ -124,7 +167,11 @@ extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
         return 60
     }
     
-
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        headerView.frame = CGRect(x: 0, y: offsetY, width: kScreenW, height: 150)
+    }
+    
 }
 
 extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -135,6 +182,33 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeliveryCollectionCell.identifier, for: indexPath) as! DeliveryCollectionCell
+        
+            cell.addView.addDidClosure = { [weak self] in
+
+                guard let self = self else { return }
+                
+                if self.isDay2 {
+                    self.day2Array.append(indexPath.row)
+                }
+                
+                if self.isDay5 {
+                    self.day5Array.append(indexPath.row)
+                }
+                
+            }
+            
+            cell.addView.minusDidClosure = { [weak self] in
+                
+                guard let self = self else { return }
+                
+                if self.isDay2 {
+                    self.day2Array.remove(at: indexPath.row)
+                }
+                if self.isDay5 {
+                    self.day5Array.remove(at: indexPath.row)
+                }
+            }
+
         return cell
     }
     
@@ -150,6 +224,6 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
     
     //定义每个Section的四边间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
+        return UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
     }
 }

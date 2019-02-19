@@ -15,8 +15,8 @@ class OrderAddressView: View {
         img.image = UIImage(named: "mine_default_ portrait")
     }
     
-    let arrowImg = ImageView().then { (img) in
-        img.image = UIImage(named: "farm_add")
+    let modifyBtn = Button().then { (btn) in
+        btn.setImage(UIImage(named: "farm_modify"), for: .normal)
     }
     
     let nameLab = Label().then { (lab) in
@@ -41,7 +41,7 @@ class OrderAddressView: View {
     override func makeUI() {
         super.makeUI()
         addSubview(localImg)
-        addSubview(arrowImg)
+        addSubview(modifyBtn)
         addSubview(nameLab)
         addSubview(phoneLab)
         addSubview(addressLab)
@@ -75,7 +75,7 @@ class OrderAddressView: View {
             make.bottom.lessThanOrEqualTo(self).offset(-10)
         }
 
-        arrowImg.snp.makeConstraints { (make) in
+        modifyBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-15)
             make.centerY.equalTo(self)
         }

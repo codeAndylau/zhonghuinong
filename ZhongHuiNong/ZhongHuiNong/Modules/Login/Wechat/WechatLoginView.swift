@@ -19,9 +19,7 @@ class WechatLoginView: View {
     let wechatBtn = Button(type: .custom).then { (btn) in
         btn.set(image: UIImage(named: "login_wech"), title: "微信", titlePosition: .right, additionalSpacing: 10, state: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.setupBorder(width: 3, color: UIColor.hexColor(0x1DD1A8, alpha: 0.1))
-        btn.cuttingCorner(radius: 27)
-        btn.showsTouchWhenHighlighted = true
+        btn.adjustsImageWhenHighlighted = true
     }
     
     let otherBtn = Button(type: .custom).then { (btn) in
@@ -91,11 +89,18 @@ class WechatLoginView: View {
         let bgLayer1 = CAGradientLayer()
         bgLayer1.colors = [UIColor.hexColor(0x29D69B).cgColor, UIColor.hexColor(0x0BC4B4).cgColor]
         bgLayer1.locations = [0, 1]
-        bgLayer1.frame = wechatBtn.bounds
+        bgLayer1.frame = wechatBtn.bounds.insetBy(dx: 3, dy: 3)
         bgLayer1.startPoint = CGPoint(x: 0.0, y: 1.0)
         bgLayer1.endPoint = CGPoint(x: 0.5, y: 1.0)
-        
+        bgLayer1.cornerRadius = wechatBtn.bounds.insetBy(dx: 3, dy: 3).height/2
         wechatBtn.layer.insertSublayer(bgLayer1, at: 0)
+        
+        let bgLayer2 = CALayer()
+        bgLayer2.frame = wechatBtn.bounds
+        bgLayer2.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.2).cgColor
+        bgLayer2.cornerRadius = wechatBtn.bounds.height/2
+        wechatBtn.layer.insertSublayer(bgLayer2, at: 0)
+        
     }
     
     /// - Publich Methods

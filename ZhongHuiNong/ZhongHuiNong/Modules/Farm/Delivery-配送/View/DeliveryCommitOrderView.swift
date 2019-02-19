@@ -28,6 +28,12 @@ class DeliveryCommitOrderView: View {
         lab.font = UIFont.boldSystemFont(ofSize: 20)
     }
     
+    let totalTipLab = Label().then { (lab) in
+        lab.text = "/10kg"
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.boldSystemFont(ofSize: 16)
+    }
+    
     let timesLab = Label().then { (lab) in
         lab.text = "剩余免配送次数：88"
         lab.textColor = UIColor.hexColor(0x999999)
@@ -47,6 +53,7 @@ class DeliveryCommitOrderView: View {
         contView.addSubview(lineView)
         contView.addSubview(leftImg)
         contView.addSubview(totalLab)
+        contView.addSubview(totalTipLab)
         contView.addSubview(timesLab)
         contView.addSubview(orderBtn)
     }
@@ -72,6 +79,11 @@ class DeliveryCommitOrderView: View {
         totalLab.snp.makeConstraints { (make) in
             make.left.equalTo(leftImg.snp.right).offset(12)
             make.top.equalTo(contView).offset(8)
+        }
+        
+        totalTipLab.snp.makeConstraints { (make) in
+            make.left.equalTo(totalLab.snp.right)
+            make.bottom.equalTo(totalLab)
         }
         
         timesLab.snp.makeConstraints { (make) in

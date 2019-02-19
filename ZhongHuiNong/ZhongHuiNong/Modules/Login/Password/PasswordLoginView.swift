@@ -63,9 +63,7 @@ class PasswordLoginView: View {
     let psdBtn = Button(type: .custom).then { (btn) in
         btn.setImage(UIImage(named: "navigation_back_icon"), for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.setupBorder(width: 3, color: UIColor.hexColor(0x1DD1A8, alpha: 0.1))
-        btn.cuttingCorner(radius: 30)
-        btn.showsTouchWhenHighlighted = true
+        btn.adjustsImageWhenHighlighted = true
     }
     
     override func makeUI() {
@@ -177,21 +175,21 @@ class PasswordLoginView: View {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // strokeCode
-        //        let borderLayer1 = CALayer()
-        //        borderLayer1.frame = psdBtn.bounds
-        //        borderLayer1.backgroundColor = UIColor(red: 0.11, green: 0.82, blue: 0.66, alpha: 0.19).cgColor
-        //        psdBtn.layer.insertSublayer(borderLayer1, at: 0)
-        
         // fillCode
         let bgLayer1 = CAGradientLayer()
         bgLayer1.colors = [UIColor(red: 0.16, green: 0.84, blue: 0.61, alpha: 1).cgColor, UIColor(red: 0.04, green: 0.77, blue: 0.71, alpha: 1).cgColor]
         bgLayer1.locations = [0, 1]
-        bgLayer1.frame = psdBtn.bounds
+        bgLayer1.frame = psdBtn.bounds.insetBy(dx: 3, dy: 3)
         bgLayer1.startPoint = CGPoint(x: 0.01, y: 0.49)
         bgLayer1.endPoint = CGPoint(x: 0.49, y: 0.49)
+        bgLayer1.cornerRadius = psdBtn.bounds.insetBy(dx: 3, dy: 3).height/2
         psdBtn.layer.insertSublayer(bgLayer1, at: 0)
 
+        let bgLayer2 = CALayer()
+        bgLayer2.frame = psdBtn.bounds
+        bgLayer2.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.2).cgColor
+        bgLayer2.cornerRadius = psdBtn.bounds.height/2
+        psdBtn.layer.insertSublayer(bgLayer2, at: 0)
     }
     
     /// - Publich Methods

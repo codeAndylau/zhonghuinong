@@ -19,7 +19,7 @@ class AddSelectedView: View {
     
     lazy var numLab: Label = {
         let lab = Label()
-        lab.text = "1"
+        lab.text = "0"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 12)
@@ -31,12 +31,41 @@ class AddSelectedView: View {
         btn.setImage(UIImage(named: "store_jianhao"), for: .normal)
         return btn
     }()
+    
+    typealias ActionClosure = (()->Void)
+    
+    var addDidClosure: ActionClosure?
+    var minusDidClosure: ActionClosure?
 
     override func makeUI() {
         super.makeUI()
         addSubview(jiahaoBtn)
         addSubview(numLab)
         addSubview(jianhaoBtn)
+        
+        var num = Int(numLab.text!)!
+        
+        /// 加号action
+        jiahaoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            num += 1
+            self.numLab.text = "\(num)"
+            self.addDidClosure?()
+        }).disposed(by: rx.disposeBag)
+        
+        
+        /// 减号action
+        jianhaoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            guard num != 1 else { return }
+            if num > 1 {
+                num -= 1
+            }else {
+                num = 1
+            }
+            self.numLab.text = "\(num)"
+            self.minusDidClosure?()
+        }).disposed(by: rx.disposeBag)
     }
     
     override func updateUI() {
