@@ -10,15 +10,10 @@ import UIKit
 
 class DeliveryOrderView: View {
 
-    let topView = View().then { (view) in
-        view.backgroundColor = Color.whiteColor
-    }
-    
     let day2Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周二", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
     }
     
     let day2View = View()
@@ -28,7 +23,6 @@ class DeliveryOrderView: View {
         btn.setTitle("周五", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        btn.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.4)
     }
     
     let day5View = View()
@@ -59,79 +53,74 @@ class DeliveryOrderView: View {
     
     override func makeUI() {
         super.makeUI()
-        addSubview(topView)
+
+        addSubview(day2View)
+        addSubview(day2HeightView)
+        addSubview(day2Btn)
+        
+        addSubview(day5View)
+        addSubview(day5HeightView)
+        addSubview(day5Btn)
         addSubview(cancelBtn)
         addSubview(tableView)
         addSubview(bottomView)
         addSubview(sureBtn)
 
-//        topView.addSubview(day2View)
-//        topView.addSubview(day2HeightView)
-//
-//        topView.addSubview(day5View)
-//        topView.addSubview(day5HeightView)
-        
-        topView.addSubview(day2Btn)
-        topView.addSubview(day5Btn)
-
     }
     
     override func updateUI() {
         super.updateUI()
-        
-        topView.snp.makeConstraints { (make) in
-            make.top.left.right.equalTo(self)
-            make.height.equalTo(44)
-        }
-        
+
         day2Btn.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(30)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(self).offset(8)
+            make.left.equalTo(self).offset(30)
             make.width.equalTo(45)
             make.height.equalTo(30)
         }
         
-//        day2View.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(30)
-//            make.centerY.equalToSuperview()
-//            make.width.equalTo(45)
-//            make.height.equalTo(30)
-//        }
+        day2View.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(8)
+            make.left.equalTo(self).offset(30)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+        }
         
-//        day2HeightView.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(30)
-//            make.centerY.equalToSuperview()
-//            make.width.equalTo(45)
-//            make.height.equalTo(30)
-//        }
+        day2HeightView.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(8)
+            make.left.equalTo(self).offset(30)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+        }
         
         day5Btn.snp.makeConstraints { (make) in
             make.left.equalTo(day2Btn.snp.right).offset(40)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(day2Btn)
             make.width.equalTo(45)
             make.height.equalTo(30)
         }
         
-//        day5View.snp.makeConstraints { (make) in
-//            make.left.equalTo(day2Btn.snp.right).offset(40)
-//            make.centerY.equalToSuperview()
-//            make.width.equalTo(45)
-//            make.height.equalTo(30)
-//        }
+        day5View.snp.makeConstraints { (make) in
+            make.left.equalTo(day2Btn.snp.right).offset(40)
+            make.centerY.equalTo(day2Btn)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+
+        }
         
-//        day5HeightView.snp.makeConstraints { (make) in
-//            make.left.equalTo(day2Btn.snp.right).offset(40)
-//            make.centerY.equalToSuperview()
-//            make.width.equalTo(45)
-//            make.height.equalTo(30)
-//        }
+        day5HeightView.snp.makeConstraints { (make) in
+            make.left.equalTo(day2Btn.snp.right).offset(40)
+            make.centerY.equalTo(day2Btn)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+
+        }
         
         cancelBtn.snp.makeConstraints { (make) in
             make.right.top.equalTo(self)
         }
         
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(self).offset(50)
             make.left.right.equalTo(self)
             make.bottom.equalTo(bottomView.snp.top)
         }
@@ -154,14 +143,14 @@ class DeliveryOrderView: View {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        dayBtnAction(day2View)
-//        dayBtnHeightAction(day2HeightView)
-//
-//        dayBtnAction(day5View)
-//        dayBtnHeightAction(day5HeightView)
-//
-//        day2View.isHidden = true
-//        day5HeightView.isHidden = true
+        dayBtnAction(day2View)
+        dayBtnHeightAction(day2HeightView)
+
+        dayBtnAction(day5View)
+        dayBtnHeightAction(day5HeightView)
+
+        day2View.isHidden = true
+        day5HeightView.isHidden = true
         
     }
     
@@ -171,6 +160,8 @@ class DeliveryOrderView: View {
         
         day5View.isHidden = false
         day2HeightView.isHidden = false
+        
+        sureBtn.setTitle("确认", for: .normal)
     }
     
     func day5Height() {
@@ -180,6 +171,8 @@ class DeliveryOrderView: View {
         
         day5View.isHidden = true
         day2HeightView.isHidden = true
+        
+        sureBtn.setTitle("提交订单", for: .normal)
     }
     
     func dayBtnAction(_ sender: View) {
@@ -187,7 +180,7 @@ class DeliveryOrderView: View {
         // strokeCode
         let borderLayer1 = CALayer()
         borderLayer1.frame = sender.bounds
-        borderLayer1.backgroundColor = UIColor.orange.cgColor //UIColor.hexColor(0x1DD1A8, alpha: 0.4).cgColor
+        borderLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.4).cgColor
         borderLayer1.cornerRadius = sender.bounds.height/2
         sender.layer.insertSublayer(borderLayer1, at: 0)
         
@@ -226,6 +219,9 @@ class DeliveryOrderView: View {
         return view
     }
 
+    // MAKR: Property
+    var isDay5 = false
+    
     var dataArray: Int = 6 {
         didSet {
             self.tableView.reloadData()

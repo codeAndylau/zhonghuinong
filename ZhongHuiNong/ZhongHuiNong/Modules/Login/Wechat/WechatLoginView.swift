@@ -20,12 +20,14 @@ class WechatLoginView: View {
         btn.set(image: UIImage(named: "login_wech"), title: "微信", titlePosition: .right, additionalSpacing: 10, state: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.adjustsImageWhenHighlighted = true
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let otherBtn = Button(type: .custom).then { (btn) in
         btn.setTitle("其它方式登录", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let tipsLab = Label().then { (lab) in

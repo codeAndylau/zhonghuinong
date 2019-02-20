@@ -143,7 +143,8 @@ class DeliveryViewController: ViewController {
     // MARK: - Action
     
     @objc func recordAction() {
-        
+        let recordVC = DeliveryOrderInfoViewController()
+        self.navigationController?.pushViewController(recordVC, animated: true)
     }
     
     @objc func messageAction() {

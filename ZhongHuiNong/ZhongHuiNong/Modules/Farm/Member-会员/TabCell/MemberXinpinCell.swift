@@ -47,7 +47,7 @@ class MemberXinpinCell: TableViewCell, TabReuseIdentifier {
         stackView4.addSubview(yanjianImg)
         stackView4.addSubview(yanjianLab)
         
-        bannerView.backgroundColor = Color.themeColor
+        bannerView.backgroundColor = Color.whiteColor
         
         bannerView.snp.makeConstraints { (make) in
             make.left.equalTo(15)

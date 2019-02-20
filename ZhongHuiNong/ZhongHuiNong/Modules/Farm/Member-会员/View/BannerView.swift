@@ -39,6 +39,8 @@ extension BannerView {
     
     func setupUI() {
         
+        clipsToBounds = true
+        
         pagerView.dataSource = self
         pagerView.delegate = self
         
@@ -50,10 +52,8 @@ extension BannerView {
         }
         
         pageControl.snp.makeConstraints { (make) in
+            make.bottom.centerX.width.equalToSuperview()
             make.height.equalTo(25)
-            make.bottom.equalToSuperview()
-            make.right.equalToSuperview().offset(-20)
-            make.left.equalToSuperview().offset(kScreenW/2-30)
         }
         
         bannerArray.asObservable().subscribe { [weak self] (_) in
@@ -74,7 +74,7 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     
     func pagerView(_ pagerView: TYCyclePagerView, cellForItemAt index: Int) -> UICollectionViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: BannerCell.reuseIndentifier, for: index) as! BannerCell
-        cell.backgroundColor = Color.themeColor
+        cell.imageView.image = UIImage(named: bannerArray.value[index])
         //cell.cuttingCorner(radius: 10)
         //cell.imageView.lc_setImage(with: QCloud_home_url + bannerArray.value[index])
         return cell

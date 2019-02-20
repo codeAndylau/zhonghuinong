@@ -175,6 +175,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
+            cell.bannerView.bannerArray.accept(["goods_tuijian_1","goods_tuijian_2"])
             return cell
         }
         
@@ -216,6 +217,12 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         let view = MemberSectionView(type: .xinpin)
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailVC = GoodsDetailViewController()
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     

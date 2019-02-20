@@ -37,6 +37,13 @@ class DeliveryAddressViewController: SwiftPopup {
         }).disposed(by: rx.disposeBag)
         //view.addGestureRecognizer(tap)
         
+        addressView.sureBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            UIView.transition(from: self.addressView , to: self.addressModifyView, duration: 0.5, options: UIView.AnimationOptions.transitionFlipFromLeft, completion: { (finish) in
+                debugPrints("动画完成结果---\(finish)")
+            })
+        }).disposed(by: rx.disposeBag)
+        
         // 点击了翻转动画
         addressView.cellModifyDidClosure = { [weak self] index in
             guard let self = self else { return }

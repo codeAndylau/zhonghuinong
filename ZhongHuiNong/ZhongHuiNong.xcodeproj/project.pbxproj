@@ -102,6 +102,15 @@
 		14B27A52221BE45F0029648A /* ZYToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B27A51221BE45F0029648A /* ZYToast.swift */; };
 		14B27A54221BF0190029648A /* DeliveryOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B27A53221BF0190029648A /* DeliveryOrderView.swift */; };
 		14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B27A55221BF2CD0029648A /* DeliveryOrderViewController.swift */; };
+		14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBC5221CF36E003029EB /* DeliveryOrderSuccessView.swift */; };
+		14C3EBC9221CF6AF003029EB /* DeliveryOrderInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBC8221CF6AF003029EB /* DeliveryOrderInfoViewController.swift */; };
+		14C3EBCB221CF888003029EB /* DeliveryOrderInfoTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBCA221CF888003029EB /* DeliveryOrderInfoTabCell.swift */; };
+		14C3EBCD221D046C003029EB /* VegetablesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBCC221D046C003029EB /* VegetablesView.swift */; };
+		14C3EBD0221D1DA8003029EB /* GoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBCF221D1DA8003029EB /* GoodsDetailViewController.swift */; };
+		14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD1221D2536003029EB /* GoodsDetailHeaderView.swift */; };
+		14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */; };
+		14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */; };
+		14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */; };
 		14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8A92213C41B00603D41 /* PaySuccessView.swift */; };
 		14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */; };
 		14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AE2213EA0000603D41 /* PaySureView.swift */; };
@@ -268,6 +277,15 @@
 		14B27A51221BE45F0029648A /* ZYToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZYToast.swift; sourceTree = "<group>"; };
 		14B27A53221BF0190029648A /* DeliveryOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderView.swift; sourceTree = "<group>"; };
 		14B27A55221BF2CD0029648A /* DeliveryOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderViewController.swift; sourceTree = "<group>"; };
+		14C3EBC5221CF36E003029EB /* DeliveryOrderSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderSuccessView.swift; sourceTree = "<group>"; };
+		14C3EBC8221CF6AF003029EB /* DeliveryOrderInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderInfoViewController.swift; sourceTree = "<group>"; };
+		14C3EBCA221CF888003029EB /* DeliveryOrderInfoTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderInfoTabCell.swift; sourceTree = "<group>"; };
+		14C3EBCC221D046C003029EB /* VegetablesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetablesView.swift; sourceTree = "<group>"; };
+		14C3EBCF221D1DA8003029EB /* GoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailViewController.swift; sourceTree = "<group>"; };
+		14C3EBD1221D2536003029EB /* GoodsDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailHeaderView.swift; sourceTree = "<group>"; };
+		14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailHeaderOneView.swift; sourceTree = "<group>"; };
+		14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailBuyView.swift; sourceTree = "<group>"; };
+		14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRowView.swift; sourceTree = "<group>"; };
 		14D8D8A92213C41B00603D41 /* PaySuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessView.swift; sourceTree = "<group>"; };
 		14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableTabCell.swift; sourceTree = "<group>"; };
 		14D8D8AE2213EA0000603D41 /* PaySureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySureView.swift; sourceTree = "<group>"; };
@@ -426,14 +444,15 @@
 		145138AA21F853D60038AFC6 /* Farm */ = {
 			isa = PBXGroup;
 			children = (
-				14F35C5F220294A6002122B6 /* Member */,
-				1468B154221508F8002B971F /* Search */,
+				14F35C5F220294A6002122B6 /* Member-会员 */,
+				1468B154221508F8002B971F /* Search-搜索 */,
 				1492DD96221A4A9300C79D88 /* Delivery-配送 */,
 				14B27A57221BFBF90029648A /* Delivery-订单 */,
+				14C3EBC7221CF649003029EB /* DeliveryOrder-配送订单 */,
 				14B27A44221BA1D00029648A /* DeliveryAddress-配送地址 */,
 				1492DDA9221A67C700C79D88 /* Specification-规格选择 */,
-				14ED110D2216ADB70021D185 /* Flash */,
-				14F35C60220294AF002122B6 /* NonMember */,
+				14ED110D2216ADB70021D185 /* Flash-限时抢购 */,
+				14F35C60220294AF002122B6 /* NonMember-非会员 */,
 			);
 			path = Farm;
 			sourceTree = "<group>";
@@ -441,6 +460,7 @@
 		145138AB21F8541A0038AFC6 /* Classify */ = {
 			isa = PBXGroup;
 			children = (
+				14C3EBCE221D1D26003029EB /* Goods-商品详情 */,
 				1492DDA0221A5A4F00C79D88 /* Classify */,
 			);
 			path = Classify;
@@ -487,13 +507,13 @@
 				14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */,
 				14F35C6D2202A418002122B6 /* MemberSearchView.swift */,
 				14F35C712202BE7C002122B6 /* MemberSectionView.swift */,
-				14F35C802202DCB7002122B6 /* BannerView.swift */,
 				14ED1109221694A40021D185 /* MemberDropdownView.swift */,
+				14F35C802202DCB7002122B6 /* BannerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		1468B154221508F8002B971F /* Search */ = {
+		1468B154221508F8002B971F /* Search-搜索 */ = {
 			isa = PBXGroup;
 			children = (
 				1468B15522150953002B971F /* SearchViewController.swift */,
@@ -503,7 +523,7 @@
 				1468B15D22153914002B971F /* SearchGoodsTabCell.swift */,
 				1468B15722150B82002B971F /* SearchTextField.swift */,
 			);
-			path = Search;
+			path = "Search-搜索";
 			sourceTree = "<group>";
 		};
 		1468B1612215441A002B971F /* View */ = {
@@ -695,9 +715,40 @@
 			isa = PBXGroup;
 			children = (
 				14B27A55221BF2CD0029648A /* DeliveryOrderViewController.swift */,
-				14B27A53221BF0190029648A /* DeliveryOrderView.swift */,
+				14C3EBC4221CF058003029EB /* View */,
 			);
 			path = "Delivery-订单";
+			sourceTree = "<group>";
+		};
+		14C3EBC4221CF058003029EB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14B27A53221BF0190029648A /* DeliveryOrderView.swift */,
+				14C3EBC5221CF36E003029EB /* DeliveryOrderSuccessView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		14C3EBC7221CF649003029EB /* DeliveryOrder-配送订单 */ = {
+			isa = PBXGroup;
+			children = (
+				14C3EBC8221CF6AF003029EB /* DeliveryOrderInfoViewController.swift */,
+				14C3EBCA221CF888003029EB /* DeliveryOrderInfoTabCell.swift */,
+				14C3EBCC221D046C003029EB /* VegetablesView.swift */,
+			);
+			path = "DeliveryOrder-配送订单";
+			sourceTree = "<group>";
+		};
+		14C3EBCE221D1D26003029EB /* Goods-商品详情 */ = {
+			isa = PBXGroup;
+			children = (
+				14C3EBCF221D1DA8003029EB /* GoodsDetailViewController.swift */,
+				14C3EBD1221D2536003029EB /* GoodsDetailHeaderView.swift */,
+				14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */,
+				14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */,
+				14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */,
+			);
+			path = "Goods-商品详情";
 			sourceTree = "<group>";
 		};
 		14DC33D421F1705E006EF1CF = {
@@ -916,13 +967,13 @@
 			path = DropdownMenu;
 			sourceTree = "<group>";
 		};
-		14ED110D2216ADB70021D185 /* Flash */ = {
+		14ED110D2216ADB70021D185 /* Flash-限时抢购 */ = {
 			isa = PBXGroup;
 			children = (
-				14ED11102216AF440021D185 /* View */,
 				14ED110E2216ADD80021D185 /* FlashViewController.swift */,
+				14ED11102216AF440021D185 /* View */,
 			);
-			path = Flash;
+			path = "Flash-限时抢购";
 			sourceTree = "<group>";
 		};
 		14ED11102216AF440021D185 /* View */ = {
@@ -934,17 +985,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		14F35C5F220294A6002122B6 /* Member */ = {
+		14F35C5F220294A6002122B6 /* Member-会员 */ = {
 			isa = PBXGroup;
 			children = (
 				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
 				1468B153221508E1002B971F /* View */,
 				14F35C732202D269002122B6 /* TabCell */,
 			);
-			path = Member;
+			path = "Member-会员";
 			sourceTree = "<group>";
 		};
-		14F35C60220294AF002122B6 /* NonMember */ = {
+		14F35C60220294AF002122B6 /* NonMember-非会员 */ = {
 			isa = PBXGroup;
 			children = (
 				14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */,
@@ -952,7 +1003,7 @@
 				1411F75121F943940076D763 /* FarmViewModel.swift */,
 				1414E0C421FAB74400347050 /* FarmSegmentedView.swift */,
 			);
-			path = NonMember;
+			path = "NonMember-非会员";
 			sourceTree = "<group>";
 		};
 		14F35C732202D269002122B6 /* TabCell */ = {
@@ -1261,6 +1312,7 @@
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
+				14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */,
 				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
 				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
@@ -1276,16 +1328,20 @@
 				14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */,
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
 				1468B1632215444D002B971F /* MineCenterView.swift in Sources */,
+				14C3EBCB221CF888003029EB /* DeliveryOrderInfoTabCell.swift in Sources */,
 				1492DDAB221A67EF00C79D88 /* SpecificationViewController.swift in Sources */,
+				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14B27A50221BB0610029648A /* DeliveryRowView.swift in Sources */,
 				14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */,
+				14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */,
 				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
 				14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */,
+				14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */,
 				1492DDA6221A5DC900C79D88 /* DeliveryDateView.swift in Sources */,
 				14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
@@ -1314,6 +1370,7 @@
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
 				14043D51221298B10023AA11 /* CartTabCell.swift in Sources */,
+				14C3EBCD221D046C003029EB /* VegetablesView.swift in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
@@ -1323,6 +1380,7 @@
 				14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */,
 				14974BE921F710230088ABC3 /* WebViewController.swift in Sources */,
 				14DC342D21F17578006EF1CF /* HomeView.swift in Sources */,
+				14C3EBC9221CF6AF003029EB /* DeliveryOrderInfoViewController.swift in Sources */,
 				1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
@@ -1360,6 +1418,7 @@
 				8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */,
 				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
+				14C3EBD0221D1DA8003029EB /* GoodsDetailViewController.swift in Sources */,
 				14ED11122216AF560021D185 /* FlashView.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
@@ -1376,6 +1435,7 @@
 				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
+				14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
 				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,

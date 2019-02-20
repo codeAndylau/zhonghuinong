@@ -58,12 +58,13 @@ class PasswordLoginView: View {
         btn.set(image: UIImage(named: "login_wechat"), title: "微信登录", titlePosition: .right, additionalSpacing: 10, state: .normal)
         btn.setTitleColor(UIColor.hexColor(0x15C5A2, alpha: 0.75), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let psdBtn = Button(type: .custom).then { (btn) in
         btn.setImage(UIImage(named: "navigation_back_icon"), for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.adjustsImageWhenHighlighted = true
+        btn.adjustsImageWhenHighlighted = false
     }
     
     override func makeUI() {
