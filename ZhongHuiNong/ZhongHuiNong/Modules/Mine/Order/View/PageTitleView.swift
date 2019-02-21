@@ -13,7 +13,7 @@ protocol PageTitleViewDelegate : class {
     func pageTitleView(_ titleView : PageTitleView, selectedIndex index : Int)
 }
 
-private let kLineWidth: CGFloat = 15
+private let kLineWidth: CGFloat = 20
 private let kScrollLineH : CGFloat = 4
 private let kScrollLineW : CGFloat = 36
 

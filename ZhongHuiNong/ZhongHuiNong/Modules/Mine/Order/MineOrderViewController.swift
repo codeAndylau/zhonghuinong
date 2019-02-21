@@ -29,7 +29,7 @@ class MineOrderViewController: ViewController {
     lazy var pageTitleView: PageTitleView = {
         let frame = CGRect(x: 0, y: kNavBarH, width: kScreenW, height: 44)
         let titles = ["全部","待付款","待配送","待收货"]
-        let view = PageTitleView(frame: frame, titles: titles, currentIndex: 1)
+        let view = PageTitleView(frame: frame, titles: titles, currentIndex: 0)
         view.delegate = self
         return view
     }()
@@ -39,7 +39,7 @@ class MineOrderViewController: ViewController {
         let childVCs = [MineAllOrderViewController(),MinePayOrderViewController(),
                         MineSendOrderViewController(),MineAcceptOrderViewController()]
         
-        let view = PageContentView(frame: frame, childVcs: childVCs, parentViewController: self, offsetX: kScreenW)
+        let view = PageContentView(frame: frame, childVcs: childVCs, parentViewController: self, offsetX: 0)
         view.backgroundColor = Color.backdropColor
         view.delegate = self
         return view
