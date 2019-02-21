@@ -15,8 +15,11 @@ class GoodsDetailViewController: ViewController {
     override func makeUI() {
         super.makeUI()
 
+        navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
         
         view.backgroundColor = Color.backdropColor
         view.addSubview(tableView)
@@ -29,6 +32,16 @@ class GoodsDetailViewController: ViewController {
         }else {
             automaticallyAdjustsScrollViewInsets = false
         }
+        
+        rightBarView.homeBtn.rx.tap.subscribe(onNext: { (_) in
+            debugPrints("点击了home")
+        }).disposed(by: rx.disposeBag)
+        
+        rightBarView.shareBtn.rx.tap.subscribe(onNext: { (_) in
+            debugPrints("点击了分享")
+        }).disposed(by: rx.disposeBag)
+        
+        
     }
     
     override func updateUI() {
@@ -41,6 +54,7 @@ class GoodsDetailViewController: ViewController {
     
     // MARK: - Lazy
     lazy var buyView = GoodsDetailBuyView.loadView()
+    lazy var rightBarView = GoodsDetailRightView.loadView()
     
     lazy var headerView: GoodsDetailHeaderView = {
         let view = GoodsDetailHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: GoodsDetailHeaderH))
@@ -57,7 +71,8 @@ class GoodsDetailViewController: ViewController {
     }()
 
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH), style: .plain)
+        let viewH = IPhone_X == true ? 56 + kIndicatorH : 56
+        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-viewH), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -66,7 +81,11 @@ class GoodsDetailViewController: ViewController {
         view.register(DeliveryTabCell.self, forCellReuseIdentifier: DeliveryTabCell.identifier)
         return view
     }()
+    
 
+    
+    // MARK: - Action
+ 
 }
 
 extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -91,11 +110,9 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
 extension GoodsDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //获取偏移量
-        let offset = scrollView.contentOffset.y
-
         
-        // 视觉差效果，类似淘宝（下拉放大，上拉裁剪）
+        let offset = scrollView.contentOffset.y
+        
         if offset < 0 {
             //let totalOffset: CGFloat = GoodsDetailHeaderH + abs(offset)
             //self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
@@ -104,12 +121,11 @@ extension GoodsDetailViewController: UIScrollViewDelegate {
             self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
         }
         
-        // 导航栏背景透明度改变
         var delta =  offset / kNavBarH
         delta = CGFloat.maximum(delta, 0)
         barView.alpha = CGFloat.minimum(delta, 1)
         
-        // 根据偏移量决定是否显示导航栏标题（上方图片快完全移出时才显示）
         navigationItem.title =  delta > 0.8 ? "商品详情" : ""
+        navigationController?.navigationBar.tintColor =  delta > 0.8 ? UIColor.black : UIColor.white
     }
 }

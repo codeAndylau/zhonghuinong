@@ -20,10 +20,11 @@ class GoodsDetailRowView: View {
         lab.text = "500g x1"
         lab.textColor = UIColor.hexColor(0x000000)
         lab.font = UIFont.systemFont(ofSize: 12)
+        lab.numberOfLines = 0
     }
     
     let arrowImg = ImageView().then { (img) in
-        img.image = UIImage(named: "basket_cancel")
+        img.image = UIImage(named: "mine_arrow")
     }
     
     let lineView = View().then { (view) in
@@ -50,12 +51,14 @@ class GoodsDetailRowView: View {
         arrowImg.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-15)
             make.centerY.equalTo(self)
+            make.width.equalTo(8)
+            make.height.equalTo(13)
         }
         
         detailLab.snp.makeConstraints { (make) in
-            make.left.equalTo(titleLab.snp.right).offset(30)
+            make.left.equalTo(self).offset(70)
             make.top.bottom.equalTo(self)
-            make.right.lessThanOrEqualTo(arrowImg.snp.left).offset(20)
+            make.right.lessThanOrEqualTo(arrowImg.snp.left).offset(-20)
         }
         
         lineView.snp.makeConstraints { (make) in

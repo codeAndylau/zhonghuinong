@@ -21,6 +21,28 @@ class MineViewController: TableViewController {
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+        
+        headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineOrder, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.orderView.peisongBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineOrder, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.orderView.shouhuoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineOrder, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.orderView.orderBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineOrder, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        
     }
     
     // MARK: - Lazy
@@ -33,11 +55,11 @@ class MineViewController: TableViewController {
     // MARK: - Public methods
     
     @objc func settingAction() {
-        debugPrints("设置")
+        navigator.show(segue: .mineSetting, sender: self)
     }
     
     @objc func messageAction() {
-        debugPrints("消息")
+        navigator.show(segue: .mineMessage, sender: self)
     }
     
 }

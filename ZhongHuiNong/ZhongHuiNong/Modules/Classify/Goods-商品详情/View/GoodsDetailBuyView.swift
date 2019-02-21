@@ -97,8 +97,17 @@ class GoodsDetailBuyView: View {
         }
     }
     
-    /// Public method
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // shadowCode
+        cartBtn.layer.shadowColor = UIColor(red: 0.11, green: 0.82, blue: 0.66, alpha: 0.5).cgColor
+        cartBtn.layer.shadowOffset = CGSize(width: 0, height: 3)
+        cartBtn.layer.shadowOpacity = 1
+        cartBtn.layer.shadowRadius = 5
+    }
     
+    /// Public method
     class func loadView() -> GoodsDetailBuyView {
         let viewH = IPhone_X == true ? 56 + kIndicatorH : 56
         let view = GoodsDetailBuyView(frame: CGRect(x: 0, y: kScreenH-viewH, width: kScreenW, height: viewH))

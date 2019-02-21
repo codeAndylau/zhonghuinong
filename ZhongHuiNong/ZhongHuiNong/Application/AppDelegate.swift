@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.black
         window?.makeKeyAndVisible()
-        
+                
         LibsManager.shared.setupLibs()
         Application.shared.presentInitialScreen(in: window!)
         return true

@@ -50,7 +50,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let vipArrowImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_vip_1")
+        img.image = UIImage(named: "farm_arrow")
     }
     
     let titleLab = Label().then { (lab) in
@@ -138,7 +138,7 @@ class GoodsDetailHeaderOneView: View {
         }
         
         vipChongzhiLab.snp.makeConstraints { (make) in
-            make.right.equalTo(vipArrowImg.snp.left).offset(8)
+            make.right.equalTo(vipArrowImg.snp.left).offset(-8)
             make.centerY.equalToSuperview()
         }
         

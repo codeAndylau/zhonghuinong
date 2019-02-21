@@ -95,7 +95,7 @@ class MemberSectionView: UIView {
     lazy var countdownView = CountDownView.loadView()
 
     var moreBtn = Button(title: "更多", color: UIColor.hexColor(0x999999), font: 12)
-    var arrorImg = UIImageView(image: UIImage(named: "farm_arrowdown"))
+    var arrorImg = UIImageView(image: UIImage(named: "mine_arrow"))
     
     override init(frame: CGRect) {
         super.init(frame: frame)

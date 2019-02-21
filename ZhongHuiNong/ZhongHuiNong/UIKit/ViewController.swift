@@ -75,7 +75,7 @@ class ViewController: UIViewController, Navigatable {
     }
     
     /// 创建UI
-    func makeUI() {}
+    func makeUI() { view.backgroundColor = Color.whiteColor }
     /// 更新UI
     func updateUI() {}
     /// 绑定vm

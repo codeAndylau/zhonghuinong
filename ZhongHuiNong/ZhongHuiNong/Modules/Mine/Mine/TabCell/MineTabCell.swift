@@ -18,13 +18,12 @@ class MineTabCell: TableViewCell, TabReuseIdentifier {
     }
     
     let arrowImg = ImageView().then { (img) in
-        img.image = UIImage(named: "farm_arrowdown")
+        img.image = UIImage(named: "farm_arrow")
     }
     
     let lineView = View().then { (view) in
         view.backgroundColor = Color.backdropColor
     }
-    
     
     override func makeUI() {
         super.makeUI()

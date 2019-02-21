@@ -19,10 +19,26 @@ class Navigator {
     
     // MARK: - segues list, all app scenes
     enum Scene {
+        
+        // tabs
+        case tabs
+        
+        // 登录
         case login
         case psdLogin
-        case tabs
-        case detail
+        
+        // 首页
+        
+        
+        // 分类
+        
+        // 菜篮
+        
+        // 我的
+        case mineMessage
+        case mineSetting
+        case mineOrder
+        
     }
     
     enum Transition {
@@ -47,8 +63,17 @@ class Navigator {
         case .tabs:
             let mainVC = MainTabBarViewController()
             return mainVC
-        default:
-            return HomeViewController()
+        case .mineMessage:
+            let mineMessageVC = MineMessageViewController()
+            return mineMessageVC
+        case .mineSetting:
+            let mineSettingVC = MineSettingViewController()
+            return mineSettingVC
+        case .mineOrder:
+            let mineOrderVC = MineOrderViewController()
+            return mineOrderVC
+            
+            
         }
     }
     
@@ -64,15 +89,6 @@ class Navigator {
         sender?.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    func injectTabBarControllers(in target: UITabBarController) {
-        if let children = target.viewControllers {
-            for vc in children {
-                injectNavigator(in: vc)
-            }
-        }
-    }
-    
-    
     // MARK: - invoke a single segue
     func show(segue: Scene, sender: UIViewController?, transition: Transition = .navigation) {
         if let target = get(with: segue) {
@@ -85,42 +101,16 @@ class Navigator {
 // MARK: - private
 extension Navigator {
     
-    private func injectNavigator(in target: UIViewController) {
-        // view controller
-        if var target = target as? Navigatable {
-            target.navigator = self
-            return
-        }
-        
-        // navigation controller
-        if let target = target as? UINavigationController, let root = target.viewControllers.first {
-            injectNavigator(in: root)
-        }
-        
-        // split controller
-        if let target = target as? UISplitViewController, let root = target.viewControllers.first {
-            injectNavigator(in: root)
-        }
-    }
-    
-    
     private func show(target: UIViewController, sender: UIViewController?, transition: Transition) {
-        
-        injectNavigator(in: target)
         
         switch transition {
         case .login(let window), .root(let window):
-            //            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromBottom, animations: {
-            //                window.rootViewController = target
-            //            }, completion: nil)
-            
             let animate = CATransition()
             animate.duration = 0.5
             animate.type = .fade
             animate.subtype = CATransitionSubtype.fromBottom
             window.layer.add(animate, forKey: "keyWindow")
             window.rootViewController = target
-            
         default: break
         }
         
@@ -128,14 +118,6 @@ extension Navigator {
             print("You need to pass in a sender for .navigation or .modal transitions")
             return
         }
-        
-        //        case login
-        //        case root
-        //        case navigation
-        //        case modal
-        //        case detail
-        //        case alert
-        //        case custom
         
         switch transition {
         case .navigation:

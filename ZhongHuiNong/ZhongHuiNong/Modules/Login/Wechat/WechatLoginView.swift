@@ -10,10 +10,22 @@ import UIKit
 
 class WechatLoginView: View {
 
-    let backImg = ImageView().then { (img) in
-        //img.image = UIImage(named: "wechaLogin_icon")
+    let titleImg = ImageView().then { (img) in
+        img.image = UIImage(named: "login_Headline")
         img.contentMode = .scaleAspectFit
-        img.backgroundColor = Color.backdropColor
+    }
+    
+    let titleLab = Label().then { (lab) in
+        lab.text = "有机，是对天然食材和自然之道的 一份责任"
+        lab.textAlignment = .left
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 16)
+        lab.numberOfLines = 0
+    }
+    
+    let backImg = ImageView().then { (img) in
+        img.image = UIImage(named: "login_backImage")
+        img.contentMode = .scaleAspectFill
     }
     
     let wechatBtn = Button(type: .custom).then { (btn) in
@@ -46,6 +58,8 @@ class WechatLoginView: View {
     
     override func makeUI() {
         super.makeUI()
+        addSubview(titleImg)
+        addSubview(titleLab)
         addSubview(backImg)
         addSubview(tipsLab)
         addSubview(serviceBtn)
@@ -56,8 +70,22 @@ class WechatLoginView: View {
     override func updateUI() {
         super.updateUI()
         
+        titleImg.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(150)
+            make.left.equalTo(50)
+        }
+        
+        titleLab.snp.makeConstraints { (make) in
+            make.top.equalTo(titleImg.snp.bottom).offset(20)
+            make.left.equalTo(50)
+            make.width.equalTo(265)
+            make.height.equalTo(50)
+        }
+        
         backImg.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.equalTo(titleLab.snp.bottom).offset(20)
+            make.centerX.equalTo(self)
+            make.width.equalTo(kScreenW)
         }
         
         tipsLab.snp.makeConstraints { (make) in

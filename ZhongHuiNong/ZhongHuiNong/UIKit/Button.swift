@@ -34,6 +34,13 @@ class Button: UIButton {
         self.setImage(UIImage(named: img), for: .normal)
     }
     
+    convenience init(image: UIImage?, target: Any, action: Selector) {
+        self.init()
+        self.adjustsImageWhenHighlighted = false
+        self.setImage(image, for: .normal)
+        self.addTarget(target, action: action, for: UIControl.Event.touchUpInside)
+    }
+    
     func makeUI() {
         
     }

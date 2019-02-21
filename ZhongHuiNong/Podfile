@@ -22,7 +22,8 @@ target 'ZhongHuiNong' do
     # UI
     pod 'SnapKit'
     pod 'KafkaRefresh'
-    pod 'TYCyclePagerView' 
+    pod 'TYCyclePagerView'
+    #pod 'JXCategoryView'  # 主流APP分类切换滚动视图
     
     # Tools
     pod 'Bugly'

@@ -16,7 +16,7 @@ class OrderAddressView: View {
     }
     
     let modifyBtn = Button().then { (btn) in
-        btn.setImage(UIImage(named: "farm_modify"), for: .normal)
+        btn.setImage(UIImage(named: "mine_arrow"), for: .normal)
     }
     
     let nameLab = Label().then { (lab) in

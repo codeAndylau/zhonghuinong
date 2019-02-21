@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 let GoodsDetailBannerH: CGFloat = 300
-let GoodsDetailHeaderH: CGFloat = 700
+let GoodsDetailHeaderH: CGFloat = 750
 
 class GoodsDetailHeaderView: View {
 
@@ -33,9 +33,26 @@ class GoodsDetailHeaderView: View {
         view.backgroundColor = UIColor.hexColor(0xFAFAFA)
     }
     
-    let selectView = GoodsDetailRowView()
-    let peisongView = GoodsDetailRowView()
-    let yunfeiView = GoodsDetailRowView()
+    let selectView = GoodsDetailRowView().then { (view) in
+        view.titleLab.text = "已选"
+        view.detailLab.text = "500g x1"
+    }
+    
+    let peisongView = GoodsDetailRowView().then { (view) in
+        view.titleLab.text = "配送"
+        view.detailLab.text = "四川省成都市天府新区天府新区府河音乐花园A1-101四川省成都市天府新区天府新区府河音乐花园A1-101"
+        view.lineView.isHidden = true
+    }
+    
+    let addressView = GoodsDetailAddressView().then { (view) in
+        view.backgroundColor = UIColor.white
+    }
+    
+    let yunfeiView = GoodsDetailRowView().then { (view) in
+        view.titleLab.text = "运费"
+        view.detailLab.text = "会员免运费 非会员满99包邮"
+        view.lineView.isHidden = true
+    }
 
     override func makeUI() {
         super.makeUI()
@@ -46,6 +63,7 @@ class GoodsDetailHeaderView: View {
         
         bottomView.addSubview(selectView)
         bottomView.addSubview(peisongView)
+        bottomView.addSubview(addressView)
         bottomView.addSubview(yunfeiView)
     }
     
@@ -71,24 +89,30 @@ class GoodsDetailHeaderView: View {
         bottomView.snp.makeConstraints { (make) in
             make.top.equalTo(topView.snp.bottom)
             make.left.right.equalTo(self)
-            make.height.equalTo(200)
+            make.height.equalTo(250)
         }
         
         selectView.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
-            make.height.equalTo(54)
+            make.height.equalTo(55)
         }
         
         peisongView.snp.makeConstraints { (make) in
             make.top.equalTo(selectView.snp.bottom)
             make.left.right.equalToSuperview()
-            make.height.equalTo(54)
+            make.height.equalTo(55)
+        }
+        
+        addressView.snp.makeConstraints { (make) in
+            make.top.equalTo(peisongView.snp.bottom)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(75)
         }
         
         yunfeiView.snp.makeConstraints { (make) in
-            make.top.equalTo(peisongView.snp.bottom)
+            make.top.equalTo(addressView.snp.bottom)
             make.left.right.equalToSuperview()
-            make.height.equalTo(54)
+            make.height.equalTo(55)
         }
     }
     

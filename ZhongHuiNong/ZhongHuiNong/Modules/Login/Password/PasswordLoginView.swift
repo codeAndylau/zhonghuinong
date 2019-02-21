@@ -10,10 +10,14 @@ import UIKit
 
 class PasswordLoginView: View {
 
-    let backImg = ImageView().then { (img) in
-        //img.image = UIImage(named: "wechaLogin_icon")
+    let titleImg = ImageView().then { (img) in
+        img.image = UIImage(named: "login_Headline")
         img.contentMode = .scaleAspectFit
-        img.backgroundColor = Color.backdropColor
+    }
+    
+    let backImg = ImageView().then { (img) in
+        img.image = UIImage(named: "login_backImage")
+        img.contentMode = .scaleAspectFill
     }
     
     let phoneView = View().then { (view) in
@@ -62,7 +66,7 @@ class PasswordLoginView: View {
     }
     
     let psdBtn = Button(type: .custom).then { (btn) in
-        btn.setImage(UIImage(named: "navigation_back_icon"), for: .normal)
+        btn.setImage(UIImage(named: "login_arrow"), for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.adjustsImageWhenHighlighted = false
     }
@@ -70,6 +74,7 @@ class PasswordLoginView: View {
     override func makeUI() {
         super.makeUI()
         addSubview(backImg)
+        addSubview(titleImg)
         addSubview(phoneView)
         addSubview(psdView)
         
@@ -114,8 +119,16 @@ class PasswordLoginView: View {
     
     override func updateUI() {
         super.updateUI()
+        
+        titleImg.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(100)
+            make.left.equalTo(50)
+        }
+        
         backImg.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.equalTo(titleImg.snp.bottom).offset(10)
+            make.centerX.equalTo(self)
+            make.width.equalTo(kScreenW)
         }
         
         phoneView.snp.makeConstraints { (make) in
