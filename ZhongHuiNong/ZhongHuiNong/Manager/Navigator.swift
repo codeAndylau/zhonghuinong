@@ -38,6 +38,9 @@ class Navigator {
         case mineMessage
         case mineSetting
         case mineOrder
+        case mineLogistics
+        case mineAddress
+        case mineAddressModify
         
     }
     
@@ -72,8 +75,15 @@ class Navigator {
         case .mineOrder:
             let mineOrderVC = MineOrderViewController()
             return mineOrderVC
-            
-            
+        case .mineLogistics:
+            let mineLogisticsVC = MineLogisticsViewController()
+            return mineLogisticsVC
+        case .mineAddress:
+            let mineAddressVC = MineAddressViewController()
+            return mineAddressVC
+        case .mineAddressModify:
+            let mineAddressVC = MineAddressModifyViewController()
+            return mineAddressVC
         }
     }
     

@@ -12,7 +12,6 @@ class MineAllOrderViewController: ViewController {
 
     override func makeUI() {
         super.makeUI()
-        view.backgroundColor = UIColor.orange
         view.addSubview(tableView)
     }
     
@@ -36,7 +35,6 @@ class MineAllOrderViewController: ViewController {
         return view
     }()
 }
-
 
 extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate {
     

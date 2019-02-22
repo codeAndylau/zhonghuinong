@@ -125,6 +125,20 @@
 		14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */; };
 		14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */; };
 		14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */; };
+		14D5B332221F945300D08DD1 /* MinePayOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */; };
+		14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */; };
+		14D5B336221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */; };
+		14D5B339221FA1E700D08DD1 /* MineLogisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B338221FA1E700D08DD1 /* MineLogisticsViewController.swift */; };
+		14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B33A221FA3BD00D08DD1 /* MineLogisticsTablCell.swift */; };
+		14D5B33E221FC41B00D08DD1 /* MineLogisticsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B33D221FC41B00D08DD1 /* MineLogisticsHeaderView.swift */; };
+		14D5B340221FC8FD00D08DD1 /* MineLogisticsAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B33F221FC8FD00D08DD1 /* MineLogisticsAddressView.swift */; };
+		14D5B343221FD3CF00D08DD1 /* MineAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B342221FD3CF00D08DD1 /* MineAddressViewController.swift */; };
+		14D5B345221FD4B500D08DD1 /* MineAddressTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B344221FD4B500D08DD1 /* MineAddressTabCell.swift */; };
+		14D5B347221FD69000D08DD1 /* MineAddressBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B346221FD69000D08DD1 /* MineAddressBottomView.swift */; };
+		14D5B349221FDF1900D08DD1 /* MineAddressModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B348221FDF1900D08DD1 /* MineAddressModifyViewController.swift */; };
+		14D5B34D221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B34C221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift */; };
+		14D5B34F221FECE500D08DD1 /* MineAddressPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B34E221FECE500D08DD1 /* MineAddressPicker.swift */; };
+		14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B350221FED9300D08DD1 /* MineAddressPickerViewController.swift */; };
 		14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8A92213C41B00603D41 /* PaySuccessView.swift */; };
 		14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */; };
 		14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D8D8AE2213EA0000603D41 /* PaySureView.swift */; };
@@ -314,6 +328,20 @@
 		14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailHeaderOneView.swift; sourceTree = "<group>"; };
 		14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailBuyView.swift; sourceTree = "<group>"; };
 		14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRowView.swift; sourceTree = "<group>"; };
+		14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinePayOrderTabCell.swift; sourceTree = "<group>"; };
+		14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSendOrderTabCell.swift; sourceTree = "<group>"; };
+		14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAcceptOrderTabCell.swift; sourceTree = "<group>"; };
+		14D5B338221FA1E700D08DD1 /* MineLogisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineLogisticsViewController.swift; sourceTree = "<group>"; };
+		14D5B33A221FA3BD00D08DD1 /* MineLogisticsTablCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineLogisticsTablCell.swift; sourceTree = "<group>"; };
+		14D5B33D221FC41B00D08DD1 /* MineLogisticsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineLogisticsHeaderView.swift; sourceTree = "<group>"; };
+		14D5B33F221FC8FD00D08DD1 /* MineLogisticsAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineLogisticsAddressView.swift; sourceTree = "<group>"; };
+		14D5B342221FD3CF00D08DD1 /* MineAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressViewController.swift; sourceTree = "<group>"; };
+		14D5B344221FD4B500D08DD1 /* MineAddressTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressTabCell.swift; sourceTree = "<group>"; };
+		14D5B346221FD69000D08DD1 /* MineAddressBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressBottomView.swift; sourceTree = "<group>"; };
+		14D5B348221FDF1900D08DD1 /* MineAddressModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressModifyViewController.swift; sourceTree = "<group>"; };
+		14D5B34C221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressModifyTabCell.swift; sourceTree = "<group>"; };
+		14D5B34E221FECE500D08DD1 /* MineAddressPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressPicker.swift; sourceTree = "<group>"; };
+		14D5B350221FED9300D08DD1 /* MineAddressPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressPickerViewController.swift; sourceTree = "<group>"; };
 		14D8D8A92213C41B00603D41 /* PaySuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessView.swift; sourceTree = "<group>"; };
 		14D8D8AC2213CE4300603D41 /* VegetableTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegetableTabCell.swift; sourceTree = "<group>"; };
 		14D8D8AE2213EA0000603D41 /* PaySureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySureView.swift; sourceTree = "<group>"; };
@@ -472,22 +500,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		14087462221E74BD0051B7C3 /* Message */ = {
+		14087462221E74BD0051B7C3 /* Message-消息 */ = {
 			isa = PBXGroup;
 			children = (
 				14087463221E74DA0051B7C3 /* MineMessageViewController.swift */,
 				14087465221E75250051B7C3 /* MineMessageEmptyView.swift */,
 			);
-			path = Message;
+			path = "Message-消息";
 			sourceTree = "<group>";
 		};
-		14087467221E78CF0051B7C3 /* Setting */ = {
+		14087467221E78CF0051B7C3 /* Setting-设置 */ = {
 			isa = PBXGroup;
 			children = (
 				14087468221E78E10051B7C3 /* MineSettingViewController.swift */,
 				1408746A221E7AD10051B7C3 /* MineSettingTabCell.swift */,
 			);
-			path = Setting;
+			path = "Setting-设置";
 			sourceTree = "<group>";
 		};
 		145138A721F851490038AFC6 /* Main */ = {
@@ -538,9 +566,11 @@
 			isa = PBXGroup;
 			children = (
 				1492DDBC221AAECD00C79D88 /* Mine */,
-				146B74B7221E99CA005D2879 /* Order */,
-				14087467221E78CF0051B7C3 /* Setting */,
-				14087462221E74BD0051B7C3 /* Message */,
+				146B74B7221E99CA005D2879 /* Order-订单 */,
+				14D5B341221FD2C100D08DD1 /* Address- 收货地址 */,
+				14D5B337221FA1BF00D08DD1 /* Logistics-物流信息 */,
+				14087467221E78CF0051B7C3 /* Setting-设置 */,
+				14087462221E74BD0051B7C3 /* Message-消息 */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -598,7 +628,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		146B74B7221E99CA005D2879 /* Order */ = {
+		146B74B7221E99CA005D2879 /* Order-订单 */ = {
 			isa = PBXGroup;
 			children = (
 				146B74B8221E99E8005D2879 /* MineOrderViewController.swift */,
@@ -609,7 +639,7 @@
 				146B74C8221EA4A4005D2879 /* TabCell */,
 				146B74BA221E9B61005D2879 /* View */,
 			);
-			path = Order;
+			path = "Order-订单";
 			sourceTree = "<group>";
 		};
 		146B74BA221E9B61005D2879 /* View */ = {
@@ -625,6 +655,9 @@
 			isa = PBXGroup;
 			children = (
 				146B74C9221EA4CE005D2879 /* MineOrderTabCell.swift */,
+				14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */,
+				14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */,
+				14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */,
 			);
 			path = TabCell;
 			sourceTree = "<group>";
@@ -839,6 +872,47 @@
 				1408745F221E4AE20051B7C3 /* View */,
 			);
 			path = "Goods-商品详情";
+			sourceTree = "<group>";
+		};
+		14D5B337221FA1BF00D08DD1 /* Logistics-物流信息 */ = {
+			isa = PBXGroup;
+			children = (
+				14D5B338221FA1E700D08DD1 /* MineLogisticsViewController.swift */,
+				14D5B33A221FA3BD00D08DD1 /* MineLogisticsTablCell.swift */,
+				14D5B33D221FC41B00D08DD1 /* MineLogisticsHeaderView.swift */,
+				14D5B33F221FC8FD00D08DD1 /* MineLogisticsAddressView.swift */,
+			);
+			path = "Logistics-物流信息";
+			sourceTree = "<group>";
+		};
+		14D5B341221FD2C100D08DD1 /* Address- 收货地址 */ = {
+			isa = PBXGroup;
+			children = (
+				14D5B342221FD3CF00D08DD1 /* MineAddressViewController.swift */,
+				14D5B348221FDF1900D08DD1 /* MineAddressModifyViewController.swift */,
+				14D5B350221FED9300D08DD1 /* MineAddressPickerViewController.swift */,
+				14D5B34A221FDF7900D08DD1 /* TabCell */,
+				14D5B34B221FDF8900D08DD1 /* View */,
+			);
+			path = "Address- 收货地址";
+			sourceTree = "<group>";
+		};
+		14D5B34A221FDF7900D08DD1 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				14D5B344221FD4B500D08DD1 /* MineAddressTabCell.swift */,
+				14D5B34C221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		14D5B34B221FDF8900D08DD1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14D5B346221FD69000D08DD1 /* MineAddressBottomView.swift */,
+				14D5B34E221FECE500D08DD1 /* MineAddressPicker.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		14DC33D421F1705E006EF1CF = {
@@ -1399,17 +1473,22 @@
 			files = (
 				1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */,
 				1492DD98221A4B6B00C79D88 /* DeliveryViewController.swift in Sources */,
+				14D5B33E221FC41B00D08DD1 /* MineLogisticsHeaderView.swift in Sources */,
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
+				14D5B340221FC8FD00D08DD1 /* MineLogisticsAddressView.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
 				14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */,
 				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
 				146B74C3221EA338005D2879 /* MinePayOrderViewController.swift in Sources */,
 				1411F75E21F944040076D763 /* MineViewController.swift in Sources */,
+				14D5B339221FA1E700D08DD1 /* MineLogisticsViewController.swift in Sources */,
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
+				14D5B34D221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift in Sources */,
 				14B27A4E221BAF540029648A /* DeliveryAddressModifyView.swift in Sources */,
 				14043D4B221272D60023AA11 /* Button+Ex.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
+				14D5B345221FD4B500D08DD1 /* MineAddressTabCell.swift in Sources */,
 				14B27A4C221BA8D40029648A /* DeliveryAddressTabCell.swift in Sources */,
 				14043D4F221290930023AA11 /* CartEmptyView.swift in Sources */,
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
@@ -1422,6 +1501,8 @@
 				1468B1632215444D002B971F /* MineCenterView.swift in Sources */,
 				14C3EBCB221CF888003029EB /* DeliveryOrderInfoTabCell.swift in Sources */,
 				1492DDAB221A67EF00C79D88 /* SpecificationViewController.swift in Sources */,
+				14D5B349221FDF1900D08DD1 /* MineAddressModifyViewController.swift in Sources */,
+				14D5B347221FD69000D08DD1 /* MineAddressBottomView.swift in Sources */,
 				146B74BC221E9B82005D2879 /* PageTitleView.swift in Sources */,
 				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
@@ -1448,9 +1529,11 @@
 				14974BE321F70A4C0088ABC3 /* TableView.swift in Sources */,
 				14F35C6E2202A418002122B6 /* MemberSearchView.swift in Sources */,
 				14974BDB21F706500088ABC3 /* View.swift in Sources */,
+				14D5B343221FD3CF00D08DD1 /* MineAddressViewController.swift in Sources */,
 				145138A921F851C70038AFC6 /* MainTabBarViewController.swift in Sources */,
 				14B27A49221BA2500029648A /* DeliveryAddressView.swift in Sources */,
 				145138A421F82E7E0038AFC6 /* LibsManager.swift in Sources */,
+				14D5B332221F945300D08DD1 /* MinePayOrderTabCell.swift in Sources */,
 				14087464221E74DA0051B7C3 /* MineMessageViewController.swift in Sources */,
 				14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */,
 				145138A621F83A060038AFC6 /* Navigator.swift in Sources */,
@@ -1468,6 +1551,7 @@
 				14C3EBCD221D046C003029EB /* VegetablesView.swift in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
+				14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,
 				14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */,
@@ -1488,6 +1572,7 @@
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
 				1468B15822150B82002B971F /* SearchTextField.swift in Sources */,
+				14D5B336221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift in Sources */,
 				14043D5D2212AB080023AA11 /* OrderAddressView.swift in Sources */,
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
@@ -1536,12 +1621,14 @@
 				1408745E221E45370051B7C3 /* GoodsDetailAddressView.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
 				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
+				14D5B34F221FECE500D08DD1 /* MineAddressPicker.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				146B74C1221EA0F7005D2879 /* MineAllOrderViewController.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
 				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
+				14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
 				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
@@ -1551,6 +1638,7 @@
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
+				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
 				14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */,
 				14974BDD21F706FE0088ABC3 /* Configs.swift in Sources */,

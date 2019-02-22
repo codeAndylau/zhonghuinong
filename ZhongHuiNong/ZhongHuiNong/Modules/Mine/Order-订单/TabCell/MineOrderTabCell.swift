@@ -55,6 +55,7 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
     
     override func makeUI() {
         super.makeUI()
+        selectionStyle = .none
         backgroundColor = UIColor.hexColor(0xFAFAFA)
         addSubview(contView)
         contView.addSubview(titleLab)

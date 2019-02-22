@@ -47,7 +47,7 @@ class MineViewController: TableViewController {
     
     // MARK: - Lazy
     
-    lazy var sectionTitleArray = ["我的地块","收货地址","我的收藏","好友推荐","关于我们","设置"]
+    lazy var sectionTitleArray = ["配送订单","我的地块","我的收藏","好友推荐","关于我们","设置"]
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
