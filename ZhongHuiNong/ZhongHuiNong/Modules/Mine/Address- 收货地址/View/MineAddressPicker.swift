@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Then
 import SwiftyJSON
 import ObjectMapper
 
@@ -78,6 +79,14 @@ class MineAddressPicker: View {
 
     typealias AreaAction = ((_ province: String, _ city: String, _ district: String, _ town: String) -> Void)?
     var selectedAreaCompleted: AreaAction
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func makeUI() {
         super.makeUI()

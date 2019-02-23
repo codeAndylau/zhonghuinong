@@ -163,7 +163,6 @@
 		14DC343521F1760A006EF1CF /* Area.json in Resources */ = {isa = PBXBuildFile; fileRef = 14DC343421F1760A006EF1CF /* Area.json */; };
 		14DC343721F1771F006EF1CF /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC343621F1771F006EF1CF /* Application.swift */; };
 		14DC343921F17A14006EF1CF /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC343821F17A14006EF1CF /* Label.swift */; };
-		14DC343B21F17D49006EF1CF /* framework.json in Resources */ = {isa = PBXBuildFile; fileRef = 14DC343A21F17D49006EF1CF /* framework.json */; };
 		14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */; };
 		14DC344421F18554006EF1CF /* ObservableType+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */; };
 		14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */; };
@@ -377,7 +376,6 @@
 		14DC343421F1760A006EF1CF /* Area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Area.json; sourceTree = "<group>"; };
 		14DC343621F1771F006EF1CF /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		14DC343821F17A14006EF1CF /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
-		14DC343A21F17D49006EF1CF /* framework.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = framework.json; sourceTree = "<group>"; };
 		14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344321F18554006EF1CF /* ObservableType+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+ObjectMapper.swift"; sourceTree = "<group>"; };
 		14DC344521F185A9006EF1CF /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
@@ -799,8 +797,8 @@
 		14974BCE21F6C3760088ABC3 /* NSObject+Rx */ = {
 			isa = PBXGroup;
 			children = (
-				14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */,
 				14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */,
+				14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */,
 			);
 			path = "NSObject+Rx";
 			sourceTree = "<group>";
@@ -1002,7 +1000,6 @@
 				14B849EE2220FBDE00F409B0 /* Example.json */,
 				14DC343021F175CF006EF1CF /* EmptyArray.json */,
 				14DC342E21F175CF006EF1CF /* EmptyObject.json */,
-				14DC343A21F17D49006EF1CF /* framework.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1344,7 +1341,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14DC343B21F17D49006EF1CF /* framework.json in Resources */,
 				14DC33EE21F17060006EF1CF /* LaunchScreen.storyboard in Resources */,
 				14B849EF2220FBDE00F409B0 /* Example.json in Resources */,
 				14DC343321F175CF006EF1CF /* EmptyArray.json in Resources */,
