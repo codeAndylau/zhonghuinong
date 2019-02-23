@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
 class ViewController: UIViewController, Navigatable {
     

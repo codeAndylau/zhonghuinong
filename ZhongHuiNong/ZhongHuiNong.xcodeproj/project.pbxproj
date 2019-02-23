@@ -86,8 +86,6 @@
 		1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43D2203EB1C009E394E /* StoreLeftCell.swift */; };
 		1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43F2203EB2C009E394E /* StoreRightCell.swift */; };
 		14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCC21F6C31B0088ABC3 /* Date.swift */; };
-		14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */; };
-		14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */; };
 		14974BD721F6F49D0088ABC3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD621F6F49D0088ABC3 /* String.swift */; };
 		14974BD921F6F7080088ABC3 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD821F6F7080088ABC3 /* Method.swift */; };
 		14974BDB21F706500088ABC3 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BDA21F706500088ABC3 /* View.swift */; };
@@ -293,8 +291,6 @@
 		1493B43D2203EB1C009E394E /* StoreLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLeftCell.swift; sourceTree = "<group>"; };
 		1493B43F2203EB2C009E394E /* StoreRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRightCell.swift; sourceTree = "<group>"; };
 		14974BCC21F6C31B0088ABC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
-		14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasDisposeBag.swift; sourceTree = "<group>"; };
 		14974BD621F6F49D0088ABC3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		14974BD821F6F7080088ABC3 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		14974BDA21F706500088ABC3 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -794,15 +790,6 @@
 			path = TabCell;
 			sourceTree = "<group>";
 		};
-		14974BCE21F6C3760088ABC3 /* NSObject+Rx */ = {
-			isa = PBXGroup;
-			children = (
-				14974BD121F6C4510088ABC3 /* HasDisposeBag.swift */,
-				14974BCF21F6C39F0088ABC3 /* NSObject+Rx.swift */,
-			);
-			path = "NSObject+Rx";
-			sourceTree = "<group>";
-		};
 		14974BD521F6F4810088ABC3 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,7 +1068,6 @@
 			isa = PBXGroup;
 			children = (
 				14974BD521F6F4810088ABC3 /* Foundation */,
-				14974BCE21F6C3760088ABC3 /* NSObject+Rx */,
 				14641B8721F5BFA800F4E032 /* Operator */,
 				14DC343D21F18326006EF1CF /* ObjectMapper */,
 				14DC344221F18501006EF1CF /* RxSwift */,
@@ -1607,7 +1593,6 @@
 				8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
 				14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */,
-				14974BD021F6C39F0088ABC3 /* NSObject+Rx.swift in Sources */,
 				146B74C7221EA3D6005D2879 /* MineAcceptOrderViewController.swift in Sources */,
 				1411F76021F948770076D763 /* RootNavigationController.swift in Sources */,
 				14DC342521F17502006EF1CF /* HomeViewController.swift in Sources */,
@@ -1621,7 +1606,6 @@
 				1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */,
 				145138B121F858940038AFC6 /* Defaults.swift in Sources */,
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
-				14974BD221F6C4510088ABC3 /* HasDisposeBag.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
 				14087466221E75250051B7C3 /* MineMessageEmptyView.swift in Sources */,
 				14ED1106221663DF0021D185 /* DropdownMenu.swift in Sources */,
