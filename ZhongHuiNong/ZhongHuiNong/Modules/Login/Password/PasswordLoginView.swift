@@ -126,7 +126,7 @@ class PasswordLoginView: View {
         }
         
         backImg.snp.makeConstraints { (make) in
-            make.top.equalTo(titleImg.snp.bottom).offset(10)
+            make.top.equalTo(titleImg.snp.bottom)//.offset(10)
             make.centerX.equalTo(self)
             make.width.equalTo(kScreenW)
         }

@@ -164,7 +164,7 @@ class MineHeaderView: View {
             make.top.equalTo(cardNameLab.snp.bottom).offset(30)
             make.centerX.equalTo(cardNameLab)
             make.width.equalTo(kScreenW-30)
-            make.height.equalTo(110)
+            make.height.equalTo(130)
         }
         
         

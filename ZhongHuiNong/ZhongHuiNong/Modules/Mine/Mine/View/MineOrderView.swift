@@ -20,21 +20,25 @@ class MineOrderView: View {
     let fukuanBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let peisongBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let shouhuoBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let orderBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     override func makeUI() {
@@ -55,10 +59,10 @@ class MineOrderView: View {
         }
         
         fukuanBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(orderLab.snp.bottom)//.offset(10)
+            make.top.equalTo(orderLab.snp.bottom)
             make.left.equalTo(self)
             make.width.equalTo((kScreenW-30)/4)
-            make.height.equalTo(60)
+            make.height.equalTo(80)
         }
         
         peisongBtn.snp.makeConstraints { (make) in
@@ -82,10 +86,13 @@ class MineOrderView: View {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // mine_peisong mine_shouhuo
         fukuanBtn.set(image: UIImage(named: "mine_fukuan"), title: "待付款", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
-        peisongBtn.set(image: UIImage(named: "mine_peisong"), title: "待配送", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
-        shouhuoBtn.set(image: UIImage(named: "mine_shouhuo"), title: "待收货", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        peisongBtn.set(image: UIImage(named: "mine_fukuan"), title: "待配送", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        shouhuoBtn.set(image: UIImage(named: "mine_order"), title: "待收货", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
         orderBtn.set(image: UIImage(named: "mine_order"), title: "全部订单", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
     }
+
     
 }

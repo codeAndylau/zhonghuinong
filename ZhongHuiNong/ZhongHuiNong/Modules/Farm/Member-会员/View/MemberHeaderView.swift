@@ -13,6 +13,7 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
     var cellDidSelectedClosure: ((Int) ->())?
     
+    lazy var ImgArray = ["farm_peisong","farm_shishisuyuan","farm_guanjia","farm_shishisuyuan","farm_guanjia"]
     lazy var searchView = MemberSearchView.loadView()
     lazy var classView = MemberClassView()
     
@@ -75,11 +76,12 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
     
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return ImgArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberHeaderCell.identifier, for: indexPath) as! MemberHeaderCell
+        cell.imgView.image = UIImage(named: ImgArray[indexPath.row])
         return cell
     }
     
@@ -102,12 +104,16 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 /// 会员headerView分类
 class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    
+    lazy var ImgArray = ["farm_luobo","farm_ruping","farm_gaodian","farm_danpin","farm_ruping","farm_gaodian","farm_danpin"]
+    lazy var TitleArray = ["精品时蔬","乳品烘焙","早餐糕点","肉禽蛋品","乳品烘焙","早餐糕点","肉禽蛋品"]
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 2
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
@@ -121,6 +127,7 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
         page.currentPage = 0
         page.currentPageIndicatorTintColor = UIColor.hexColor(0x16C6A3)
         page.pageIndicatorTintColor = UIColor.hexColor(0x16C6A3, alpha: 0.5)
+        page.isHidden = true
     }
     
     override init(frame: CGRect) {
@@ -149,7 +156,7 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return ImgArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -158,8 +165,8 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
             cell.imgView.image = UIImage()
             cell.titleLab.text = ""
         }else {
-            cell.imgView.image = UIImage(named: "basket_luobo")
-            cell.titleLab.text = "精品时蔬-\(indexPath.row)"
+            cell.imgView.image = UIImage(named: ImgArray[indexPath.row])
+            cell.titleLab.text = TitleArray[indexPath.row]
         }
         return cell
     }
@@ -203,6 +210,8 @@ class MemberHeaderCell: CollectionViewCell, TabReuseIdentifier {
 /// header分类cell
 class MemberHeaderClassCell: CollectionViewCell, TabReuseIdentifier {
     
+    let contView = View()
+    
     let imgView = ImageView().then { (img) in
         img.contentMode = .scaleAspectFit
     }
@@ -214,23 +223,28 @@ class MemberHeaderClassCell: CollectionViewCell, TabReuseIdentifier {
         lab.font = UIFont.systemFont(ofSize: 12)
     }
     
-    
     override func makeUI() {
         super.makeUI()
-        addSubview(imgView)
+        addSubview(contView)
+        contView.addSubview(imgView)
         addSubview(titleLab)
     }
     
     override func updateUI() {
         super.updateUI()
-        imgView.snp.makeConstraints { (make) in
+        
+        contView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(self)
             make.bottom.equalTo(titleLab.snp.top).offset(-5)
         }
         
+        imgView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        
         titleLab.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-5)
             make.centerX.equalTo(self)
+            make.bottom.equalTo(self).offset(-5)
             make.width.equalTo(self)
             make.height.equalTo(16)
         }

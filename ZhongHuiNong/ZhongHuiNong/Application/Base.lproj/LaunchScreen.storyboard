@@ -36,15 +36,24 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon_1" translatesAutoresizingMaskIntoConstraints="NO" id="G6M-7o-gJI">
                                         <rect key="frame" x="0.0" y="450" width="375" height="318"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重庆创农科技智能有限公司版权所有©2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRx-bP-mgb">
+                                        <rect key="frame" x="20" y="698.66666666666663" width="335" height="19.333333333333371"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="y22-wj-A3h" firstAttribute="top" secondItem="cy3-Qs-Gbj" secondAttribute="top" constant="170" id="1Pi-s0-AOc"/>
                                     <constraint firstAttribute="bottom" secondItem="G6M-7o-gJI" secondAttribute="bottom" id="D73-1d-9TG"/>
                                     <constraint firstAttribute="trailing" secondItem="G6M-7o-gJI" secondAttribute="trailing" id="DYw-bK-PB5"/>
                                     <constraint firstItem="G6M-7o-gJI" firstAttribute="leading" secondItem="cy3-Qs-Gbj" secondAttribute="leading" id="G3h-uB-6pE"/>
+                                    <constraint firstItem="GRx-bP-mgb" firstAttribute="leading" secondItem="cy3-Qs-Gbj" secondAttribute="leading" constant="20" id="HyW-cF-kbW"/>
                                     <constraint firstItem="y22-wj-A3h" firstAttribute="centerX" secondItem="cy3-Qs-Gbj" secondAttribute="centerX" id="Jyx-ws-Oaq"/>
                                     <constraint firstItem="WSZ-q7-yCE" firstAttribute="centerX" secondItem="cy3-Qs-Gbj" secondAttribute="centerX" id="M8g-Om-jcq"/>
                                     <constraint firstItem="WSZ-q7-yCE" firstAttribute="top" secondItem="y22-wj-A3h" secondAttribute="bottom" constant="20" id="UOd-nf-gvP"/>
+                                    <constraint firstAttribute="trailing" secondItem="GRx-bP-mgb" secondAttribute="trailing" constant="20" id="hTj-Rs-4s8"/>
+                                    <constraint firstAttribute="bottom" secondItem="GRx-bP-mgb" secondAttribute="bottom" constant="50" id="pqf-jl-M4b"/>
                                 </constraints>
                             </view>
                         </subviews>

@@ -27,11 +27,22 @@ class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
         view.backgroundColor = UIColor.hexColor(0xF5F5F5)
     }
     
+    let arrowImg = ImageView().then { (img) in
+        img.image = UIImage(named: "mine_arrow")
+        img.isHidden = true
+    }
+    
+    let sureBtn = Button().then { (btn) in
+        btn.isHidden = true
+    }
+    
     override func makeUI() {
         super.makeUI()
         addSubview(titleLab)
         addSubview(textField)
         addSubview(lineView)
+        addSubview(arrowImg)
+        addSubview(sureBtn)
     }
     
     override func updateUI() {
@@ -54,6 +65,16 @@ class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
             make.bottom.equalTo(self)
             make.height.equalTo(1)
         }
+        
+        arrowImg.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-15)
+            make.centerY.equalTo(self)
+        }
+        
+        sureBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
+        }
+        
     }
 
 }

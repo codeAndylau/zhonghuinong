@@ -19,14 +19,12 @@ class MineAddressModifyViewController: ViewController {
         bottomView.sureBtn.setTitle("保存", for: .normal)
         bottomView.sureBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            
-            self.picker.show()
-            
-//            self.navigationController?.popViewController(animated: true)
-//            self.tableView.visibleCells.forEach({ (cell) in
-//                let cell = cell as! MineAddressModifyTabCell
-//                debugPrints("地址内容---\(String(describing: cell.textField.text))")
-//            })
+
+            self.navigationController?.popViewController(animated: true)
+            self.tableView.visibleCells.forEach({ (cell) in
+                let cell = cell as! MineAddressModifyTabCell
+                debugPrints("地址内容---\(String(describing: cell.textField.text))")
+            })
             
         }).disposed(by: rx.disposeBag)
         
@@ -38,6 +36,12 @@ class MineAddressModifyViewController: ViewController {
             self.view.endEditing(true)
         }).disposed(by: rx.disposeBag)
         
+        picker.selectedAreaCompleted = { [weak self] (p,c,d,t) in
+            guard let self = self else { return }
+            debugPrints("选择的区域---\(p)-\(c)-\(d)-\(t)")
+            let cell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! MineAddressModifyTabCell
+            cell.textField.text = "\(p)-\(c)-\(d)-\(t)"
+        }
             
     }
     
@@ -50,9 +54,10 @@ class MineAddressModifyViewController: ViewController {
     }
     
     // MARK: - Lazy
-    lazy var bottomView = MineAddressBottomView.loadView()
     
     lazy var picker = MineAddressPickerViewController()
+    
+    lazy var bottomView = MineAddressBottomView.loadView()
     
     lazy var tableView: TableView = {
         let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
@@ -89,6 +94,12 @@ extension MineAddressModifyViewController: UITableViewDataSource, UITableViewDel
             cell.titleLab.text = "所在地区"
             cell.textField.placeholder = ""
             cell.textField.isEnabled = false
+            cell.sureBtn.isHidden = false
+            cell.arrowImg.isHidden = false
+            cell.sureBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+                guard let self = self else { return }
+                self.picker.show()
+            }).disposed(by: rx.disposeBag)
         }
         
         if indexPath.row == 3 {
