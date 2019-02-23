@@ -134,7 +134,6 @@ public func getTextRectSize(text: String,font: UIFont,size: CGSize) -> CGRect {
     return rect
 }
 
-
 /// 改变一个lab的不同部分颜色
 ///
 /// - Parameters:
@@ -148,7 +147,6 @@ public func labelGradient(_ str: String, label: UILabel, font: UIFont, color: UI
     str.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
     label.attributedText = str
 }
-
 
 /// 密码由6-16数字和字母组合组成
 ///
@@ -166,7 +164,6 @@ public func isPassword(pasword : String) -> Bool {
     
 }
 
-
 /// 11 位手机号码校验
 ///
 /// - Returns: bool
@@ -182,8 +179,10 @@ public func isPhone(mobile: String) -> Bool {
     }
 }
 
-
 /// 从字符串中提取数字
+///
+/// - Parameter str:
+/// - Returns: 
 public func getIntFromString(str:String) -> String {
     let scanner = Scanner(string: str)
     scanner.scanUpToCharacters(from: CharacterSet.decimalDigits, into: nil)
@@ -199,4 +198,72 @@ public func getIntFromString(str:String) -> String {
 public func isIPad() -> Bool {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     return isIPad
+}
+
+/// 获取时间和星期
+///
+/// - Parameter date: 
+/// - Returns:
+public func getCurrentDayAndTime(_ format: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = format
+    let timeStr = dateFormatter.string(from: Date())
+    
+    let calendar: Calendar = Calendar(identifier: .gregorian)
+    var comps: DateComponents = DateComponents()
+    comps = calendar.dateComponents([.year,.month,.day, .weekday, .hour, .minute,.second], from: Date())
+    
+    var weekStr = ""
+    switch comps.weekday! - 1 {
+    case 1:
+        weekStr = "星期一"
+    case 2:
+        weekStr = "星期二"
+    case 3:
+        weekStr = "星期三"
+    case 4:
+        weekStr = "星期四"
+    case 5:
+        weekStr = "星期五"
+    case 6:
+        weekStr = "星期六"
+    case 7:
+        weekStr = "星期日"
+    default:
+        print("")
+    }
+    return timeStr + "\(weekStr)"
+}
+
+/// 获取当前星期
+///
+/// - Returns:
+func getCurrentWeek() -> String {
+    let calendar: Calendar = Calendar(identifier: .gregorian)
+    var comps: DateComponents = DateComponents()
+    comps = calendar.dateComponents([.year,.month,.day, .weekday, .hour, .minute,.second], from: Date())
+    return (comps.weekday! - 1).description
+}
+
+/// 获取当前时间
+///
+/// - Parameter date:
+/// - Returns: 
+func getCurrentDate(_ date: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = date
+    return dateFormatter.string(from: Date())
+}
+
+/// 割圆角
+///
+/// - Parameters:
+///   - view:
+///   - radius:
+func clipsViewCorner(_ view: UIView, radius: Int) {
+    let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: radius, height: radius))
+    let maskLayer = CAShapeLayer()
+    maskLayer.frame = view.bounds
+    maskLayer.path = path.cgPath
+    view.layer.mask = maskLayer
 }

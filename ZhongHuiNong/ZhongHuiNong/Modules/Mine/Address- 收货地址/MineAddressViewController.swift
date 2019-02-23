@@ -12,7 +12,7 @@ class MineAddressViewController: ViewController {
 
     override func makeUI() {
         super.makeUI()
-        navigationItem.title = "地址管理"
+        navigationItem.title = localized("地址管理") 
         view.addSubview(tableView)
         view.addSubview(bottomView)
         

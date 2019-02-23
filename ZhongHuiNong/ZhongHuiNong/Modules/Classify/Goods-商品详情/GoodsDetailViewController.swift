@@ -104,20 +104,19 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     
-    
 }
 
 extension GoodsDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
         let offset = scrollView.contentOffset.y
         
         if offset < 0 {
-            //let totalOffset: CGFloat = GoodsDetailHeaderH + abs(offset)
+            //let totalOffset: CGFloat = GoodsDetailBannerH
             //self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
         }else {
-            let totalOffset: CGFloat = GoodsDetailBannerH - abs(offset) + abs(offset/2)
+            let totalOffset: CGFloat = GoodsDetailBannerH - abs(offset/2)
             self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
         }
         

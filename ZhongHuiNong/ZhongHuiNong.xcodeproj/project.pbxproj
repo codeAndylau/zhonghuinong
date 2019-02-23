@@ -171,7 +171,6 @@
 		14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED110E2216ADD80021D185 /* FlashViewController.swift */; };
 		14ED11122216AF560021D185 /* FlashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11112216AF560021D185 /* FlashView.swift */; };
 		14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED11132216BFB20021D185 /* PinterestSegment.swift */; };
-		14F185EB220197570037291B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F185EA220197570037291B /* AppUtils.swift */; };
 		14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */; };
 		14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */; };
 		14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35C692202A2EA002122B6 /* StoreViewModel.swift */; };
@@ -382,7 +381,6 @@
 		14ED110E2216ADD80021D185 /* FlashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashViewController.swift; sourceTree = "<group>"; };
 		14ED11112216AF560021D185 /* FlashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashView.swift; sourceTree = "<group>"; };
 		14ED11132216BFB20021D185 /* PinterestSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestSegment.swift; sourceTree = "<group>"; };
-		14F185EA220197570037291B /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		14F35C61220294F9002122B6 /* FarmNonMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonMemberViewController.swift; sourceTree = "<group>"; };
 		14F35C6322029EF2002122B6 /* MemberLeftBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberLeftBarView.swift; sourceTree = "<group>"; };
 		14F35C692202A2EA002122B6 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
@@ -1020,7 +1018,6 @@
 				14641B8321F55C5C00F4E032 /* Const.swift */,
 				14974BDC21F706FE0088ABC3 /* Configs.swift */,
 				14974BD821F6F7080088ABC3 /* Method.swift */,
-				14F185EA220197570037291B /* AppUtils.swift */,
 				14B27A51221BE45F0029648A /* ZYToast.swift */,
 			);
 			path = Tools;
@@ -1575,7 +1572,6 @@
 				1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
-				14F185EB220197570037291B /* AppUtils.swift in Sources */,
 				14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */,
 				14DC342B21F17561006EF1CF /* HomeModel.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
