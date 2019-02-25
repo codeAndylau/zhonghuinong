@@ -21,9 +21,9 @@ enum TabbarItem {
     
     var title: String {
         switch self {
-        case .farms:return localized("集市")
-        case .farm: return localized("集市")
-        case .store: return localized("分类")
+        case .farms:return localized("首页")
+        case .farm: return localized("首页")
+        case .store: return localized("集市")
         case .basket: return localized("菜篮")
         case .mine: return localized("我的")
         }

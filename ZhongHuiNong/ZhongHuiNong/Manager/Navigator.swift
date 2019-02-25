@@ -28,7 +28,8 @@ class Navigator {
         case psdLogin
         
         // 首页
-        
+        case delivery
+        case privateFarm
         
         // 分类
         
@@ -57,33 +58,32 @@ class Navigator {
     // MARK: - get a single VC
     func get(with segue: Scene) -> UIViewController? {
         switch segue {
-        case .login:
-            let login = RootNavigationController(rootViewController: WechatLoginViewController())
-            return login
-        case .psdLogin:
-            let wechatLogin = PasswordLoginViewController()
-            return wechatLogin
-        case .tabs:
-            let mainVC = MainTabBarViewController()
-            return mainVC
-        case .mineMessage:
-            let mineMessageVC = MineMessageViewController()
-            return mineMessageVC
-        case .mineSetting:
-            let mineSettingVC = MineSettingViewController()
-            return mineSettingVC
-        case .mineOrder:
-            let mineOrderVC = MineOrderViewController()
-            return mineOrderVC
-        case .mineLogistics:
-            let mineLogisticsVC = MineLogisticsViewController()
-            return mineLogisticsVC
-        case .mineAddress:
-            let mineAddressVC = MineAddressViewController()
-            return mineAddressVC
-        case .mineAddressModify:
-            let mineAddressVC = MineAddressModifyViewController()
-            return mineAddressVC
+            
+        // tabs
+        case .tabs: return MainTabBarViewController()
+            
+        // 登录
+        case .login: return RootNavigationController(rootViewController: WechatLoginViewController())
+        case .psdLogin: return PasswordLoginViewController()
+            
+            
+        // 首页
+        case .delivery: return DeliveryViewController()
+        case .privateFarm: return PrivatefarmViewController()
+            
+        // 分类
+            
+        // 菜篮
+            
+        // 我的
+        case .mineMessage: return MineMessageViewController()
+        case .mineSetting: return MineSettingViewController()
+        case .mineOrder: return MineOrderViewController()
+        case .mineLogistics: return MineLogisticsViewController()
+        case .mineAddress: return MineAddressViewController()
+        case .mineAddressModify: return MineAddressModifyViewController()
+            
+            
         }
     }
     

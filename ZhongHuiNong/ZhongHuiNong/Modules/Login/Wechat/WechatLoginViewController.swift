@@ -21,7 +21,7 @@ class WechatLoginViewController: ViewController {
     
     override func bindViewModel() {
         super.bindViewModel()
-        statusBarStyle.accept(true)
+        //statusBarStyle.accept(true)
         navigationBarHidden.accept(true)
         
         loginView.wechatBtn.rx.tap.subscribe(onNext: { (_) in

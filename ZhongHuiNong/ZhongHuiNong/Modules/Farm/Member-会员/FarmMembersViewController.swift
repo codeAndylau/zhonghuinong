@@ -25,10 +25,6 @@ class FarmMembersViewController: TableViewController {
         view.backgroundColor = UIColor.cyan
     }
     
-    let segmentedControl = FarmSegmentedView().then { (view) in
-        view.frame = CGRect(x: 20, y: 150, width: kScreenW - 40, height: 40)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -74,12 +70,13 @@ class FarmMembersViewController: TableViewController {
             self.showCenterView()
         }).disposed(by: rx.disposeBag)
         
-        headerView.cellDidSelectedClosure = { index in
+        headerView.cellDidSelectedClosure = {  [weak self] index in
+            guard let self = self else { return }
+            
             switch index {
-            case 0:
-                /// 配送选货
-                let deliveryVC = DeliveryViewController()
-                self.navigationController?.pushViewController(deliveryVC, animated: true)
+            case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
+            case 2: self.navigator.show(segue: .privateFarm, sender: self)  // 私家农场
+                
             default:
                 break
             }

@@ -43,6 +43,8 @@ class MineAreaTabCell: TableViewCell, TabReuseIdentifier {
         imgView.snp.makeConstraints { (make) in
             make.left.equalTo(titleLab.snp.right).offset(5)
             make.centerY.equalTo(self)
+            make.width.equalTo(14)
+            make.height.equalTo(11)
         }
     }
  

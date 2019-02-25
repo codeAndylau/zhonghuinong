@@ -10,22 +10,8 @@ import UIKit
 
 class FlashView: View {
 
-    let barView = View().then { (view) in
-        view.backgroundColor = UIColor.clear
-    }
-    
-    let backBtn = Button().then { (btn) in
-        btn.setImage(UIImage(named: "navigation_back_icon"), for: .normal)
-    }
-    
-    let titleLab = Label().then { (lab) in
-        lab.text = "限时抢购"
-        lab.textColor = UIColor.white
-        lab.font = UIFont.boldSystemFont(ofSize: 20)
-    }
-    
     let selectView = View().then { (view) in
-        view.backgroundColor = UIColor.orange
+        view.backgroundColor = UIColor.clear
     }
     
     let countdownView = View().then { (view) in
@@ -48,11 +34,6 @@ class FlashView: View {
     
     override func makeUI() {
         super.makeUI()
-        addSubview(barView)
-        barView.addSubview(backBtn)
-        barView.addSubview(titleLab)
-        
-        
         addSubview(selectView)
         addSubview(countdownView)
         countdownView.addSubview(countdownTitleLab)
@@ -62,24 +43,8 @@ class FlashView: View {
     
     override func updateUI() {
         super.updateUI()
-        barView.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(kStaBarH)
-            make.left.width.equalTo(self)
-            make.height.equalTo(44)
-        }
-        
-        backBtn.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(44)
-        }
-        
-        titleLab.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-        }
-        
         selectView.snp.makeConstraints { (make) in
-            make.top.equalTo(barView.snp.bottom)
+            make.top.equalTo(kNavBarH)
             make.left.width.equalTo(self)
             make.height.equalTo(56)
         }
@@ -112,6 +77,7 @@ class FlashView: View {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         // fillCode
         let bgLayer1 = CAGradientLayer()
         bgLayer1.colors = [UIColor(red: 1, green: 0.44, blue: 0.26, alpha: 1).cgColor, UIColor(red: 1, green: 0.3, blue: 0.31, alpha: 1).cgColor]
@@ -127,6 +93,13 @@ class FlashView: View {
         countdownView.layer.shadowOpacity = 1
         countdownView.layer.shadowRadius = 6
         countdownView.layer.cornerRadius = 6
+    }
+    
+    /// Public method
+    
+    class func loadView() -> FlashView {
+        let view = FlashView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: FlashViewH))
+        return view
     }
 
 }
