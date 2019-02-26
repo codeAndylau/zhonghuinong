@@ -30,12 +30,16 @@ class Navigator {
         // 首页
         case delivery
         case privateFarm
+        case flash  // 抢购
+        case hot    // 热销
         
         // 分类
+        case goodsDetail
         
         // 菜篮
         
         // 我的
+        case mineAbout
         case mineMessage
         case mineSetting
         case mineOrder
@@ -70,12 +74,17 @@ class Navigator {
         // 首页
         case .delivery: return DeliveryViewController()
         case .privateFarm: return PrivatefarmViewController()
+        case .flash: return FlashViewController()
+        case .hot: return HotViewController()
+            
             
         // 分类
+        case .goodsDetail: return GoodsDetailViewController()
             
         // 菜篮
             
         // 我的
+        case .mineAbout: return MineAboutViewController()
         case .mineMessage: return MineMessageViewController()
         case .mineSetting: return MineSettingViewController()
         case .mineOrder: return MineOrderViewController()

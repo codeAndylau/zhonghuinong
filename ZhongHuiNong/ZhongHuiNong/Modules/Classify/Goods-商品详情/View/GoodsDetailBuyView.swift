@@ -109,8 +109,7 @@ class GoodsDetailBuyView: View {
     
     /// Public method
     class func loadView() -> GoodsDetailBuyView {
-        let viewH = IPhone_X == true ? 56 + kIndicatorH : 56
-        let view = GoodsDetailBuyView(frame: CGRect(x: 0, y: kScreenH-viewH, width: kScreenW, height: viewH))
+        let view = GoodsDetailBuyView(frame: CGRect(x: 0, y: kScreenH-kBottomViewH, width: kScreenW, height: kBottomViewH))
         return view
     }
     

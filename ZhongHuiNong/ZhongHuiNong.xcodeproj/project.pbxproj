@@ -41,6 +41,19 @@
 		1414E0C921FACCE300347050 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C821FACCE200347050 /* Button.swift */; };
 		1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */; };
 		1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */; };
+		1448B0912224ECA7009237E7 /* HotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0902224ECA7009237E7 /* HotView.swift */; };
+		1448B0932224F444009237E7 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0922224F444009237E7 /* ComponentViewController.swift */; };
+		1448B09522250892009237E7 /* HotTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09422250892009237E7 /* HotTabCell.swift */; };
+		1448B09722250A32009237E7 /* HotAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09622250A32009237E7 /* HotAllViewController.swift */; };
+		1448B09922250A6B009237E7 /* HotFruitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09822250A6B009237E7 /* HotFruitViewController.swift */; };
+		1448B09B22250A9D009237E7 /* HotMeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09A22250A9D009237E7 /* HotMeatViewController.swift */; };
+		1448B09D22250AD3009237E7 /* HotOilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09C22250AD3009237E7 /* HotOilViewController.swift */; };
+		1448B09F22250AFE009237E7 /* HotDairyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09E22250AFE009237E7 /* HotDairyViewController.swift */; };
+		1448B0A122250DBC009237E7 /* HotBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A022250DBC009237E7 /* HotBottomView.swift */; };
+		1448B0A4222522A8009237E7 /* MineAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A3222522A8009237E7 /* MineAboutViewController.swift */; };
+		1448B0A622252517009237E7 /* MineAboutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A522252517009237E7 /* MineAboutHeaderView.swift */; };
+		1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */; };
+		1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */; };
 		1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389921F8065B0038AFC6 /* WebAPI.swift */; };
 		1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389B21F80A6E0038AFC6 /* Networking.swift */; };
 		1451389E21F80A960038AFC6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389D21F80A960038AFC6 /* Reachability.swift */; };
@@ -256,6 +269,19 @@
 		1414E0C821FACCE200347050 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmMembersViewController.swift; sourceTree = "<group>"; };
 		1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonmembersHeaderView.swift; sourceTree = "<group>"; };
+		1448B0902224ECA7009237E7 /* HotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotView.swift; sourceTree = "<group>"; };
+		1448B0922224F444009237E7 /* ComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
+		1448B09422250892009237E7 /* HotTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTabCell.swift; sourceTree = "<group>"; };
+		1448B09622250A32009237E7 /* HotAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotAllViewController.swift; sourceTree = "<group>"; };
+		1448B09822250A6B009237E7 /* HotFruitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotFruitViewController.swift; sourceTree = "<group>"; };
+		1448B09A22250A9D009237E7 /* HotMeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotMeatViewController.swift; sourceTree = "<group>"; };
+		1448B09C22250AD3009237E7 /* HotOilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotOilViewController.swift; sourceTree = "<group>"; };
+		1448B09E22250AFE009237E7 /* HotDairyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDairyViewController.swift; sourceTree = "<group>"; };
+		1448B0A022250DBC009237E7 /* HotBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBottomView.swift; sourceTree = "<group>"; };
+		1448B0A3222522A8009237E7 /* MineAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAboutViewController.swift; sourceTree = "<group>"; };
+		1448B0A522252517009237E7 /* MineAboutHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAboutHeaderView.swift; sourceTree = "<group>"; };
+		1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderModifyView.swift; sourceTree = "<group>"; };
+		1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMsgComponentViewController.swift; sourceTree = "<group>"; };
 		1451389921F8065B0038AFC6 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
 		1451389B21F80A6E0038AFC6 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		1451389D21F80A960038AFC6 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -528,7 +554,8 @@
 			isa = PBXGroup;
 			children = (
 				14087463221E74DA0051B7C3 /* MineMessageViewController.swift */,
-				14087465221E75250051B7C3 /* MineMessageEmptyView.swift */,
+				1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */,
+				1448B0A922252DC2009237E7 /* View */,
 			);
 			path = "Message-消息";
 			sourceTree = "<group>";
@@ -540,6 +567,40 @@
 				1408746A221E7AD10051B7C3 /* MineSettingTabCell.swift */,
 			);
 			path = "Setting-设置";
+			sourceTree = "<group>";
+		};
+		1448B08E2224EC7F009237E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1448B0902224ECA7009237E7 /* HotView.swift */,
+				1448B0A022250DBC009237E7 /* HotBottomView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1448B08F2224EC85009237E7 /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				1448B09422250892009237E7 /* HotTabCell.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		1448B0A22225227E009237E7 /* About-关于我们 */ = {
+			isa = PBXGroup;
+			children = (
+				1448B0A3222522A8009237E7 /* MineAboutViewController.swift */,
+				1448B0A522252517009237E7 /* MineAboutHeaderView.swift */,
+			);
+			path = "About-关于我们";
+			sourceTree = "<group>";
+		};
+		1448B0A922252DC2009237E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14087465221E75250051B7C3 /* MineMessageEmptyView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		145138A721F851490038AFC6 /* Main */ = {
@@ -573,8 +634,8 @@
 		145138AB21F8541A0038AFC6 /* Classify */ = {
 			isa = PBXGroup;
 			children = (
-				14C3EBCE221D1D26003029EB /* Goods-商品详情 */,
 				1492DDA0221A5A4F00C79D88 /* Classify */,
+				14C3EBCE221D1D26003029EB /* Goods-商品详情 */,
 			);
 			path = Classify;
 			sourceTree = "<group>";
@@ -592,6 +653,7 @@
 			isa = PBXGroup;
 			children = (
 				1492DDBC221AAECD00C79D88 /* Mine */,
+				1448B0A22225227E009237E7 /* About-关于我们 */,
 				146B74B7221E99CA005D2879 /* Order-订单 */,
 				14D5B341221FD2C100D08DD1 /* Address- 收货地址 */,
 				14D5B337221FA1BF00D08DD1 /* Logistics-物流信息 */,
@@ -650,6 +712,7 @@
 				8B31B5BB221028F4003F475A /* MineHeaderView.swift */,
 				14043D4C2212773B0023AA11 /* MineOrderView.swift */,
 				1468B1622215444D002B971F /* MineCenterView.swift */,
+				1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -912,6 +975,14 @@
 			isa = PBXGroup;
 			children = (
 				14C2510A2223D98000F5CB53 /* HotViewController.swift */,
+				1448B0922224F444009237E7 /* ComponentViewController.swift */,
+				1448B09622250A32009237E7 /* HotAllViewController.swift */,
+				1448B09822250A6B009237E7 /* HotFruitViewController.swift */,
+				1448B09A22250A9D009237E7 /* HotMeatViewController.swift */,
+				1448B09C22250AD3009237E7 /* HotOilViewController.swift */,
+				1448B09E22250AFE009237E7 /* HotDairyViewController.swift */,
+				1448B08F2224EC85009237E7 /* TabCell */,
+				1448B08E2224EC7F009237E7 /* View */,
 			);
 			path = "Hot-热销排行";
 			sourceTree = "<group>";
@@ -1464,6 +1535,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/JXCategoryView/JXCategoryView.framework",
+				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -1485,6 +1558,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXCategoryView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KafkaRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -1563,6 +1638,7 @@
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
 				14D5B340221FC8FD00D08DD1 /* MineLogisticsAddressView.swift in Sources */,
+				1448B0932224F444009237E7 /* ComponentViewController.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
 				14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */,
 				14F35C6A2202A2EA002122B6 /* StoreViewModel.swift in Sources */,
@@ -1583,6 +1659,7 @@
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
 				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
 				14043D6A2212C5300023AA11 /* PaySelectView.swift in Sources */,
+				1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */,
 				1408746B221E7AD10051B7C3 /* MineSettingTabCell.swift in Sources */,
@@ -1611,6 +1688,7 @@
 				14AE310C222112FF00302F89 /* MineAreaTabCell.swift in Sources */,
 				1492DDA6221A5DC900C79D88 /* DeliveryDateView.swift in Sources */,
 				14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */,
+				1448B0912224ECA7009237E7 /* HotView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
@@ -1631,6 +1709,7 @@
 				145138A621F83A060038AFC6 /* Navigator.swift in Sources */,
 				1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */,
 				14B27A54221BF0190029648A /* DeliveryOrderView.swift in Sources */,
+				1448B09B22250A9D009237E7 /* HotMeatViewController.swift in Sources */,
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
 				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
@@ -1644,6 +1723,7 @@
 				14043D51221298B10023AA11 /* CartTabCell.swift in Sources */,
 				14C3EBCD221D046C003029EB /* VegetablesView.swift in Sources */,
 				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
+				1448B0A622252517009237E7 /* MineAboutHeaderView.swift in Sources */,
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
@@ -1659,6 +1739,7 @@
 				1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */,
 				14DC342921F17553006EF1CF /* HomeViewModel.swift in Sources */,
 				145138B421F8595D0038AFC6 /* Token.swift in Sources */,
+				1448B0A122250DBC009237E7 /* HotBottomView.swift in Sources */,
 				14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */,
 				14DC342B21F17561006EF1CF /* HomeModel.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
@@ -1707,6 +1788,7 @@
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
 				1411F76221F982BC0076D763 /* Image.swift in Sources */,
+				1448B0A4222522A8009237E7 /* MineAboutViewController.swift in Sources */,
 				14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */,
 				14043D622212BD030023AA11 /* SwiftPopup.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
@@ -1719,6 +1801,7 @@
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
 				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
 				14D5B34F221FECE500D08DD1 /* MineAddressPicker.swift in Sources */,
+				1448B09F22250AFE009237E7 /* HotDairyViewController.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				146B74C1221EA0F7005D2879 /* MineAllOrderViewController.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
@@ -1728,17 +1811,22 @@
 				14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
+				1448B09522250892009237E7 /* HotTabCell.swift in Sources */,
 				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
+				1448B09922250A6B009237E7 /* HotFruitViewController.swift in Sources */,
 				1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */,
 				1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */,
+				1448B09D22250AD3009237E7 /* HotOilViewController.swift in Sources */,
 				1492DDA4221A5AD200C79D88 /* AddSelectedView.swift in Sources */,
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
+				1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */,
 				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
 				14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */,
 				14974BDD21F706FE0088ABC3 /* Configs.swift in Sources */,
+				1448B09722250A32009237E7 /* HotAllViewController.swift in Sources */,
 				14B27A46221BA20C0029648A /* DeliveryAddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

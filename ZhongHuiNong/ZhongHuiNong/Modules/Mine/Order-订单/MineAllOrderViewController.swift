@@ -14,11 +14,7 @@ class MineAllOrderViewController: ViewController {
         super.makeUI()
         view.addSubview(tableView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

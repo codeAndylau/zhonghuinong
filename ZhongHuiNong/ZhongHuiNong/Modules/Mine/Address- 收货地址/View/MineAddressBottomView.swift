@@ -55,8 +55,7 @@ class MineAddressBottomView: View {
     /// Public method
     
     class func loadView() -> MineAddressBottomView {
-        let viewH = IPhone_X == true ? kIndicatorH + 56 : 56
-        let view = MineAddressBottomView(frame: CGRect(x: 0, y: kScreenH-viewH, width: kScreenW, height: viewH))
+        let view = MineAddressBottomView(frame: CGRect(x: 0, y: kScreenH-kBottomViewH, width: kScreenW, height: kBottomViewH))
         return view
     }
 

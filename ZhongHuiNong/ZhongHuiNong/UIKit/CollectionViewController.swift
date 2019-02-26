@@ -33,10 +33,7 @@ class CollectionViewController: ViewController {
         super.makeUI()
         collectionView.backgroundColor = .white
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
+
 }
 
 extension CollectionViewController {

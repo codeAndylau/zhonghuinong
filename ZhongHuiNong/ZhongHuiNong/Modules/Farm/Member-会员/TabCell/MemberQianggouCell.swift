@@ -10,6 +10,8 @@ import UIKit
 
 class MemberQianggouCell: TableViewCell, TabReuseIdentifier {
     
+    lazy var dataArray = ["farm_flash_1","farm_flash_2","farm_flash_3"]
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 5
@@ -40,11 +42,12 @@ class MemberQianggouCell: TableViewCell, TabReuseIdentifier {
 extension MemberQianggouCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberQianggouSubCell.identifier, for: indexPath) as! MemberQianggouSubCell
+        cell.topImg.image = UIImage(named: dataArray[indexPath.row])
         return cell
     }
     
@@ -64,11 +67,11 @@ extension MemberQianggouCell: UICollectionViewDataSource, UICollectionViewDelega
 class MemberQianggouSubCell: CollectionViewCell, TabReuseIdentifier {
 
     let topImg = ImageView().then { (img) in
-        img.backgroundColor = Color.backdropColor
+        img.backgroundColor = Color.whiteColor
     }
     
     let tipsImg = ImageView().then { (img) in
-        img.backgroundColor = UIColor.orange
+        img.backgroundColor = Color.whiteColor
     }
     
     let titleLab = Label().then { (lab) in
@@ -84,7 +87,7 @@ class MemberQianggouSubCell: CollectionViewCell, TabReuseIdentifier {
     }
     
     let vipImg = ImageView().then { (img) in
-        img.backgroundColor = UIColor.orange
+        img.backgroundColor = UIColor.white
     }
     
     let priceLab = Label().then { (lab) in

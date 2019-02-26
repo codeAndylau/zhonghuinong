@@ -15,11 +15,7 @@ class MineLogisticsViewController: ViewController {
         navigationItem.title = "物流信息"
         view.addSubview(tableView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

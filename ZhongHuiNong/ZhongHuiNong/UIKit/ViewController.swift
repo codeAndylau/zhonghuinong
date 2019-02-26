@@ -63,7 +63,6 @@ class ViewController: UIViewController, Navigatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
-        updateUI()
         bindViewModel()
         // 更改状态栏的颜色
         statusBarStyle.asObservable().subscribe(onNext: { (flag) in
@@ -77,8 +76,6 @@ class ViewController: UIViewController, Navigatable {
     
     /// 创建UI
     func makeUI() { view.backgroundColor = Color.whiteColor }
-    /// 更新UI
-    func updateUI() {}
     /// 绑定vm
     func bindViewModel() {}
 

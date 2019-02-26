@@ -44,11 +44,7 @@ class MineAddressModifyViewController: ViewController {
         }
             
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

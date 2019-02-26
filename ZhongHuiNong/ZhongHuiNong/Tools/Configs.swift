@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import AdSupport
 
 struct Configs {
     
     struct App {
-        static let bundleIdentifier = "com.public.SwiftHub"
         static let IsTesting = true
+        static var appName: String { return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String }
+        static var appVersion: String { return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String }
+        static var appBuild: String { return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String }
+        static var bundleIdentifier: String { return Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String }
+        static var bundleName: String { return Bundle.main.infoDictionary!["CFBundleName"] as! String }
+        static var appStoreURL: URL { return URL(string: "your URL")! }
+        static var appVersionAndBuild: String { return appVersion == appBuild ? "v\(appVersion)" : "v\(appVersion)(\(appBuild))" }
+        static var IDFA: String { return ASIdentifierManager.shared().advertisingIdentifier.uuidString }
+        static var IDFV: String { return UIDevice.current.identifierForVendor!.uuidString }
+        static var screenOrientation: UIInterfaceOrientation { return UIApplication.shared.statusBarOrientation }
+        static var screenStatusBarHeight: CGFloat { return UIApplication.shared.statusBarFrame.height }
     }
     
     struct Network {

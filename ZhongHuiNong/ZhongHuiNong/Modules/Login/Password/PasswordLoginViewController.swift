@@ -14,11 +14,7 @@ class PasswordLoginViewController: ViewController {
         super.makeUI()
         view.addSubview(loginView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
         navigationBarHidden.accept(true)

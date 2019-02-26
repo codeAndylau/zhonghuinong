@@ -26,6 +26,8 @@ class GoodsDetailViewController: ViewController {
         
         view.addSubview(buyView)
         
+        statusBarStyle.accept(true)
+        
         extendedLayoutIncludesOpaqueBars = true
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -43,11 +45,7 @@ class GoodsDetailViewController: ViewController {
         
         
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }
@@ -71,8 +69,8 @@ class GoodsDetailViewController: ViewController {
     }()
 
     lazy var tableView: TableView = {
-        let viewH = IPhone_X == true ? 56 + kIndicatorH : 56
-        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-viewH), style: .plain)
+
+        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kBottomViewH), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -126,5 +124,6 @@ extension GoodsDetailViewController: UIScrollViewDelegate {
         
         navigationItem.title =  delta > 0.8 ? "商品详情" : ""
         navigationController?.navigationBar.tintColor =  delta > 0.8 ? UIColor.black : UIColor.white
+        delta > 0.8 ? statusBarStyle.accept(false) : statusBarStyle.accept(true)
     }
 }

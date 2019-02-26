@@ -92,11 +92,7 @@ class DeliveryViewController: ViewController {
             
         }).disposed(by: rx.disposeBag)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }
@@ -109,8 +105,7 @@ class DeliveryViewController: ViewController {
     lazy var commitVew = DeliveryCommitOrderView.loadView()
     
     lazy var tableView: TableView = {
-        let viewH = IPhone_X == true ? 56+kIndicatorH : 56
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-viewH-15), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH-15), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -127,8 +122,7 @@ class DeliveryViewController: ViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         
-        let viewH = IPhone_X == true ? 56+kIndicatorH : 56
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-viewH-15), collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH-15), collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white

@@ -32,11 +32,7 @@ class PrivatefarmViewController: ViewController {
         navigationItem.titleView = titleView
         view.addSubview(tableView)        
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

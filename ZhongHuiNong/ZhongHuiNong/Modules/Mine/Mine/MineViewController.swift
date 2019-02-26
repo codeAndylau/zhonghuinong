@@ -10,17 +10,22 @@ import UIKit
 
 class MineViewController: TableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.rightBarButtonItems = [settingItem, messageItem]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+        
+        
+        headerView.headerImg.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            let headerView = MineHeaderModifyView()
+            
+        }).disposed(by: rx.disposeBag)
+        
         
         headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
@@ -82,7 +87,12 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        switch indexPath.row {
+        case 4:
+            self.navigator.show(segue: .mineAbout, sender: self)
+        default:
+            break
+        }
     }
     
 }

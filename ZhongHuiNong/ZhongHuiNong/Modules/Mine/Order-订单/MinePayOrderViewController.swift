@@ -14,11 +14,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
         super.makeUI()
         tableView.register(MinePayOrderTabCell.self, forCellReuseIdentifier: MinePayOrderTabCell.identifier)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

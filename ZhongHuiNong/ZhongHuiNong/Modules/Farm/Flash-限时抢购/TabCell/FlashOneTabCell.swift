@@ -11,6 +11,9 @@ import UIKit
 class FlashOneTabCell: StoreRightCell {
 
     override func makeUI() {
+        
+        selectionStyle = .none
+        
         addSubview(ImgView)
         addSubview(titleLab)
         addSubview(priceLab)

@@ -10,6 +10,9 @@ import UIKit
 
 class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
 
+    
+    lazy var dataArray = ["farm_hot_1","farm_hot_2","farm_hot_3"]
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
@@ -40,11 +43,14 @@ class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
 extension MemberRexiaoCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberRexiaoSubCell.identifier, for: indexPath) as! MemberRexiaoSubCell
+        cell.titleLab.text = ["高山土鸡","有机野香猪","绿壳鸡蛋"][indexPath.row]
+        cell.detailLab.text = ["高山散养","山野香味","自然产卵"][indexPath.row]
+        cell.topImg.image = UIImage(named: dataArray[indexPath.row])
         return cell
     }
     
@@ -68,11 +74,11 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
     let contView = View()
     
     let topImg = ImageView().then { (img) in
-        img.backgroundColor = Color.backdropColor
+        img.backgroundColor = Color.whiteColor
     }
     
     let tipsImg = ImageView().then { (img) in
-        img.backgroundColor = UIColor.orange
+        img.backgroundColor = Color.whiteColor
     }
     
     let titleLab = Label().then { (lab) in
@@ -91,7 +97,7 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
     override func makeUI() {
         super.makeUI()
         addSubview(contView)
-        contView.addSubview(topImg)
+        addSubview(topImg)
         contView.addSubview(tipsImg)
         contView.addSubview(titleLab)
         contView.addSubview(detailLab)
@@ -108,7 +114,7 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
         }
         
         topImg.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(-20)
+            make.top.equalTo(self)
             make.left.equalTo(self).offset(12)
             make.right.equalTo(self).offset(-12)
             make.width.equalTo(topImg.snp.height).multipliedBy(1)

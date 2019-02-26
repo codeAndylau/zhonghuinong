@@ -14,11 +14,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
         super.makeUI()
         tableView.register(MineAcceptOrderTabCell.self, forCellReuseIdentifier: MineAcceptOrderTabCell.identifier)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

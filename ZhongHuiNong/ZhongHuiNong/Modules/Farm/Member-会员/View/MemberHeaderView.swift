@@ -13,7 +13,7 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
     var cellDidSelectedClosure: ((Int) ->())?
     
-    lazy var ImgArray = ["farm_peisong","farm_shishisuyuan","farm_guanjia","farm_shishisuyuan","farm_guanjia"]
+    lazy var ImgArray = ["farm_peisong","farm_shishisuyuan","farm_caiyuan","farm_guanjia"]
     lazy var searchView = MemberSearchView.loadView()
     lazy var classView = MemberClassView()
     
@@ -105,8 +105,8 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     
-    lazy var ImgArray = ["farm_luobo","farm_ruping","farm_gaodian","farm_danpin","farm_ruping","farm_gaodian","farm_danpin"]
-    lazy var TitleArray = ["精品时蔬","乳品烘焙","早餐糕点","肉禽蛋品","乳品烘焙","早餐糕点","肉禽蛋品"]
+    lazy var ImgArray = ["farm_ganhuo","farm_luobo","farm_ruping","farm_gaodian","farm_danpin"]
+    lazy var TitleArray = ["粮油干货","精品时蔬","乳品烘焙","早餐糕点","肉禽蛋品"]
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

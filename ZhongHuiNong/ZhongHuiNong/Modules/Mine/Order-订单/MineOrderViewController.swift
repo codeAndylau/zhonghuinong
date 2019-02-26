@@ -16,11 +16,7 @@ class MineOrderViewController: ViewController {
         view.addSubview(pageTitleView)
         view.addSubview(pageContentView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

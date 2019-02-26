@@ -15,11 +15,7 @@ class DeliveryOrderInfoViewController: ViewController {
         navigationItem.title = "配送订单"
         view.addSubview(tableView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

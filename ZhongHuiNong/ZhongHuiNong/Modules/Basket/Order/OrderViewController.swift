@@ -60,8 +60,7 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        let viewH: CGFloat = IPhone_X == true ? 90 : 56
-        paySureView.frame = CGRect(x: 0, y: kScreenH-viewH+offsetY, width: kScreenW, height: viewH)
+        paySureView.frame = CGRect(x: 0, y: kScreenH-kBottomViewH+offsetY, width: kScreenW, height: kBottomViewH)
     }
 
 }

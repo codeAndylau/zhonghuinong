@@ -20,7 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.black
         window?.makeKeyAndVisible()
-                
+        
+        // FIXME: - 后期需要删除
+        Thread.sleep(forTimeInterval: 1)
+        
         LibsManager.shared.setupLibs()
         Application.shared.presentInitialScreen(in: window!)
         return true

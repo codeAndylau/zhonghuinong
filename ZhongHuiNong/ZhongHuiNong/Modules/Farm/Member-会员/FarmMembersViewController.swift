@@ -85,6 +85,8 @@ class FarmMembersViewController: TableViewController {
     
     // MARK: - Lazy
     
+    lazy var dataArray = ["goods_tuijian_1","goods_tuijian_2","goods_tuijian_3","goods_tuijian_4","goods_tuijian_5","goods_tuijian_6"]
+    
     lazy var vipItem = FarmHeaderView.loadView()
     lazy var mineCenterView = MineCenterView.loadView()
     lazy var dropView = MemberDropdownView.loadView()
@@ -162,7 +164,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         case 0, 1, 2:
             return 1
         case 3:
-            return 5
+            return dataArray.count
         default:
             return 0
         }
@@ -172,7 +174,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
-            cell.bannerView.bannerArray.accept(["goods_tuijian_1","goods_tuijian_2"])
+            cell.bannerView.bannerArray.accept(["farm_bananer_1","farm_bananer_1"])
             return cell
         }
         
@@ -187,6 +189,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
+        cell.imgView.image = UIImage(named: dataArray[indexPath.row])
         return cell
     }
     
@@ -199,13 +202,20 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             let view = MemberSectionView(type: .qianggou)
             view.backgroundColor = UIColor.white
             view.countdownView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
                 debugPrints("点击了倒计时")
-                let flash = FlashViewController()
-                self?.navigationController?.pushViewController(flash, animated: true)                
+                self.navigator.show(segue: .flash, sender: self)
             }).disposed(by: rx.disposeBag)
             return view
         case 2:
-            return MemberSectionView(type: .rexiao)
+            
+            let view = MemberSectionView(type: .rexiao)
+            view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                debugPrints("点击了查看更多")
+                self.navigator.show(segue: .hot, sender: self)
+            }).disposed(by: rx.disposeBag)
+            return view
         case 3:
             return MemberSectionView(type: .tuijian)
         default:
@@ -218,8 +228,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let detailVC = GoodsDetailViewController()
-        navigationController?.pushViewController(detailVC, animated: true)
+        self.navigator.show(segue: .goodsDetail, sender: self)
     }
     
     

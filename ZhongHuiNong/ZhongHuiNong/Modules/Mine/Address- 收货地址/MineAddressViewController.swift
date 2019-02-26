@@ -21,11 +21,7 @@ class MineAddressViewController: ViewController {
             self.navigator.show(segue: .mineAddressModify, sender: self)
         }).disposed(by: rx.disposeBag)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

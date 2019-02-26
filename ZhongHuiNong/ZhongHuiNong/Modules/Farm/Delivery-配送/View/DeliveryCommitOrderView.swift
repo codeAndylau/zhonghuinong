@@ -112,8 +112,7 @@ class DeliveryCommitOrderView: View {
     /// - Public methods
     class func loadView() -> DeliveryCommitOrderView {
         let view = DeliveryCommitOrderView()
-        let viewH = IPhone_X == true ? 56+kIndicatorH : 56
-        view.frame = CGRect(x: 0, y: kScreenH-viewH, width: kScreenW, height: viewH)
+        view.frame = CGRect(x: 0, y: kScreenH-kBottomViewH, width: kScreenW, height: kBottomViewH)
         view.backgroundColor = Color.whiteColor
         return view
     }

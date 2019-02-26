@@ -103,8 +103,7 @@ class PaySureView: View {
     /// - Public methods
     class func loadView() -> PaySureView {
         let view = PaySureView()
-        let viewH: CGFloat = IPhone_X == true ? 90 : 56
-        view.frame = CGRect(x: 0, y: kScreenH-kNavBarH-viewH, width: kScreenW, height: viewH)
+        view.frame = CGRect(x: 0, y: kScreenH-kNavBarH-kBottomViewH, width: kScreenW, height: kBottomViewH)
         view.backgroundColor = Color.whiteColor
         return view
     }

@@ -10,8 +10,9 @@ import UIKit
 
 class MineHeaderView: View {
     
-    let headerImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait")
+    let headerImg = Button().then { (btn) in
+        btn.setImage(UIImage(named: "mine_default_ portrait"), for: .normal)
+//        img.image = UIImage(named: "mine_default_ portrait")
     }
     
     let memberBtn = Button().then { (btn) in
@@ -19,7 +20,7 @@ class MineHeaderView: View {
     }
     
     let nameLab = Label().then { (lab) in
-        lab.text = "欧阳雨"
+        lab.text = "欧丫丫"
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.boldSystemFont(ofSize: 18)
     }
@@ -74,15 +75,6 @@ class MineHeaderView: View {
     
     let orderView = MineOrderView().then { (view) in
         view.backgroundColor = UIColor.white
-    }
-    
-    /// - Public methods
-    
-    class func loadView() -> MineHeaderView {
-        let view = MineHeaderView()
-        view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 290)
-        view.backgroundColor = Color.whiteColor
-        return view
     }
     
     override func makeUI() {
@@ -181,6 +173,15 @@ class MineHeaderView: View {
         orderView.layer.cornerRadius = 10
         
         memberBtn.set(image: UIImage(named: "mine_vip_1"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+    }
+    
+    /// - Public methods
+    
+    class func loadView() -> MineHeaderView {
+        let view = MineHeaderView()
+        view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 290)
+        view.backgroundColor = Color.whiteColor
+        return view
     }
 
 }

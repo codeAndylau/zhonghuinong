@@ -14,11 +14,7 @@ class FlashOneViewController: ViewController {
         super.makeUI()
         view.addSubview(tableView)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }
@@ -26,7 +22,7 @@ class FlashOneViewController: ViewController {
     // MARK: - Lazy
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-FlashViewH-15), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-FlashViewH), style: .plain)
         view.backgroundColor = UIColor.white
         view.separatorStyle = .none
         view.dataSource = self

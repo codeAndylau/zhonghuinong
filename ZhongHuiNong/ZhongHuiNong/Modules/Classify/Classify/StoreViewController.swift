@@ -32,11 +32,7 @@ class StoreViewController: ViewController {
     override func bindViewModel() {
         super.bindViewModel()
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     // MARK: - Lazy
     
     lazy var leftArray = ["store_qianggou_h","store_jingpin","store_shuiguo","store_danlei",
@@ -122,6 +118,11 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             leftArray[indexPath.row] = leftArray[indexPath.row] + "_h"
             leftTableView.reloadData()
             currentIndex = indexPath.row
+        }
+        
+        if rightTableView == tableView {
+            
+            self.navigator.show(segue: .goodsDetail, sender: self)
         }
     }
 }

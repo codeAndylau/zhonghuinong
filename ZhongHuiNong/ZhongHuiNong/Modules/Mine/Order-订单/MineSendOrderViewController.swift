@@ -14,11 +14,7 @@ class MineSendOrderViewController: MineAllOrderViewController {
         super.makeUI()
         tableView.register(MineSendOrderTabCell.self, forCellReuseIdentifier: MineSendOrderTabCell.identifier)
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }

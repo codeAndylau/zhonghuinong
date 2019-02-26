@@ -15,10 +15,6 @@ class WechatLoginViewController: ViewController {
         view.addSubview(loginView)
     }
 
-    override func updateUI() {
-        super.updateUI()
-    }
-    
     override func bindViewModel() {
         super.bindViewModel()
         //statusBarStyle.accept(true)

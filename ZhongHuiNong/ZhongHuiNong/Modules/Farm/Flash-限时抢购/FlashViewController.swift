@@ -42,7 +42,6 @@ class FlashViewController: ViewController {
                 debugPrints("点击了第\(index)个")
             // 2.滚动正确的位置
             let offsetX = CGFloat(index) * kScreenW
-            self.collectionView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
             self.collectionView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
         }
         
@@ -74,11 +73,7 @@ class FlashViewController: ViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
     }
-    
-    override func updateUI() {
-        super.updateUI()
-    }
-    
+
     override func bindViewModel() {
         super.bindViewModel()
     }
@@ -96,7 +91,7 @@ class FlashViewController: ViewController {
     lazy var collectionView : UICollectionView = { [weak self] in
         // 1.创建layout
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: kScreenW, height: kScreenH-FlashViewH-15)
+        layout.itemSize = CGSize(width: kScreenW, height: kScreenH-FlashViewH)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
@@ -110,7 +105,7 @@ class FlashViewController: ViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: FlashViewControllerID)
-        collectionView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return collectionView
         }()
 }

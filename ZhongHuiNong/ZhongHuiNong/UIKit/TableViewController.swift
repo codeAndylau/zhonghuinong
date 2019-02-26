@@ -46,10 +46,6 @@ class TableViewController: ViewController {
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func makeUI() {
         super.makeUI()
         tableView.backgroundColor = .white
@@ -57,10 +53,6 @@ class TableViewController: ViewController {
             guard let self = self else { return }
             if flag { self.refreshTrigger() }
         }).disposed(by: rx.disposeBag)
-    }
-    
-    override func updateUI() {
-        super.updateUI()
     }
     
     func bringLayertoFront() {

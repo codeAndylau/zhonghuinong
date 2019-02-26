@@ -12,13 +12,13 @@ class PaySelectViewController: SwiftPopup {
     
     lazy var paySuccessView = PaySuccessView.loadView()
     lazy var paySureView = PaySureView.loadView()
-    lazy var mineCenterView = MineCenterView.loadView()
+    lazy var paySelectView = PaySelectView.loadView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(mineCenterView)
+        view.addSubview(paySelectView)
         
         paySuccessView.cancelBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
