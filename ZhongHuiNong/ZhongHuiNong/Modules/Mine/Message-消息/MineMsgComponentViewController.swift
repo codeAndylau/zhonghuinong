@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import JXSegmentedView
+import JXCategoryView
 
 
 class MineMsgComponentViewController: ViewController {
@@ -16,16 +16,11 @@ class MineMsgComponentViewController: ViewController {
         super.makeUI()
         view.backgroundColor = UIColor.randomColor()
     }
-  
 
 }
 
-extension MineMsgComponentViewController: JXSegmentedListContainerViewListDelegate {
-    
-    func listView() -> UIView {
-        return view
-    }
-    
+extension MineMsgComponentViewController: JXCategoryListContentViewDelegate {
+    func listView() -> UIView { return view }
     func listDidAppear() { }
     func listDidDisappear() { }
 }

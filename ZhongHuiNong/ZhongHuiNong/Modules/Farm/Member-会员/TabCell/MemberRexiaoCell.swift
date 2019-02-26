@@ -134,7 +134,7 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
         }
 
         detailLab.snp.makeConstraints { (make) in
-            make.bottom.equalTo(contView.snp.bottom).offset(-15)
+            make.bottom.equalTo(contView.snp.bottom).offset(-5)
             make.left.equalTo(contView).offset(13)
             make.right.equalTo(contView).offset(-13)
 

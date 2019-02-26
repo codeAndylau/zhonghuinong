@@ -70,33 +70,18 @@ class HotViewController: ViewController {
 }
 
 extension HotViewController: JXCategoryViewDelegate {
-    
-    // 点击选中或者滚动选中都会调用该方法。适用于只关心选中事件，不关心具体是点击还是滚动选中的
-    func categoryView(_ categoryView: JXCategoryBaseView!, didSelectedItemAt index: Int) {
-        
-    }
-    
+
     // 点击选中的情况才会调用该方法
     func categoryView(_ categoryView: JXCategoryBaseView!, didClickSelectedItemAt index: Int) {
         debugPrints("点击了第\(index)个")
         listContainerView.didClickSelectedItem(at: index)
     }
-    
-    // 滚动选中的情况才会调用该方法
-    func categoryView(_ categoryView: JXCategoryBaseView!, didScrollSelectedItemAt index: Int) {
-        
-    }
-    
+
     // 正在滚动中的回调
     func categoryView(_ categoryView: JXCategoryBaseView!, scrollingFromLeftIndex leftIndex: Int, toRightIndex rightIndex: Int, ratio: CGFloat) {
         listContainerView.scrolling(fromLeftIndex: leftIndex, toRightIndex: rightIndex, ratio: ratio, selectedIndex: categoryView.selectedIndex)
     }
-    
-    // 自定义contentScrollView点击选中切换效果
-    func categoryView(_ categoryView: JXCategoryBaseView!, didClickedItemContentScrollViewTransitionTo index: Int) {
-        
-    }
-    
+
 }
 
 extension HotViewController: JXCategoryListContainerViewDelegate {
