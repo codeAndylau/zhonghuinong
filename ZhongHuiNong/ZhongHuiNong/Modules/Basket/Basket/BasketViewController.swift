@@ -18,8 +18,10 @@ class BasketViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.leftBarButtonItem = cartItem
-        navigationItem.rightBarButtonItem = messageItem
+        //navigationItem.rightBarButtonItem = messageItem
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CartTabCell.self, forCellReuseIdentifier: CartTabCell.identifier)

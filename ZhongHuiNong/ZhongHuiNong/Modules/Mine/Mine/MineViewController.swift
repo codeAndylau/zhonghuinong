@@ -13,17 +13,15 @@ class MineViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.rightBarButtonItems = [settingItem, messageItem]
+        navigationItem.rightBarButtonItem = messageItem
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
         
         
-        headerView.headerImg.rx.tap.subscribe(onNext: { [weak self] (_) in
-            guard let self = self else { return }
-            let headerView = MineHeaderModifyView()
-            
+        headerView.headerImg.rx.tap.subscribe(onNext: {  (_) in
+            let _ = MineHeaderModifyView()
         }).disposed(by: rx.disposeBag)
         
         

@@ -75,6 +75,14 @@
 		1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15D22153914002B971F /* SearchGoodsTabCell.swift */; };
 		1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B15F22153CF0002B971F /* SearchEmptyView.swift */; };
 		1468B1632215444D002B971F /* MineCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468B1622215444D002B971F /* MineCenterView.swift */; };
+		1468F29122262A0700ECD45A /* MineNewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29022262A0700ECD45A /* MineNewProductViewController.swift */; };
+		1468F29322262A5000ECD45A /* MineCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29222262A5000ECD45A /* MineCustomerViewController.swift */; };
+		1468F29522262A7C00ECD45A /* MineSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29422262A7C00ECD45A /* MineSystemViewController.swift */; };
+		1468F29822262BE300ECD45A /* MineNewProductTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29722262BE300ECD45A /* MineNewProductTabCell.swift */; };
+		1468F29A222634B700ECD45A /* MineCustomerTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F299222634B700ECD45A /* MineCustomerTabCell.swift */; };
+		1468F29C2226388D00ECD45A /* MineSystemTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29B2226388D00ECD45A /* MineSystemTabCell.swift */; };
+		1468F29F22263E3000ECD45A /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F29E22263E3000ECD45A /* ScanViewController.swift */; };
+		1468F2A522268A7600ECD45A /* WebBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1468F2A422268A7600ECD45A /* WebBottomView.swift */; };
 		146B74B9221E99E8005D2879 /* MineOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146B74B8221E99E8005D2879 /* MineOrderViewController.swift */; };
 		146B74BC221E9B82005D2879 /* PageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146B74BB221E9B82005D2879 /* PageTitleView.swift */; };
 		146B74BE221E9D12005D2879 /* PageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146B74BD221E9D12005D2879 /* PageContentView.swift */; };
@@ -303,6 +311,14 @@
 		1468B15D22153914002B971F /* SearchGoodsTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGoodsTabCell.swift; sourceTree = "<group>"; };
 		1468B15F22153CF0002B971F /* SearchEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmptyView.swift; sourceTree = "<group>"; };
 		1468B1622215444D002B971F /* MineCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCenterView.swift; sourceTree = "<group>"; };
+		1468F29022262A0700ECD45A /* MineNewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineNewProductViewController.swift; sourceTree = "<group>"; };
+		1468F29222262A5000ECD45A /* MineCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCustomerViewController.swift; sourceTree = "<group>"; };
+		1468F29422262A7C00ECD45A /* MineSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSystemViewController.swift; sourceTree = "<group>"; };
+		1468F29722262BE300ECD45A /* MineNewProductTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineNewProductTabCell.swift; sourceTree = "<group>"; };
+		1468F299222634B700ECD45A /* MineCustomerTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCustomerTabCell.swift; sourceTree = "<group>"; };
+		1468F29B2226388D00ECD45A /* MineSystemTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSystemTabCell.swift; sourceTree = "<group>"; };
+		1468F29E22263E3000ECD45A /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		1468F2A422268A7600ECD45A /* WebBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBottomView.swift; sourceTree = "<group>"; };
 		146B74B8221E99E8005D2879 /* MineOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineOrderViewController.swift; sourceTree = "<group>"; };
 		146B74BB221E9B82005D2879 /* PageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleView.swift; sourceTree = "<group>"; };
 		146B74BD221E9D12005D2879 /* PageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContentView.swift; sourceTree = "<group>"; };
@@ -555,6 +571,10 @@
 			children = (
 				14087463221E74DA0051B7C3 /* MineMessageViewController.swift */,
 				1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */,
+				1468F29022262A0700ECD45A /* MineNewProductViewController.swift */,
+				1468F29222262A5000ECD45A /* MineCustomerViewController.swift */,
+				1468F29422262A7C00ECD45A /* MineSystemViewController.swift */,
+				1468F29622262BBC00ECD45A /* TabCell */,
 				1448B0A922252DC2009237E7 /* View */,
 			);
 			path = "Message-消息";
@@ -617,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				14F35C5F220294A6002122B6 /* Member-会员 */,
+				1468F29D22263DA600ECD45A /* Scan-溯源扫一扫 */,
 				14C250FB2223853600F5CB53 /* Privatefarm-私家农场 */,
 				1468B154221508F8002B971F /* Search-搜索 */,
 				1492DD96221A4A9300C79D88 /* Delivery-配送 */,
@@ -715,6 +736,25 @@
 				1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1468F29622262BBC00ECD45A /* TabCell */ = {
+			isa = PBXGroup;
+			children = (
+				1468F29722262BE300ECD45A /* MineNewProductTabCell.swift */,
+				1468F299222634B700ECD45A /* MineCustomerTabCell.swift */,
+				1468F29B2226388D00ECD45A /* MineSystemTabCell.swift */,
+			);
+			path = TabCell;
+			sourceTree = "<group>";
+		};
+		1468F29D22263DA600ECD45A /* Scan-溯源扫一扫 */ = {
+			isa = PBXGroup;
+			children = (
+				1468F29E22263E3000ECD45A /* ScanViewController.swift */,
+				1468F2A422268A7600ECD45A /* WebBottomView.swift */,
+			);
+			path = "Scan-溯源扫一扫";
 			sourceTree = "<group>";
 		};
 		146B74B7221E99CA005D2879 /* Order-订单 */ = {
@@ -1631,6 +1671,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1468B16022153CF0002B971F /* SearchEmptyView.swift in Sources */,
+				1468F29822262BE300ECD45A /* MineNewProductTabCell.swift in Sources */,
 				1492DD98221A4B6B00C79D88 /* DeliveryViewController.swift in Sources */,
 				14D5B33E221FC41B00D08DD1 /* MineLogisticsHeaderView.swift in Sources */,
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
@@ -1650,6 +1691,7 @@
 				14B27A4E221BAF540029648A /* DeliveryAddressModifyView.swift in Sources */,
 				14043D4B221272D60023AA11 /* Button+Ex.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
+				1468F2A522268A7600ECD45A /* WebBottomView.swift in Sources */,
 				14D5B345221FD4B500D08DD1 /* MineAddressTabCell.swift in Sources */,
 				14B27A4C221BA8D40029648A /* DeliveryAddressTabCell.swift in Sources */,
 				14043D4F221290930023AA11 /* CartEmptyView.swift in Sources */,
@@ -1692,6 +1734,7 @@
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
 				1492DDA8221A621A00C79D88 /* DeliveryCommitOrderView.swift in Sources */,
 				14974BDF21F707C50088ABC3 /* StackView.swift in Sources */,
+				1468F29122262A0700ECD45A /* MineNewProductViewController.swift in Sources */,
 				1492DDB7221A8B8200C79D88 /* WechatLoginView.swift in Sources */,
 				1492DDBB221A9B7B00C79D88 /* PasswordLoginView.swift in Sources */,
 				14974BE321F70A4C0088ABC3 /* TableView.swift in Sources */,
@@ -1744,6 +1787,7 @@
 				14087469221E78E10051B7C3 /* MineSettingViewController.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
+				1468F29522262A7C00ECD45A /* MineSystemViewController.swift in Sources */,
 				1468B15822150B82002B971F /* SearchTextField.swift in Sources */,
 				14C251112223EB9600F5CB53 /* FlashOneTabCell.swift in Sources */,
 				14C251172223F03600F5CB53 /* FlashFourViewController.swift in Sources */,
@@ -1754,6 +1798,7 @@
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
 				146B74C5221EA394005D2879 /* MineSendOrderViewController.swift in Sources */,
 				1492DDB9221A9ACF00C79D88 /* PasswordLoginViewController.swift in Sources */,
+				1468F29C2226388D00ECD45A /* MineSystemTabCell.swift in Sources */,
 				14B27A52221BE45F0029648A /* ZYToast.swift in Sources */,
 				8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
@@ -1773,6 +1818,8 @@
 				145138B121F858940038AFC6 /* Defaults.swift in Sources */,
 				14C2510B2223D98000F5CB53 /* HotViewController.swift in Sources */,
 				1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */,
+				1468F29322262A5000ECD45A /* MineCustomerViewController.swift in Sources */,
+				1468F29F22263E3000ECD45A /* ScanViewController.swift in Sources */,
 				14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */,
 				14087466221E75250051B7C3 /* MineMessageEmptyView.swift in Sources */,
 				14ED1106221663DF0021D185 /* DropdownMenu.swift in Sources */,
@@ -1807,6 +1854,7 @@
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
 				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
 				14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */,
+				1468F29A222634B700ECD45A /* MineCustomerTabCell.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
 				1448B09522250892009237E7 /* HotTabCell.swift in Sources */,

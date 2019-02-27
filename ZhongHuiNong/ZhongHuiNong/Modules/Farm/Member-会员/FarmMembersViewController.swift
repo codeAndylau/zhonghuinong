@@ -32,7 +32,7 @@ class FarmMembersViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         navigationItem.leftBarButtonItem = leftBarItem
-        navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
+        //navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
         //去除表格上放多余的空隙
@@ -75,6 +75,7 @@ class FarmMembersViewController: TableViewController {
             
             switch index {
             case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
+            case 1: self.navigator.show(segue: .scan, sender: self)         // 扫码溯源
             case 2: self.navigator.show(segue: .privateFarm, sender: self)  // 私家农场
                 
             default:

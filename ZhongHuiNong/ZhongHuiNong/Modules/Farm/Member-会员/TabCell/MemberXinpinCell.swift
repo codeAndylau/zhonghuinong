@@ -10,7 +10,9 @@ import UIKit
 
 class MemberXinpinCell: TableViewCell, TabReuseIdentifier {
 
-    lazy var bannerView = BannerView()
+    lazy var bannerView = BannerView().then { (view) in
+        view.cuttingCorner(radius: 10)
+    }
     
     lazy var zhigongImg = ImageView(image: UIImage(named: "farm_zhigong"))
     lazy var zhicaiImg = ImageView(image: UIImage(named: "farm_zhicai"))

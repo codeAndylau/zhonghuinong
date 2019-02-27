@@ -7,21 +7,19 @@
 //
 
 import UIKit
+import WebKit
 import RxSwift
 import RxCocoa
 
 class WebViewController: ViewController {
 
     let url = BehaviorRelay<URL?>(value: nil)
-
-    lazy var webView: UIWebView = {
-        let view = UIWebView()
-        view.delegate = self
-        self.contentView.addSubview(view)
-        view.snp.makeConstraints({ (make) in
-            make.edges.equalToSuperview()
-        })
-        return view
+    
+    lazy var webView: WKWebView = {
+        let web = WKWebView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH))
+        web.backgroundColor = UIColor.white
+        web.navigationDelegate = self
+        return web
     }()
     
     override func viewDidLoad() {
@@ -40,27 +38,37 @@ class WebViewController: ViewController {
     
     func load(url: URL) {
         self.url.accept(url)
-        webView.loadRequest(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
     }
 
 }
 
-extension WebViewController: UIWebViewDelegate {
+extension WebViewController: WKNavigationDelegate {
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        url.accept(request.url)
-        return true
+    // 页面开始加载时调用
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        debugPrints("页面开始加载时调用")
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        //        startAnimating()
+    // 当内容开始返回时调用
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        debugPrints("当内容开始返回时调用")
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        //        stopAnimating()
+    // 页面加载完成之后调用
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        debugPrints("页面加载完成之后调用")
+        
+        navigationItem.title = webView.title
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        //        stopAnimating()
+    // 页面加载失败时调用
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        debugPrints("页面加载失败时调用")
+    }
+    
+    // 接收到服务器跳转请求之后调用
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        debugPrints("接收到服务器跳转请求之后调用")
     }
 }

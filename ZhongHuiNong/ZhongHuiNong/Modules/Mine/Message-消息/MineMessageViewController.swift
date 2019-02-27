@@ -30,7 +30,7 @@ class MineMessageViewController: ViewController {
             categoryView.titleColor = UIColor.hexColor(0x999999)
             categoryView.titleSelectedColor = UIColor.hexColor(0x1DD1A8)
             categoryView.titleSelectedFont = UIFont.boldSystemFont(ofSize: 16)
-            categoryView.titleColorGradientEnabled = true
+            categoryView.titleColorGradientEnabled = false
             
             let lineView = JXCategoryIndicatorLineView()
             lineView.indicatorLineViewColor = UIColor.hexColor(0x1DD1A8)
@@ -85,6 +85,9 @@ extension MineMessageViewController: JXCategoryListContainerViewDelegate {
     
     func listContainerView(_ listContainerView: JXCategoryListContainerView!, initListFor index: Int) -> JXCategoryListContentViewDelegate! {
         switch index {
+        case 0: return MineNewProductViewController()
+        case 1: return MineCustomerViewController()
+        case 2: return MineSystemViewController()
         default:
             return MineMsgComponentViewController()
         }

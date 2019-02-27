@@ -82,8 +82,8 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     
     func layout(for pageView: TYCyclePagerView) -> TYCyclePagerViewLayout {
         let layout = TYCyclePagerViewLayout()
-        layout.itemSize = CGSize(width: pageView.frame.width - 16, height: pageView.frame.height - 5)
-        layout.itemSpacing = 10
+        layout.itemSize = CGSize(width: pageView.frame.width, height: pageView.frame.height)
+        layout.itemSpacing = 0
         layout.layoutType = .normal
         layout.itemHorizontalCenter = true
         return layout

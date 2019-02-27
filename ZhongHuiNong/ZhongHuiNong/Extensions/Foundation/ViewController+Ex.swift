@@ -10,6 +10,31 @@ import UIKit
 
 extension UIViewController {
     
+    func showAlertWithTitle(title: String, message: String, openSettingsURLString: String, isShowOKBtn: Bool) -> Void {
+        let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        if !openSettingsURLString.isEmpty {
+            let settingAction = UIAlertAction.init(title: "去设置", style: .destructive, handler: { (action) in
+                let url = URL(string: openSettingsURLString)
+                if let url = url, UIApplication.shared.canOpenURL(url) {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: {(success) in})
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            })
+            alertController.addAction(settingAction)
+        }
+        if (isShowOKBtn) {
+            let okAction = UIAlertAction.init(title: "好", style: .cancel, handler: nil)
+            alertController.addAction(okAction)
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension UIViewController {
+    
     var topMost: UIViewController? {
         var rootViewController: UIViewController?
         for window in UIApplication.shared.windows where !window.isHidden {

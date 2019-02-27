@@ -32,6 +32,7 @@ class Navigator {
         case privateFarm
         case flash  // 抢购
         case hot    // 热销
+        case scan   // 扫码溯源
         
         // 分类
         case goodsDetail
@@ -76,6 +77,7 @@ class Navigator {
         case .privateFarm: return PrivatefarmViewController()
         case .flash: return FlashViewController()
         case .hot: return HotViewController()
+        case .scan: return ScanViewController()
             
             
         // 分类

@@ -59,15 +59,8 @@ extension ComponentViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ComponentViewController: JXCategoryListContentViewDelegate {
     
-    // 返回列表视图 如果列表是VC，就返回VC.view  如果列表是View，就返回View自己
-    func listView() -> UIView! {
-        return self.view
-    }
-    
-    //可选使用，列表显示的时候调用
-    func listDidAppear() { }
-    
-    //可选使用，列表消失的时候调用
-    func listDidDisappear() { }
+    func listView() -> UIView { return self.view }
+    func listDidAppear() {}
+    func listDidDisappear() {}
 }
 
