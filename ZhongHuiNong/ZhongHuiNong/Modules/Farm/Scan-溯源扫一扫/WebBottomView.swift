@@ -12,19 +12,22 @@ class WebBottomView: View {
 
     let contView = View()
     
+    let lineView = View().then { (view) in
+        view.backgroundColor = UIColor.hexColor(0xF5F5F5)
+    }
+    
     let backBtn = Button().then { (btn) in
-        btn.setTitle("返回", for: .normal)
-        btn.backgroundColor = UIColor.orange
+        btn.setImage(UIImage(named: "farm_arrow_left"), for: .normal)
     }
     
     let forwardBtn = Button().then { (btn) in
-        btn.setTitle("前进", for: .normal)
-        btn.backgroundColor = UIColor.orange
+        btn.setImage(UIImage(named: "farm_arrow"), for: .normal)
     }
     
     override func makeUI() {
         super.makeUI()
         addSubview(contView)
+        contView.addSubview(lineView)
         contView.addSubview(backBtn)
         contView.addSubview(forwardBtn)
     }
@@ -35,6 +38,11 @@ class WebBottomView: View {
         contView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(self)
             make.height.equalTo(56)
+        }
+        
+        lineView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(1)
         }
         
         backBtn.snp.makeConstraints { (make) in
@@ -51,9 +59,8 @@ class WebBottomView: View {
     }
     
     /// Public method
-    
     class func loadView() -> WebBottomView {
-        let view = WebBottomView(frame: CGRect(x: 0, y: kScreenH-kBottomViewH, width: kScreenW, height: kBottomViewH))
+        let view = WebBottomView(frame: CGRect(x: 0, y: kScreenH-kBottomViewH-12, width: kScreenW, height: kBottomViewH-12))
         return view
     }
 

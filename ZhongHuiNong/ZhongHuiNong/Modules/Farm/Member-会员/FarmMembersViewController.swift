@@ -22,20 +22,15 @@ class FarmMembersViewController: TableViewController {
     
     var searchView = MemberSearchView().then { (view) in
         view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
-        view.backgroundColor = UIColor.cyan
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.leftBarButtonItem = leftBarItem
-        //navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
+        navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
-        //去除表格上放多余的空隙
         tableViews.dataSource = self
         tableViews.delegate = self
         tableViews.tableHeaderView = headerView
@@ -43,20 +38,13 @@ class FarmMembersViewController: TableViewController {
         tableViews.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         tableViews.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableViews.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
-        
-        headerView.searchView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
-            let search = SearchViewController()
-            self?.navigationController?.pushViewController(search, animated: true)
-        }).disposed(by: rx.disposeBag)
-        
-        let orangeView = UIView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 300))
-        orangeView.backgroundColor = UIColor.orange
-        
-        // 下拉
-        menuView = DropdownMenu(containerView: UIApplication.shared.keyWindow!, contentView: dropView)
-        
-        // 上啦
-        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView)
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+
+        menuView = DropdownMenu(containerView: UIApplication.shared.keyWindow!, contentView: dropView) // 下拉
+        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
         
         dropView.cardView.rx.tap.subscribe(onNext: { (_) in
             self.menuView.hide()
@@ -70,24 +58,33 @@ class FarmMembersViewController: TableViewController {
             self.showCenterView()
         }).disposed(by: rx.disposeBag)
         
+        headerView.searchView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            let search = SearchViewController()
+            self?.navigationController?.pushViewController(search, animated: true)
+        }).disposed(by: rx.disposeBag)
+        
         headerView.cellDidSelectedClosure = {  [weak self] index in
             guard let self = self else { return }
-            
             switch index {
             case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
             case 1: self.navigator.show(segue: .scan, sender: self)         // 扫码溯源
             case 2: self.navigator.show(segue: .privateFarm, sender: self)  // 私家农场
-                
             default:
                 break
             }
         }
+        
+        headerView.classView.cellDidSelectedClosure = {  [weak self] index in
+            guard let self = self else { return }
+            self.tabBarController?.selectedIndex = 1
+            debugPrints("点击了第\(index)个")
+            let userInfo = [NSNotification.Name.HomeGoodsClassDid.rawValue : index]
+            NotificationCenter.default.post(name: NSNotification.Name.HomeGoodsClassDid, object: nil, userInfo: userInfo)
+        }
     }
     
     // MARK: - Lazy
-    
     lazy var dataArray = ["goods_tuijian_1","goods_tuijian_2","goods_tuijian_3","goods_tuijian_4","goods_tuijian_5","goods_tuijian_6"]
-    
     lazy var vipItem = FarmHeaderView.loadView()
     lazy var mineCenterView = MineCenterView.loadView()
     lazy var dropView = MemberDropdownView.loadView()
@@ -96,9 +93,9 @@ class FarmMembersViewController: TableViewController {
     lazy var leftBarItem = BarButtonItem(customView: vipItem)
     lazy var rightAddItem = BarButtonItem(customView: addItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
+
     
     // MARK: - Public methods
-    
     @objc func addAction() {
         if menuView.isShown {
             menuView.hideMenu()
@@ -113,6 +110,14 @@ class FarmMembersViewController: TableViewController {
     }
     
     func showCenterView() {
+        
+        //        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [], animations: {
+        //            self.loadingView.imageView.alpha = 0.1
+        //            self.loadingView.alpha = 0.1
+        //        }) { (_) in
+        //            self.loadingView.removeFromSuperview()
+        //        }
+        
         if dropupView.isShown {
             dropupView.hideMenu()
         }else {
@@ -270,18 +275,18 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        
-        if offsetY > 0 {
-            navigationController?.navigationBar.layer.shadowColor = UIColor.gray.cgColor
-            navigationController?.navigationBar.layer.shadowOpacity = 0.7
-            navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: -2)
-            navigationController?.navigationBar.layer.shadowRadius = 3
-        }
-        
-        if offsetY <= 0 {
-            navigationController?.navigationBar.layer.shadowColor = UIColor.white.cgColor
-        }
+//        let offsetY = scrollView.contentOffset.y
+//        
+//        if offsetY > 0 {
+//            navigationController?.navigationBar.layer.shadowColor = UIColor.hexColor(0xA9A9A9).cgColor
+//            navigationController?.navigationBar.layer.shadowOpacity = 0.3
+//            navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: -1)
+//            navigationController?.navigationBar.layer.shadowRadius = 3
+//        }
+//
+//        if offsetY <= 0 {
+//            navigationController?.navigationBar.layer.shadowColor = UIColor.white.cgColor
+//        }
     }
     
 }

@@ -14,6 +14,7 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
     var cellDidSelectedClosure: ((Int) ->())?
     
     lazy var ImgArray = ["farm_peisong","farm_shishisuyuan","farm_caiyuan","farm_guanjia"]
+    
     lazy var searchView = MemberSearchView.loadView()
     lazy var classView = MemberClassView()
     
@@ -105,8 +106,8 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     
-    lazy var ImgArray = ["farm_ganhuo","farm_luobo","farm_ruping","farm_gaodian","farm_danpin"]
-    lazy var TitleArray = ["粮油干货","精品时蔬","乳品烘焙","早餐糕点","肉禽蛋品"]
+    lazy var ImgArray = ["farm_luobo","farm_shuiguo","farm_danpin","farm_ganhuo","farm_ruping","farm_tiaowei","farm_gaodian","farm_renqun"]
+    lazy var TitleArray = ["精品时蔬","新鲜水果","肉禽蛋品","粮油干货","乳品烘焙","极致调味","早餐糕点","人群食养"]
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -129,6 +130,8 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
         page.pageIndicatorTintColor = UIColor.hexColor(0x16C6A3, alpha: 0.5)
         page.isHidden = true
     }
+    
+    var cellDidSelectedClosure: ((Int)->Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -161,22 +164,19 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberHeaderClassCell.identifier, for: indexPath) as! MemberHeaderClassCell
-        if  indexPath.item > 6 {
-            cell.imgView.image = UIImage()
-            cell.titleLab.text = ""
-        }else {
-            cell.imgView.image = UIImage(named: ImgArray[indexPath.row])
-            cell.titleLab.text = TitleArray[indexPath.row]
-        }
+        cell.imgView.image = UIImage(named: ImgArray[indexPath.row])
+        cell.titleLab.text = TitleArray[indexPath.row]
         return cell
     }
     
-    //定义每个Cell的大小
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cellDidSelectedClosure?(indexPath.item)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (kScreenW - 30 - 8)/5, height: 88)
     }
     
-    //定义每个Section的四边间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .zero
     }

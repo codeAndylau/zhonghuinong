@@ -12,14 +12,15 @@ class MineViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
-        
         navigationItem.rightBarButtonItem = messageItem
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
-        
-        
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
         headerView.headerImg.rx.tap.subscribe(onNext: {  (_) in
             let _ = MineHeaderModifyView()
         }).disposed(by: rx.disposeBag)
@@ -44,19 +45,15 @@ class MineViewController: TableViewController {
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder, sender: self)
         }).disposed(by: rx.disposeBag)
-        
-        
     }
     
     // MARK: - Lazy
-    
-    lazy var sectionTitleArray = ["配送订单","我的地块","我的收藏","好友推荐","关于我们","设置"]
+    lazy var titleArray = ["配送订单","我的地块","我的收藏","好友推荐","关于我们","设置"]
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
 
     // MARK: - Public methods
-    
     @objc func settingAction() {
         navigator.show(segue: .mineSetting, sender: self)
     }
@@ -71,12 +68,12 @@ class MineViewController: TableViewController {
 extension MineViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return titleArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineTabCell.identifier, for: indexPath) as! MineTabCell
-        cell.titleLab.text = sectionTitleArray[indexPath.row]
+        cell.titleLab.text = titleArray[indexPath.row]
         return cell
     }
 

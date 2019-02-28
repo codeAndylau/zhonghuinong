@@ -216,6 +216,45 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
         }
     }
     
+    // 在监听方法中设置 back 与 forward 按钮
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let key = keyPath else { return }
+        switch key {
+        case "title":
+            debugPrints("web---title---\(String(describing: webView.title))")
+        case "URL":
+            debugPrints("web---URL---\(String(describing: webView.url?.absoluteString))")
+        case "loading":
+            debugPrints("web---loading---\(webView.isLoading)")
+        case "canGoBack":
+            debugPrints("web---canGoBack---\(webView.isLoading)")
+            webBottomView.backBtn.isEnabled = webView.canGoBack
+        case "canGoForward":
+            debugPrints("web---canGoForward---\(webView.isLoading)")
+            webBottomView.forwardBtn.isEnabled = webView.canGoForward
+        case "estimatedProgress":
+            progressView.alpha = 1.0
+            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
+            if webView.estimatedProgress >= 1.0 {
+                UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveEaseOut, animations: {
+                    self.progressView.alpha = 0
+                }, completion: { (finish) in
+                    self.progressView.setProgress(0.0, animated: false)
+                })
+            }
+        default: break
+        }
+    }
+    
+    deinit {
+        self.webView.removeObserver(self, forKeyPath: "title")
+        self.webView.removeObserver(self, forKeyPath: "URL")
+        self.webView.removeObserver(self, forKeyPath: "loading")
+        self.webView.removeObserver(self, forKeyPath: "canGoBack")
+        self.webView.removeObserver(self, forKeyPath: "canGoForward")
+        self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        self.webView.navigationDelegate = nil
+    }
     
     // MARK: - Property
     let topView = View().then { (view) in view.backgroundColor = UIColor.black.withAlphaComponent(0.6) }
@@ -256,10 +295,24 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
     
     lazy var webBottomView = WebBottomView.loadView()
     
+    lazy var progressView: UIProgressView = {
+        let progress = UIProgressView(frame: CGRect(x: 0, y: 42, width: kScreenW, height: 2))
+        progress.tintColor = Color.theme1DD1A8
+        progress.trackTintColor = UIColor.white
+        progress.progress = 0
+        return progress
+    }()
+        
     lazy var webView: WKWebView = {
         let web = WKWebView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH))
         web.backgroundColor = UIColor.white
         web.navigationDelegate = self
+        web.addObserver(self, forKeyPath: "title", options: .new, context: nil)     // 创建WKWebView时设置，或者在viewDidLoad()中
+        web.addObserver(self, forKeyPath: "URL", options: .new, context: nil)       // 注意：url 属性对应的 keyPath 是大写的 URL
+        web.addObserver(self, forKeyPath: "loading", options: .new, context: nil)   // 注意：isLoading 属性对应的 keyPath 是 loading
+        web.addObserver(self, forKeyPath: "canGoBack", options: .new, context: nil)
+        web.addObserver(self, forKeyPath: "canGoForward", options: .new, context: nil)
+        web.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         return web
     }()
     
@@ -331,7 +384,11 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                     strongSelf.navigationItem.rightBarButtonItem = nil
                     if let stringValue = array.first  {
+                        
                         strongSelf.view.addSubview(strongSelf.webView)
+                        strongSelf.view.addSubview(strongSelf.webBottomView)
+                        strongSelf.navigationController?.navigationBar.addSubview(strongSelf.progressView)
+                        
                         let backColor = UIImage().getImageWithColor(color: UIColor.white)
                         strongSelf.navigationController?.navigationBar.setBackgroundImage(backColor, for: .default)
                         strongSelf.navigationController?.navigationBar.tintColor = UIColor.black
@@ -475,6 +532,9 @@ extension ScanViewController: AVCaptureMetadataOutputObjectsDelegate {
         self.navigationItem.rightBarButtonItem = nil
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)  // 抖动
         view.addSubview(webView)
+        view.addSubview(webBottomView)
+        navigationController?.navigationBar.addSubview(progressView)
+
         
         let backColor = UIImage().getImageWithColor(color: UIColor.white)
         navigationController?.navigationBar.setBackgroundImage(backColor, for: .default)
@@ -505,18 +565,6 @@ extension ScanViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         debugPrints("页面加载完成之后调用")
         navigationItem.title = webView.title
-
-        //        if webView.canGoBack {
-        //            view.addSubview(webBottomView)
-        //            view.insertSubview(webView, belowSubview: webBottomView)
-        //            webBottomView.backBtn.isEnabled = true
-        //            webBottomView.forwardBtn.isEnabled = false
-        //        }
-        //
-        //        if webView.canGoForward {
-        //            webBottomView.backBtn.isEnabled = false
-        //            webBottomView.forwardBtn.isEnabled = true
-        //        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

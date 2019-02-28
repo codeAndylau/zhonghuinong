@@ -27,6 +27,7 @@ struct Configs {
     }
     
     struct Network {
+        static let kWindlessViewTag = 91997
         static let loggingEnabled = false
         static let debugUrl   = URL(string: "http://212.64.64.36:8080/")!   // 测试服务器
         static let releaseUrl = URL(string: "http://212.64.52.253:8080/")!  // 正是服务器

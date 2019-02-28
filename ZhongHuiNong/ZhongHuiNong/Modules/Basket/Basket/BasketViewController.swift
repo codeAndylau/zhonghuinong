@@ -69,6 +69,11 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CartTabCell.identifier, for: indexPath) as! CartTabCell
         cell.selectionStyle = .none
+        
+        if indexPath.row == 2 {
+            cell.selectBtn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+        }
+        
         return cell
     }
     

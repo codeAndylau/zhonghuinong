@@ -54,6 +54,9 @@
 		1448B0A622252517009237E7 /* MineAboutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A522252517009237E7 /* MineAboutHeaderView.swift */; };
 		1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */; };
 		1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */; };
+		145100B02227903A00031FE2 /* FlashLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100AF2227903A00031FE2 /* FlashLoadingView.swift */; };
+		145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100B32227CBB800031FE2 /* Notification+Ex.swift */; };
+		145100B72227DB0700031FE2 /* StoreFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100B62227DB0700031FE2 /* StoreFilterView.swift */; };
 		1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389921F8065B0038AFC6 /* WebAPI.swift */; };
 		1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389B21F80A6E0038AFC6 /* Networking.swift */; };
 		1451389E21F80A960038AFC6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389D21F80A960038AFC6 /* Reachability.swift */; };
@@ -290,6 +293,9 @@
 		1448B0A522252517009237E7 /* MineAboutHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAboutHeaderView.swift; sourceTree = "<group>"; };
 		1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderModifyView.swift; sourceTree = "<group>"; };
 		1448B0AC222537CA009237E7 /* MineMsgComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMsgComponentViewController.swift; sourceTree = "<group>"; };
+		145100AF2227903A00031FE2 /* FlashLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashLoadingView.swift; sourceTree = "<group>"; };
+		145100B32227CBB800031FE2 /* Notification+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ex.swift"; sourceTree = "<group>"; };
+		145100B62227DB0700031FE2 /* StoreFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterView.swift; sourceTree = "<group>"; };
 		1451389921F8065B0038AFC6 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
 		1451389B21F80A6E0038AFC6 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		1451389D21F80A960038AFC6 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -623,6 +629,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		145100B52227DAAE00031FE2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				145100B62227DB0700031FE2 /* StoreFilterView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		145138A721F851490038AFC6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -837,16 +851,9 @@
 				14F35C6B2202A300002122B6 /* StoreViewController.swift */,
 				14F35C692202A2EA002122B6 /* StoreViewModel.swift */,
 				1492DDA2221A5A8B00C79D88 /* TabCell */,
-				1492DDA1221A5A8200C79D88 /* View */,
+				145100B52227DAAE00031FE2 /* View */,
 			);
 			path = Classify;
-			sourceTree = "<group>";
-		};
-		1492DDA1221A5A8200C79D88 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		1492DDA2221A5A8B00C79D88 /* TabCell */ = {
@@ -925,6 +932,7 @@
 				1414E0C621FABA5600347050 /* View+Ex.swift */,
 				14043D4A221272D60023AA11 /* Button+Ex.swift */,
 				14ED11072216668B0021D185 /* ViewController+Ex.swift */,
+				145100B32227CBB800031FE2 /* Notification+Ex.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1278,6 +1286,7 @@
 				14974BE821F710230088ABC3 /* WebViewController.swift */,
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
 				1414E0C221FAAA5E00347050 /* BarButtonItem.swift */,
+				145100AF2227903A00031FE2 /* FlashLoadingView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1350,8 +1359,8 @@
 			isa = PBXGroup;
 			children = (
 				1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */,
-				1468B153221508E1002B971F /* View */,
 				14F35C732202D269002122B6 /* TabCell */,
+				1468B153221508E1002B971F /* View */,
 			);
 			path = "Member-会员";
 			sourceTree = "<group>";
@@ -1692,9 +1701,11 @@
 				14043D4B221272D60023AA11 /* Button+Ex.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
 				1468F2A522268A7600ECD45A /* WebBottomView.swift in Sources */,
+				145100B72227DB0700031FE2 /* StoreFilterView.swift in Sources */,
 				14D5B345221FD4B500D08DD1 /* MineAddressTabCell.swift in Sources */,
 				14B27A4C221BA8D40029648A /* DeliveryAddressTabCell.swift in Sources */,
 				14043D4F221290930023AA11 /* CartEmptyView.swift in Sources */,
+				145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */,
 				14AE310F222126BD00302F89 /* MineAddressTitleView.swift in Sources */,
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
 				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
@@ -1841,6 +1852,7 @@
 				146B74B9221E99E8005D2879 /* MineOrderViewController.swift in Sources */,
 				14F35C812202DCB7002122B6 /* BannerView.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
+				145100B02227903A00031FE2 /* FlashLoadingView.swift in Sources */,
 				14ED11082216668B0021D185 /* ViewController+Ex.swift in Sources */,
 				1408745E221E45370051B7C3 /* GoodsDetailAddressView.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,

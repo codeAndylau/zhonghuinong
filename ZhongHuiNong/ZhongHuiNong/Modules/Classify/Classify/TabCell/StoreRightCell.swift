@@ -44,45 +44,12 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
         return lab
     }()
     
-    // 加减号购物
-    lazy var calculateView: View = {
-        let v = View()
-        return v
-    }()
-    
-    lazy var jiahaoBtn: Button = {
-        let btn = Button(type: UIButton.ButtonType.custom)
-        btn.setImage(UIImage(named: "store_jiahao"), for: .normal)
-        return btn
-    }()
-    
-    lazy var jianhaoBtn: Button = {
-        let btn = Button(type: UIButton.ButtonType.custom)
-        btn.setImage(UIImage(named: "store_jianhao"), for: .normal)
-        return btn
-    }()
-    
-    lazy var numLab: Label = {
-        let lab = Label()
-        lab.text = "1"
-        lab.textColor = UIColor.hexColor(0x9B9B9B)
-        lab.textAlignment = .center
-        lab.font = UIFont.boldSystemFont(ofSize: 12)
-        return lab
-    }()
-    
     override func makeUI() {
         super.makeUI()
-        
         addSubview(ImgView)
         addSubview(titleLab)
         addSubview(priceLab)
         addSubview(discountLab)
-        addSubview(calculateView)
-        
-        calculateView.addSubview(jianhaoBtn)
-        calculateView.addSubview(numLab)
-        calculateView.addSubview(jiahaoBtn)
     }
     
     override func updateUI() {
@@ -98,16 +65,9 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
             make.top.equalTo(ImgView.snp.top)
             make.left.equalTo(ImgView.snp.right).offset(15)
             make.right.equalTo(self).offset(-15)
-            make.bottom.lessThanOrEqualTo(calculateView.snp.top).offset(-5)
+            make.bottom.lessThanOrEqualTo(priceLab.snp.top).offset(-5)
         }
-        
-        calculateView.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-15)
-            make.bottom.equalTo(self).offset(-10)
-            make.width.equalTo(70)
-            make.height.equalTo(25)
-        }
-        
+
         priceLab.snp.makeConstraints { (make) in
             make.left.equalTo(ImgView.snp.right).offset(15)
             make.bottom.equalTo(ImgView.snp.bottom)
@@ -117,23 +77,7 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
             make.left.equalTo(priceLab.snp.right).offset(5)
             make.bottom.equalTo(ImgView.snp.bottom).offset(-5)
         }
-        
-        jianhaoBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(0)
-            make.centerY.equalTo(calculateView)
-            make.width.height.equalTo(25)
-        }
-        
-        numLab.snp.makeConstraints { (make) in
-            make.center.equalTo(calculateView)
-            make.width.height.equalTo(20)
-        }
-        
-        jiahaoBtn.snp.makeConstraints { (make) in
-            make.right.equalTo(0)
-            make.centerY.equalTo(calculateView)
-            make.width.height.equalTo(25)
-        }
+
     }
     
 }

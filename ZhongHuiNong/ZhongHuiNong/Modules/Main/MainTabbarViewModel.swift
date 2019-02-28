@@ -91,6 +91,7 @@ class MainTabbarViewModel: NSObject {
     var member = true
     
     func tabBarItems() -> Driver<[TabbarItem]> {
+       
         tabbarConfig()
         navbarConfig()
         

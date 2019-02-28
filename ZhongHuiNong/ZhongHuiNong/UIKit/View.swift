@@ -41,7 +41,7 @@ class View: UIView {
     }
     
     func updateUI() {
-        setNeedsDisplay()
+        setNeedsDisplay() // 异步执行的,实时刷新屏幕
     }
 
 }
