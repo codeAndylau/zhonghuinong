@@ -10,14 +10,17 @@ import UIKit
 
 /// 商店
 class StoreViewController: ViewController {
-    
+
     var currentIndexPath = IndexPath(row: 0, section: 0)
+    var isUp = true
     
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.titleView = searchView
+        navigationItem.leftBarButtonItem = leftBarItem
+        navigationItem.rightBarButtonItem = rightMsgItem
+        
         view.addSubview(leftTableView)
         view.addSubview(rightTableView)
         view.addSubview(filterView)
@@ -27,6 +30,15 @@ class StoreViewController: ViewController {
     
     override func bindViewModel() {
         super.bindViewModel()
+        
+        filterView.priceBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            
+            guard let self = self else { return }
+            self.isUp = !self.isUp
+            self.filterView.value = self.isUp
+            
+        }).disposed(by: rx.disposeBag)
+        
         
         NotificationCenter.default.rx.notification(Notification.Name.HomeGoodsClassDid).subscribe(onNext: { [weak self] (notification) in
             
@@ -41,8 +53,8 @@ class StoreViewController: ViewController {
                 cell?.ImgView.image = UIImage(named: self.leftArray[self.currentIndexPath.row])
             }
             
-            let cell = self.leftTableView.cellForRow(at: indexPath) as! StoreLeftCell
-            cell.ImgView.image = UIImage(named: self.leftArray[indexPath.row]+"_h")
+            let cell = self.leftTableView.cellForRow(at: indexPath) as? StoreLeftCell
+            cell?.ImgView.image = UIImage(named: self.leftArray[indexPath.row]+"_h")
             
             self.currentIndexPath = indexPath
             self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
@@ -54,9 +66,11 @@ class StoreViewController: ViewController {
     
     // MARK: - Lazy
     lazy var leftArray = ["store_qianggou", "store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian", "store_renquan"]
-    lazy var leftBarItem = BarButtonItem.leftBarView()
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
+    lazy var vipItem = FarmHeaderView.loadView()
+    lazy var leftBarItem = BarButtonItem(customView: vipItem)
+    lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
     //左侧表格
     lazy var leftTableView : UITableView = {
@@ -86,6 +100,10 @@ class StoreViewController: ViewController {
         return rightTableView
     }()
 
+    
+    @objc func messageAction() {
+        debugPrints("点击了消息按钮")
+    }
 }
 
 extension StoreViewController: UITableViewDataSource, UITableViewDelegate {

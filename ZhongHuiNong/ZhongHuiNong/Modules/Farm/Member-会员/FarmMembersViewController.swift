@@ -94,7 +94,6 @@ class FarmMembersViewController: TableViewController {
     lazy var rightAddItem = BarButtonItem(customView: addItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
 
-    
     // MARK: - Public methods
     @objc func addAction() {
         if menuView.isShown {
@@ -106,7 +105,6 @@ class FarmMembersViewController: TableViewController {
     
     @objc func messageAction() {
         debugPrints("点击了消息按钮")
-        
     }
     
     func showCenterView() {
@@ -206,8 +204,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             return MemberSectionView(type: .xinpin)
         case 1:
             let view = MemberSectionView(type: .qianggou)
-            view.backgroundColor = UIColor.white
-            view.countdownView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 debugPrints("点击了倒计时")
                 self.navigator.show(segue: .flash, sender: self)

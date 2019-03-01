@@ -40,6 +40,9 @@ class Navigator {
         // 菜篮
         
         // 我的
+        case mineMember
+        case mineVegetables
+        case mineWallet
         case mineAbout
         case mineMessage
         case mineSetting
@@ -86,6 +89,9 @@ class Navigator {
         // 菜篮
             
         // 我的
+        case .mineMember: return MineMemberViewController()
+        case .mineVegetables: return MineVegetablesViewController()
+        case .mineWallet: return MineWalletViewController()
         case .mineAbout: return MineAboutViewController()
         case .mineMessage: return MineMessageViewController()
         case .mineSetting: return MineSettingViewController()

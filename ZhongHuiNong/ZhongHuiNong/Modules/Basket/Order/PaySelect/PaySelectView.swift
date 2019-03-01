@@ -8,6 +8,8 @@
 
 import UIKit
 
+enum PaySelectViewType { case bag, wechat, alipay }
+
 class PaySelectView: View {
 
     let titleLab = Label().then { (lab) in
@@ -47,7 +49,7 @@ class PaySelectView: View {
     }
     
     let bagSelectBtn = Button().then { (btn) in
-        btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
     }
     
     let otherLab = Label().then { (lab) in
@@ -96,6 +98,25 @@ class PaySelectView: View {
         btn.cuttingCorner(radius: 22)
     }
     
+    var status: PaySelectViewType = .bag {
+        didSet {
+            switch status {
+            case .bag:
+                bagSelectBtn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+                wechatSelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+                alipaySelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+            case .wechat:
+                bagSelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+                wechatSelectBtn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+                alipaySelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+            case .alipay:
+                bagSelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+                wechatSelectBtn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+                alipaySelectBtn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+            }
+        }
+    }
+
     override func makeUI() {
         super.makeUI()
         addSubview(titleLab)
@@ -158,13 +179,13 @@ class PaySelectView: View {
         }
         
         bagSelectBtn.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-15)
+            make.right.equalToSuperview().offset(-5)
             make.centerY.equalToSuperview()
-            make.height.equalTo(56)
+            make.width.height.equalTo(56)
         }
         
         balanceLab.snp.makeConstraints { (make) in
-            make.right.equalTo(bagSelectBtn.snp.left).offset(-5)
+            make.right.equalTo(bagSelectBtn.snp.left)
             make.centerY.equalToSuperview()
         }
         
@@ -191,9 +212,9 @@ class PaySelectView: View {
         }
         
         wechatSelectBtn.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-15)
+            make.right.equalToSuperview().offset(-5)
             make.centerY.equalTo(wechatImg)
-            make.height.equalTo(56)
+            make.width.height.equalTo(56)
         }
         
         alipayImg.snp.makeConstraints { (make) in
@@ -208,9 +229,9 @@ class PaySelectView: View {
         }
         
         alipaySelectBtn.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-15)
+            make.right.equalToSuperview().offset(-5)
             make.centerY.equalTo(alipayImg)
-            make.height.equalTo(56)
+            make.width.height.equalTo(56)
         }
         
         sureBtn.snp.makeConstraints { (make) in

@@ -48,7 +48,7 @@ class PasswordLoginView: View {
     }
     
     let psdImg = ImageView().then { (img) in
-        img.image = UIImage(named: "login_user")
+        img.image = UIImage(named: "login_psd")
         img.contentMode = .scaleAspectFit
     }
     

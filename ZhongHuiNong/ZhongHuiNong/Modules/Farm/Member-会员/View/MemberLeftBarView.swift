@@ -11,7 +11,7 @@ import UIKit
 class FarmHeaderView: Button {
     
     let vip = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_vip_1")
+        img.image = UIImage(named: "mine_vip")
     }
     
     let header = ImageView().then { (img) in

@@ -51,7 +51,7 @@ class MemberSearchView: UIView {
     class func loadView() -> MemberSearchView {
         let view = MemberSearchView(frame: CGRect(x: 16, y: 0, width: kScreenW - 32, height: 38))
         view.backgroundColor = UIColor.hexColor(0xEFEFEF)
-        view.cuttingCorner(radius: 19)
+        view.cuttingCorner(radius: 18)
         return view
     }
     

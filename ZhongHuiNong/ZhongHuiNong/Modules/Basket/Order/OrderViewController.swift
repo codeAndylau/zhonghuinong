@@ -16,7 +16,7 @@ class OrderViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
-        navigationItem.title = "确认订单"
+        navigationItem.title = localized("确认订单")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Color.backdropColor
@@ -24,16 +24,19 @@ class OrderViewController: TableViewController {
         tableView.register(VegetableTabCell.self, forCellReuseIdentifier: VegetableTabCell.identifier)
         
         tableView.addSubview(paySureView)
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
         
-        headerView.selectBtn.rx.tap.subscribe(onNext: { [weak self] in
-            debugPrints("点击了支付方式")
-            self?.paySelectDemo.show()
+        paySureView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.paySelectDemo.show()
         }).disposed(by: rx.disposeBag)
         
     }
     
     // MARK: - Lazy
-    
     lazy var headerView = OrderHeaderView.loadView()
     lazy var paySureView = PaySureView.loadView()
     lazy var paySelectDemo = PaySelectViewController()

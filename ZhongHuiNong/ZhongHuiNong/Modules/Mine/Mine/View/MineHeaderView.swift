@@ -12,11 +12,12 @@ class MineHeaderView: View {
     
     let headerImg = Button().then { (btn) in
         btn.setImage(UIImage(named: "mine_default_ portrait"), for: .normal)
-//        img.image = UIImage(named: "mine_default_ portrait")
     }
     
     let memberBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x9B9B9B), for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
     }
     
     let nameLab = Label().then { (lab) in
@@ -77,6 +78,9 @@ class MineHeaderView: View {
         view.backgroundColor = UIColor.white
     }
     
+    let walletBtn = Button()
+    let vegetablesBtn = Button()
+    
     override func makeUI() {
         super.makeUI()
         addSubview(headerImg)
@@ -90,10 +94,13 @@ class MineHeaderView: View {
         addSubview(cardNameLab)
         addSubview(timesNameLab)
         addSubview(orderView)
+        addSubview(walletBtn)
+        addSubview(vegetablesBtn)
         activateConstraints()
     }
     
     func activateConstraints() {
+        
         headerImg.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.left.equalTo(15)
@@ -102,7 +109,7 @@ class MineHeaderView: View {
         
         memberBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(15)
-            make.centerY.equalTo(headerImg)
+            make.centerY.equalTo(headerImg).offset(-10)
             make.width.height.equalTo(50)
         }
         
@@ -116,7 +123,6 @@ class MineHeaderView: View {
             make.left.equalTo(nameLab)
             make.top.equalTo(nameLab.snp.bottom)
         }
-        
         
         priceLab.snp.makeConstraints { (make) in
             make.top.equalTo(headerImg.snp.bottom).offset(20)
@@ -159,6 +165,16 @@ class MineHeaderView: View {
             make.height.equalTo(130)
         }
         
+        walletBtn.snp.makeConstraints { (make) in
+            make.left.top.right.equalTo(priceLab)
+            make.bottom.equalTo(priceNameLab)
+        }
+        
+        vegetablesBtn.snp.makeConstraints { (make) in
+            make.left.top.equalTo(cardLab)
+            make.right.equalTo(timesLab)
+            make.bottom.equalTo(priceNameLab)
+        }
         
     }
     
@@ -172,7 +188,7 @@ class MineHeaderView: View {
         orderView.layer.shadowRadius = 16
         orderView.layer.cornerRadius = 10
         
-        memberBtn.set(image: UIImage(named: "mine_vip_1"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 0, state: .normal)
+        memberBtn.set(image: UIImage(named: "mine_vip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
     }
     
     /// - Public methods

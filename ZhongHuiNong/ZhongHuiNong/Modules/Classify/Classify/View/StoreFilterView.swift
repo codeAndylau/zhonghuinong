@@ -19,6 +19,17 @@ class StoreFilterView: View {
     let priceBtn = Button().then { (btn) in
         btn.setTitleColor(UIColor.hexColor(0x1DD1A8), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.adjustsImageWhenHighlighted = false
+    }
+    
+    var value: Bool = true {
+        didSet {
+            if value {
+                priceBtn.setImage(UIImage(named: "store_price_up"), for: .normal)
+            }else {
+                priceBtn.setImage(UIImage(named: "store_price_down"), for: .normal)
+            }
+        }
     }
 
     override func makeUI() {
@@ -42,7 +53,7 @@ class StoreFilterView: View {
     }
     
     override func layoutSubviews() {
-        priceBtn.set(image: UIImage(named: "farm_arrow_left"), title: "价格", titlePosition: .left, additionalSpacing: 0, state: .normal)
+        priceBtn.set(image: UIImage(named: "store_price_up"), title: "价格", titlePosition: .left, additionalSpacing: 0, state: .normal)
     }
     
     /// Public method

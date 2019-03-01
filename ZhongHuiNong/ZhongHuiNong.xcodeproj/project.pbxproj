@@ -109,6 +109,16 @@
 		1492DDBB221A9B7B00C79D88 /* PasswordLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */; };
 		1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43D2203EB1C009E394E /* StoreLeftCell.swift */; };
 		1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493B43F2203EB2C009E394E /* StoreRightCell.swift */; };
+		149445A92228D2AC0048BF65 /* PayPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445A82228D2AC0048BF65 /* PayPasswordView.swift */; };
+		149445AB2228E07F0048BF65 /* PayBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445AA2228E07F0048BF65 /* PayBoxView.swift */; };
+		149445AD222905DC0048BF65 /* PayPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445AC222905DC0048BF65 /* PayPasswordViewController.swift */; };
+		149445B0222910AC0048BF65 /* MineWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445AF222910AC0048BF65 /* MineWalletViewController.swift */; };
+		149445B2222911E90048BF65 /* MineWalletHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445B1222911E90048BF65 /* MineWalletHeaderView.swift */; };
+		149445B4222916530048BF65 /* MineWalletTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445B3222916530048BF65 /* MineWalletTabCell.swift */; };
+		149445B6222918740048BF65 /* NoMoreFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445B5222918740048BF65 /* NoMoreFooterView.swift */; };
+		149445BB22291B190048BF65 /* MineVegetablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445BA22291B190048BF65 /* MineVegetablesViewController.swift */; };
+		149445BD22291B7F0048BF65 /* MineVegetablesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445BC22291B7F0048BF65 /* MineVegetablesHeaderView.swift */; };
+		149445C0222923CB0048BF65 /* MineMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149445BF222923CB0048BF65 /* MineMemberViewController.swift */; };
 		14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BCC21F6C31B0088ABC3 /* Date.swift */; };
 		14974BD721F6F49D0088ABC3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD621F6F49D0088ABC3 /* String.swift */; };
 		14974BD921F6F7080088ABC3 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BD821F6F7080088ABC3 /* Method.swift */; };
@@ -348,6 +358,16 @@
 		1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordLoginView.swift; sourceTree = "<group>"; };
 		1493B43D2203EB1C009E394E /* StoreLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLeftCell.swift; sourceTree = "<group>"; };
 		1493B43F2203EB2C009E394E /* StoreRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRightCell.swift; sourceTree = "<group>"; };
+		149445A82228D2AC0048BF65 /* PayPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPasswordView.swift; sourceTree = "<group>"; };
+		149445AA2228E07F0048BF65 /* PayBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBoxView.swift; sourceTree = "<group>"; };
+		149445AC222905DC0048BF65 /* PayPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPasswordViewController.swift; sourceTree = "<group>"; };
+		149445AF222910AC0048BF65 /* MineWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineWalletViewController.swift; sourceTree = "<group>"; };
+		149445B1222911E90048BF65 /* MineWalletHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineWalletHeaderView.swift; sourceTree = "<group>"; };
+		149445B3222916530048BF65 /* MineWalletTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineWalletTabCell.swift; sourceTree = "<group>"; };
+		149445B5222918740048BF65 /* NoMoreFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMoreFooterView.swift; sourceTree = "<group>"; };
+		149445BA22291B190048BF65 /* MineVegetablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVegetablesViewController.swift; sourceTree = "<group>"; };
+		149445BC22291B7F0048BF65 /* MineVegetablesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVegetablesHeaderView.swift; sourceTree = "<group>"; };
+		149445BF222923CB0048BF65 /* MineMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMemberViewController.swift; sourceTree = "<group>"; };
 		14974BCC21F6C31B0088ABC3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		14974BD621F6F49D0088ABC3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		14974BD821F6F7080088ABC3 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
@@ -521,8 +541,8 @@
 		14043D582212A9C70023AA11 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				14043D5B2212AAAF0023AA11 /* View */,
 				14043D592212AA140023AA11 /* OrderViewController.swift */,
+				14043D5B2212AAAF0023AA11 /* View */,
 				14043D6B2212C5E10023AA11 /* PaySelect */,
 			);
 			path = Order;
@@ -552,9 +572,12 @@
 			isa = PBXGroup;
 			children = (
 				14043D672212BF400023AA11 /* PaySelectViewController.swift */,
+				149445AC222905DC0048BF65 /* PayPasswordViewController.swift */,
+				14D8D8AE2213EA0000603D41 /* PaySureView.swift */,
 				14043D692212C5300023AA11 /* PaySelectView.swift */,
 				14D8D8A92213C41B00603D41 /* PaySuccessView.swift */,
-				14D8D8AE2213EA0000603D41 /* PaySureView.swift */,
+				149445AA2228E07F0048BF65 /* PayBoxView.swift */,
+				149445A82228D2AC0048BF65 /* PayPasswordView.swift */,
 			);
 			path = PaySelect;
 			sourceTree = "<group>";
@@ -688,6 +711,9 @@
 			isa = PBXGroup;
 			children = (
 				1492DDBC221AAECD00C79D88 /* Mine */,
+				149445AE2229107B0048BF65 /* Wallet-钱包 */,
+				149445BE222923920048BF65 /* MemberCenter-会员中心 */,
+				149445B722291ABC0048BF65 /* VegetablesService-蔬菜服务 */,
 				1448B0A22225227E009237E7 /* About-关于我们 */,
 				146B74B7221E99CA005D2879 /* Order-订单 */,
 				14D5B341221FD2C100D08DD1 /* Address- 收货地址 */,
@@ -920,6 +946,34 @@
 				8B31B5BD22106164003F475A /* MineTabCell.swift */,
 			);
 			path = TabCell;
+			sourceTree = "<group>";
+		};
+		149445AE2229107B0048BF65 /* Wallet-钱包 */ = {
+			isa = PBXGroup;
+			children = (
+				149445AF222910AC0048BF65 /* MineWalletViewController.swift */,
+				149445B1222911E90048BF65 /* MineWalletHeaderView.swift */,
+				149445B3222916530048BF65 /* MineWalletTabCell.swift */,
+				149445B5222918740048BF65 /* NoMoreFooterView.swift */,
+			);
+			path = "Wallet-钱包";
+			sourceTree = "<group>";
+		};
+		149445B722291ABC0048BF65 /* VegetablesService-蔬菜服务 */ = {
+			isa = PBXGroup;
+			children = (
+				149445BA22291B190048BF65 /* MineVegetablesViewController.swift */,
+				149445BC22291B7F0048BF65 /* MineVegetablesHeaderView.swift */,
+			);
+			path = "VegetablesService-蔬菜服务";
+			sourceTree = "<group>";
+		};
+		149445BE222923920048BF65 /* MemberCenter-会员中心 */ = {
+			isa = PBXGroup;
+			children = (
+				149445BF222923CB0048BF65 /* MineMemberViewController.swift */,
+			);
+			path = "MemberCenter-会员中心";
 			sourceTree = "<group>";
 		};
 		14974BD521F6F4810088ABC3 /* Foundation */ = {
@@ -1698,6 +1752,7 @@
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
 				14D5B34D221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift in Sources */,
 				14B27A4E221BAF540029648A /* DeliveryAddressModifyView.swift in Sources */,
+				149445B4222916530048BF65 /* MineWalletTabCell.swift in Sources */,
 				14043D4B221272D60023AA11 /* Button+Ex.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
 				1468F2A522268A7600ECD45A /* WebBottomView.swift in Sources */,
@@ -1732,6 +1787,7 @@
 				14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */,
 				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
+				149445C0222923CB0048BF65 /* MineMemberViewController.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
 				14D8D8AF2213EA0000603D41 /* PaySureView.swift in Sources */,
 				14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */,
@@ -1743,6 +1799,7 @@
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
+				149445B0222910AC0048BF65 /* MineWalletViewController.swift in Sources */,
 				1492DDA8221A621A00C79D88 /* DeliveryCommitOrderView.swift in Sources */,
 				14974BDF21F707C50088ABC3 /* StackView.swift in Sources */,
 				1468F29122262A0700ECD45A /* MineNewProductViewController.swift in Sources */,
@@ -1765,6 +1822,7 @@
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
 				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
+				149445BD22291B7F0048BF65 /* MineVegetablesHeaderView.swift in Sources */,
 				14C251082223C53B00F5CB53 /* PrivatefarmCropsModel.swift in Sources */,
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
@@ -1781,6 +1839,7 @@
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14C251152223F01600F5CB53 /* FlashThreeViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,
+				149445B2222911E90048BF65 /* MineWalletHeaderView.swift in Sources */,
 				14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */,
 				146B74BE221E9D12005D2879 /* PageContentView.swift in Sources */,
 				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
@@ -1813,8 +1872,11 @@
 				14B27A52221BE45F0029648A /* ZYToast.swift in Sources */,
 				8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */,
 				14974BED21F710D80088ABC3 /* ErrorTracker.swift in Sources */,
+				149445AB2228E07F0048BF65 /* PayBoxView.swift in Sources */,
 				14F35C7D2202DA6F002122B6 /* MemberQianggouCell.swift in Sources */,
 				146B74C7221EA3D6005D2879 /* MineAcceptOrderViewController.swift in Sources */,
+				149445A92228D2AC0048BF65 /* PayPasswordView.swift in Sources */,
+				149445B6222918740048BF65 /* NoMoreFooterView.swift in Sources */,
 				14C251032223946400F5CB53 /* PrivatefarmHeaderView.swift in Sources */,
 				1411F76021F948770076D763 /* RootNavigationController.swift in Sources */,
 				14DC342521F17502006EF1CF /* HomeViewController.swift in Sources */,
@@ -1847,6 +1909,7 @@
 				1448B0A4222522A8009237E7 /* MineAboutViewController.swift in Sources */,
 				14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */,
 				14043D622212BD030023AA11 /* SwiftPopup.swift in Sources */,
+				149445AD222905DC0048BF65 /* PayPasswordViewController.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
 				14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */,
 				146B74B9221E99E8005D2879 /* MineOrderViewController.swift in Sources */,
@@ -1883,6 +1946,7 @@
 				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
 				14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */,
+				149445BB22291B190048BF65 /* MineVegetablesViewController.swift in Sources */,
 				14974BDD21F706FE0088ABC3 /* Configs.swift in Sources */,
 				1448B09722250A32009237E7 /* HotAllViewController.swift in Sources */,
 				14B27A46221BA20C0029648A /* DeliveryAddressViewController.swift in Sources */,

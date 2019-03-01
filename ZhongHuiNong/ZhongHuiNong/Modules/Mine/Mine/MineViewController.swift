@@ -12,7 +12,7 @@ class MineViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
-        navigationItem.rightBarButtonItem = messageItem
+        navigationItem.rightBarButtonItems = [settingItem,messageItem]
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
@@ -45,6 +45,22 @@ class MineViewController: TableViewController {
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder, sender: self)
         }).disposed(by: rx.disposeBag)
+        
+        headerView.walletBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineWallet, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.vegetablesBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineVegetables, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.memberBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.navigator.show(segue: .mineMember, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
     }
     
     // MARK: - Lazy

@@ -47,4 +47,11 @@ struct Configs {
         static let segmentedControlHeight: CGFloat = 30
         static let navBarWithStatusBarHeight: CGFloat = 64
     }
+    
+    enum keyboardHeight: Int {
+        case iphone6 = 216
+        case iphone6p = 226
+        case iphonex_s = 291
+        case iphoner_max = 301
+    }
 }
