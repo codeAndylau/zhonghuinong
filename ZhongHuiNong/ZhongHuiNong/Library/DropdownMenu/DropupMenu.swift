@@ -22,7 +22,6 @@ class DropupMenu: UIView {
     
     init(containerView: UIView = UIApplication.shared.keyWindow!, contentView: UIView) {
         
-        // Key window
         guard let window = UIApplication.shared.keyWindow else {
             super.init(frame: CGRect.zero)
             return
@@ -34,18 +33,15 @@ class DropupMenu: UIView {
         
         let menuWrapperBounds = window.bounds
         
-        // Set up DropdownMenu
         self.menuWrapper = UIView(frame: CGRect(x: menuWrapperBounds.origin.x, y: 0, width: menuWrapperBounds.width, height: menuWrapperBounds.height))
         self.menuWrapper.viewIdentifier = "DropDownMenu-MenuWrapper"
         self.menuWrapper.clipsToBounds = true
         self.menuWrapper.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
         
-        // Init background view (under table view)
         self.backgroundView = UIView(frame: menuWrapperBounds)
         self.backgroundView.backgroundColor = UIColor.black
         self.backgroundView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
         
-        // Add background view & table view to container view
         self.menuWrapper.addSubview(self.backgroundView)
         self.menuWrapper.addSubview(contentView)
         
@@ -53,15 +49,12 @@ class DropupMenu: UIView {
         self.backgroundView.isUserInteractionEnabled = true
         self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
         
-        // Remove MenuWrapper from container view to avoid leaks
         containerView.subviews
             .filter({$0.viewIdentifier == "DropDownMenu-MenuWrapper"})
             .forEach({$0.removeFromSuperview()})
         
-        // Add Menu View to container view
         containerView.addSubview(self.menuWrapper)
         
-        // By default, hide menu view
         self.menuWrapper.isHidden = true
         
     }
@@ -79,10 +72,8 @@ class DropupMenu: UIView {
         contentView.frame.origin.y = kScreenH - contentView.height
         self.isShown = true
         
-        // Visible menu view
         self.menuWrapper.isHidden = false
         
-        // Change background alpha
         self.backgroundView.alpha = 0
         
         self.contentView.frame.origin.y = kScreenH + contentView.frame.height
@@ -101,9 +92,7 @@ class DropupMenu: UIView {
     
     @objc func hideMenu() {
         self.isShown = false
-        // Change background alpha
-        self.backgroundView.alpha = 0.5
-        // Animation
+        self.backgroundView.alpha = 0.3
         UIView.animate(
             withDuration: 0.5,
             delay: 0,

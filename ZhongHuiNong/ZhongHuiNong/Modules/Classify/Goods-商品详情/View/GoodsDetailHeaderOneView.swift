@@ -23,7 +23,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let jifenLab = Label().then { (lab) in
-        lab.text = "购买可得4积分"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
     }

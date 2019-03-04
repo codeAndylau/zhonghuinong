@@ -27,7 +27,11 @@ class GoodsDetailViewController: ViewController {
         view.addSubview(buyView)
         
         statusBarStyle.accept(true)
-        
+
+    }
+
+    override func bindViewModel() {
+        super.bindViewModel()
         extendedLayoutIncludesOpaqueBars = true
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -42,12 +46,6 @@ class GoodsDetailViewController: ViewController {
         rightBarView.shareBtn.rx.tap.subscribe(onNext: { (_) in
             debugPrints("点击了分享")
         }).disposed(by: rx.disposeBag)
-        
-        
-    }
-
-    override func bindViewModel() {
-        super.bindViewModel()
     }
     
     // MARK: - Lazy

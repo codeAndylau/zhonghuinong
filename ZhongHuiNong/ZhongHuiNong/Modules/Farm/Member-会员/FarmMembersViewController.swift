@@ -31,13 +31,14 @@ class FarmMembersViewController: TableViewController {
         navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
-        tableViews.dataSource = self
-        tableViews.delegate = self
-        tableViews.tableHeaderView = headerView
-        tableViews.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
-        tableViews.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
-        tableViews.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
-        tableViews.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
+        tableView_g.dataSource = self
+        tableView_g.delegate = self
+        tableView_g.tableHeaderView = headerView
+        tableView_g.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
+        tableView_g.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
+        tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
+        tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
+        tableView_g.uempty = UEmptyView { [weak self] in self?.loadData(more: false) }
     }
     
     override func bindViewModel() {
@@ -77,9 +78,8 @@ class FarmMembersViewController: TableViewController {
         headerView.classView.cellDidSelectedClosure = {  [weak self] index in
             guard let self = self else { return }
             self.tabBarController?.selectedIndex = 1
-            debugPrints("点击了第\(index)个")
             let userInfo = [NSNotification.Name.HomeGoodsClassDid.rawValue : index]
-            NotificationCenter.default.post(name: NSNotification.Name.HomeGoodsClassDid, object: nil, userInfo: userInfo)
+            NotificationCenter.default.post(name: .HomeGoodsClassDid, object: nil, userInfo: userInfo)
         }
     }
     
@@ -93,8 +93,11 @@ class FarmMembersViewController: TableViewController {
     lazy var leftBarItem = BarButtonItem(customView: vipItem)
     lazy var rightAddItem = BarButtonItem(customView: addItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
+    lazy var loadView = FlashLoadingView()
 
+    
     // MARK: - Public methods
+    
     @objc func addAction() {
         if menuView.isShown {
             menuView.hideMenu()
@@ -153,6 +156,10 @@ class FarmMembersViewController: TableViewController {
             anim.fillMode = CAMediaTimingFillMode.forwards
             addItem.imageView?.layer.add(anim, forKey: nil)
         }
+    }
+    
+    func loadData(more: Bool = false) {
+        tableView_g.uempty?.allowShow = true
     }
 
 }

@@ -41,6 +41,12 @@
 		1414E0C921FACCE300347050 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C821FACCE200347050 /* Button.swift */; };
 		1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */; };
 		1414E0CD21FADDC400347050 /* FarmNonmembersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */; };
+		142CE015222CD22C00F604B0 /* EmptyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE014222CD22C00F604B0 /* EmptyDataSet.swift */; };
+		142CE018222CEB3B00F604B0 /* Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE017222CEB3B00F604B0 /* Refresh.swift */; };
+		142CE01D222D0B0B00F604B0 /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE01C222D0B0B00F604B0 /* NoticeBar.swift */; };
+		142CE020222D12AA00F604B0 /* MBProgressHUD+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE01F222D12AA00F604B0 /* MBProgressHUD+Ex.swift */; };
+		142CE027222D239A00F604B0 /* DeliveryDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE026222D239A00F604B0 /* DeliveryDateViewController.swift */; };
+		142CE02B222D247E00F604B0 /* DeliveryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE02A222D247E00F604B0 /* DeliveryTimeView.swift */; };
 		1448B0912224ECA7009237E7 /* HotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0902224ECA7009237E7 /* HotView.swift */; };
 		1448B0932224F444009237E7 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0922224F444009237E7 /* ComponentViewController.swift */; };
 		1448B09522250892009237E7 /* HotTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09422250892009237E7 /* HotTabCell.swift */; };
@@ -290,6 +296,13 @@
 		1414E0C821FACCE200347050 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		1414E0CA21FADCEE00347050 /* FarmMembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmMembersViewController.swift; sourceTree = "<group>"; };
 		1414E0CC21FADDC400347050 /* FarmNonmembersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmNonmembersHeaderView.swift; sourceTree = "<group>"; };
+		142CE014222CD22C00F604B0 /* EmptyDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataSet.swift; sourceTree = "<group>"; };
+		142CE017222CEB3B00F604B0 /* Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refresh.swift; sourceTree = "<group>"; };
+		142CE01C222D0B0B00F604B0 /* NoticeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
+		142CE01F222D12AA00F604B0 /* MBProgressHUD+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBProgressHUD+Ex.swift"; sourceTree = "<group>"; };
+		142CE021222D19A100F604B0 /* ZhongHuiNong-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZhongHuiNong-Bridging-Header.h"; sourceTree = "<group>"; };
+		142CE026222D239A00F604B0 /* DeliveryDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryDateViewController.swift; sourceTree = "<group>"; };
+		142CE02A222D247E00F604B0 /* DeliveryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTimeView.swift; sourceTree = "<group>"; };
 		1448B0902224ECA7009237E7 /* HotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotView.swift; sourceTree = "<group>"; };
 		1448B0922224F444009237E7 /* ComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		1448B09422250892009237E7 /* HotTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTabCell.swift; sourceTree = "<group>"; };
@@ -618,6 +631,39 @@
 			path = "Setting-设置";
 			sourceTree = "<group>";
 		};
+		142CE013222CD21200F604B0 /* EmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+				142CE014222CD22C00F604B0 /* EmptyDataSet.swift */,
+			);
+			path = EmptyDataSet;
+			sourceTree = "<group>";
+		};
+		142CE016222CEB1300F604B0 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				142CE017222CEB3B00F604B0 /* Refresh.swift */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		142CE01E222D0B6200F604B0 /* NoticeBar */ = {
+			isa = PBXGroup;
+			children = (
+				142CE01C222D0B0B00F604B0 /* NoticeBar.swift */,
+			);
+			path = NoticeBar;
+			sourceTree = "<group>";
+		};
+		142CE025222D235200F604B0 /* DeliveryDate-配送时间 */ = {
+			isa = PBXGroup;
+			children = (
+				142CE026222D239A00F604B0 /* DeliveryDateViewController.swift */,
+				142CE02A222D247E00F604B0 /* DeliveryTimeView.swift */,
+			);
+			path = "DeliveryDate-配送时间";
+			sourceTree = "<group>";
+		};
 		1448B08E2224EC7F009237E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +725,7 @@
 				1468B154221508F8002B971F /* Search-搜索 */,
 				1492DD96221A4A9300C79D88 /* Delivery-配送 */,
 				14B27A57221BFBF90029648A /* Delivery-订单 */,
+				142CE025222D235200F604B0 /* DeliveryDate-配送时间 */,
 				14C3EBC7221CF649003029EB /* DeliveryOrder-配送订单 */,
 				14B27A44221BA1D00029648A /* DeliveryAddress-配送地址 */,
 				1492DDA9221A67C700C79D88 /* Specification-规格选择 */,
@@ -987,6 +1034,7 @@
 				14043D4A221272D60023AA11 /* Button+Ex.swift */,
 				14ED11072216668B0021D185 /* ViewController+Ex.swift */,
 				145100B32227CBB800031FE2 /* Notification+Ex.swift */,
+				142CE01F222D12AA00F604B0 /* MBProgressHUD+Ex.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1242,6 +1290,7 @@
 		14DC341321F170B6006EF1CF /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				142CE01E222D0B6200F604B0 /* NoticeBar */,
 				14ED11042216634B0021D185 /* DropdownMenu */,
 				14043D602212BCE70023AA11 /* SwiftPopup */,
 				145138B021F858940038AFC6 /* Defaults.swift */,
@@ -1256,8 +1305,8 @@
 			children = (
 				1451389921F8065B0038AFC6 /* WebAPI.swift */,
 				1451389F21F80F950038AFC6 /* NetworkTool.swift */,
-				1451389D21F80A960038AFC6 /* Reachability.swift */,
 				1451389B21F80A6E0038AFC6 /* Networking.swift */,
+				1451389D21F80A960038AFC6 /* Reachability.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1281,6 +1330,7 @@
 				14DC33EC21F17060006EF1CF /* LaunchScreen.storyboard */,
 				14DC33EF21F17060006EF1CF /* Info.plist */,
 				14DC33E721F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld */,
+				142CE021222D19A100F604B0 /* ZhongHuiNong-Bridging-Header.h */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1341,6 +1391,8 @@
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
 				1414E0C221FAAA5E00347050 /* BarButtonItem.swift */,
 				145100AF2227903A00031FE2 /* FlashLoadingView.swift */,
+				142CE016222CEB1300F604B0 /* Refresh */,
+				142CE013222CD21200F604B0 /* EmptyDataSet */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1543,6 +1595,7 @@
 				TargetAttributes = {
 					14DC33DC21F1705E006EF1CF = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					14DC33F321F17060006EF1CF = {
 						CreatedOnToolsVersion = 10.1;
@@ -1636,11 +1689,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/EmptyDataSet-Swift/EmptyDataSet_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/JXCategoryView/JXCategoryView.framework",
-				"${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
@@ -1660,9 +1715,11 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyDataSet_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXCategoryView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KafkaRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
@@ -1679,7 +1736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABBE84CE2BD52BC317448F49 /* [CP] Check Pods Manifest.lock */ = {
@@ -1739,6 +1796,7 @@
 				14D5B33E221FC41B00D08DD1 /* MineLogisticsHeaderView.swift in Sources */,
 				1468B15C221513AA002B971F /* SearchHotView.swift in Sources */,
 				14ED11142216BFB20021D185 /* PinterestSegment.swift in Sources */,
+				142CE015222CD22C00F604B0 /* EmptyDataSet.swift in Sources */,
 				14D5B340221FC8FD00D08DD1 /* MineLogisticsAddressView.swift in Sources */,
 				1448B0932224F444009237E7 /* ComponentViewController.swift in Sources */,
 				1411F75221F943940076D763 /* FarmViewModel.swift in Sources */,
@@ -1749,6 +1807,7 @@
 				14C2510E2223E79000F5CB53 /* FlashOneViewController.swift in Sources */,
 				14C251052223BEFA00F5CB53 /* PrivatefarmTabCell.swift in Sources */,
 				14D5B339221FA1E700D08DD1 /* MineLogisticsViewController.swift in Sources */,
+				142CE020222D12AA00F604B0 /* MBProgressHUD+Ex.swift in Sources */,
 				14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */,
 				14D5B34D221FDFAC00D08DD1 /* MineAddressModifyTabCell.swift in Sources */,
 				14B27A4E221BAF540029648A /* DeliveryAddressModifyView.swift in Sources */,
@@ -1899,10 +1958,13 @@
 				8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */,
 				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
+				142CE027222D239A00F604B0 /* DeliveryDateViewController.swift in Sources */,
 				146B74CA221EA4CE005D2879 /* MineOrderTabCell.swift in Sources */,
 				14C3EBD0221D1DA8003029EB /* GoodsDetailViewController.swift in Sources */,
 				14ED11122216AF560021D185 /* FlashView.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
+				142CE02B222D247E00F604B0 /* DeliveryTimeView.swift in Sources */,
+				142CE01D222D0B0B00F604B0 /* NoticeBar.swift in Sources */,
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
 				1451389E21F80A960038AFC6 /* Reachability.swift in Sources */,
 				1411F76221F982BC0076D763 /* Image.swift in Sources */,
@@ -1942,6 +2004,7 @@
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
+				142CE018222CEB3B00F604B0 /* Refresh.swift in Sources */,
 				1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */,
 				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
@@ -2117,6 +2180,7 @@
 			baseConfigurationReference = 4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
@@ -2128,6 +2192,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cnkj.ZhongHuiNong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZhongHuiNong/Application/ZhongHuiNong-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2138,6 +2204,7 @@
 			baseConfigurationReference = 7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
@@ -2149,6 +2216,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cnkj.ZhongHuiNong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZhongHuiNong/Application/ZhongHuiNong-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

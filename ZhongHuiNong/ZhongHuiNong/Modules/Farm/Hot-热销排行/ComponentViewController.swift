@@ -19,10 +19,11 @@ class ComponentViewController: ViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        
+        
     }
     
     // MARK: - Lazy
-    
     lazy var tableView: TableView = {
         let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kNavBarH-44-kBottomViewH), style: .plain)
         view.backgroundColor = UIColor.white
@@ -52,7 +53,7 @@ extension ComponentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigator.show(segue: .goodsDetail, sender: self.topMost)
+        self.navigator.show(segue: .goodsDetail, sender: topVC)
     }
     
 }

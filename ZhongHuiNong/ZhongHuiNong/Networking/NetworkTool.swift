@@ -15,26 +15,14 @@ protocol ProductAPIType {
     func getmessageboardbymylocation() -> Single<[HomePublicityEntity]>
 }
 
-
+// MARK: - 请求类
 class NetworkTool {
-    
     static let shared = NetworkTool()
     let provider: Networking
-    
     init() {
         provider = Networking.networking()
     }
-    
 }
-
-extension NetworkTool: ProductAPIType {
-    
-    func getmessageboardbymylocation() -> Single<[HomePublicityEntity]> {
-        return requestArray(WebAPI.getmessageboardbymylocation, type: HomePublicityEntity.self)
-    }
-
-}
-
 
 extension NetworkTool {
     
@@ -67,5 +55,13 @@ extension NetworkTool {
             .asSingle()
     }
     
+}
+
+//MARK: - 所有接口请求数据
+extension NetworkTool: ProductAPIType {
+    
+    func getmessageboardbymylocation() -> Single<[HomePublicityEntity]> {
+        return requestArray(WebAPI.getmessageboardbymylocation, type: HomePublicityEntity.self)
+    }
     
 }

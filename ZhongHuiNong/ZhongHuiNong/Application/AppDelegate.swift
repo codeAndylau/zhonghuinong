@@ -100,3 +100,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - OpenURLOptionsKey
+extension AppDelegate {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.host == "oauth" {
+            return WXApi.handleOpen(url, delegate: nil)
+        }
+        return true
+    }
+}

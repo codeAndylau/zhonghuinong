@@ -7,23 +7,16 @@
 //
 
 import Foundation
-import Then
-import SnapKit
-import KafkaRefresh
 
 class LibsManager: NSObject {
     
     static let shared = LibsManager()
     
     func setupLibs() {
-        setupKafkaRefresh()
-    }
-    
-    func setupKafkaRefresh() {
-        if let defaults = KafkaRefreshDefaults.standard() {
-            defaults.headDefaultStyle = .replicatorAllen
-            defaults.footDefaultStyle = .replicatorDot
-        }
+        
+        // 1. 微信SDK
+        WXApi.registerApp(Configs.Identifier.WeChat_AppId)
+        
     }
     
 }

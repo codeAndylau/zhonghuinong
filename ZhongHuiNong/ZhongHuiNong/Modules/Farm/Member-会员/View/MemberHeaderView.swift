@@ -105,9 +105,8 @@ class MemberHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDele
 /// 会员headerView分类
 class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    
-    lazy var ImgArray = ["farm_luobo","farm_shuiguo","farm_danpin","farm_ganhuo","farm_ruping","farm_tiaowei","farm_gaodian","farm_renqun"]
-    lazy var TitleArray = ["精品时蔬","新鲜水果","肉禽蛋品","粮油干货","乳品烘焙","极致调味","早餐糕点","人群食养"]
+    lazy var ImgArray = ["farm_luobo","farm_shuiguo","farm_danpin","farm_ganhuo","farm_ruping","farm_tiaowei","farm_gaodian"] // ,"farm_renqun"
+    lazy var TitleArray = ["精品时蔬","新鲜水果","肉禽蛋品","粮油干货","乳品烘焙","极致调味","早餐糕点"] // ,"人群食养"
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

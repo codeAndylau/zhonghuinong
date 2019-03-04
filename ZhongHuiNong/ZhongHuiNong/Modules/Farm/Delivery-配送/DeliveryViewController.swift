@@ -48,6 +48,11 @@ class DeliveryViewController: ViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
         }
+
+    }
+
+    override func bindViewModel() {
+        super.bindViewModel()
         
         headerView.addressView.modifyBtn.rx.tap.subscribe(onNext: { (_) in
             let addressVC = DeliveryAddressViewController()
@@ -92,10 +97,6 @@ class DeliveryViewController: ViewController {
             
         }).disposed(by: rx.disposeBag)
     }
-
-    override func bindViewModel() {
-        super.bindViewModel()
-    }
     
     
     // MAKR: - Lazy
@@ -103,9 +104,10 @@ class DeliveryViewController: ViewController {
     lazy var headerView = DeliveryHeaderView.loadView()
     lazy var footerView = DeliveryFooterView.loadView()
     lazy var commitVew = DeliveryCommitOrderView.loadView()
+    lazy var dateViewDemo = DeliveryDateViewController()
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH-15), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -122,7 +124,7 @@ class DeliveryViewController: ViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH-15), collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH), collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
@@ -142,7 +144,7 @@ class DeliveryViewController: ViewController {
     }
     
     @objc func messageAction() {
-        
+        dateViewDemo.show()
     }
 
 }

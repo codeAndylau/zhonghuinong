@@ -35,55 +35,6 @@ extension UIViewController {
 
 extension UIViewController {
     
-    var topMost: UIViewController? {
-        var rootViewController: UIViewController?
-        for window in UIApplication.shared.windows where !window.isHidden {
-            if let windowRootViewController = window.rootViewController {
-                rootViewController = windowRootViewController
-                break
-            }
-        }
-        return self.topMost(of: rootViewController)
-    }
-    
-    func topMost(of viewController: UIViewController?) -> UIViewController? {
-        
-        // presented view controller
-        if let presentedViewController = viewController?.presentedViewController {
-            return self.topMost(of: presentedViewController)
-        }
-        
-        // UITabBarController
-        if let tabBarController = viewController as? UITabBarController,
-            let selectedViewController = tabBarController.selectedViewController {
-            return self.topMost(of: selectedViewController)
-        }
-        
-        // UINavigationController
-        if let navigationController = viewController as? UINavigationController,
-            let visibleViewController = navigationController.visibleViewController {
-            return self.topMost(of: visibleViewController)
-        }
-        
-        // UIPageController
-        if let pageViewController = viewController as? UIPageViewController,
-            pageViewController.viewControllers?.count == 1 {
-            return self.topMost(of: pageViewController.viewControllers?.first)
-        }
-        
-        // child view controller
-        for subview in viewController?.view?.subviews ?? [] {
-            if let childViewController = subview.next as? UIViewController {
-                return self.topMost(of: childViewController)
-            }
-        }
-        return viewController
-    }
-}
-
-extension UIViewController {
-    
-    // Get ViewController in top present level
     var topPresentedViewController: UIViewController? {
         var target: UIViewController? = self
         while (target?.presentedViewController != nil) {
@@ -92,9 +43,6 @@ extension UIViewController {
         return target
     }
     
-    // Get top VisibleViewController from ViewController stack in same present level.
-    // It should be visibleViewController if self is a UINavigationController instance
-    // It should be selectedViewController if self is a UITabBarController instance
     var topVisibleViewController: UIViewController? {
         if let navigation = self as? UINavigationController {
             if let visibleViewController = navigation.visibleViewController {
@@ -109,7 +57,6 @@ extension UIViewController {
         return self
     }
     
-    // Combine both topPresentedViewController and topVisibleViewController methods, to get top visible viewcontroller in top present level
     var topMostViewController: UIViewController? {
         return self.topPresentedViewController?.topVisibleViewController
     }

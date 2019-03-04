@@ -32,7 +32,8 @@ class OnlineProvider<Target> where Target: Moya.TargetType {
     /// 统一的网络请求
     func request(_ target: Target) -> Observable<Moya.Response> {
         let actualRequest = provider.rx.request(target)
-        return online //.ignore(value: false)// 等我们上线后再说
+        return online
+            .ignore(value: false)// 等我们上线后再说
             .map({ (flag) -> (Bool) in
                 debugPrints("是否有网络请求---\(flag)")
                 return flag

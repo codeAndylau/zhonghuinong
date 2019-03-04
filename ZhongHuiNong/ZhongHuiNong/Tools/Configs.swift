@@ -11,6 +11,10 @@ import AdSupport
 
 struct Configs {
     
+    struct Identifier {
+        static let WeChat_AppId = ""
+    }
+    
     struct App {
         static let IsTesting = true
         static var appName: String { return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String }
@@ -54,4 +58,45 @@ struct Configs {
         case iphonex_s = 291
         case iphoner_max = 301
     }
+}
+
+public var topVC: UIViewController? {
+    var rootViewController: UIViewController?
+    for window in UIApplication.shared.windows where !window.isHidden {
+        if let windowRootViewController = window.rootViewController {
+            rootViewController = windowRootViewController
+            break
+        }
+    }
+    return topMost(of: rootViewController)
+}
+
+public func topMost(of viewController: UIViewController?) -> UIViewController? {
+    
+    if let presentedViewController = viewController?.presentedViewController {
+        return topMost(of: presentedViewController)
+    }
+    
+    if let tabBarController = viewController as? UITabBarController,
+        let selectedViewController = tabBarController.selectedViewController {
+        return topMost(of: selectedViewController)
+    }
+    
+    if let navigationController = viewController as? UINavigationController,
+        let visibleViewController = navigationController.visibleViewController {
+        return topMost(of: visibleViewController)
+    }
+    
+    if let pageViewController = viewController as? UIPageViewController,
+        pageViewController.viewControllers?.count == 1 {
+        return topMost(of: pageViewController.viewControllers?.first)
+    }
+    
+    
+    for subview in viewController?.view?.subviews ?? [] {
+        if let childViewController = subview.next as? UIViewController {
+            return topMost(of: childViewController)
+        }
+    }
+    return viewController
 }

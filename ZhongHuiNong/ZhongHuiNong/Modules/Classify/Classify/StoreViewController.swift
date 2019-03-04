@@ -32,11 +32,18 @@ class StoreViewController: ViewController {
         super.bindViewModel()
         
         filterView.priceBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
-            
             guard let self = self else { return }
             self.isUp = !self.isUp
             self.filterView.value = self.isUp
-            
+            self.filterView.priceBtn.setTitleColor(UIColor.hexColor(0x1DD1A8), for: .normal)
+            self.filterView.numBtn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
+        }).disposed(by: rx.disposeBag)
+        
+        filterView.numBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.filterView.priceBtn.setImage(UIImage(named: "store_price_normal"), for: .normal)
+            self.filterView.priceBtn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
+            self.filterView.numBtn.setTitleColor(UIColor.hexColor(0x1DD1A8), for: .normal)
         }).disposed(by: rx.disposeBag)
         
         
@@ -46,7 +53,7 @@ class StoreViewController: ViewController {
             
             let value = notification.userInfo?[Notification.Name.HomeGoodsClassDid.rawValue] as! Int
             
-            let indexPath = IndexPath(row: value+1, section: 0)
+            let indexPath = IndexPath(row: value, section: 0)
             
             if self.currentIndexPath != indexPath {
                 let cell = self.leftTableView.cellForRow(at: self.currentIndexPath) as? StoreLeftCell
@@ -64,8 +71,8 @@ class StoreViewController: ViewController {
         
     }
     
-    // MARK: - Lazy
-    lazy var leftArray = ["store_qianggou", "store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian", "store_renquan"]
+    // MARK: - Lazy // "store_qianggou", , "store_renquan"
+    lazy var leftArray = ["store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian"]
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
     lazy var vipItem = FarmHeaderView.loadView()
@@ -103,6 +110,12 @@ class StoreViewController: ViewController {
     
     @objc func messageAction() {
         debugPrints("点击了消息按钮")
+//        let noticeBar = NoticeBar(title: "点击了消息按钮", defaultType: NoticeBarDefaultType.info)
+//        noticeBar.show(duration: 1.5, completed: nil)
+        
+        let config = NoticeBarConfig(title: "点击了消息按钮", barStyle: NoticeBarStyle.onTabbar)
+        let noticeBar = NoticeBar(config: config)
+        noticeBar.show(duration: 1.5, completed: nil)
     }
 }
 

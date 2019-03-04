@@ -36,7 +36,7 @@ class WechatLoginView: View {
     }
     
     let otherBtn = Button(type: .custom).then { (btn) in
-        btn.setTitle("其它方式登录", for: .normal)
+        btn.setTitle("验证码登录", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn.adjustsImageWhenHighlighted = false

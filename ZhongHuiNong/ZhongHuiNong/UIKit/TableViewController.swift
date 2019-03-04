@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import KafkaRefresh
 import SnapKit
 
 class TableViewController: ViewController {
@@ -29,26 +28,21 @@ class TableViewController: ViewController {
         view.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        //        view.emptyDataSetSource = self
-        //        view.emptyDataSetDelegate = self
         return view
     }()
     
-    lazy var tableViews: TableView = {
+    lazy var tableView_g: TableView = {
         let view = TableView(frame: CGRect.zero, style: .grouped)
         view.separatorStyle = .none
         self.view.addSubview(view)
         view.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        //        view.emptyDataSetSource = self
-        //        view.emptyDataSetDelegate = self
         return view
     }()
     
     override func makeUI() {
         super.makeUI()
-        tableView.backgroundColor = .white
         isRefresh.asObservable().subscribe(onNext: { [weak self] (flag) in
             guard let self = self else { return }
             if flag { self.refreshTrigger() }
@@ -66,21 +60,21 @@ class TableViewController: ViewController {
     
     func refreshTrigger() {
         /// 数据刷新
-        tableView.bindGlobalStyle(forHeadRefreshHandler: { [weak self] in
-            if self?.tableView.headRefreshControl.isTriggeredRefreshByUser == false {
-                self?.headerRefreshTrigger.onNext(())
-            }
-        })
-        
-        tableView.bindGlobalStyle(forFootRefreshHandler: { [weak self] in
-            self?.footerRefreshTrigger.onNext(())
-        })
-        
-        isHeaderLoading.bind(to: tableView.headRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
-        isFooterLoading.bind(to: tableView.footRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
-        
-        tableView.footRefreshControl.autoRefreshOnFoot = false
-        
+        //        tableView.bindGlobalStyle(forHeadRefreshHandler: { [weak self] in
+        //            if self?.tableView.headRefreshControl.isTriggeredRefreshByUser == false {
+        //                self?.headerRefreshTrigger.onNext(())
+        //            }
+        //        })
+        //
+        //        tableView.bindGlobalStyle(forFootRefreshHandler: { [weak self] in
+        //            self?.footerRefreshTrigger.onNext(())
+        //        })
+        //
+        //        isHeaderLoading.bind(to: tableView.headRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
+        //        isFooterLoading.bind(to: tableView.footRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
+        //
+        //        tableView.footRefreshControl.autoRefreshOnFoot = false
+        //
         //        let updateEmptyDataSet = Observable.of(isLoading.mapToVoid().asObservable(), emptyDataSetImageTintColor.mapToVoid()).merge()
         //        updateEmptyDataSet.subscribe(onNext: { [weak self] () in
         //            self?.tableView.reloadEmptyDataSet()

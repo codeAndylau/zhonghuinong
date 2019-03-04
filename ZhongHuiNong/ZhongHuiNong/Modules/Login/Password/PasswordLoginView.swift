@@ -52,7 +52,7 @@ class PasswordLoginView: View {
         img.contentMode = .scaleAspectFit
     }
     
-    let psdTF = UITextField().then { (tf) in
+    let codeTF = UITextField().then { (tf) in
         tf.placeholder = "请输入验证码"
         tf.font = UIFont.systemFont(ofSize: 14)
         tf.keyboardType = .numberPad
@@ -83,7 +83,7 @@ class PasswordLoginView: View {
         phoneView.addSubview(codeBtn)
         
         psdView.addSubview(psdImg)
-        psdView.addSubview(psdTF)
+        psdView.addSubview(codeTF)
         
         addSubview(wechatBtn)
         addSubview(psdBtn)
@@ -102,11 +102,11 @@ class PasswordLoginView: View {
             }
             }.disposed(by: rx.disposeBag)
         
-        psdTF.rx.controlEvent(UIControl.Event.editingChanged).subscribe { [weak self] (_) in
+        codeTF.rx.controlEvent(UIControl.Event.editingChanged).subscribe { [weak self] (_) in
             guard let weakSelf = self else { return }
-            guard let text = weakSelf.psdTF.text else { return }
+            guard let text = weakSelf.codeTF.text else { return }
             if text.count > 8 {
-                weakSelf.psdTF.text = String(text.prefix(8))
+                weakSelf.codeTF.text = String(text.prefix(8))
             }
             }.disposed(by: rx.disposeBag)
         
@@ -166,14 +166,14 @@ class PasswordLoginView: View {
             make.centerY.equalToSuperview()
         }
         
-        psdTF.snp.makeConstraints { (make) in
+        codeTF.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(50)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
         
         wechatBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(psdTF.snp.bottom).offset(45)
+            make.top.equalTo(codeTF.snp.bottom).offset(45)
             make.centerX.equalTo(self)
         }
         

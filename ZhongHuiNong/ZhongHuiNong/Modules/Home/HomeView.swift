@@ -35,7 +35,6 @@ class HomeView: UIView {
             make.center.equalToSuperview()
         }
     }
-    
 
 }
 

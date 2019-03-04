@@ -12,4 +12,6 @@ extension NSNotification.Name {
     /// 首页商品分类点击
     static let HomeGoodsClassDid = NSNotification.Name(localized("HomeGoodsClassDid"))
     
+    static let wechatLoginNotification = NSNotification.Name(localized("wechatLoginNotification"))
+    
 }

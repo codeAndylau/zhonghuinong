@@ -58,7 +58,7 @@ class PaySelectViewController: SwiftPopup {
         
         paySelectView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.PayPasswordDemo.show(above: self.topMost, completion: nil)
+            self.PayPasswordDemo.show(above: topVC, completion: nil)
         }).disposed(by: rx.disposeBag)
         
         payPasswordView.cancelBtn.rx.tap.subscribe(onNext: { [weak self] in

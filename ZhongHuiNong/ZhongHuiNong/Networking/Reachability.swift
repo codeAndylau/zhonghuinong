@@ -17,7 +17,6 @@ class ReachabilityManager: NSObject {
     
     let reachability = Reachability.init()
     let reachreplay = ReplaySubject<Bool>.create(bufferSize: 1)
-    let reconnection = PublishSubject<Bool>()  // FIXME: 暂时不需要该属性
     
     var reach: Observable<Bool> {
         return reachreplay.asObserver()

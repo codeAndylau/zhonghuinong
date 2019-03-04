@@ -30,7 +30,6 @@ class HomeViewController: TableViewController {
         super.bindViewModel()
         
         let input = HomeViewModel.Input(loadRefresh: Observable.just(()), headerRefresh: headerRefreshTrigger, footerRefresh: footerRefreshTrigger)
-        
         let output = viewModel.transform(input: input)
         
         viewModel.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
@@ -45,7 +44,6 @@ class HomeViewController: TableViewController {
         
         tableView.rx.modelSelected(HomePublicityEntity.self).subscribe(onNext: { (item) in
             debugPrints("mmp---\(item.texts)")
-            
         }).disposed(by: rx.disposeBag)
         
         isLoading.subscribe(onNext: { (flag) in
