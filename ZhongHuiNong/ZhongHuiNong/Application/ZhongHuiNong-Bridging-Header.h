@@ -3,3 +3,7 @@
 //
 
 #import "WXApi.h"
+
+#import "EZUIError.h"
+#import "EZUIKit.h"
+#import "EZUIPlayer.h"

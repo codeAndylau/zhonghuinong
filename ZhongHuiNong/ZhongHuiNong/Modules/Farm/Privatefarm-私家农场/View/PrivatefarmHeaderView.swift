@@ -8,7 +8,7 @@
 
 import UIKit
 
-let PrivatefarmHeaderViewH: CGFloat = 350
+let PrivatefarmHeaderViewH: CGFloat = 350 - 50
 
 class PrivatefarmHeaderView: View {
 
@@ -18,10 +18,12 @@ class PrivatefarmHeaderView: View {
     
     let videoImg = ImageView().then { (img) in
         img.image = UIImage(named: "goods_tuijian_1")
+        img.isUserInteractionEnabled = true
     }
     
     let playBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "farm_play"), for: .normal)
+        btn.tag = 99
     }
     
     let tipsBtn = Button().then { (btn) in
@@ -62,7 +64,7 @@ class PrivatefarmHeaderView: View {
 
         addSubview(contView)
         contView.addSubview(videoImg)
-        contView.addSubview(playBtn)
+        videoImg.addSubview(playBtn)
         contView.addSubview(tipsBtn)
         
         contView.addSubview(jiaoshuiBtn)
@@ -72,7 +74,7 @@ class PrivatefarmHeaderView: View {
         
         
         addSubview(bottomView)
-        bottomView.addSubview(segmentedControl)
+        //bottomView.addSubview(segmentedControl)
     }
     
     override func updateUI() {
@@ -132,11 +134,11 @@ class PrivatefarmHeaderView: View {
         }
         
         
-        segmentedControl.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.width.equalTo(kScreenW-50)
-            make.height.equalTo(40)
-        }
+        //        segmentedControl.snp.makeConstraints { (make) in
+        //            make.center.equalToSuperview()
+        //            make.width.equalTo(kScreenW-50)
+        //            make.height.equalTo(40)
+        //        }
         
         // fillCode
         let bgLayer1 = CALayer()

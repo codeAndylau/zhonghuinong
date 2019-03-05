@@ -51,7 +51,7 @@ class BasketViewController: TableViewController {
     
     // MARK: - Lazy
     lazy var cartItem = BarButtonItem.cartItem()
-    lazy var emptyView = CartEmptyView.loadView()
+    lazy var emptyView = EmptyView.loadView()
     lazy var settleView = SettlementView.loadView()
     lazy var sectionView = CartSectionHeaderView.loadView()
     lazy var messageItem = BarButtonItem(image: UIImage(named: "mine_messge"), target: self, action: #selector(messageAction))

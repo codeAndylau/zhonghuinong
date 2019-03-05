@@ -87,7 +87,7 @@ class OnlineProvider<Target> where Target: Moya.TargetType {
 }
 
 protocol NetworkingType {
-    associatedtype T: TargetType, WebAPIType
+    associatedtype T: TargetType
     var provider: OnlineProvider<T> {get}
 }
 

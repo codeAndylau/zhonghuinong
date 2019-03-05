@@ -27,6 +27,8 @@ extension MBProgressHUD {
         hud.customView = UIImageView(image: UIImage(named: "notice_bar_info")!) //自定义视图显示图片
         hud.label.text = title
         hud.removeFromSuperViewOnHide = true
+        //HUD窗口显示1秒后自动隐藏
+        hud.hide(animated: true, afterDelay: 1)
     }
     
     //显示成功消息
@@ -39,7 +41,7 @@ extension MBProgressHUD {
         hud.label.text = title
         hud.removeFromSuperViewOnHide = true
         //HUD窗口显示1秒后自动隐藏
-        hud.hide(animated: true, afterDelay: 5)
+        hud.hide(animated: true, afterDelay: 1)
     }
     
     //显示失败消息

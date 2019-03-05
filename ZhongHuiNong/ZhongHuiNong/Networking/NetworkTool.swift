@@ -12,7 +12,7 @@ import RxSwift
 import ObjectMapper
 
 protocol ProductAPIType {
-    func getmessageboardbymylocation() -> Single<[HomePublicityEntity]>
+    
 }
 
 // MARK: - 请求类
@@ -60,8 +60,5 @@ extension NetworkTool {
 //MARK: - 所有接口请求数据
 extension NetworkTool: ProductAPIType {
     
-    func getmessageboardbymylocation() -> Single<[HomePublicityEntity]> {
-        return requestArray(WebAPI.getmessageboardbymylocation, type: HomePublicityEntity.self)
-    }
     
 }

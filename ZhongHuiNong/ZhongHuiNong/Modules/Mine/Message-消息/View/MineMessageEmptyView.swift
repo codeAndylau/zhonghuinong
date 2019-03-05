@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MineMessageEmptyView: CartEmptyView {
+class MineMessageEmptyView: EmptyView {
 
     override func makeUI() {
         super.makeUI()

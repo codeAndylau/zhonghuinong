@@ -7,6 +7,64 @@
 //
 
 import UIKit
+import ObjectMapper
+
+/// 私家农场
+struct FarmLand: Mappable {
+    
+    var id = -1
+    var name = ""
+    var userId = -1
+    var wid = -1
+    var did = ""
+    var cameraUrl = ""
+    var status = ""
+    
+    init() {}
+    init?(map: Map) {}
+    
+    mutating func mapping(map: Map) {
+        id <- map["id"]
+        name <- map["name"]
+        userId <- map["userId"]
+        wid <- map["wid"]
+        did <- map["did"]
+        cameraUrl <- map["cameraUrl"]
+        status <- map["status"]
+    }
+    
+}
+
+struct FarmSensordata: Mappable {
+    
+    var water = -1
+    var temperature = -1
+    var cO2 = -1
+    var illumination = -1
+    
+    init() {}
+    init?(map: Map) {}
+    
+    mutating func mapping(map: Map) {
+        water <- map["iwaterd"]
+        temperature <- map["temperature"]
+        cO2 <- map["cO2"]
+        illumination <- map["illumination"]
+    }
+    
+}
+
+/// 请求视频播放的token
+struct EZAccessToken: Codable {
+    var accessToken = ""
+    var expireTime = 0.0
+    init() {}
+    init(a: String, e: Double) {
+        self.accessToken = a
+        self.expireTime = e
+    }
+}
+
 
 struct PrivatefarmCropsModel {
     var color: Int64 = 0x0BC7D8

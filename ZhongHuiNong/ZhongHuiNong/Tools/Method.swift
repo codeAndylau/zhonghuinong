@@ -238,7 +238,7 @@ public func getCurrentDayAndTime(_ format: String) -> String {
 /// 获取当前星期
 ///
 /// - Returns:
-func getCurrentWeek() -> String {
+public func getCurrentWeek() -> String {
     let calendar: Calendar = Calendar(identifier: .gregorian)
     var comps: DateComponents = DateComponents()
     comps = calendar.dateComponents([.year,.month,.day, .weekday, .hour, .minute,.second], from: Date())
@@ -249,7 +249,7 @@ func getCurrentWeek() -> String {
 ///
 /// - Parameter date:
 /// - Returns: 
-func getCurrentDate(_ date: String) -> String {
+public func getCurrentDate(_ date: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = date
     return dateFormatter.string(from: Date())
@@ -260,10 +260,53 @@ func getCurrentDate(_ date: String) -> String {
 /// - Parameters:
 ///   - view:
 ///   - radius:
-func clipsViewCorner(_ view: UIView, radius: Int) {
+public func clipsViewCorner(_ view: UIView, radius: Int) {
     let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: radius, height: radius))
     let maskLayer = CAShapeLayer()
     maskLayer.frame = view.bounds
     maskLayer.path = path.cgPath
     view.layer.mask = maskLayer
+}
+
+
+/// 打电话
+///
+/// - Parameter phone: phonenumber
+public func callUpWith(_ phone: String) {
+    let number =  "telprompt://\(phone)"
+    //自动打开拨号页面并自动拨打电话
+    if let url = URL(string: number) {
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+}
+
+
+/// 字典转jsonString
+///
+/// - Parameter dict: 字典
+/// - Returns: data
+public func dictToJsonString(dict: [String: Any]) -> String {
+    if !JSONSerialization.isValidJSONObject(dict) {
+        return String()
+    }
+    let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
+    let jsonString = String(data: data ?? Data(), encoding: String.Encoding.utf8)!
+    return jsonString
+}
+
+public func dictToData(dict: [String: Any]) -> Data {
+    
+    if !JSONSerialization.isValidJSONObject(dict) {
+        return Data()
+    }
+    debugPrints("是否---\(JSONSerialization.isValidJSONObject(dict))")
+    let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
+    debugPrints("转换的data---\(data!)")
+    return data!
 }

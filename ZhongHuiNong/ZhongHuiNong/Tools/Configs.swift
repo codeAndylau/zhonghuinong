@@ -12,7 +12,11 @@ import AdSupport
 struct Configs {
     
     struct Identifier {
-        static let WeChat_AppId = ""
+        static let WeChat_AppId = "wxaa1245f77008b79f"
+        static let weChat_Secret = "047f3fab277cff56a56dd5ae8278b0f9"
+        static let Bundle_ID = "com.cnkj.SmartFarm"
+        static let EZ_AppKey = "ceb7361666b144d7985afbb1e1ceafaf"
+        static let EZ_AccessToken = "at.2sumy0c6366ug2qr85c2hruj3mktxt7e-1scs0gkda7-190a2y1-0tjyxyp3h"
     }
     
     struct App {
@@ -33,8 +37,8 @@ struct Configs {
     struct Network {
         static let kWindlessViewTag = 91997
         static let loggingEnabled = false
-        static let debugUrl   = URL(string: "http://212.64.64.36:8080/")!   // 测试服务器
-        static let releaseUrl = URL(string: "http://212.64.52.253:8080/")!  // 正是服务器
+        static let debugUrl   = URL(string: "http://212.64.91.248:80/")!     // 测试服务器
+        static let releaseUrl = URL(string: "http://212.64.52.253:8080/")!   // 正是服务器
     }
     
     struct Size {

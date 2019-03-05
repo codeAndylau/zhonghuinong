@@ -25,7 +25,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxaa1245f77008b79f</string>
+			</array>
 		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>

@@ -17,26 +17,39 @@ protocol WebAPIType {
 }
 
 enum WebAPI {
-    case getmessageboardbymylocation
+    
+    /// 微信登录
+    case wechatLogin(_ p: [String: Any])
+    case psdLogin(_ p: [String: Any])
+    
+    /// 私家农场
+    case farmLand(_ p: [String: Any])
+    /// 取得农场传感器的值
+    case farmSensordata(_ p: [String: Any])
+    
     case xxx(_ p: [String: Any])
 }
 
 extension WebAPI: TargetType, WebAPIType {
     
     var baseURL: URL {
-        return Configs.Network.releaseUrl
+        return Configs.Network.debugUrl
     }
     
     var path: String {
         switch self {
-        case .getmessageboardbymylocation: return "/user/getmessageboardbymylocation"
-        default: return ""
+        case .wechatLogin(_): return "/api/User/wechatapp"
+        case .farmLand(_): return "/api/Farm/land"
+        case .farmSensordata(_): return "/api/Farm/sensordata"
+            
+        default:
+            return ""
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .xxx:
+        case .wechatLogin(_):
             return .post
         default:
             return .get
@@ -49,23 +62,24 @@ extension WebAPI: TargetType, WebAPIType {
     
     var task: Task {
         switch self {
-        case .xxx(let p):
-            return .requestParameters(parameters: p, encoding: URLEncoding.default)
+        case .wechatLogin(let p):
+            return .requestData(dictToData(dict: p)) //参数放在HttpBody中
+        case .farmLand(let p),
+             .farmSensordata(let p):
+            return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
         default:
             return .requestPlain
         }
     }
     
     var headers: [String : String]? {
-        if addXAuth {
-            return ["token": "67760905-584a-4516-87dc-5ab7490bed8b"]
-        }
-        return nil
+        return ["Content-type" : "application/json"]
     }
     
     var addXAuth: Bool {
         switch self {
-        default: return true
+        default:
+            return true
         }
     }
     
@@ -105,15 +119,8 @@ struct WebAPITool {
                 do {
                     let _ = try response.filterSuccessfulStatusCodes() // 只返回200-299的成功状态吗
                     let value = try JSON(response.mapJSON())
-                    debugPrints("通用接口数据---\(value)")
-                    let msg = value["msg"].stringValue
-                    let success = value["success"].boolValue
-                    if (msg == "Token invalid" || msg == "No incoming token") && success == false {
-                        //AuthManager.removeToken()  // token 失效
-                        failure("用户信息过期")
-                    }else {
-                        complete(value)
-                    }
+                    debugPrints("通用接口数据---\(response)--\(value)")
+                    complete(value)
                 }catch let error {
                     failure(error.localizedDescription) // 服务器连接成功，但数据返回错误（同时会返回错误信息）
                 }
@@ -138,7 +145,7 @@ struct WebAPITool {
     
     /// 请求对象数据
     static func requestModel<T: BaseMappable>(_ target:WebAPI, model: T.Type, complete: @escaping (T)->Void, failure: @escaping (String)->Void) {
-        requestJSON(target, complete: { (value) in
+        request(target, complete: { (value) in
             debugPrints("通用接口Json数据---\(value)")
             if let model = Mapper<T>().map(JSONObject: value.object) {
                 complete(model)

@@ -8,8 +8,24 @@
 
 import UIKit
 
-class CartEmptyView: View {
+struct EmptyViewConfig {
+    
+    init() { }
+    
+    var title: String?
+    var image: UIImage? = nil
+    var btnTitle: String?
+    
+    init(title: String? = "什么也木有啊,哭晕在厕所", image: UIImage? = UIImage(named: "basket_empty"), btnTitle: String = "确定") {
+        self.title = title
+        self.image = image
+        self.btnTitle = btnTitle
+    }
+    
+}
 
+class EmptyView: View {
+    
     let emptyImg = ImageView().then { (img) in
         img.image = UIImage(named: "basket_empty")
     }
@@ -26,6 +42,7 @@ class CartEmptyView: View {
         btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         btn.cuttingCorner(radius: 22)
+        btn.addTarget(self, action: #selector(sureBtnAction), for: .touchUpInside)
     }
     
     override func makeUI() {
@@ -35,10 +52,11 @@ class CartEmptyView: View {
         addSubview(sureBtn)
         activateConstraints()
     }
-
+    
     func activateConstraints() {
+        
         emptyImg.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(50)
+            make.top.equalTo(self).offset(100)
             make.centerX.equalTo(self)
         }
         
@@ -55,9 +73,29 @@ class CartEmptyView: View {
         }
     }
     
+    var sureBtnClosure: (()->Void)?
+    
+    var config = EmptyViewConfig() {
+        didSet {
+            if config.title != nil && config.title != "" {
+                titleLab.text = config.title
+            }
+            if config.image != nil {
+                emptyImg.image = config.image
+            }
+            if config.btnTitle != nil && config.btnTitle != "" {
+                sureBtn.setTitle(config.btnTitle, for: .normal)
+            }
+        }
+    }
+    
+    @objc func sureBtnAction() {
+        sureBtnClosure?()
+    }
+    
     /// - Public methods
-    class func loadView() -> CartEmptyView {
-        let view = CartEmptyView()
+    class func loadView() -> EmptyView {
+        let view = EmptyView()
         view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kNavBarH-kTabBarH)
         view.backgroundColor = Color.whiteColor
         return view

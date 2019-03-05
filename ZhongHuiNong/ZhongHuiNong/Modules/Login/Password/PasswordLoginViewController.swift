@@ -17,9 +17,11 @@ class PasswordLoginViewController: ViewController {
         super.makeUI()
         view.addSubview(loginView)
         
-        //        if !WXApi.isWXAppInstalled() || isIPad() {
-        //            loginView.wechatBtn.isHidden = true
-        //        }
+        loginView.wechatBtn.isHidden = true
+        
+        if !WXApi.isWXAppInstalled() || isIPad() {
+            loginView.wechatBtn.isHidden = true
+        }
     }
 
     override func bindViewModel() {
@@ -38,9 +40,9 @@ class PasswordLoginViewController: ViewController {
     
     func psdLoginAction() {
         
-//        let psd = loginView.phoneTF.text!
-//        let code = loginView.codeTF.text!
-//
+        //        let psd = loginView.phoneTF.text!
+        //        let code = loginView.codeTF.text!
+        //
         //        guard !psd.isEmpty else {
         //            let noticeBar = NoticeBar(title: "请输入手机号", defaultType: NoticeBarDefaultType.info)
         //            noticeBar.show(duration: 1.5, completed: nil)
@@ -60,6 +62,8 @@ class PasswordLoginViewController: ViewController {
         //
         //        }
         
+        let model = User.currentUser()
+        debugPrints("用户的信息---\(String(describing: model))---\(String(describing: model?.username))")
         self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))   // 登录了直接进入首页
     }
 }

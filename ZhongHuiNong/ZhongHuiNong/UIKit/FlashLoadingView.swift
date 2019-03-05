@@ -150,5 +150,14 @@ class FlashLoadingView: View {
         let view = FlashLoadingView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH))
         return view
     }
+    
+    class func hideView(_ loadView: FlashLoadingView) {
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [], animations: {
+            loadView.imageView.alpha = 0.1
+            loadView.alpha = 0.1
+        }) { (_) in
+            loadView.removeFromSuperview()
+        }
+    }
 
 }

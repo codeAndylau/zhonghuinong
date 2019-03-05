@@ -22,7 +22,7 @@ class DeliveryTimeView: View {
     
     let tipsLab = Label().then { (lab) in
         lab.text = "请选择其中至少两天时间进行配送"
-        lab.textColor = UIColor.hexColor(0x333333)
+        lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
@@ -30,53 +30,74 @@ class DeliveryTimeView: View {
         btn.setTitle("周一", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 101
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let day2Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周二", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 102
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let day3Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周三", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 103
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let day4Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周四", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 104
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let day5Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周五", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 105
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
 
     let day6Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周六", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 106
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let day7Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周天", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
+        btn.tag = 107
+        btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
     let sureBtn = Button().then { (btn) in
-        btn.setTitle("+添加地址", for: .normal)
+        btn.setTitle("确认", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -123,7 +144,7 @@ class DeliveryTimeView: View {
         
         day1Btn.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(35)
-            make.top.equalTo(titleLab.snp.bottom).offset(25)
+            make.top.equalTo(tipsLab.snp.bottom).offset(25)
             make.width.equalTo(btn_w)
             make.height.equalTo(btn_h)
         }
@@ -166,6 +187,26 @@ class DeliveryTimeView: View {
             make.width.equalTo(kScreenW-100)
             make.height.equalTo(44)
         }
+    }
+    
+    var tagArray: [Int] = []
+    
+    @objc func btnClickedAction(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            sender.backgroundColor = UIColor.hexColor(0x1DD1A8)
+            sender.setTitleColor(UIColor.white, for: .normal)
+            tagArray.append(sender.tag)
+        }else {
+            sender.backgroundColor = UIColor.white
+            sender.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
+            for item in tagArray.enumerated() {
+                if item.element == sender.tag {
+                    tagArray.remove(at: item.offset)
+                }
+            }
+        }
+        debugPrints("选择的是那几个btn---\(tagArray)")
     }
     
     /// - Public methods

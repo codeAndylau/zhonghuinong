@@ -34,20 +34,12 @@ class Application: NSObject {
     
     func presentInitialScreen(in window: UIWindow) {
         self.window = window
-        let loginIn = authManager.hasToken /// 判断当前用户是否登录过
+        let loginIn = User.hasUserId() /// 判断当前用户是否登录过
         if loginIn {
             navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))   // 登录了直接进入首页
         }else {
             navigator.show(segue: .login, sender: nil, transition: .root(window: window))  // 没有登录就直接进入登录页面
         }
-    }
-    
-    func showRootWindow(in window: UIWindow?) {
-        self.window = window
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = UIColor.black
-        self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController()) 
-        self.window?.makeKeyAndVisible()
     }
 
 }

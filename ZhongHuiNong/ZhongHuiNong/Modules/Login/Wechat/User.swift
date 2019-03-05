@@ -12,15 +12,19 @@ import ObjectMapper
 /// 用户token
 struct User: Mappable, Codable {
     
-    var token: String = ""
-    var valid: Bool = false
+    var userId = 0
+    var username = ""
+    var user_Img = ""
+    var isVip = false
     
     init() {}
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
-        token <- map["token"]
-        valid <- map["valid"]
+        isVip <- map["isVip"]
+        userId <- map["userId"]
+        username <- map["username"]
+        user_Img <- map["user_Img"]
     }
 
 }
@@ -32,12 +36,27 @@ extension User {
     }
     
     func save() {
-        
         if let json = self.toJSONString() {
             Defaults.shared.set(json, for: DefaultsKey.userKey)
         } else {
             debugPrints("User can't be saved")
         }
+    }
+    
+    static func hasUserId() -> Bool {
+        let user = User.currentUser()
+        debugPrints("用户信息---\(String(describing: user))")
+        if user != nil {
+            return true
+        }
+        return false
+    }
+    
+    static func userId() -> Int {
+        if hasUserId() {
+            return currentUser()!.userId
+        }
+        return -10000
     }
     
     static func currentUser() -> User? {
@@ -55,7 +74,10 @@ extension User {
 extension User: Equatable {
     
     static func == (lhs: User, rhs: User) -> Bool {
-        return (lhs.token == rhs.token && lhs.valid == rhs.valid)
+        return (lhs.isVip    == rhs.isVip &&
+                lhs.userId   == rhs.userId &&
+                lhs.username == rhs.username &&
+                lhs.user_Img == rhs.user_Img)
     }
     
 }

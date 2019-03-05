@@ -8,13 +8,21 @@
 
 import UIKit
 import CoreData
+import MBProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    //  整个项目支持竖屏，播放页面需要横屏
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        guard let num = EZPlayerOrientation(rawValue: orientationSupport.rawValue) else {
+            return [.portrait]
+        }
+        return num.getOrientSupports()
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -104,8 +112,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.host == "oauth" {
-            return WXApi.handleOpen(url, delegate: nil)
+            return WXApi.handleOpen(url, delegate: self)
         }
         return true
+    }
+}
+
+extension AppDelegate: WXApiDelegate {
+    
+    func onResp(_ resp: BaseResp) {
+        debugPrints("登录页面的微信回调---\(resp.errCode)")
+        if resp.isKind(of: SendAuthResp.self) {
+            let auth = resp as! SendAuthResp
+            switch resp.errCode {
+            case 0:
+                if let code = auth.code {
+                    NotificationCenter.default.post(name: .wechatLoginNotification, object: nil, userInfo: ["code": code])
+                }
+            case -4:
+                MBProgressHUD.showInfo("用户拒绝授权")
+            case -2:
+                MBProgressHUD.showInfo("用户取消授权")
+            default:
+                MBProgressHUD.showInfo("用户授权失败")
+            }
+        }
     }
 }

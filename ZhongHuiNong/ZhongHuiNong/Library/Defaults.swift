@@ -154,7 +154,8 @@ public final class Defaults {
 
 /// 本地所存错的所有key
 extension DefaultsKey {
-    static let tokenKey = Key<String>("TokenKey")  // 用户的token
+    static let tokenKey = Key<String>("tokenKey")  // 用户的token
     static let userKey = Key<String>("userKey")    // 用户的info
+    static let EZ_AccessToken = Key<EZAccessToken>("EZ_AccessToken")   // 视频播放的accesstoken
 }
 

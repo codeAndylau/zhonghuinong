@@ -26,8 +26,6 @@ class DeliveryViewController: ViewController {
         view.backgroundColor = UIColor.white
         view.addSubview(headerView)
         
-        navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
-        
         if isSelected {
             navigationItem.title = "本周订单"
             view.addSubview(tableView)
@@ -39,13 +37,21 @@ class DeliveryViewController: ViewController {
             collectionView.addSubview(headerView)
         }
 
-        if !isMember {
+        if isMember {
+            navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
+        }else {
             view.addSubview(emptyView)
-            emptyView.sureBtn.setTitle("去开通", for: .normal)
-            emptyView.titleLab.text = "您暂不是会员用户，还没有该项服务"
+            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务",
+                                               image: UIImage(named: "farm_delivery_nonmember"),
+                                               btnTitle: "去开通")
             emptyView.snp.makeConstraints { (make) in
                 make.top.equalTo(kNavBarH)
                 make.left.bottom.right.equalTo(self.view)
+            }
+            
+            emptyView.sureBtnClosure = {
+                let phone = "18782967728"  // 填写运营人员的电话号码
+                callUpWith(phone)
             }
         }
 
@@ -100,7 +106,7 @@ class DeliveryViewController: ViewController {
     
     
     // MAKR: - Lazy
-    lazy var emptyView = CartEmptyView()
+    lazy var emptyView = EmptyView()
     lazy var headerView = DeliveryHeaderView.loadView()
     lazy var footerView = DeliveryFooterView.loadView()
     lazy var commitVew = DeliveryCommitOrderView.loadView()
