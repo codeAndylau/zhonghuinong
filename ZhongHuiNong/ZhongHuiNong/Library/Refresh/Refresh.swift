@@ -13,7 +13,7 @@ import RxCocoa
 
 /// 对MJRefreshComponent增加rx扩展
 extension Reactive where Base: MJRefreshComponent {
-
+    
     var refreshing: ControlEvent<Void> {
         let source: Observable<Void> = Observable.create { [weak control = self.base] observer  in
             if let control = control {
@@ -76,41 +76,113 @@ extension UIScrollView {
     }
 }
 
-/// 正常下拉加载
-class RefreshHeader: MJRefreshNormalHeader {
-    
+// MARK: - Header
+
+/// 默认的下啦刷新控件
+class RefreshNormalHeader: MJRefreshNormalHeader {
     override func prepare() {
         super.prepare()
         lastUpdatedTimeLabel.isHidden = true
         stateLabel.isHidden = true
     }
-    
 }
 
-/// Gif下拉加载
+/// 带动图的下啦刷新控件
 class RefreshGifHeader: MJRefreshGifHeader {
     override func prepare() {
         super.prepare()
-//        setImages([UIImage(named: "refresh_normal")!], for: .idle)
-//        setImages([UIImage(named: "refresh_will_refresh")!], for: .pulling)
-//        setImages([UIImage(named: "refresh_loading_1")!,
-//                   UIImage(named: "refresh_loading_2")!,
-//                   UIImage(named: "refresh_loading_3")!], for: .refreshing)
-//
-//        lastUpdatedTimeLabel.isHidden = true
-//        stateLabel.isHidden = true
+        //        setImages([UIImage(named: "refresh_normal")!], for: .idle)
+        //        setImages([UIImage(named: "refresh_will_refresh")!], for: .pulling)
+        //        setImages([UIImage(named: "refresh_loading_1")!,
+        //                   UIImage(named: "refresh_loading_2")!,
+        //                   UIImage(named: "refresh_loading_3")!], for: .refreshing)
+        //
+        //        lastUpdatedTimeLabel.isHidden = true
+        //        stateLabel.isHidden = true
     }
 }
 
-/// Gif上拉加载
-class RefreshGifFooter: MJRefreshBackGifFooter {
+class MJDIYHeader: MJRefreshHeader {
+    
+    var label:UILabel!
+    var loading:UIActivityIndicatorView!
     
     override func prepare() {
+        
         super.prepare()
+        
+        // 设置控件的高度
+        self.mj_h = 50
+        
+        // 添加label
+        self.label =  UILabel()
+        self.label.textColor = Color.themeColor
+        self.label.font = UIFont.systemFont(ofSize: 12)
+        self.label.textAlignment = .center
+        self.addSubview(self.label)
+        
+        // loading
+        self.loading =  UIActivityIndicatorView(style: .gray)
+        self.addSubview(self.loading)
+        
+    }
+    //在这里设置子控件的位置和尺寸
+    override func placeSubviews() {
+        super.placeSubviews()
+        self.label.frame = self.bounds
+        self.loading.center = CGPoint(x:self.mj_w/2, y:self.mj_h/2)
+    }
+    
+    //监听控件的刷新状态
+    override var state: MJRefreshState {
+        didSet
+        {
+            switch (state) {
+            case .idle:
+                self.loading.stopAnimating()
+                self.label.text = "我是来打酱油滴吖"
+            case .pulling:
+                self.loading.stopAnimating()
+                self.label.text = "我是来打酱油滴吖"
+            case .refreshing:
+                self.loading.startAnimating()
+                self.label.text = ""
+            default: break
+            }
+        }
+    }
+    
+    //监听拖拽比例（控件被拖出来的比例）
+    override var pullingPercent: CGFloat {
+        didSet
+        {
+            debugPrint("下啦的比例---\(pullingPercent)")
+        }
+    }
+    
+    //监听scrollView的contentOffset改变
+    override func scrollViewContentOffsetDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewContentOffsetDidChange(change)
+    }
+    
+    //监听scrollView的contentSize改变
+    override func scrollViewContentSizeDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewContentSizeDidChange(change)
+    }
+    
+    //监听scrollView的拖拽状态改变
+    override func scrollViewPanStateDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewPanStateDidChange(change)
     }
 }
 
-/// 上拉自动加载 - 自动刷新的
+
+// MARK: - Footer
+
+/// 默认的上啦刷新控件
+class RefreshBackNormalFooter: MJRefreshBackNormalFooter {}
+
+/// 带有动图的上啦刷新控件
 class RefreshBackGifFooter: MJRefreshBackGifFooter {
     
     override func prepare() {
@@ -133,10 +205,79 @@ class RefreshBackGifFooter: MJRefreshBackGifFooter {
     }
 }
 
-class RefreshAutoHeader: MJRefreshHeader {}
 
-class RefreshFooter: MJRefreshBackNormalFooter {}
-
-class RefreshAutoFooter: MJRefreshAutoFooter {}
-
-class RefreshTipKissFooter: MJRefreshBackFooter {}
+// 继承MJRefreshBackFooter
+// 这个实现的是自动回弹上拉加载组件，也就是说上拉组件不会占用 tableView 单元格空间。
+class MJDIYAutoFooter: MJRefreshBackFooter {
+    
+    var label:UILabel!
+    var loading:UIActivityIndicatorView!
+    
+    override func prepare() {
+        
+        super.prepare()
+        
+        // 设置控件的高度
+        self.mj_h = 50
+        
+        // 添加label
+        self.label =  UILabel()
+        self.label.textColor = Color.themeColor
+        self.label.font = UIFont.systemFont(ofSize: 12)
+        self.label.textAlignment = .center
+        self.addSubview(self.label)
+        
+        // loading
+        self.loading =  UIActivityIndicatorView(style: .gray)
+        self.addSubview(self.loading)
+        
+    }
+    //在这里设置子控件的位置和尺寸
+    override func placeSubviews() {
+        super.placeSubviews()
+        self.label.frame = self.bounds
+        self.loading.center = CGPoint(x:self.mj_w/2, y:self.mj_h/2)
+    }
+    
+    //监听控件的刷新状态
+    override var state: MJRefreshState {
+        didSet
+        {
+            switch (state) {
+            case .idle:
+                self.loading.stopAnimating()
+                self.label.text = "我是来打酱油滴吖"
+            case .pulling:
+                self.loading.stopAnimating()
+                self.label.text = "我是来打酱油滴吖"
+            case .refreshing:
+                self.loading.startAnimating()
+                self.label.text = ""
+            default: break
+            }
+        }
+    }
+    
+    //监听拖拽比例（控件被拖出来的比例）
+    override var pullingPercent: CGFloat {
+        didSet
+        {
+            debugPrint("下啦的比例---\(pullingPercent)")
+        }
+    }
+    
+    //监听scrollView的contentOffset改变
+    override func scrollViewContentOffsetDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewContentOffsetDidChange(change)
+    }
+    
+    //监听scrollView的contentSize改变
+    override func scrollViewContentSizeDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewContentSizeDidChange(change)
+    }
+    
+    //监听scrollView的拖拽状态改变
+    override func scrollViewPanStateDidChange(_ change: [AnyHashable : Any]!) {
+        super.scrollViewPanStateDidChange(change)
+    }
+}

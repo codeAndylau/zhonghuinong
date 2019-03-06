@@ -139,7 +139,7 @@ class StoreViewController: ViewController {
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
-        rightTableView.uHead = RefreshGifHeader(refreshingBlock: {
+        rightTableView.uHead = MJDIYHeader(refreshingBlock: {
             debugPrints("点击了下啦刷新")
             if  let id = self.catagoryList[self.currentIndexPath.row].id {
                 self.fetchGoodsList(category_id: id, isRefresh: true)
@@ -147,11 +147,11 @@ class StoreViewController: ViewController {
             
         })
         
-        rightTableView.uFoot =  RefreshGifFooter(refreshingBlock: {
+        rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
             debugPrints("点击了上啦刷新")
-            delay(by: 2, closure: {
-                self.rightTableView.uFoot.endRefreshing()
-            })
+            if  let id = self.catagoryList[self.currentIndexPath.row].id {
+                self.fetchGoodsList(category_id: id, isRefresh: true)
+            }
         })
         
         return rightTableView
