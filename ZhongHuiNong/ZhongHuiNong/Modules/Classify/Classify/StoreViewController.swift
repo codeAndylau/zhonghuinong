@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import MJRefresh
 
 /// 商店
 class StoreViewController: ViewController {
-
-    var currentIndexPath = IndexPath(row: 0, section: 0)
-    var isUp = true
-    var isValue: Bool = false
     
     let group = DispatchGroup()
+    var currentIndexPath = IndexPath(row: 0, section: 0)
+    
+    var isUp = true
+    var goodsList: [[GoodsInfo]] = []
     
     var catagoryList: [CatagoryList] = [] {
         didSet {
@@ -24,51 +25,34 @@ class StoreViewController: ViewController {
                     fetchGoodsList(category_id: id)
                 }
             }
+            
             group.notify(queue: .main) {
-                debugPrints("请求的说有数据---\(self.goodsList.count)")
+                debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
                 if self.catagoryList.isEmpty || self.goodsList.isEmpty {
-                    self.isValue = true
-                    self.leftTableView.uempty?.allowShow = true
-                    return
-                }
-                debugPrints("集市数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
-                mainQueue {
-                    self.view.addSubview(self.leftTableView)
-                    self.view.addSubview(self.rightTableView)
-                    self.leftTableView.reloadData()
-                    self.rightTableView.reloadData()
+                    
+                }else {
+                    mainQueue {
+                        UIView.animate(withDuration: 0.25) {
+                            self.leftTableView.alpha = 1
+                            self.rightTableView.alpha = 1
+                        }
+                        self.leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
+                        self.view.addSubview(self.leftTableView)
+                        self.view.addSubview(self.rightTableView)
+                        self.leftTableView.reloadData()
+                        self.rightTableView.reloadData()
+                    }
                 }
             }
+            
         }
-    }
-    
-    var goodsList: [[GoodsInfo]] = [] {
-        didSet {
-            //refreshValue()
-        }
-    }
-    
-    func refreshValue() {
-//        if catagoryList.isEmpty {
-//            isValue = true
-//            leftTableView.uempty?.allowShow = true
-//            return
-//        }
-//        debugPrints("集市数据-----\(catagoryList.isEmpty)")
-//        mainQueue {
-//            self.leftTableView.reloadData()
-//            self.rightTableView.reloadData()
-//        }
     }
     
     override func makeUI() {
         super.makeUI()
-        
         navigationItem.titleView = searchView
         navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightMsgItem
-        
-        //view.addSubview(filterView)
         fetchCatagoryList()
     }
     
@@ -95,28 +79,32 @@ class StoreViewController: ViewController {
             
             guard let self = self else { return }
             
-//            let value = notification.userInfo?[Notification.Name.HomeGoodsClassDid.rawValue] as! Int
-//            
-//            let indexPath = IndexPath(row: value, section: 0)
-//            
-//            if self.currentIndexPath != indexPath {
-//                let cell = self.leftTableView.cellForRow(at: self.currentIndexPath) as? StoreLeftCell
-//                cell?.ImgView.image = UIImage(named: self.leftArray[self.currentIndexPath.row])
-//            }
-//            
-//            let cell = self.leftTableView.cellForRow(at: indexPath) as? StoreLeftCell
-//            cell?.ImgView.image = UIImage(named: self.leftArray[indexPath.row]+"_h")
-//            
-//            self.currentIndexPath = indexPath
-//            self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
-//            self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            let value = notification.userInfo?[Notification.Name.HomeGoodsClassDid.rawValue] as! Int
+            
+            let indexPath = IndexPath(row: value, section: 0)
+            
+            guard value < self.catagoryList.count else { return }
+            
+            if self.currentIndexPath != indexPath {
+                let cell = self.leftTableView.cellForRow(at: self.currentIndexPath) as? StoreLeftCell
+                cell?.lineView.isHidden = true
+                cell?.titleLab.textColor = UIColor.hexColor(0x666666)
+            }
+            
+            let cell = self.leftTableView.cellForRow(at: indexPath) as! StoreLeftCell
+            cell.lineView.isHidden = false
+            cell.titleLab.textColor = Color.theme1DD1A8
+            
+            self.currentIndexPath = indexPath
+            self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
+            self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
         }).disposed(by: rx.disposeBag)
         
     }
     
     // MARK: - Lazy // "store_qianggou", , "store_renquan"
-//    lazy var leftArray = ["store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian"]
+    //    lazy var leftArray = ["store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian"]
     
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
@@ -127,9 +115,10 @@ class StoreViewController: ViewController {
     //左侧表格
     lazy var leftTableView : UITableView = {
         let leftTableView = UITableView()
+        leftTableView.alpha = 0
         leftTableView.delegate = self
         leftTableView.dataSource = self
-        leftTableView.frame = CGRect(x: 0, y: kNavBarH + 10, width: 88, height: kScreenH-kNavBarH-kTabBarH-10)
+        leftTableView.frame = CGRect(x: 0, y: kNavBarH, width: 88, height: kScreenH-kNavBarH-kTabBarH)
         leftTableView.rowHeight = 55
         leftTableView.showsVerticalScrollIndicator = false
         leftTableView.separatorColor = UIColor.clear
@@ -141,17 +130,33 @@ class StoreViewController: ViewController {
     //右侧表格
     lazy var rightTableView : UITableView = {
         let rightTableView = UITableView()
+        rightTableView.alpha = 0
         rightTableView.delegate = self
         rightTableView.dataSource = self
-        rightTableView.frame = CGRect(x: 88, y: kNavBarH+44, width: UIScreen.main.bounds.width - 88, height: kScreenH-kNavBarH-kTabBarH-44)
+        rightTableView.frame = CGRect(x: 88, y: kNavBarH, width: UIScreen.main.bounds.width - 88, height: kScreenH-kNavBarH-kTabBarH)
         rightTableView.rowHeight = 80
         rightTableView.showsVerticalScrollIndicator = false
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
+        rightTableView.uHead = RefreshGifHeader(refreshingBlock: {
+            debugPrints("点击了下啦刷新")
+            if  let id = self.catagoryList[self.currentIndexPath.row].id {
+                self.fetchGoodsList(category_id: id, isRefresh: true)
+            }
+            
+        })
+        
+        rightTableView.uFoot =  RefreshGifFooter(refreshingBlock: {
+            debugPrints("点击了上啦刷新")
+            delay(by: 2, closure: {
+                self.rightTableView.uFoot.endRefreshing()
+            })
+        })
+        
         return rightTableView
     }()
-
+    
     
     @objc func messageAction() {
         debugPrints("点击了消息按钮")
@@ -170,12 +175,12 @@ class StoreViewController: ViewController {
             guard let self = self else { return }
             self.catagoryList = list
         }) { (error) in
-            debugPrints("获取轮播图失败---\(error)")
+            debugPrints("商品分类列表---\(error)")
         }
     }
     
     // 分类id,如果为0，则取所有分类的商品数据
-    func fetchGoodsList(category_id: Int) {
+    func fetchGoodsList(category_id: Int, isRefresh: Bool = false) {
         var p = [String: Any]()
         p["category_id"] = category_id
         p["keywords"] = ""
@@ -186,12 +191,24 @@ class StoreViewController: ViewController {
         group.enter()
         WebAPITool.requestModelArray(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
-            self.goodsList.append(list)
+            if isRefresh {
+                self.rightTableView.uHead.endRefreshing()
+                self.rightTableView.uFoot.endRefreshing()
+                var array = self.goodsList[self.currentIndexPath.row]
+                list.forEach({ (item) in
+                    array.append(item)
+                })
+                self.goodsList[self.currentIndexPath.row] = array
+                mainQueue {
+                    self.rightTableView.reloadData()
+                }
+            }else {
+                self.goodsList.append(list)
+            }
             self.group.leave()
         }) { (error) in
             self.group.leave()
-            self.leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
-            debugPrints("获取轮播图失败---\(error)")
+            debugPrints("商品分类列表---\(error)")
         }
     }
 }
@@ -202,7 +219,6 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         if leftTableView == tableView {
             return catagoryList.count
         } else {
-            debugPrints("分组-\(section)---\(goodsList[currentIndexPath.row].count)")
             return goodsList[currentIndexPath.row].count
         }
     }
@@ -211,11 +227,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         if leftTableView == tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreLeftCell.identifier, for: indexPath) as! StoreLeftCell
             cell.lineView.isHidden = !(indexPath == currentIndexPath)
-            debugPrints("分类名----\(String(describing: catagoryList[indexPath.row].title))")
             cell.titleLab.text = catagoryList[indexPath.row].title
             return cell
         } else {
-            debugPrints("右边---\(indexPath.section)---\(indexPath.row)")
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreRightCell.identifier, for: indexPath) as! StoreRightCell
             return cell
         }

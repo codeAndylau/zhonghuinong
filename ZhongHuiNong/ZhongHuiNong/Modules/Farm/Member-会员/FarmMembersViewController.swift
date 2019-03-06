@@ -41,6 +41,9 @@ class FarmMembersViewController: TableViewController {
             return
         }
         debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
+        UIView.animate(withDuration: 0.25) {
+            self.tableView_g.alpha = 1
+        }
         tableView_g.tableHeaderView = headerView
         tableView_g.reloadData()
     }
@@ -55,6 +58,7 @@ class FarmMembersViewController: TableViewController {
         navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
+        tableView_g.alpha = 0
         tableView_g.dataSource = self
         tableView_g.delegate = self
         tableView_g.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell

@@ -35,7 +35,6 @@
 		1411F75E21F944040076D763 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75D21F944040076D763 /* MineViewController.swift */; };
 		1411F76021F948770076D763 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75F21F948770076D763 /* RootNavigationController.swift */; };
 		1411F76221F982BC0076D763 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F76121F982BC0076D763 /* Image.swift */; };
-		1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C221FAAA5E00347050 /* BarButtonItem.swift */; };
 		1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C421FAB74400347050 /* FarmSegmentedView.swift */; };
 		1414E0C721FABA5600347050 /* View+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C621FABA5600347050 /* View+Ex.swift */; };
 		1414E0C921FACCE300347050 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C821FACCE200347050 /* Button.swift */; };
@@ -245,6 +244,7 @@
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
 		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
 		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
+		8B7F697C222FFC2B009A28C4 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */; };
 		8BDF075C221AD88900CBFBE4 /* DeliveryTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */; };
 		8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */; };
 /* End PBXBuildFile section */
@@ -295,7 +295,6 @@
 		1411F75D21F944040076D763 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1411F75F21F948770076D763 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		1411F76121F982BC0076D763 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		1414E0C221FAAA5E00347050 /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BarButtonItem.swift; path = ../../../../ZhongHuiNong/ZhongHuiNong/ZhongHuiNong/UIKit/BarButtonItem.swift; sourceTree = "<group>"; };
 		1414E0C421FAB74400347050 /* FarmSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSegmentedView.swift; sourceTree = "<group>"; };
 		1414E0C621FABA5600347050 /* View+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ex.swift"; sourceTree = "<group>"; };
 		1414E0C821FACCE200347050 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -511,6 +510,7 @@
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
 		8B31B5BB221028F4003F475A /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
+		8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTabCell.swift; sourceTree = "<group>"; };
 		8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryFooterView.swift; sourceTree = "<group>"; };
@@ -1429,7 +1429,7 @@
 				14974BE021F70A050088ABC3 /* TableViewController.swift */,
 				14974BE821F710230088ABC3 /* WebViewController.swift */,
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
-				1414E0C221FAAA5E00347050 /* BarButtonItem.swift */,
+				8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */,
 				145100AF2227903A00031FE2 /* FlashLoadingView.swift */,
 			);
 			path = UIKit;
@@ -2014,6 +2014,7 @@
 				1448B0A4222522A8009237E7 /* MineAboutViewController.swift in Sources */,
 				14D8D8AA2213C41B00603D41 /* PaySuccessView.swift in Sources */,
 				14043D622212BD030023AA11 /* SwiftPopup.swift in Sources */,
+				8B7F697C222FFC2B009A28C4 /* BarButtonItem.swift in Sources */,
 				149445AD222905DC0048BF65 /* PayPasswordViewController.swift in Sources */,
 				14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */,
 				14F35C6C2202A300002122B6 /* StoreViewController.swift in Sources */,
@@ -2035,7 +2036,6 @@
 				14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */,
 				1415106B222E72CD00EA9026 /* EZPlayerControlView.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
-				1414E0C321FAAA5E00347050 /* BarButtonItem.swift in Sources */,
 				14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */,
 				1468F29A222634B700ECD45A /* MineCustomerTabCell.swift in Sources */,
 				14974BF621F714B70088ABC3 /* TableViewCell.swift in Sources */,

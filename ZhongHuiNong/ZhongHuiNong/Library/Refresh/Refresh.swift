@@ -76,7 +76,7 @@ extension UIScrollView {
     }
 }
 
-/// 下拉加载
+/// 正常下拉加载
 class RefreshHeader: MJRefreshNormalHeader {
     
     override func prepare() {
@@ -87,6 +87,7 @@ class RefreshHeader: MJRefreshNormalHeader {
     
 }
 
+/// Gif下拉加载
 class RefreshGifHeader: MJRefreshGifHeader {
     override func prepare() {
         super.prepare()
@@ -96,11 +97,12 @@ class RefreshGifHeader: MJRefreshGifHeader {
 //                   UIImage(named: "refresh_loading_2")!,
 //                   UIImage(named: "refresh_loading_3")!], for: .refreshing)
 //
-        lastUpdatedTimeLabel.isHidden = true
-        stateLabel.isHidden = true
+//        lastUpdatedTimeLabel.isHidden = true
+//        stateLabel.isHidden = true
     }
 }
 
+/// Gif上拉加载
 class RefreshGifFooter: MJRefreshBackGifFooter {
     
     override func prepare() {
