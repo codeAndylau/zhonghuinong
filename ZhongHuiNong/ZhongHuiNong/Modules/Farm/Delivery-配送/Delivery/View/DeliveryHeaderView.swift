@@ -11,7 +11,10 @@ import UIKit
 /// 配送选货的headerView
 class DeliveryHeaderView: View {
 
-    lazy var addressView = OrderAddressView()
+    lazy var addressView = OrderAddressView().then { (view) in
+        view.localImg.image = UIImage(named: "farm_delivery_local")
+    }
+    
     lazy var dateView = DeliveryDateView()
     
     override func makeUI() {

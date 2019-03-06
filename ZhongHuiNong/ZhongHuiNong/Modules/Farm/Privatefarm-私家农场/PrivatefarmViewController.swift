@@ -18,9 +18,45 @@ class PrivatefarmViewController: ViewController {
         PrivatefarmCropsModel(color: 0xF6C93B, title: "光照", total: 2799, unit: "lux", start: "0lux", end: 10000)
     ]
     
-    var isValue = false
-    var farmLand: FarmLand = FarmLand()
-    var sensorData: FarmSensordata = FarmSensordata()
+    var farmLand: FarmLand = FarmLand() {
+        didSet {
+            titleView.titleLab.text = User.currentUser().username + "园地"
+        }
+    }
+    
+    var sensorData: FarmSensordata = FarmSensordata() {
+        didSet {
+            
+            dataArray[0].total = sensorData.water
+            dataArray[1].total = sensorData.temperature
+            dataArray[2].total = sensorData.cO2
+            dataArray[3].total = sensorData.illumination
+            
+            self.navigationItem.titleView = self.titleView
+            self.tableView.tableHeaderView = self.headerView
+            self.view.addSubview(self.tableView)
+            self.tableView.reloadData()
+        }
+    }
+    
+    deinit {
+        debugPrint("私家农场已经销毁")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        headerView.timer_js?.cancel()
+        headerView.timer_js = nil
+        
+        headerView.timer_sf?.cancel()
+        headerView.timer_sf = nil
+        
+        headerView.timer_sc?.cancel()
+        headerView.timer_sc = nil
+        
+        headerView.timer_cc?.cancel()
+        headerView.timer_cc = nil
+    }
     
     override func makeUI() {
         super.makeUI()
@@ -30,8 +66,8 @@ class PrivatefarmViewController: ViewController {
         }else {
             automaticallyAdjustsScrollViewInsets = false
         }
-        
         view.addSubview(loadView)
+        fetchFarmLand()
     }
 
     override func bindViewModel() {
@@ -42,7 +78,25 @@ class PrivatefarmViewController: ViewController {
             self.playerView.playVideoWith(self.farmLand.cameraUrl, containView: self.headerView.videoImg)
         }).disposed(by: rx.disposeBag)
         
-       fetchFarmLand()
+        headerView.jiaoshuiBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.farmWater()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.shifeiBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.farmFertilize()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.shachongBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.farmKillbug()
+        }).disposed(by: rx.disposeBag)
+        
+        headerView.chucaoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.headerView.startTimer(.chucao)
+        }).disposed(by: rx.disposeBag)
 
     }
     
@@ -50,10 +104,9 @@ class PrivatefarmViewController: ViewController {
         var p = [String: Any]()
         p["userid"] = 3261 //User.userId()
         
-        debugPrints("私家农场参数---\(p)")
-        
         /// 请求农场的信息
-        WebAPITool.requestModel(WebAPI.farmLand(p), model: FarmLand.self, complete: { (model) in
+        WebAPITool.requestModel(WebAPI.farmLand(p), model: FarmLand.self, complete: { [weak self] (model) in
+            guard let self = self else { return }
             self.farmLand = model
             self.fetchSensorData(model.did)
         }) { (error) in
@@ -66,25 +119,78 @@ class PrivatefarmViewController: ViewController {
         p["did"] = did
         
         /// 请求传感器信息
-        WebAPITool.requestModel(WebAPI.farmSensordata(p), model: FarmSensordata.self, complete: { (model) in
-            self.isValue = true
-            self.sensorData = model
-            
-            DispatchQueue.main.async {
+        WebAPITool.requestModel(WebAPI.farmSensordata(p), model: FarmSensordata.self, complete: { [weak self] (model) in
+            guard let self = self else { return }
+            mainQueue {
                 UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [], animations: {
                     self.loadView.imageView.alpha = 0.1
                     self.loadView.alpha = 0.1
                 }) { (_) in
                     self.loadView.removeFromSuperview()
                 }
-                self.navigationItem.titleView = self.titleView
-                self.tableView.tableHeaderView = self.headerView
-                self.view.addSubview(self.tableView)
-                self.tableView.reloadData()
+            }
+            self.sensorData = model
+        }) { (error) in
+            ZYToast.showCenterWithText(text: "获取数据失败!")
+        }
+    }
+    
+    func farmWater() {
+        var p = [String: Any]()
+        p["did"] = farmLand.did
+        HudHelper.showWaittingHUD(msg: "请求中...")
+        WebAPITool.request(WebAPI.farmWater(p), complete: { [weak self] (value) in
+            guard let self = self else { return }
+            HudHelper.hideHUD(FromView: nil)
+            if value.boolValue {
+                mainQueue {
+                    self.headerView.startTimer(.jiaoshui)
+                }
+            }else {
+                ZYToast.showCenterWithText(text: "设备故障或者不在线")
+            }
+        }) { (error) in
+            ZYToast.showCenterWithText(text: error)
+        }
+    }
+    
+    func farmFertilize() {
+        var p = [String: Any]()
+        p["did"] = farmLand.did
+        HudHelper.showWaittingHUD(msg: "请求中...")
+        WebAPITool.request(WebAPI.farmFertilize(p), complete: { [weak self] (value) in
+            guard let self = self else { return }
+            HudHelper.hideHUD(FromView: nil)
+            if value.boolValue {
+                mainQueue {
+                    self.headerView.startTimer(.shifei)
+                }
+            }else {
+               ZYToast.showCenterWithText(text: "设备故障或者不在线")
+            }
+        }) { (error) in
+            ZYToast.showCenterWithText(text: error)
+        }
+    }
+    
+    func farmKillbug() {
+        var p = [String: Any]()
+        p["did"] = farmLand.did
+        
+        HudHelper.showWaittingHUD(msg: "请求中...")
+        WebAPITool.request(WebAPI.farmKillbug(p), complete: { [weak self] (value) in
+            guard let self = self else { return }
+            HudHelper.hideHUD(FromView: nil)
+            if value.boolValue {
+                mainQueue {
+                    self.headerView.startTimer(.shachong)
+                }
+            }else {
+                ZYToast.showCenterWithText(text: "设备故障或者不在线")
             }
             
         }) { (error) in
-            ZYToast.showCenterWithText(text: "获取数据失败!")
+            ZYToast.showCenterWithText(text: error)
         }
     }
     
@@ -117,7 +223,7 @@ class PrivatefarmViewController: ViewController {
 extension PrivatefarmViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isValue ? dataArray.count : 0
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

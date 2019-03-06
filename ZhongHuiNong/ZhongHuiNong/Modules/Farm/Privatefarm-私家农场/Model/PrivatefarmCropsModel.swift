@@ -35,18 +35,19 @@ struct FarmLand: Mappable {
     
 }
 
+/// 传感器
 struct FarmSensordata: Mappable {
     
-    var water = -1
-    var temperature = -1
-    var cO2 = -1
-    var illumination = -1
+    var water: CGFloat = -1
+    var temperature: CGFloat = -1
+    var cO2: CGFloat = -1
+    var illumination: CGFloat = -1
     
     init() {}
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
-        water <- map["iwaterd"]
+        water <- map["water"]
         temperature <- map["temperature"]
         cO2 <- map["cO2"]
         illumination <- map["illumination"]

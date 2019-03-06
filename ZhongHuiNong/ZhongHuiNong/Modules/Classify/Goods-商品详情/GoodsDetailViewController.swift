@@ -54,7 +54,7 @@ class GoodsDetailViewController: ViewController {
     
     lazy var headerView: GoodsDetailHeaderView = {
         let view = GoodsDetailHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: GoodsDetailHeaderH))
-        view.bannerView.bannerArray.accept(["goods_tuijian_1","goods_tuijian_2"])
+        //view.bannerView.bannerArray.accept(["goods_tuijian_1","goods_tuijian_2"])
         view.backgroundColor = UIColor.white
         return view
     }()

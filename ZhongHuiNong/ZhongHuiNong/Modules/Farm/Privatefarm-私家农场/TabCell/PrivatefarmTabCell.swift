@@ -141,10 +141,10 @@ class PrivatefarmTabCell: TableViewCell, TabReuseIdentifier {
             
             let num = (model.total/model.end)
             
-            debugPrints("进度---\(num)")
+            debugPrints("进度---\(abs(num))---\(model.total)--\(model.end)")
             
             if shapeLayer == nil {
-                let lay = shapeLayer(UIColor.hexColor(model.color), progress: num)
+                let lay = shapeLayer(UIColor.hexColor(model.color), progress: abs(num))
                 progressView.layer.addSublayer(lay)
                 shapeLayer = lay
             }

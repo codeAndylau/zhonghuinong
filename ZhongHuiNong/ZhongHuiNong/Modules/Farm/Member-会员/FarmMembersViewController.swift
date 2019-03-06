@@ -19,26 +19,49 @@ class FarmMembersViewController: TableViewController {
     var addItem = UIButton().then { (btn) in
         btn.setImage(UIImage(named: "farm_add")!, for: .normal)
     }
+
+    var bannerList: [BannerList] = [] {
+        didSet {
+           refreshValue()
+        }
+    }
     
-    var searchView = MemberSearchView().then { (view) in
-        view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
+    var catagoryList: [CatagoryList] = [] {
+        didSet {
+           refreshValue()
+        }
+    }
+    
+    var isValue: Bool = false
+
+    func refreshValue() {
+        if bannerList.isEmpty || catagoryList.isEmpty {
+            isValue = true
+            tableView_g.uempty?.allowShow = true
+            return
+        }
+        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
+        tableView_g.tableHeaderView = headerView
+        tableView_g.reloadData()
     }
 
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.leftBarButtonItem = leftBarItem
+        if User.hasUser() && User.currentUser().isVip {
+            navigationItem.leftBarButtonItem = leftBarItem
+        }
+        
         navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
         
         tableView_g.dataSource = self
         tableView_g.delegate = self
-        tableView_g.tableHeaderView = headerView
         tableView_g.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
         tableView_g.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
-        tableView_g.uempty = UEmptyView { [weak self] in self?.loadData(more: false) }
+        tableView_g.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: nil)
     }
     
     override func bindViewModel() {
@@ -81,10 +104,14 @@ class FarmMembersViewController: TableViewController {
             let userInfo = [NSNotification.Name.HomeGoodsClassDid.rawValue : index]
             NotificationCenter.default.post(name: .HomeGoodsClassDid, object: nil, userInfo: userInfo)
         }
+        
+        fetchBannerList()
+        fetchCatagoryList()
     }
     
     // MARK: - Lazy
     lazy var dataArray = ["goods_tuijian_1","goods_tuijian_2","goods_tuijian_3","goods_tuijian_4","goods_tuijian_5","goods_tuijian_6"]
+    
     lazy var vipItem = FarmHeaderView.loadView()
     lazy var mineCenterView = MineCenterView.loadView()
     lazy var dropView = MemberDropdownView.loadView()
@@ -93,11 +120,11 @@ class FarmMembersViewController: TableViewController {
     lazy var leftBarItem = BarButtonItem(customView: vipItem)
     lazy var rightAddItem = BarButtonItem(customView: addItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
-    lazy var loadView = FlashLoadingView()
-
+    lazy var searchView = MemberSearchView().then { (view) in
+        view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
+    }
     
     // MARK: - Public methods
-    
     @objc func addAction() {
         if menuView.isShown {
             menuView.hideMenu()
@@ -111,14 +138,6 @@ class FarmMembersViewController: TableViewController {
     }
     
     func showCenterView() {
-        
-        //        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [], animations: {
-        //            self.loadingView.imageView.alpha = 0.1
-        //            self.loadingView.alpha = 0.1
-        //        }) { (_) in
-        //            self.loadingView.removeFromSuperview()
-        //        }
-        
         if dropupView.isShown {
             dropupView.hideMenu()
         }else {
@@ -161,13 +180,39 @@ class FarmMembersViewController: TableViewController {
     func loadData(more: Bool = false) {
         tableView_g.uempty?.allowShow = true
     }
+    
+    func fetchBannerList() {
+        
+        var p = [String: Any]()
+        p["wid"] = 5
+        
+        WebAPITool.requestModelArray(.homeBannerList(p), model: BannerList.self, complete: { [weak self] (list) in
+            debugPrints("轮播图---\(list)")
+            guard let self = self else { return }
+            self.bannerList = list
+        }) { (error) in
+            debugPrints("获取轮播图失败---\(error)")
+        }
+    }
+    
+    func fetchCatagoryList() {
+        var p = [String: Any]()
+        p["wid"] = 5
+        WebAPITool.requestModelArray(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
+            debugPrints("分类列表---\(list)")
+            guard let self = self else { return }
+            self.catagoryList = list
+        }) { (error) in
+            debugPrints("获取轮播图失败---\(error)")
+        }
+    }
 
 }
 
 extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return isValue ? 4 : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -185,7 +230,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
-            cell.bannerView.bannerArray.accept(["farm_bananer_1","farm_bananer_1"])
+            cell.bannerView.bannerArray.accept(bannerList)
             return cell
         }
         

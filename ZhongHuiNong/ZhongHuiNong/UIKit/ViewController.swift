@@ -14,7 +14,7 @@ import NSObject_Rx
 class ViewController: UIViewController, Navigatable {
     
     lazy var navigator: Navigator = Navigator.shared
-
+    
     lazy var emptyDataSetTitle = ViewController.emptyTitle
     lazy var emptyDataSetImage = ViewController.emptyImage
     lazy var emptyDataSetImageTintColor = BehaviorRelay<UIColor?>(value: nil)
@@ -65,11 +65,13 @@ class ViewController: UIViewController, Navigatable {
         makeUI()
         bindViewModel()
         // 更改状态栏的颜色
-        statusBarStyle.asObservable().subscribe(onNext: { (flag) in
-           self.setNeedsStatusBarAppearanceUpdate()
+        statusBarStyle.asObservable().subscribe(onNext: { [weak self] (flag) in
+            guard let self = self else { return }
+            self.setNeedsStatusBarAppearanceUpdate()
         }).disposed(by: rx.disposeBag)
         
-        navigationBarHidden.asObservable().subscribe(onNext: { (flag) in
+        navigationBarHidden.asObservable().subscribe(onNext: { [weak self] (flag) in
+            guard let self = self else { return }
             self.navigationController?.navigationBar.isHidden = flag
         }).disposed(by: rx.disposeBag)
     }
@@ -78,7 +80,7 @@ class ViewController: UIViewController, Navigatable {
     func makeUI() { view.backgroundColor = Color.whiteColor }
     /// 绑定vm
     func bindViewModel() {}
-
+    
 }
 
 extension ViewController {

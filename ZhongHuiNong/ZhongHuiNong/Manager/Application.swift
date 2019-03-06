@@ -34,7 +34,7 @@ class Application: NSObject {
     
     func presentInitialScreen(in window: UIWindow) {
         self.window = window
-        let loginIn = User.hasUserId() /// 判断当前用户是否登录过
+        let loginIn = User.hasUser() /// 判断当前用户是否登录过
         if loginIn {
             navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))   // 登录了直接进入首页
         }else {

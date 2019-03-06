@@ -12,7 +12,7 @@ import ObjectMapper
 /// 用户token
 struct User: Mappable, Codable {
     
-    var userId = 0
+    var userId = -1
     var username = ""
     var user_Img = ""
     var isVip = false
@@ -43,27 +43,20 @@ extension User {
         }
     }
     
-    static func hasUserId() -> Bool {
+    static func hasUser() -> Bool {
         let user = User.currentUser()
         debugPrints("用户信息---\(String(describing: user))")
-        if user != nil {
-            return true
+        if user.userId == -1 && user.username == "" && user.user_Img == "" && user.isVip == false {
+            return false
         }
-        return false
+        return true
     }
     
-    static func userId() -> Int {
-        if hasUserId() {
-            return currentUser()!.userId
-        }
-        return -10000
-    }
-    
-    static func currentUser() -> User? {
+    static func currentUser() -> User {
         if let json = Defaults.shared.get(for: DefaultsKey.userKey), let user = User(JSONString: json) {
             return user
         }
-        return nil
+        return User()
     }
     
     static func removeCurrentUser() {

@@ -40,30 +40,51 @@ class PasswordLoginViewController: ViewController {
     
     func psdLoginAction() {
         
-        //        let psd = loginView.phoneTF.text!
-        //        let code = loginView.codeTF.text!
-        //
-        //        guard !psd.isEmpty else {
-        //            let noticeBar = NoticeBar(title: "请输入手机号", defaultType: NoticeBarDefaultType.info)
-        //            noticeBar.show(duration: 1.5, completed: nil)
-        //            return
-        //        }
-        //
-        //        guard !code.isEmpty else {
-        //            let config = NoticeBarConfig(title: "请输入验证码", barStyle: NoticeBarStyle.onNavigationBar)
-        //            let noticeBar = NoticeBar(config: config)
-        //            noticeBar.show(duration: 1.5, completed: nil)
-        //            return
-        //        }
-        //
-        //        WebAPITool.requestJSON(WebAPI.getmessageboardbymylocation, complete: { (value) in
-        //
-        //        }) { (error) in
-        //
-        //        }
+        self.view.endEditing(true)
         
-        let model = User.currentUser()
-        debugPrints("用户的信息---\(String(describing: model))---\(String(describing: model?.username))")
-        self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: window))   // 登录了直接进入首页
+        let phone = loginView.phoneTF.text!
+        let code = loginView.codeTF.text!
+        
+        guard !phone.isEmpty else {
+            let noticeBar = NoticeBar(title: "请输入手机号", defaultType: NoticeBarDefaultType.info)
+            noticeBar.show(duration: 1.5, completed: nil)
+            return
+        }
+        
+        guard !code.isEmpty else {
+            let config = NoticeBarConfig(title: "请输入验证码", barStyle: NoticeBarStyle.onNavigationBar)
+            let noticeBar = NoticeBar(config: config)
+            noticeBar.show(duration: 1.5, completed: nil)
+            return
+        }
+        
+        guard phone == "18782967728" else {
+            ZYToast.showTopWithText(text: "手机号不正确!")
+            return
+        }
+        
+        guard code == "1234" else {
+            ZYToast.showTopWithText(text: "验证码不正确!")
+            return
+        }
+        
+        HudHelper.showWaittingHUD(msg: "登录中...")
+        delay(by: 1.5) {
+            HudHelper.hideHUD(FromView: nil)
+            mainQueue {
+                self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
+            }
+        }
+        
+        
+//        var p = [String: Any]()
+//        p["phonenumber"] = phone
+//
+//        WebAPITool.request(WebAPI.mobileLogin(p), complete: { (value) in
+//            debugPrints("手机登录---\(value)")
+//        }) { (error) in
+//            debugPrints("手机登录失败---\(error)")
+//        }
+
     }
 }

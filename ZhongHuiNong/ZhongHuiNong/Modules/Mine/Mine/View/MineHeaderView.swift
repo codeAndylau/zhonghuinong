@@ -10,8 +10,9 @@ import UIKit
 
 class MineHeaderView: View {
     
-    let headerImg = Button().then { (btn) in
+    let headerBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "mine_default_ portrait"), for: .normal)
+        btn.cuttingCorner(radius: 25)
     }
     
     let memberBtn = Button().then { (btn) in
@@ -83,7 +84,7 @@ class MineHeaderView: View {
     
     override func makeUI() {
         super.makeUI()
-        addSubview(headerImg)
+        addSubview(headerBtn)
         addSubview(memberBtn)
         addSubview(nameLab)
         addSubview(phoneLab)
@@ -101,7 +102,7 @@ class MineHeaderView: View {
     
     func activateConstraints() {
         
-        headerImg.snp.makeConstraints { (make) in
+        headerBtn.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.left.equalTo(15)
             make.width.height.equalTo(50)
@@ -109,14 +110,14 @@ class MineHeaderView: View {
         
         memberBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(15)
-            make.centerY.equalTo(headerImg).offset(-10)
+            make.centerY.equalTo(headerBtn).offset(-10)
             make.width.height.equalTo(50)
         }
         
         nameLab.snp.makeConstraints { (make) in
-            make.left.equalTo(headerImg.snp.right).offset(10)
+            make.left.equalTo(headerBtn.snp.right).offset(10)
             make.right.greaterThanOrEqualTo(memberBtn.snp.left).offset(-15)
-            make.top.equalTo(headerImg)
+            make.top.equalTo(headerBtn).offset(5)
         }
         
         phoneLab.snp.makeConstraints { (make) in
@@ -125,8 +126,8 @@ class MineHeaderView: View {
         }
         
         priceLab.snp.makeConstraints { (make) in
-            make.top.equalTo(headerImg.snp.bottom).offset(20)
-            make.left.equalTo(headerImg.snp.left)
+            make.top.equalTo(headerBtn.snp.bottom).offset(20)
+            make.left.equalTo(headerBtn.snp.left)
             make.height.equalTo(16)
             make.width.equalTo((kScreenW-30)/3)
         }
@@ -176,28 +177,38 @@ class MineHeaderView: View {
             make.bottom.equalTo(priceNameLab)
         }
         
+        memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         // shadowCode
         orderView.layer.shadowColor = UIColor(red: 0, green: 0.03, blue: 0, alpha: 0.08).cgColor
         orderView.layer.shadowOffset = CGSize(width: 0, height: 1)
         orderView.layer.shadowOpacity = 1
         orderView.layer.shadowRadius = 16
         orderView.layer.cornerRadius = 10
-        
-        memberBtn.set(image: UIImage(named: "mine_vip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
     }
     
     /// - Public methods
-    
     class func loadView() -> MineHeaderView {
         let view = MineHeaderView()
         view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 290)
         view.backgroundColor = Color.whiteColor
         return view
+    }
+    
+    var user: User = User() {
+        didSet {
+            nameLab.text = user.username
+            headerBtn.kf.setImage(with: URL(string: user.user_Img), for: .normal, placeholder: UIImage(named: "mine_default_ portrait"))
+            phoneLab.text = ""
+            if user.isVip {
+                memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+            }else {
+                memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+            }
+        }
     }
 
 }

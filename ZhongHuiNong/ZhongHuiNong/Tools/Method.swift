@@ -43,6 +43,17 @@ public func delay(by delayTime: TimeInterval, qosClass: DispatchQoS.QoSClass? = 
     dispatchQueue.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: closure)
 }
 
+
+
+/// 主线程运行
+///
+/// - Parameter closure: 运行的代码
+public func mainQueue(closure: @escaping () -> Void) {
+    DispatchQueue.main.async {
+        closure()
+    }
+}
+
 /// 判断是否有相册权限
 ///
 /// - Returns: bool

@@ -21,10 +21,15 @@ class MineViewController: TableViewController {
     
     override func bindViewModel() {
         super.bindViewModel()
-        headerView.headerImg.rx.tap.subscribe(onNext: {  (_) in
-            let _ = MineHeaderModifyView()
-        }).disposed(by: rx.disposeBag)
         
+        if User.hasUser() {
+            headerView.user = User.currentUser()
+        }
+        
+        headerView.headerBtn.rx.tap.subscribe(onNext: {  (_) in
+            let hud = MineHeaderModifyView()
+            hud.imageView.lc_setImage(with: User.currentUser().user_Img)
+        }).disposed(by: rx.disposeBag)
         
         headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }

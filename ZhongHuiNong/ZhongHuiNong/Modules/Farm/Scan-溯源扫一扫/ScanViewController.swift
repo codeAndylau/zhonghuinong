@@ -146,7 +146,7 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
         super.viewWillDisappear(animated)
         annimationTimer?.invalidate()
         annimationTimer = nil
-        
+        self.webView.navigationDelegate = nil
         if turnoff == false {
             if self.captureDevice.isTorchModeSupported(AVCaptureDevice.TorchMode.off) {
                 if self.captureDevice.torchMode != AVCaptureDevice.TorchMode.off {
@@ -253,7 +253,6 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
         self.webView.removeObserver(self, forKeyPath: "canGoBack")
         self.webView.removeObserver(self, forKeyPath: "canGoForward")
         self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        self.webView.navigationDelegate = nil
     }
     
     // MARK: - Property

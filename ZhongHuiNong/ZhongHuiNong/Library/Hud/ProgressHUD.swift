@@ -856,7 +856,7 @@ class HudHelper: NSObject {
         }
         guard let view = tempView else { return }
         let hud: ProgressHUD = ProgressHUD.showHUD(AddTo: view)
-        hud.superViewClickable = false
+        hud.superViewClickable = true
         hud.detailText = msg
     }
 

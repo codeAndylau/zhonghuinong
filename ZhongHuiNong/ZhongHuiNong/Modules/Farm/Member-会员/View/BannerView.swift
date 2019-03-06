@@ -14,7 +14,7 @@ import TYCyclePagerView
 
 class BannerView: UIView {
 
-    var bannerArray = BehaviorRelay<[String]>(value: [])
+    var bannerArray = BehaviorRelay<[BannerList]>(value: [])
     
     let pagerView = TYCyclePagerView().then { make in
         make.isInfiniteLoop = true
@@ -22,7 +22,11 @@ class BannerView: UIView {
         make.register(BannerCell.self,  forCellWithReuseIdentifier: BannerCell.reuseIndentifier)
     }
     
-    let pageControl = UIPageControl()
+    let pageControl = UIPageControl().then { (pg) in
+        pg.currentPage = 0
+        pg.pageIndicatorTintColor = UIColor.white
+        pg.currentPageIndicatorTintColor = Color.themeColor
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,9 +78,7 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     
     func pagerView(_ pagerView: TYCyclePagerView, cellForItemAt index: Int) -> UICollectionViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: BannerCell.reuseIndentifier, for: index) as! BannerCell
-        cell.imageView.image = UIImage(named: bannerArray.value[index])
-        //cell.cuttingCorner(radius: 10)
-        //cell.imageView.lc_setImage(with: QCloud_home_url + bannerArray.value[index])
+        cell.imageView.lc_setImage(with: bannerArray.value[index].bannerPicUrl)
         return cell
     }
     

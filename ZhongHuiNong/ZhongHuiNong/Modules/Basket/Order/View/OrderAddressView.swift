@@ -11,6 +11,7 @@ import UIKit
 
 class OrderAddressView: View {
 
+    let localView = View()
     let localImg = ImageView().then { (img) in
         img.image = UIImage(named: "mine_default_ portrait")
     }
@@ -40,6 +41,10 @@ class OrderAddressView: View {
     
     override func makeUI() {
         super.makeUI()
+        
+        addSubview(localView)
+        localView.addSubview(localImg)
+        
         addSubview(localImg)
         addSubview(modifyBtn)
         addSubview(nameLab)
@@ -50,11 +55,14 @@ class OrderAddressView: View {
     override func updateUI() {
         super.updateUI()
 
-        localImg.snp.makeConstraints { (make) in
+        localView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(15)
             make.centerY.equalTo(self)
-            make.width.equalTo(27)
-            make.height.equalTo(35)
+            make.width.height.equalTo(55)
+        }
+        
+        localImg.snp.makeConstraints { (make) in
+            make.center.equalTo(localView)
         }
 
         nameLab.snp.makeConstraints { (make) in

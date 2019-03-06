@@ -45,7 +45,7 @@ class FarmSegmentedView: View {
         topTitleBtn.layer.shadowRadius = 8
         topTitleBtn.layer.cornerRadius = 20
         
-        action()
+        //action()
     }
     
     override func updateUI() {

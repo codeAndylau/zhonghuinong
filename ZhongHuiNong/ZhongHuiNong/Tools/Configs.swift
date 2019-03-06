@@ -11,6 +11,10 @@ import AdSupport
 
 struct Configs {
     
+    struct Constant {
+        static let errorInfo = "请求数据失败"
+    }
+    
     struct Identifier {
         static let WeChat_AppId = "wxaa1245f77008b79f"
         static let weChat_Secret = "047f3fab277cff56a56dd5ae8278b0f9"
