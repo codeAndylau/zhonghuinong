@@ -246,6 +246,7 @@
 		3ADB098A91B380A45D85F7E2 /* Pods_ZhongHuiNongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */; };
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
 		8B25C88522314FFF00A2D0C7 /* MineAddressDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B25C88422314FFF00A2D0C7 /* MineAddressDefaultView.swift */; };
+		8B25C8872231669E00A2D0C7 /* LoadingHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B25C8862231669E00A2D0C7 /* LoadingHud.swift */; };
 		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
 		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
 		8B7F697C222FFC2B009A28C4 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */; };
@@ -516,6 +517,7 @@
 		4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.debug.xcconfig"; sourceTree = "<group>"; };
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
 		8B25C88422314FFF00A2D0C7 /* MineAddressDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressDefaultView.swift; sourceTree = "<group>"; };
+		8B25C8862231669E00A2D0C7 /* LoadingHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHud.swift; sourceTree = "<group>"; };
 		8B31B5BB221028F4003F475A /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
 		8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				14151062222E66E700EA9026 /* ProgressHUD.swift */,
+				8B25C8862231669E00A2D0C7 /* LoadingHud.swift */,
 			);
 			path = Hud;
 			sourceTree = "<group>";
@@ -2040,6 +2043,7 @@
 				1408745E221E45370051B7C3 /* GoodsDetailAddressView.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
 				1468B15A22150EF8002B971F /* SearchView.swift in Sources */,
+				8B25C8872231669E00A2D0C7 /* LoadingHud.swift in Sources */,
 				14D5B34F221FECE500D08DD1 /* MineAddressPicker.swift in Sources */,
 				1415106C222E72CD00EA9026 /* EZPlayerView.swift in Sources */,
 				1448B09F22250AFE009237E7 /* HotDairyViewController.swift in Sources */,

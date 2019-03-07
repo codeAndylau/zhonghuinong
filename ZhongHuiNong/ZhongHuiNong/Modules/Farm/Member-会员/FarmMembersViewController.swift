@@ -46,6 +46,7 @@ class FarmMembersViewController: TableViewController {
             return
         }
         debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
+        LoadingHud.hideHUD()
         UIView.animate(withDuration: 0.25) {
             self.tableView_g.alpha = 1
         }
@@ -114,6 +115,7 @@ class FarmMembersViewController: TableViewController {
             NotificationCenter.default.post(name: .HomeGoodsClassDid, object: nil, userInfo: userInfo)
         }
         
+        LoadingHud.showProgress(supView: self.view)
         fetchBannerList()
         fetchCatagoryList()
     }
