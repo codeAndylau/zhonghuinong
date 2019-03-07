@@ -167,6 +167,9 @@
 		14B849ED2220F94700F409B0 /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14B849EC2220F94700F409B0 /* Area.plist */; };
 		14B849EF2220FBDE00F409B0 /* Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 14B849EE2220FBDE00F409B0 /* Example.json */; };
 		14B849F12220FE6500F409B0 /* MineAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B849F02220FE6500F409B0 /* MineAddressModel.swift */; };
+		14BBB83C2230BE5700FF4AE3 /* GoodsDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBB83B2230BE5700FF4AE3 /* GoodsDetailInfo.swift */; };
+		14BBB83F2230E70800FF4AE3 /* UserAddressInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBB83E2230E70800FF4AE3 /* UserAddressInfo.swift */; };
+		14BBB8412230FB3400FF4AE3 /* MineAddressRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBB8402230FB3400FF4AE3 /* MineAddressRowView.swift */; };
 		14C250FD2223856F00F5CB53 /* PrivatefarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C250FC2223856F00F5CB53 /* PrivatefarmViewController.swift */; };
 		14C25101222388F400F5CB53 /* PrivatefarmTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C25100222388F400F5CB53 /* PrivatefarmTitleView.swift */; };
 		14C251032223946400F5CB53 /* PrivatefarmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C251022223946400F5CB53 /* PrivatefarmHeaderView.swift */; };
@@ -428,6 +431,9 @@
 		14B849EC2220F94700F409B0 /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		14B849EE2220FBDE00F409B0 /* Example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Example.json; sourceTree = "<group>"; };
 		14B849F02220FE6500F409B0 /* MineAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressModel.swift; sourceTree = "<group>"; };
+		14BBB83B2230BE5700FF4AE3 /* GoodsDetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailInfo.swift; sourceTree = "<group>"; };
+		14BBB83E2230E70800FF4AE3 /* UserAddressInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressInfo.swift; sourceTree = "<group>"; };
+		14BBB8402230FB3400FF4AE3 /* MineAddressRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressRowView.swift; sourceTree = "<group>"; };
 		14C250FC2223856F00F5CB53 /* PrivatefarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatefarmViewController.swift; sourceTree = "<group>"; };
 		14C25100222388F400F5CB53 /* PrivatefarmTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatefarmTitleView.swift; sourceTree = "<group>"; };
 		14C251022223946400F5CB53 /* PrivatefarmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatefarmHeaderView.swift; sourceTree = "<group>"; };
@@ -742,6 +748,7 @@
 				144F43C9222F983E00218339 /* BannerList.swift */,
 				144F43CD222FAF1400218339 /* CatagoryList.swift */,
 				144F43CF222FC76E00218339 /* GoodsInfo.swift */,
+				14BBB83B2230BE5700FF4AE3 /* GoodsDetailInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1090,6 +1097,7 @@
 			isa = PBXGroup;
 			children = (
 				14B849F02220FE6500F409B0 /* MineAddressModel.swift */,
+				14BBB83E2230E70800FF4AE3 /* UserAddressInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1261,6 +1269,7 @@
 				14D5B346221FD69000D08DD1 /* MineAddressBottomView.swift */,
 				14D5B34E221FECE500D08DD1 /* MineAddressPicker.swift */,
 				14AE310E222126BD00302F89 /* MineAddressTitleView.swift */,
+				14BBB8402230FB3400FF4AE3 /* MineAddressRowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1928,6 +1937,7 @@
 				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
 				149445BD22291B7F0048BF65 /* MineVegetablesHeaderView.swift in Sources */,
 				14C251082223C53B00F5CB53 /* PrivatefarmCropsModel.swift in Sources */,
+				14BBB8412230FB3400FF4AE3 /* MineAddressRowView.swift in Sources */,
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14C250FD2223856F00F5CB53 /* PrivatefarmViewController.swift in Sources */,
@@ -1949,6 +1959,7 @@
 				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
 				14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */,
 				14974BE921F710230088ABC3 /* WebViewController.swift in Sources */,
+				14BBB83C2230BE5700FF4AE3 /* GoodsDetailInfo.swift in Sources */,
 				14C3EBC9221CF6AF003029EB /* DeliveryOrderInfoViewController.swift in Sources */,
 				1468B15E22153914002B971F /* SearchGoodsTabCell.swift in Sources */,
 				145138B421F8595D0038AFC6 /* User.swift in Sources */,
@@ -2029,6 +2040,7 @@
 				14D5B34F221FECE500D08DD1 /* MineAddressPicker.swift in Sources */,
 				1415106C222E72CD00EA9026 /* EZPlayerView.swift in Sources */,
 				1448B09F22250AFE009237E7 /* HotDairyViewController.swift in Sources */,
+				14BBB83F2230E70800FF4AE3 /* UserAddressInfo.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
 				146B74C1221EA0F7005D2879 /* MineAllOrderViewController.swift in Sources */,
 				144F43CC222F9F6C00218339 /* File.swift in Sources */,

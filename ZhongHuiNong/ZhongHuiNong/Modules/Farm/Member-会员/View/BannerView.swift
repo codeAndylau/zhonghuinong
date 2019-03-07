@@ -14,7 +14,7 @@ import TYCyclePagerView
 
 class BannerView: UIView {
 
-    var bannerArray = BehaviorRelay<[BannerList]>(value: [])
+    var bannerArray = BehaviorRelay<[String]>(value: [])
     
     let pagerView = TYCyclePagerView().then { make in
         make.isInfiniteLoop = true
@@ -36,6 +36,9 @@ class BannerView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    /// 当前滑动到那一个
+    var didScrollFrom: ((Int)->Void)?
 }
 
 
@@ -78,7 +81,7 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     
     func pagerView(_ pagerView: TYCyclePagerView, cellForItemAt index: Int) -> UICollectionViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: BannerCell.reuseIndentifier, for: index) as! BannerCell
-        cell.imageView.lc_setImage(with: bannerArray.value[index].bannerPicUrl)
+        cell.imageView.lc_setImage(with: bannerArray.value[index])
         return cell
     }
     
@@ -93,7 +96,7 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     
     func pagerView(_ pageView: TYCyclePagerView, didScrollFrom fromIndex: Int, to toIndex: Int) {
         pageControl.currentPage = toIndex
-        //topImg.kf.setImage(with: URL(string: dataArray[toIndex].pricName))
+        didScrollFrom?(toIndex+1)
     }
     
     func pagerView(_ pageView: TYCyclePagerView, didSelectedItemCell cell: UICollectionViewCell, at index: Int) {

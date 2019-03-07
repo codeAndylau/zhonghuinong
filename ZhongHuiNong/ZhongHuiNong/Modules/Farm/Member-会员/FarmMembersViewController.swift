@@ -19,10 +19,15 @@ class FarmMembersViewController: TableViewController {
     var addItem = UIButton().then { (btn) in
         btn.setImage(UIImage(named: "farm_add")!, for: .normal)
     }
+    
+    var imgArray: [String] = []
 
     var bannerList: [BannerList] = [] {
         didSet {
-           refreshValue()
+            refreshValue()
+            bannerList.forEach { (item) in
+                imgArray.append(item.bannerPicUrl)
+            }
         }
     }
     
@@ -234,7 +239,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
-            cell.bannerView.bannerArray.accept(bannerList)
+            cell.bannerView.bannerArray.accept(imgArray)
             return cell
         }
         
@@ -287,7 +292,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.navigator.show(segue: .goodsDetail, sender: self)
+        self.navigator.show(segue: .goodsDetail(id: 95), sender: self)
     }
     
     

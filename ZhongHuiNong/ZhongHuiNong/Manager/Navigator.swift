@@ -35,7 +35,7 @@ class Navigator {
         case scan   // 扫码溯源
         
         // 分类
-        case goodsDetail
+        case goodsDetail(id: Int)
         
         // 菜篮
         
@@ -49,7 +49,7 @@ class Navigator {
         case mineOrder
         case mineLogistics
         case mineAddress
-        case mineAddressModify
+        case mineAddressModify(info: UserAddressInfo)
         
     }
     
@@ -84,7 +84,10 @@ class Navigator {
             
             
         // 分类
-        case .goodsDetail: return GoodsDetailViewController()
+        case .goodsDetail(let id):
+            let vc = GoodsDetailViewController()
+            vc.goodId = id
+            return vc
             
         // 菜篮
             
@@ -98,7 +101,10 @@ class Navigator {
         case .mineOrder: return MineOrderViewController()
         case .mineLogistics: return MineLogisticsViewController()
         case .mineAddress: return MineAddressViewController()
-        case .mineAddressModify: return MineAddressModifyViewController()
+        case .mineAddressModify(let info):
+            let vc = MineAddressModifyViewController()
+            vc.addressInfo = info
+            return vc
             
             
         }

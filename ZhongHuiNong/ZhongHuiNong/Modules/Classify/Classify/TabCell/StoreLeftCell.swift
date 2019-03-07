@@ -10,7 +10,16 @@ import UIKit
 
 class StoreLeftCell: TableViewCell, TabReuseIdentifier {
     
-    lazy var ImgView = UIImageView()
+    var isShow: Bool = false {
+        didSet {
+            lineView.isHidden = !isShow
+            if isShow {
+                titleLab.textColor = Color.theme1DD1A8
+            }else {
+                titleLab.textColor = UIColor.hexColor(0x666666)
+            }
+        }
+    }
     
     let lineView = View().then { (view) in
         view.backgroundColor = Color.theme1DD1A8
@@ -25,10 +34,6 @@ class StoreLeftCell: TableViewCell, TabReuseIdentifier {
     
     override func makeUI() {
         super.makeUI()
-        //        addSubview(ImgView)
-        //        ImgView.snp.makeConstraints { (make) in
-        //            make.edges.equalTo(self)
-        //        }
         
         addSubview(lineView)
         addSubview(titleLab)
@@ -49,9 +54,6 @@ class StoreLeftCell: TableViewCell, TabReuseIdentifier {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-//        isHighlighted = selected
-//        titleLab.isHighlighted = selected
-//        lineView.isHidden = !selected
     }
     
 }

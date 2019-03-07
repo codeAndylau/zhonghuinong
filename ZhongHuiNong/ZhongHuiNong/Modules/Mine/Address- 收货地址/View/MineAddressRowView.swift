@@ -1,15 +1,15 @@
 //
-//  MineAddressModifyTabCell.swift
+//  MineAddressRowView.swift
 //  ZhongHuiNong
 //
-//  Created by Andylau on 2019/2/22.
+//  Created by Andylau on 2019/3/7.
 //  Copyright © 2019 Andylau. All rights reserved.
 //
 
 import UIKit
 
-class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
-
+class MineAddressRowView: View {
+    
     let titleLab = Label().then { (lab) in
         lab.text = "联系人"
         lab.textColor = UIColor.hexColor(0x666666)
@@ -36,8 +36,6 @@ class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
         btn.isHidden = true
     }
     
-    var cell_IndexPath = IndexPath(row: 0, section: 0)
-    
     override func makeUI() {
         super.makeUI()
         addSubview(titleLab)
@@ -45,8 +43,6 @@ class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
         addSubview(lineView)
         addSubview(arrowImg)
         addSubview(sureBtn)
-        
-        textField.delegate = self
     }
     
     override func updateUI() {
@@ -79,17 +75,6 @@ class MineAddressModifyTabCell: TableViewCell, TabReuseIdentifier {
             make.edges.equalTo(self)
         }
         
-    }
-    
-    var cellTFClosure: ((_ text: String, _ index: Int)->Void)?
-
-}
-
-extension MineAddressModifyTabCell: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        debugPrints("输入编辑完成---\(textField.text!)")
-        cellTFClosure?(textField.text!, cell_IndexPath.row)
     }
     
 }

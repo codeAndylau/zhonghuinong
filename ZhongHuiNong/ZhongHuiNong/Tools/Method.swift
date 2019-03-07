@@ -54,6 +54,16 @@ public func mainQueue(closure: @escaping () -> Void) {
     }
 }
 
+
+/// 渐变显示view
+///
+/// - Parameter closure: 运行的代码
+public func fadeInOnDisplay(closure: @escaping () -> Void) {
+    UIView.animate(withDuration: 0.25) {
+        closure()
+    }
+}
+
 /// 判断是否有相册权限
 ///
 /// - Returns: bool

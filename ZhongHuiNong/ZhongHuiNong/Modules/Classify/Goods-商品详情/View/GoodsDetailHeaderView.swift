@@ -20,7 +20,7 @@ class GoodsDetailHeaderView: View {
     }
     
     let pageLab = Label().then { (lab) in
-        lab.backgroundColor = UIColor.gray
+        lab.backgroundColor = UIColor.hexColor(0x000000, alpha: 0.2)
         lab.text = "1/5"
         lab.textColor = UIColor.white
         lab.font = UIFont.systemFont(ofSize: 13)
@@ -65,6 +65,11 @@ class GoodsDetailHeaderView: View {
         bottomView.addSubview(peisongView)
         bottomView.addSubview(addressView)
         bottomView.addSubview(yunfeiView)
+        
+        bannerView.didScrollFrom = { [weak self] index in
+            guard let self = self else { return }
+            self.pageLab.text = "\(index)/\(self.ImgArray.count)"
+        }
     }
     
     override func updateUI() {
@@ -119,6 +124,31 @@ class GoodsDetailHeaderView: View {
     override func layoutSubviews() {
         super.layoutSubviews()
         pageLab.cuttingAnyCorner(roundingCorners: .topLeft, corner: 11)
+    }
+    
+    var ImgArray: [String] = []
+    
+    var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
+        didSet {
+            
+            let bannerImg = goodsDetailInfo.albums
+            bannerImg.forEach { (item) in
+                
+            }
+
+            // 1. 上面轮播图
+            ImgArray = ["goods_tuijian_1","goods_tuijian_2"]
+            pageLab.text = "1/\(ImgArray)"
+            bannerView.bannerArray.accept(ImgArray)
+            
+            // 2. 商品基本信息
+            topView.goodsDetailInfo = goodsDetailInfo
+            
+            // 3 .商品已选规格
+            selectView.detailLab.text = goodsDetailInfo.addDate
+            
+            
+        }
     }
     
 }

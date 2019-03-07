@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
     
@@ -36,6 +37,7 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
     let editBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "farm_modify"), for: .normal)
         btn.adjustsImageWhenHighlighted = false
+        //btn.addTarget(self, action: #selector(editBtnAction), for: .touchUpInside)
     }
     
     let lineView = View().then { (view) in
@@ -48,6 +50,8 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
         }
     }
     
+    var editBtnClicked: (()->Void)?
+
     override func makeUI() {
         super.makeUI()
         addSubview(titleLab)
@@ -56,6 +60,11 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
         addSubview(defaultLab)
         addSubview(lineView)
         defaultLab.isHidden = true
+        
+        editBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.editBtnClicked?()
+        }).disposed(by: rx.disposeBag)
     }
     
     override func updateUI() {
@@ -64,8 +73,8 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
         titleLab.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(12)
             make.left.equalTo(self).offset(15)
-            make.right.equalTo(self).offset(-50)
-            make.bottom.equalTo(phoneLab.snp.top).offset(5)
+            make.right.equalTo(self).offset(-75)
+            make.bottom.equalTo(phoneLab.snp.top).offset(-5)
         }
         
         phoneLab.snp.makeConstraints { (make) in
@@ -84,6 +93,7 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
         editBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-15)
             make.centerY.equalTo(self)
+            make.width.height.equalTo(44)
         }
         
         lineView.snp.makeConstraints { (make) in
@@ -94,10 +104,12 @@ class MineAddressTabCell: TableViewCell,TabReuseIdentifier {
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        
+    var addressInfo: UserAddressInfo = UserAddressInfo() {
+        didSet {
+            titleLab.text = addressInfo.preaddress
+            phoneLab.text = addressInfo.linkMan + " " + addressInfo.mobile
+            defaultLab.isHidden = !addressInfo.isDefault
+        }
     }
-    
-    
-   
+
 }

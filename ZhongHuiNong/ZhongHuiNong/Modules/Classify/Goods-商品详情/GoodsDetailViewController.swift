@@ -12,26 +12,34 @@ class GoodsDetailViewController: ViewController {
 
     // MARK: - Property
     
+    var goodId: Int = defaultId
+    var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
+        didSet {
+            fadeInOnDisplay {
+                self.tableView.alpha = 1
+                self.headerView.goodsDetailInfo = self.goodsDetailInfo
+                self.view.addSubview(self.tableView)
+                self.view.addSubview(self.buyView)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // MARK: - Override
+    
     override func makeUI() {
         super.makeUI()
-
+        statusBarStyle.accept(true)
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
-        
-        view.backgroundColor = Color.backdropColor
-        view.addSubview(tableView)
-        
-        view.addSubview(buyView)
-        
-        statusBarStyle.accept(true)
-
+        fetchGoodsInfo()
     }
 
     override func bindViewModel() {
         super.bindViewModel()
+        
         extendedLayoutIncludesOpaqueBars = true
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -49,12 +57,12 @@ class GoodsDetailViewController: ViewController {
     }
     
     // MARK: - Lazy
+    
     lazy var buyView = GoodsDetailBuyView.loadView()
     lazy var rightBarView = GoodsDetailRightView.loadView()
     
     lazy var headerView: GoodsDetailHeaderView = {
         let view = GoodsDetailHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: GoodsDetailHeaderH))
-        //view.bannerView.bannerArray.accept(["goods_tuijian_1","goods_tuijian_2"])
         view.backgroundColor = UIColor.white
         return view
     }()
@@ -67,8 +75,8 @@ class GoodsDetailViewController: ViewController {
     }()
 
     lazy var tableView: TableView = {
-
         let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kBottomViewH), style: .plain)
+        view.alpha = 0
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -79,9 +87,18 @@ class GoodsDetailViewController: ViewController {
     }()
     
 
-    
     // MARK: - Action
- 
+
+    func fetchGoodsInfo() {
+        WebAPITool.requestModel(WebAPI.goodsDetail(goodId), model: GoodsDetailInfo.self, complete: { [weak self] (info) in
+            debugPrints("商品详情信息---\(info)")
+            guard let self = self else { return }
+            self.goodsDetailInfo = info
+        }) { (error) in
+            debugPrints("获取商品信息出错---\(error)")
+        }
+    }
+    
 }
 
 extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -98,7 +115,6 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
     
 }
 

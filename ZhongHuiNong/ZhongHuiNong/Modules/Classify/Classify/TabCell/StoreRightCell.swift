@@ -80,4 +80,13 @@ class StoreRightCell: TableViewCell, TabReuseIdentifier {
 
     }
     
+    var model: GoodsInfo = GoodsInfo() {
+        didSet {
+            ImgView.lc_setImage(with: model.focusImgUrl)
+            titleLab.text = model.productName
+            priceLab.text = "¥\(String(describing: model.salePrice))"      // 销售价格
+            discountLab.text = "¥\(String(describing: model.marketPrice))" // 市场价格
+        }
+    }
+    
 }

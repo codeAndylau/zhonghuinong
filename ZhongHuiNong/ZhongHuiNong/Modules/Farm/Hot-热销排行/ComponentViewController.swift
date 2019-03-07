@@ -53,7 +53,7 @@ extension ComponentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigator.show(segue: .goodsDetail, sender: topVC)
+        self.navigator.show(segue: .goodsDetail(id: 95), sender: topVC)
     }
     
 }

@@ -174,5 +174,14 @@ class GoodsDetailHeaderOneView: View {
         let view = GoodsDetailHeaderOneView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 190))
         return view
     }
+    
+    var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
+        didSet {
+            priceLab.text = "¥\(goodsDetailInfo.salePrice)"
+            nonPriceLab.text = "¥\(goodsDetailInfo.marketPrice)"
+            titleLab.text = goodsDetailInfo.productName
+            detailLab.text = goodsDetailInfo.productName
+        }
+    }
 
 }

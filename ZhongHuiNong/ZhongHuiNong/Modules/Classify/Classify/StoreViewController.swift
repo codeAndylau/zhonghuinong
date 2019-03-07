@@ -12,10 +12,11 @@ import MJRefresh
 /// 商店
 class StoreViewController: ViewController {
     
-    let group = DispatchGroup()
+    // MARK: Property
+    
+    var group = DispatchGroup()
     var currentIndexPath = IndexPath(row: 0, section: 0)
     
-    var isUp = true
     var goodsList: [[GoodsInfo]] = []
     
     var catagoryList: [CatagoryList] = [] {
@@ -27,9 +28,9 @@ class StoreViewController: ViewController {
             }
             
             group.notify(queue: .main) {
-                debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
+                
                 if self.catagoryList.isEmpty || self.goodsList.isEmpty {
-                    
+                    debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
                 }else {
                     mainQueue {
                         UIView.animate(withDuration: 0.25) {
@@ -48,6 +49,8 @@ class StoreViewController: ViewController {
         }
     }
     
+    // MARK: - Override
+    
     override func makeUI() {
         super.makeUI()
         navigationItem.titleView = searchView
@@ -59,10 +62,11 @@ class StoreViewController: ViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
+        var isUp = true
         filterView.priceBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.isUp = !self.isUp
-            self.filterView.value = self.isUp
+            isUp = !isUp
+            self.filterView.value = isUp
             self.filterView.priceBtn.setTitleColor(UIColor.hexColor(0x1DD1A8), for: .normal)
             self.filterView.numBtn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         }).disposed(by: rx.disposeBag)
@@ -76,24 +80,18 @@ class StoreViewController: ViewController {
         
         
         NotificationCenter.default.rx.notification(Notification.Name.HomeGoodsClassDid).subscribe(onNext: { [weak self] (notification) in
-            
             guard let self = self else { return }
-            
             let value = notification.userInfo?[Notification.Name.HomeGoodsClassDid.rawValue] as! Int
-            
             let indexPath = IndexPath(row: value, section: 0)
-            
             guard value < self.catagoryList.count else { return }
             
             if self.currentIndexPath != indexPath {
                 let cell = self.leftTableView.cellForRow(at: self.currentIndexPath) as? StoreLeftCell
-                cell?.lineView.isHidden = true
-                cell?.titleLab.textColor = UIColor.hexColor(0x666666)
+                cell?.isShow = false
             }
             
             let cell = self.leftTableView.cellForRow(at: indexPath) as! StoreLeftCell
-            cell.lineView.isHidden = false
-            cell.titleLab.textColor = Color.theme1DD1A8
+            cell.isShow = true
             
             self.currentIndexPath = indexPath
             self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
@@ -103,7 +101,8 @@ class StoreViewController: ViewController {
         
     }
     
-    // MARK: - Lazy // "store_qianggou", , "store_renquan"
+    // MARK: - Lazy
+    // "store_qianggou", , "store_renquan"
     //    lazy var leftArray = ["store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian"]
     
     lazy var searchView = MemberSearchView.loadView()
@@ -140,15 +139,12 @@ class StoreViewController: ViewController {
         rightTableView.backgroundColor = UIColor.white
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
         rightTableView.uHead = MJDIYHeader(refreshingBlock: {
-            debugPrints("点击了下啦刷新")
             if  let id = self.catagoryList[self.currentIndexPath.row].id {
                 self.fetchGoodsList(category_id: id, isRefresh: true)
             }
-            
         })
         
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
-            debugPrints("点击了上啦刷新")
             if  let id = self.catagoryList[self.currentIndexPath.row].id {
                 self.fetchGoodsList(category_id: id, isRefresh: true)
             }
@@ -157,17 +153,15 @@ class StoreViewController: ViewController {
         return rightTableView
     }()
     
+    // MARK: - Action
     
     @objc func messageAction() {
-        debugPrints("点击了消息按钮")
-        //        let noticeBar = NoticeBar(title: "点击了消息按钮", defaultType: NoticeBarDefaultType.info)
-        //        noticeBar.show(duration: 1.5, completed: nil)
-        
         let config = NoticeBarConfig(title: "点击了消息按钮", barStyle: NoticeBarStyle.onTabbar)
         let noticeBar = NoticeBar(config: config)
         noticeBar.show(duration: 1.5, completed: nil)
     }
     
+    /// 获取分类列表
     func fetchCatagoryList() {
         var p = [String: Any]()
         p["wid"] = 5
@@ -179,7 +173,7 @@ class StoreViewController: ViewController {
         }
     }
     
-    // 分类id,如果为0，则取所有分类的商品数据
+    /// 分类id,如果为0，则取所有分类的商品数据
     func fetchGoodsList(category_id: Int, isRefresh: Bool = false) {
         var p = [String: Any]()
         p["category_id"] = category_id
@@ -213,6 +207,7 @@ class StoreViewController: ViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -226,11 +221,12 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if leftTableView == tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreLeftCell.identifier, for: indexPath) as! StoreLeftCell
-            cell.lineView.isHidden = !(indexPath == currentIndexPath)
+            cell.isShow = indexPath == currentIndexPath
             cell.titleLab.text = catagoryList[indexPath.row].title
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreRightCell.identifier, for: indexPath) as! StoreRightCell
+            cell.model = goodsList[indexPath.row][indexPath.row]
             return cell
         }
     }
@@ -248,13 +244,11 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         if leftTableView == tableView {
             if currentIndexPath != indexPath {
                 let cell = tableView.cellForRow(at: currentIndexPath) as? StoreLeftCell
-                cell?.lineView.isHidden = true
-                cell?.titleLab.textColor = UIColor.hexColor(0x666666)
+                cell?.isShow = false
             }
             
             let cell = tableView.cellForRow(at: indexPath) as! StoreLeftCell
-            cell.lineView.isHidden = false
-            cell.titleLab.textColor = Color.theme1DD1A8
+            cell.isShow = true
             
             currentIndexPath = indexPath
             leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
@@ -263,7 +257,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if rightTableView == tableView {
-            self.navigator.show(segue: .goodsDetail, sender: self)
+            let goodId = goodsList[indexPath.row][indexPath.row].id
+            debugPrints("点击对应的商品id----\(goodId)")
+            self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
         }
     }
 }
