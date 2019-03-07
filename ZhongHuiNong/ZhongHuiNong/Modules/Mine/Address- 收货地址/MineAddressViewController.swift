@@ -14,10 +14,8 @@ class MineAddressViewController: ViewController {
     var addressList: [UserAddressInfo] = [] {
         didSet {
             fadeInOnDisplay {
-                self.navigationItem.title = localized("地址管理")
                 self.tableView.alpha = 1
                 self.view.addSubview(self.tableView)
-                self.view.addSubview(self.bottomView)
                 mainQueue {
                     self.tableView.reloadData()
                 }
@@ -28,6 +26,8 @@ class MineAddressViewController: ViewController {
     // MARK: - Override
     override func makeUI() {
         super.makeUI()
+        navigationItem.title = localized("地址管理")
+        view.addSubview(self.bottomView)
         fetchAddressList()
     }
 
@@ -38,12 +38,17 @@ class MineAddressViewController: ViewController {
             let info = UserAddressInfo()
             self.navigator.show(segue: .mineAddressModify(info: info), sender: self)
         }).disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx.notification(.userAddressDidChange).subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.fetchAddressList()
+        }).disposed(by: rx.disposeBag)
     }
     
     // MARK: - Lazy
     lazy var bottomView = MineAddressBottomView.loadView()
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH), style: .plain)
         view.backgroundColor = UIColor.hexColor(0xFAFAFA)
         view.separatorStyle = .none
         view.dataSource = self
@@ -63,9 +68,8 @@ class MineAddressViewController: ViewController {
         WebAPITool.requestModelArray(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
-            debugPrints("用户的地址列表---\(list)")
         }) { (error) in
-            debugPrints("用户的地址列表信息失败---\(error)")
+            ZYToast.showCenterWithText(text: error)
         }
     }
 
@@ -82,7 +86,6 @@ extension MineAddressViewController: UITableViewDataSource, UITableViewDelegate 
         cell.addressInfo = addressList[indexPath.row]
         cell.editBtnClicked = { [weak self] in
             guard let self = self else { return }
-            debugPrints("点击了修改按钮执行了第几下---\(indexPath.row)")
             let info = self.addressList[indexPath.row]
             self.navigator.show(segue: .mineAddressModify(info: info), sender: self)
         }

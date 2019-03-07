@@ -226,7 +226,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreRightCell.identifier, for: indexPath) as! StoreRightCell
-            cell.model = goodsList[indexPath.row][indexPath.row]
+            cell.model = goodsList[currentIndexPath.row][indexPath.row]
             return cell
         }
     }

@@ -9,6 +9,13 @@
 import UIKit
 
 extension UIButton {
+    /// 加载本地图片
+    func lc_setLocalImage(with url: String) {
+        self.setImage(UIImage(named: url), for: .normal)
+    }
+}
+
+extension UIButton {
     
     /// 方便快速的设置图片和文字的相对位置
     @objc func set(image anImage: UIImage?, title: String,

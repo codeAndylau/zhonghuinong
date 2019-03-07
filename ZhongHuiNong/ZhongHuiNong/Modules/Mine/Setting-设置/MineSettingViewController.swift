@@ -10,6 +10,8 @@ import UIKit
 
 class MineSettingViewController: ViewController {
 
+    let user = User.currentUser()
+    
     override func makeUI() {
         super.makeUI()
         navigationItem.title = "设置"
@@ -59,12 +61,13 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             if indexPath.row == 0 {
                 cell.isHeader = true
                 cell.titleLab.text = "头像"
+                cell.headerImg.lc_setImage(with: user.user_Img)
             }
             if indexPath.row == 1 {
                 cell.isLine = true
                 cell.isTitle = true
                 cell.titleLab.text = "昵称"
-                cell.detailLab.text = "欧丫丫"
+                cell.detailLab.text = user.username
             }
         }
         
@@ -73,7 +76,7 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             cell.isLine = true
             if indexPath.row == 0 {
                 cell.titleLab.text = "手机号"
-                cell.detailLab.text = "135****8888"
+                cell.detailLab.text = "暂未绑定"
             }
             if indexPath.row == 1 {
                 cell.titleLab.text = "微信号"

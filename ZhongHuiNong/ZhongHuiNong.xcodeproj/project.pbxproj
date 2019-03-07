@@ -245,6 +245,7 @@
 		1B35C53F9BC00E4C6D8517C8 /* Pods_ZhongHuiNongUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */; };
 		3ADB098A91B380A45D85F7E2 /* Pods_ZhongHuiNongTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C748E7EF406DFF951670BD4E /* Pods_ZhongHuiNongTests.framework */; };
 		51A217DE35FEF3D2C4888AC6 /* Pods_ZhongHuiNong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84E5F00C8937F55402F4655 /* Pods_ZhongHuiNong.framework */; };
+		8B25C88522314FFF00A2D0C7 /* MineAddressDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B25C88422314FFF00A2D0C7 /* MineAddressDefaultView.swift */; };
 		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
 		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
 		8B7F697C222FFC2B009A28C4 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */; };
@@ -514,6 +515,7 @@
 		14F35C802202DCB7002122B6 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		4EA66617F0EBE73050209527 /* Pods-ZhongHuiNong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.debug.xcconfig"; sourceTree = "<group>"; };
 		7631C1C0EAF6E953FF9CA5BB /* Pods-ZhongHuiNong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNong.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong.release.xcconfig"; sourceTree = "<group>"; };
+		8B25C88422314FFF00A2D0C7 /* MineAddressDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressDefaultView.swift; sourceTree = "<group>"; };
 		8B31B5BB221028F4003F475A /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
 		8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
@@ -809,14 +811,14 @@
 			isa = PBXGroup;
 			children = (
 				1492DDBC221AAECD00C79D88 /* Mine */,
+				14087467221E78CF0051B7C3 /* Setting-设置 */,
 				149445AE2229107B0048BF65 /* Wallet-钱包 */,
+				146B74B7221E99CA005D2879 /* Order-订单 */,
 				149445BE222923920048BF65 /* MemberCenter-会员中心 */,
 				149445B722291ABC0048BF65 /* VegetablesService-蔬菜服务 */,
 				1448B0A22225227E009237E7 /* About-关于我们 */,
-				146B74B7221E99CA005D2879 /* Order-订单 */,
 				14D5B341221FD2C100D08DD1 /* Address- 收货地址 */,
 				14D5B337221FA1BF00D08DD1 /* Logistics-物流信息 */,
-				14087467221E78CF0051B7C3 /* Setting-设置 */,
 				14087462221E74BD0051B7C3 /* Message-消息 */,
 			);
 			path = Mine;
@@ -1270,6 +1272,7 @@
 				14D5B34E221FECE500D08DD1 /* MineAddressPicker.swift */,
 				14AE310E222126BD00302F89 /* MineAddressTitleView.swift */,
 				14BBB8402230FB3400FF4AE3 /* MineAddressRowView.swift */,
+				8B25C88422314FFF00A2D0C7 /* MineAddressDefaultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2054,6 +2057,7 @@
 				14641B8421F55C5C00F4E032 /* Const.swift in Sources */,
 				1448B09522250892009237E7 /* HotTabCell.swift in Sources */,
 				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
+				8B25C88522314FFF00A2D0C7 /* MineAddressDefaultView.swift in Sources */,
 				1448B09922250A6B009237E7 /* HotFruitViewController.swift in Sources */,
 				1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */,
 				1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */,

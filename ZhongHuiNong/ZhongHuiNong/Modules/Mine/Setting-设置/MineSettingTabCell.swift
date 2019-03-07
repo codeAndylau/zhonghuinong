@@ -24,6 +24,7 @@ class MineSettingTabCell: TableViewCell, TabReuseIdentifier {
     
     let headerImg = ImageView().then { (img) in
         img.image = UIImage(named: "mine_default_ portrait")
+        img.cuttingCorner(radius: 55/2)
     }
     
     let switchView = UISwitch()
@@ -108,6 +109,7 @@ class MineSettingTabCell: TableViewCell, TabReuseIdentifier {
         headerImg.snp.makeConstraints { (make) in
             make.right.equalTo(arrowImg.snp.left).offset(-15)
             make.centerY.equalTo(self)
+            make.width.height.equalTo(55)
         }
         
         detailLab.snp.makeConstraints { (make) in

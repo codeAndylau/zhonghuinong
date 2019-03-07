@@ -11,6 +11,9 @@ import UIKit
 class MineAddressModifyViewController: ViewController {
 
     // MARK: - Property
+    
+    var isDefault = true
+    
     var addressInfo = UserAddressInfo()
     
     // MARK: - Override
@@ -23,6 +26,8 @@ class MineAddressModifyViewController: ViewController {
         
         if addressInfo.id != defaultId {
             navigationItem.rightBarButtonItem = deleteItem
+            isDefault = addressInfo.isDefault
+            defaultView.isDefault = addressInfo.isDefault
         }
     }
 
@@ -97,11 +102,18 @@ class MineAddressModifyViewController: ViewController {
             let cell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! MineAddressModifyTabCell
             cell.textField.text = "\(p)-\(c)-\(d)-\(t)"
         }
+        
+        defaultView.selectBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.isDefault = !self.isDefault
+            self.defaultView.isDefault = self.isDefault
+        }).disposed(by: rx.disposeBag)
     }
     
     // MARK: - Lazy
     lazy var picker = MineAddressPickerViewController()
     lazy var bottomView = MineAddressBottomView.loadView()
+    lazy var defaultView = MineAddressDefaultView.loadView()
     lazy var deleteItem = BarButtonItem(image: UIImage(named: "mine_address_delete"), target: self, action: #selector(deleteAction))
     
     lazy var tableView: TableView = {
@@ -110,6 +122,7 @@ class MineAddressModifyViewController: ViewController {
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
+        view.tableFooterView = defaultView
         view.showsVerticalScrollIndicator = false
         view.register(MineAddressModifyTabCell.self, forCellReuseIdentifier: MineAddressModifyTabCell.identifier)
         return view
@@ -125,7 +138,7 @@ class MineAddressModifyViewController: ViewController {
         params["address"] = p["address"]
         params["mobile"] = p["mobile"]
         params["youbian"] = "000000"
-        params["isdefault"] = "true"
+        params["isdefault"] = "\(isDefault)"
         params["address_id"] = "\(addressInfo.id)"
         params["wid"] = "5"
         params["fromplat"] = "iOS"
@@ -139,6 +152,7 @@ class MineAddressModifyViewController: ViewController {
             if code == 0 {
                 delay(by: 0.5, closure: {
                     mainQueue {
+                        NotificationCenter.default.post(name: .userAddressDidChange, object: nil)
                         self.navigationController?.popViewController(animated: true)
                     }
                 })
@@ -146,6 +160,7 @@ class MineAddressModifyViewController: ViewController {
             debugPrints("编辑用户地址信息---\(value)")
         }) { (error) in
             debugPrints("编辑用户地址信息出错---\(error)")
+            HudHelper.hideHUD(FromView: nil)
             ZYToast.showCenterWithText(text: error)
         }
 
@@ -154,25 +169,29 @@ class MineAddressModifyViewController: ViewController {
     @objc func deleteAction() {
         
         let cancel = UIAlertAction(title: "我点错了", style: UIAlertAction.Style.default, handler: nil)
-        let sure = UIAlertAction(title: "确定删除", style: UIAlertAction.Style.cancel) { (_) in
+        let sure = UIAlertAction(title: "确定删除", style: UIAlertAction.Style.destructive) { (_) in
             
             var params = [String: Any]()
             params["address_id"] = self.addressInfo.id
             params["user_id"] = "3261"
             params["wid"] = 5
             
+            HudHelper.showWaittingHUD(msg: "请稍后...")
             WebAPITool.request(WebAPI.deleteUserAddress(params), complete: { (value) in
                 debugPrints("删除用户地址信息---\(value)")
+                HudHelper.hideHUD(FromView: nil)
                 let code = value["code"].intValue
                 if code == 0 {
                     delay(by: 0.5, closure: {
                         mainQueue {
+                            NotificationCenter.default.post(name: .userAddressDidChange, object: nil)
                             self.navigationController?.popViewController(animated: true)
                         }
                     })
                 }
             }) { (error) in
                 debugPrints("删除用户地址信息---\(error)")
+                HudHelper.hideHUD(FromView: nil)
                 ZYToast.showCenterWithText(text: error)
             }
         }
