@@ -56,7 +56,6 @@ enum WebAPI {
     
     
     
-    
     case xxx(_ p: [String: Any])
 }
 
@@ -129,7 +128,6 @@ extension WebAPI: TargetType, WebAPIType {
              .homeBannerList(let p),
              .catagoryList(let p),
              .goodsList(let p):
-            
             return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
         case .goodsDetail(_):
             let p: [String: Any] = ["wid": 5, "fromplat": "iOS"]
@@ -140,7 +138,7 @@ extension WebAPI: TargetType, WebAPIType {
     }
     
     var headers: [String : String]? {
-        return ["Content-type" : "application/json"]
+        return ["content-type" : "application/json; charset=utf-8"]
     }
     
     var addXAuth: Bool {

@@ -117,7 +117,7 @@ class MineAddressModifyViewController: ViewController {
     
     // MARK: - Action
     func saveUserAddressInfo(_ p: [String: String]) {
-
+        
         var params = [String: Any]()
         params["user_id"] = "3261"  //"\(User.currentUser().userId)"
         params["linkMan"] = p["linkMan"]
@@ -125,19 +125,30 @@ class MineAddressModifyViewController: ViewController {
         params["address"] = p["address"]
         params["mobile"] = p["mobile"]
         params["youbian"] = "000000"
-        params["isdefault"] = true
+        params["isdefault"] = "true"
         params["address_id"] = "\(addressInfo.id)"
         params["wid"] = "5"
         params["fromplat"] = "iOS"
-        
+
         debugPrints("用户地址参数---\(params)")
-        
-        WebAPITool.request(.editAddress(p), complete: { (value) in
+
+        HudHelper.showWaittingHUD(msg: "请求中...")
+        WebAPITool.request(.editAddress(params), complete: { (value) in
+            HudHelper.hideHUD(FromView: nil)
+            let code = value["code"].intValue
+            if code == 0 {
+                delay(by: 0.5, closure: {
+                    mainQueue {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+            }
             debugPrints("编辑用户地址信息---\(value)")
         }) { (error) in
             debugPrints("编辑用户地址信息出错---\(error)")
+            ZYToast.showCenterWithText(text: error)
         }
-        
+
     }
 
     @objc func deleteAction() {

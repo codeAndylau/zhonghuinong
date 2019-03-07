@@ -42,4 +42,37 @@ class EZNetworkTool {
             }
         }
     }
+    
+    func requestAddress() {
+        let url = "https://api.smartfarm.villagetechnology.cn/api/User/EditAddressV2"
+        
+        var params = [String: Any]()
+        params["user_id"] = 3261  //"\(User.currentUser().userId)"
+        params["linkMan"] = "兰超"
+        params["preaddress"] = "四川省-面光源市-青羊区"
+        params["address"] = "一栋一单元"
+        params["mobile"] = "18782967728"
+        params["youbian"] = "000000"
+        params["isdefault"] = "true"
+        params["address_id"] = 0
+        params["wid"] = 5
+        params["fromplat"] = "iOS"
+        
+        let header = ["content-type" : "application/json; charset=utf-8"]
+        
+        let request = Alamofire.request(url, method: HTTPMethod.get, parameters: params, encoding: URLEncoding.default, headers: header)
+        debugPrints("请求的data--\(request)")
+        
+        request.responseJSON { (response) in
+            guard let result = response.result.value else {
+                debugPrints("fuck失败---\(String(describing: response.result.error))")
+                return
+            }
+            // 直接解析
+            let dict = JSON(result)
+            
+            debugPrints("fuck---\(dict)")
+        }
+    }
+    
 }
