@@ -226,7 +226,7 @@ class FarmMembersViewController: TableViewController {
     func fetchBannerList() {
         
         var p = [String: Any]()
-        p["wid"] = wid
+        p["wid"] = 5
         
         WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { [weak self] (list) in
             debugPrints("轮播图---\(list)")
