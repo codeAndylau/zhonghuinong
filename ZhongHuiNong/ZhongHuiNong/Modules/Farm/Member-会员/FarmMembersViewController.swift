@@ -20,46 +20,67 @@ class FarmMembersViewController: TableViewController {
         btn.setImage(UIImage(named: "farm_add")!, for: .normal)
     }
     
-    var imgArray: [String] = []
+    /// 轮播图
+    var imgArray: [String] = [] {
+        didSet {
+            tableView_g.reloadData()
+        }
+    }
 
     var bannerList: [BannerList] = [] {
         didSet {
-            refreshValue()
             bannerList.forEach { (item) in
                 imgArray.append(item.bannerPicUrl)
             }
         }
     }
     
+    /// 分类列表
     var catagoryList: [CatagoryList] = [] {
         didSet {
-           refreshValue()
+           headerView.classView.catagoryList = catagoryList
+        }
+    }
+    
+    /// 热销列表
+    var hotsaleList: [GoodsInfo] = [] {
+        didSet {
+            //tableView_g.reloadData()
+            tableView_g.reloadSections([1], with: UITableView.RowAnimation.fade)
+        }
+    }
+    
+    var recommendList: [GoodsInfo] = [] {
+        didSet {
+            tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
         }
     }
     
     var isValue: Bool = false
 
     func refreshValue() {
-        if bannerList.isEmpty || catagoryList.isEmpty {
-            isValue = true
-            tableView_g.uempty?.allowShow = true
-            return
-        }
-        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
-        LoadingHud.hideHUD()
-        UIView.animate(withDuration: 0.25) {
-            self.tableView_g.alpha = 1
-        }
-        tableView_g.tableHeaderView = headerView
-        tableView_g.reloadData()
+//         LoadingHud.hideHUD()
+//        if bannerList.isEmpty || catagoryList.isEmpty {
+//            isValue = true
+//            tableView_g.uempty?.allowShow = true
+//            return
+//        }
+//        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
+//        UIView.animate(withDuration: 0.25) {
+//            self.tableView_g.alpha = 1
+//        }
+//        tableView_g.tableHeaderView = headerView
+//        tableView_g.reloadData()
     }
 
     override func makeUI() {
         super.makeUI()
         
-        if User.hasUser() && User.currentUser().isVip {
-            navigationItem.leftBarButtonItem = leftBarItem
-        }
+//        if User.hasUser() && User.currentUser().isVip {
+//
+//        }
+        
+        navigationItem.leftBarButtonItem = leftBarItem
         
         navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
         addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
@@ -72,6 +93,13 @@ class FarmMembersViewController: TableViewController {
         tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
         tableView_g.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: nil)
+        
+        isValue = true
+        UIView.animate(withDuration: 0.25) {
+            self.tableView_g.alpha = 1
+        }
+        tableView_g.tableHeaderView = headerView
+        tableView_g.reloadData()
     }
     
     override func bindViewModel() {
@@ -115,9 +143,11 @@ class FarmMembersViewController: TableViewController {
             NotificationCenter.default.post(name: .HomeGoodsClassDid, object: nil, userInfo: userInfo)
         }
         
-        LoadingHud.showProgress(supView: self.view)
+        //LoadingHud.showProgress(supView: self.view)
         fetchBannerList()
         fetchCatagoryList()
+        fetchHotsaleList()
+        fetchRecommendList()
     }
     
     // MARK: - Lazy
@@ -145,7 +175,8 @@ class FarmMembersViewController: TableViewController {
     }
     
     @objc func messageAction() {
-        debugPrints("点击了消息按钮")
+        let bindVC = MobileBindingViewController()
+        self.navigationController?.pushViewController(bindVC, animated: true)
     }
     
     func showCenterView() {
@@ -195,26 +226,64 @@ class FarmMembersViewController: TableViewController {
     func fetchBannerList() {
         
         var p = [String: Any]()
-        p["wid"] = 5
+        p["wid"] = wid
         
-        WebAPITool.requestModelArray(.homeBannerList(p), model: BannerList.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { [weak self] (list) in
             debugPrints("轮播图---\(list)")
             guard let self = self else { return }
             self.bannerList = list
         }) { (error) in
+            self.bannerList = []
             debugPrints("获取轮播图失败---\(error)")
         }
     }
     
     func fetchCatagoryList() {
         var p = [String: Any]()
-        p["wid"] = 5
-        WebAPITool.requestModelArray(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
-            debugPrints("分类列表---\(list)")
+        p["wid"] = wid
+        WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.catagoryList = list
         }) { (error) in
-            debugPrints("获取轮播图失败---\(error)")
+            self.catagoryList = []
+            debugPrints("获取分类列表失败---\(error)")
+        }
+    }
+    
+    /// 热销
+    func fetchHotsaleList() {
+        
+        var p = [String: Any]()
+        p["category_id"] = 0
+        p["page_size"] = 3
+        p["page_index"] = 1
+        p["wid"] = wid
+        
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+            debugPrints("获取热销列表---\(list.count)")
+            guard let self = self else { return }
+            self.hotsaleList = list
+        }) { (error) in
+            debugPrints("获取热销列表失败---\(error)")
+        }
+
+    }
+    
+    /// 爆款
+    func fetchRecommendList() {
+        
+        var p = [String: Any]()
+        p["category_id"] = 0
+        p["page_size"] = 3
+        p["page_index"] = 1
+        p["wid"] = wid
+        
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsRecommendList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+            debugPrints("获取爆款列表---\(list.count)")
+            guard let self = self else { return }
+            self.recommendList = list
+        }) { (error) in
+            debugPrints("获取爆款列表失败---\(error)")
         }
     }
 
@@ -223,15 +292,15 @@ class FarmMembersViewController: TableViewController {
 extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isValue ? 4 : 0
+        return isValue ? 3 : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0, 1, 2:
+        case 0, 1:
             return 1
-        case 3:
-            return dataArray.count
+        case 2:
+            return recommendList.count
         default:
             return 0
         }
@@ -246,18 +315,25 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MemberQianggouCell.identifier, for: indexPath) as! MemberQianggouCell
-            return cell
-        }
-        
-        if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberRexiaoCell.identifier, for: indexPath) as! MemberRexiaoCell
+            cell.hotsaleList = hotsaleList
+            cell.cellDidClosure = { [weak self] index in
+                guard let self = self else { return }
+                let goodId = self.hotsaleList[indexPath.row].id
+                debugPrints("点击热销商品的id---\(goodId)")
+                self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
+            }
             return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
         cell.imgView.image = UIImage(named: dataArray[indexPath.row])
         return cell
+        
+        //        if indexPath.section == 1 {  
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: MemberQianggouCell.identifier, for: indexPath) as! MemberQianggouCell
+        //            return cell
+        //        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -266,23 +342,14 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         case 0:
             return MemberSectionView(type: .xinpin)
         case 1:
-            let view = MemberSectionView(type: .qianggou)
-            view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                debugPrints("点击了倒计时")
-                self.navigator.show(segue: .flash, sender: self)
-            }).disposed(by: rx.disposeBag)
-            return view
-        case 2:
             
             let view = MemberSectionView(type: .rexiao)
             view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                debugPrints("点击了查看更多")
-                self.navigator.show(segue: .hot, sender: self)
+                self.navigator.show(segue: .hot(list: self.catagoryList), sender: self)
             }).disposed(by: rx.disposeBag)
             return view
-        case 3:
+        case 2:
             return MemberSectionView(type: .tuijian)
         default:
             break
@@ -290,11 +357,22 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         let view = MemberSectionView(type: .xinpin)
         return view
+        
+        //        case 1:
+        //            let view = MemberSectionView(type: .qianggou)
+        //            view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
+        //                guard let self = self else { return }
+        //                debugPrints("点击了倒计时")
+        //                self.navigator.show(segue: .flash, sender: self)
+        //            }).disposed(by: rx.disposeBag)
+        //            return view
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.navigator.show(segue: .goodsDetail(id: 95), sender: self)
+        let goodId = recommendList[indexPath.row].id
+        debugPrints("点击推荐商品的id---\(goodId)")
+        self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
     }
     
     

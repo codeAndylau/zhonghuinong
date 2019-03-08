@@ -10,7 +10,15 @@ import UIKit
 import JXCategoryView
 
 class ComponentViewController: ViewController {
-
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func makeUI() {
         super.makeUI()
         view.backgroundColor = UIColor.randomColor()

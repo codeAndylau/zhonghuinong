@@ -108,6 +108,12 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     lazy var ImgArray = ["farm_luobo","farm_shuiguo","farm_danpin","farm_ganhuo","farm_ruping","farm_tiaowei","farm_gaodian"] // ,"farm_renqun"
     lazy var TitleArray = ["精品时蔬","新鲜水果","肉禽蛋品","粮油干货","乳品烘焙","极致调味","早餐糕点"] // ,"人群食养"
     
+    var catagoryList: [CatagoryList] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 2
@@ -158,13 +164,13 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImgArray.count
+        return catagoryList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberHeaderClassCell.identifier, for: indexPath) as! MemberHeaderClassCell
-        cell.imgView.image = UIImage(named: ImgArray[indexPath.row])
-        cell.titleLab.text = TitleArray[indexPath.row]
+        cell.imgView.lc_setImage(with: catagoryList[indexPath.row].img_url)
+        //cell.titleLab.text = catagoryList[indexPath.row].title
         return cell
     }
     
@@ -173,7 +179,8 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (kScreenW - 30 - 8)/5, height: 88)
+        let w = (kScreenW - 30 - 8)/5
+        return CGSize(width: w, height: w) // 88
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -216,7 +223,7 @@ class MemberHeaderClassCell: CollectionViewCell, TabReuseIdentifier {
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "精品时蔬"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x333333)
         lab.textAlignment = .center
         lab.font = UIFont.systemFont(ofSize: 12)
@@ -224,28 +231,29 @@ class MemberHeaderClassCell: CollectionViewCell, TabReuseIdentifier {
     
     override func makeUI() {
         super.makeUI()
-        addSubview(contView)
-        contView.addSubview(imgView)
-        addSubview(titleLab)
+        addSubview(imgView)
+//        addSubview(contView)
+//        contView.addSubview(imgView)
+//        addSubview(titleLab)
     }
     
     override func updateUI() {
         super.updateUI()
         
-        contView.snp.makeConstraints { (make) in
-            make.top.left.right.equalTo(self)
-            make.bottom.equalTo(titleLab.snp.top).offset(-5)
-        }
+//        contView.snp.makeConstraints { (make) in
+//            make.top.left.right.equalTo(self)
+//            make.bottom.equalTo(titleLab.snp.top).offset(-5)
+//        }
         
         imgView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
+            make.edges.equalTo(self)
         }
         
-        titleLab.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.bottom.equalTo(self).offset(-5)
-            make.width.equalTo(self)
-            make.height.equalTo(16)
-        }
+        //        titleLab.snp.makeConstraints { (make) in
+        //            make.centerX.equalTo(self)
+        //            make.bottom.equalTo(self).offset(-5)
+        //            make.width.equalTo(self)
+        //            make.height.equalTo(16)
+        //        }
     }
 }

@@ -70,7 +70,7 @@ class PasswordLoginViewController: ViewController {
         
         HudHelper.showWaittingHUD(msg: "登录中...")
         delay(by: 1.5) {
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             mainQueue {
                 self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
             }

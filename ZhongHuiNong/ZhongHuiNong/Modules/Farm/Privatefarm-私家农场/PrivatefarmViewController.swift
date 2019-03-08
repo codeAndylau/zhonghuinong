@@ -101,6 +101,7 @@ class PrivatefarmViewController: ViewController {
     }
     
     func fetchFarmLand() {
+        
         var p = [String: Any]()
         p["userid"] = 3261 //User.userId()
         
@@ -109,28 +110,25 @@ class PrivatefarmViewController: ViewController {
             guard let self = self else { return }
             self.farmLand = model
             self.fetchSensorData(model.did)
+            LoadingView.hideHUD(view: self.view)
         }) { (error) in
             ZYToast.showCenterWithText(text: error)
+            LoadingView.hideHUD(view: self.view)
+            debugPrints("请求农场的信息---\(error)")
         }
     }
     
     func fetchSensorData(_ did: String) {
+        
         var p = [String: Any]()
         p["did"] = did
         
         /// 请求传感器信息
         WebAPITool.requestModel(WebAPI.farmSensordata(p), model: FarmSensordata.self, complete: { [weak self] (model) in
             guard let self = self else { return }
-            mainQueue {
-                UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [], animations: {
-                    self.loadView.imageView.alpha = 0.1
-                    self.loadView.alpha = 0.1
-                }) { (_) in
-                    self.loadView.removeFromSuperview()
-                }
-            }
             self.sensorData = model
         }) { (error) in
+            debugPrints("请求传感器信息---\(error)")
             ZYToast.showCenterWithText(text: "获取数据失败!")
         }
     }
@@ -141,7 +139,7 @@ class PrivatefarmViewController: ViewController {
         HudHelper.showWaittingHUD(msg: "请求中...")
         WebAPITool.request(WebAPI.farmWater(p), complete: { [weak self] (value) in
             guard let self = self else { return }
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             if value.boolValue {
                 mainQueue {
                     self.headerView.startTimer(.jiaoshui)
@@ -160,7 +158,7 @@ class PrivatefarmViewController: ViewController {
         HudHelper.showWaittingHUD(msg: "请求中...")
         WebAPITool.request(WebAPI.farmFertilize(p), complete: { [weak self] (value) in
             guard let self = self else { return }
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             if value.boolValue {
                 mainQueue {
                     self.headerView.startTimer(.shifei)
@@ -180,7 +178,7 @@ class PrivatefarmViewController: ViewController {
         HudHelper.showWaittingHUD(msg: "请求中...")
         WebAPITool.request(WebAPI.farmKillbug(p), complete: { [weak self] (value) in
             guard let self = self else { return }
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             if value.boolValue {
                 mainQueue {
                     self.headerView.startTimer(.shachong)
@@ -195,7 +193,7 @@ class PrivatefarmViewController: ViewController {
     }
     
     // MARK: - Lazy
-    lazy var loadView = FlashLoadingView()
+    lazy var loadView = LoadingView()
     lazy var titleView = PrivatefarmTitleView.loadView()
     lazy var headerView = PrivatefarmHeaderView.loadView()
     

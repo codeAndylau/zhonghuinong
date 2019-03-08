@@ -77,6 +77,7 @@ class PayBoxView: View, UITextFieldDelegate {
         
         if textField.text!.count == 6 { //输入完毕，可以进行相关的操作
             self.entryCompleteBlock?(textField.text!)
+            self.tf.text = ""
         }
     }
     

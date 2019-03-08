@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class MineCenterView: View {
 
     let imgView = ImageView().then { (img) in
         img.image = UIImage(named: "mine_default_ portrait")
+        img.cuttingCorner(radius: 40)
+        
     }
     
     let cancelBtn = Button().then { (btn) in
@@ -33,56 +36,29 @@ class MineCenterView: View {
     let line3View = View().then { (view) in
         view.backgroundColor = UIColor.hexColor(0xF7F7F7)
     }
-    let line4View = View().then { (view) in
-        view.backgroundColor = UIColor.hexColor(0xF7F7F7)
-    }
-    let line5View = View().then { (view) in
-        view.backgroundColor = UIColor.hexColor(0xF7F7F7)
-    }
-    let line6View = View().then { (view) in
-        view.backgroundColor = UIColor.hexColor(0xF7F7F7)
-    }
     
     let bagSubView = MineCenterSubView().then { (view) in
         view.imgView.image = UIImage(named: "mine_center_zhu")
         view.titleLab.text = "钱包余额（元）"
-        view.detailLab.text = "1000"
+        view.detailLab.text = "0"
     }
     
     let peisongSubView = MineCenterSubView().then { (view) in
         view.imgView.image = UIImage(named: "mine_center_zhu")
-        view.titleLab.text = "合计免费配送（次）"
-        view.detailLab.text = "106"
+        view.titleLab.text = "优惠券（张））"
+        view.detailLab.text = "0"
     }
     
     let shucaiSubView = MineCenterSubView().then { (view) in
         view.imgView.image = UIImage(named: "mine_center_luobo")
         view.titleLab.text = "剩余蔬菜（斤）"
-        view.detailLab.text = "1000"
+        view.detailLab.text = "0"
     }
     
     let zhurouSubView = MineCenterSubView().then { (view) in
         view.imgView.image = UIImage(named: "mine_center_zhu")
-        view.titleLab.text = "剩余野香猪肉（斤）"
-        view.detailLab.text = "100"
-    }
-    
-    let jidanSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_dan")
-        view.titleLab.text = "剩余鸡蛋（枚）"
-        view.detailLab.text = "360"
-    }
-    
-    let tujiSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_tuji")
-        view.titleLab.text = "高山土鸡（只）"
-        view.detailLab.text = "24"
-    }
-    
-    let damiSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_zhu")
-        view.titleLab.text = "五常大米（斤）"
-        view.detailLab.text = "60"
+        view.titleLab.text = "免费配送（次）"
+        view.detailLab.text = "0"
     }
     
     override func makeUI() {
@@ -94,17 +70,13 @@ class MineCenterView: View {
         addSubview(line1View)
         addSubview(line2View)
         addSubview(line3View)
-        addSubview(line4View)
-        addSubview(line5View)
-        addSubview(line6View)
         
         addSubview(bagSubView)
         addSubview(peisongSubView)
         addSubview(shucaiSubView)
         addSubview(zhurouSubView)
-        addSubview(jidanSubView)
-        addSubview(tujiSubView)
-        addSubview(damiSubView)
+
+        fetchUserBalance()
     }
     
     
@@ -114,7 +86,7 @@ class MineCenterView: View {
         imgView.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(-78/2)
             make.centerX.equalTo(self)
-            make.width.height.equalTo(78)
+            make.width.height.equalTo(80)
         }
         
         titleLab.snp.makeConstraints { (make) in
@@ -149,7 +121,7 @@ class MineCenterView: View {
             make.left.equalTo(self)
             make.top.equalTo(bagSubView.snp.bottom)
             make.width.equalTo(kScreenW)
-            make.height.equalTo(8)
+            make.height.equalTo(1)
         }
         
         shucaiSubView.snp.makeConstraints { (make) in
@@ -170,53 +142,41 @@ class MineCenterView: View {
             make.centerY.width.height.equalTo(shucaiSubView)
         }
 
-        line4View.snp.makeConstraints { (make) in
-            make.left.equalTo(self)
-            make.top.equalTo(shucaiSubView.snp.bottom)
-            make.width.equalTo(kScreenW)
-            make.height.equalTo(1)
-        }
-        
-        jidanSubView.snp.makeConstraints { (make) in
-            make.top.equalTo(line4View.snp.bottom)
-            make.left.equalTo(self)
-            make.width.height.equalTo(bagSubView)
-        }
-        
-        line5View.snp.makeConstraints { (make) in
-            make.left.equalTo(jidanSubView.snp.right)
-            make.centerY.equalTo(jidanSubView)
-            make.width.equalTo(1)
-            make.height.equalTo(50)
-        }
-        
-        tujiSubView.snp.makeConstraints { (make) in
-            make.left.equalTo(jidanSubView.snp.right).offset(1)
-            make.centerY.width.height.equalTo(jidanSubView)
-        }
-        
-        line6View.snp.makeConstraints { (make) in
-            make.left.equalTo(self)
-            make.top.equalTo(jidanSubView.snp.bottom)
-            make.width.equalTo(kScreenW)
-            make.height.equalTo(1)
-        }
-        
-        damiSubView.snp.makeConstraints { (make) in
-            make.top.equalTo(line6View.snp.bottom)
-            make.left.equalTo(self)
-            make.width.height.equalTo(bagSubView)
-        }
-        
     }
     
     /// - Public methods
     class func loadView() -> MineCenterView {
         let view = MineCenterView()
-        view.frame = CGRect(x: 0, y: kScreenH-500, width: kScreenW, height: 500)
+        view.frame = CGRect(x: 0, y: kScreenH-500, width: kScreenW, height: 300)
         //let corners: UIRectCorner = [.topLeft, .topRight]
         //view.cuttingAnyCorner(roundingCorners: corners, corner: 16)
         return view
+    }
+    
+    var balance: UserBanlance = UserBanlance() {
+        didSet {
+            debugPrints("用户的额度信息---\(balance)")
+            
+            let user = User.currentUser()
+            
+            imgView.lc_setImage(with: user.userImg)
+            titleLab.text = user.username
+            
+            bagSubView.detailLab.text = "\(balance.creditbalance)"
+            shucaiSubView.detailLab.text = "\(balance.weightbalance)"
+            zhurouSubView.detailLab.text = "\(balance.deliverybalance)"
+        }
+    }
+    
+    func fetchUserBalance() {
+        let params = ["userid": "3233"]
+        WebAPITool.request(WebAPI.userBalance(params), complete: { (value) in
+            if  let balance = Mapper<UserBanlance>().map(JSONObject: value.object) {
+                self.balance = balance
+            }
+        }) { (error) in
+            debugPrints("请求额度出错---\(error)")
+        }
     }
 
 }
@@ -273,4 +233,5 @@ class MineCenterSubView: View {
         }
         
     }
+    
 }

@@ -145,7 +145,7 @@ class WechatLoginViewController: ViewController {
             if let user = Mapper<User>().map(JSONObject: value.object) {
                 debugPrints("微信登录的user--\(user)")
                 user.save()
-                HudHelper.hideHUD(FromView: nil)
+                HudHelper.hideHUD()
                 mainQueue {
                     self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
                 }

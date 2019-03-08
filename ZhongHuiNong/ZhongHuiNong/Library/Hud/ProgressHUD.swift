@@ -882,9 +882,9 @@ class HudHelper: NSObject {
             Thread.sleep(forTimeInterval: 2)
             DispatchQueue.main.async {
                 if onView == nil{
-                    HudHelper.hideHUD(FromView: nil)
+                    HudHelper.hideHUD()
                 }
-                HudHelper.hideHUD(FromView: onView!)
+                HudHelper.hideHUD(view: onView!)
             }
         }
     }
@@ -933,21 +933,17 @@ class HudHelper: NSObject {
             Thread.sleep(forTimeInterval: 1.5)
             DispatchQueue.main.async {
                 if onView == nil{
-                    HudHelper.hideHUD(FromView: nil)
+                    HudHelper.hideHUD(view: nil)
                     return
                 }
-                HudHelper.hideHUD(FromView: onView!)
+                HudHelper.hideHUD(view: onView!)
             }
         }
     }
     
     // 隐藏 HUD
-    class func hideHUD(FromView view: UIView?) {
-        var tempView = view
-        if tempView == nil {
-            tempView = UIApplication.shared.windows.last
-        }
-        guard let view = tempView else { return }
+    class func hideHUD(view: UIView? = UIApplication.shared.windows.last) {
+        guard let view = view else { return }
         _ = ProgressHUD.hideHUD(ForView: view ,animated: true)
     }
     

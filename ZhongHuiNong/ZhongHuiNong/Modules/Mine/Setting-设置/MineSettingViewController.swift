@@ -61,7 +61,7 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             if indexPath.row == 0 {
                 cell.isHeader = true
                 cell.titleLab.text = "头像"
-                cell.headerImg.lc_setImage(with: user.user_Img)
+                cell.headerImg.lc_setImage(with: user.userImg)
             }
             if indexPath.row == 1 {
                 cell.isLine = true

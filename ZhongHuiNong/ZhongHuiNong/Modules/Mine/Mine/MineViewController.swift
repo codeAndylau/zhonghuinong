@@ -7,8 +7,20 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class MineViewController: TableViewController {
+    
+    // MARK: - Property
+    
+    var balance: UserBanlance = UserBanlance() {
+        didSet {
+            debugPrints("用户的额度信息---\(balance)")
+            headerView.priceLab.text = "\(balance.creditbalance)"
+            headerView.cardLab.text = "\(balance.weightbalance)"
+            headerView.timesLab.text = "\(balance.deliverybalance)"
+        }
+    }
     
     override func makeUI() {
         super.makeUI()
@@ -17,8 +29,20 @@ class MineViewController: TableViewController {
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+        fetchUserBalance()
     }
     
+    func fetchUserBalance() {
+        let params = ["userid": "3233"]
+        WebAPITool.request(WebAPI.userBalance(params), complete: { (value) in
+            if  let balance = Mapper<UserBanlance>().map(JSONObject: value.object) {
+                self.balance = balance
+            }
+        }) { (error) in
+            debugPrints("请求额度出错---\(error)")
+        }
+    }
+
     override func bindViewModel() {
         super.bindViewModel()
         
@@ -28,7 +52,7 @@ class MineViewController: TableViewController {
         
         headerView.headerBtn.rx.tap.subscribe(onNext: {  (_) in
             let hud = MineHeaderModifyView()
-            hud.imageView.lc_setImage(with: User.currentUser().user_Img)
+            hud.imageView.lc_setImage(with: User.currentUser().userImg)
         }).disposed(by: rx.disposeBag)
         
         headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in

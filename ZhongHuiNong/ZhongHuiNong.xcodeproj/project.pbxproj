@@ -21,6 +21,10 @@
 		14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14043D652212BD840023AA11 /* SwiftPopupPresentationController.swift */; };
 		14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14043D672212BF400023AA11 /* PaySelectViewController.swift */; };
 		14043D6A2212C5300023AA11 /* PaySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14043D692212C5300023AA11 /* PaySelectView.swift */; };
+		1406D62622320F8D0090C07F /* MineSettingPayPsdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406D62522320F8D0090C07F /* MineSettingPayPsdViewController.swift */; };
+		1406D629223220780090C07F /* UserBanlance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406D628223220780090C07F /* UserBanlance.swift */; };
+		1406D62B223234C70090C07F /* MobileBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406D62A223234C70090C07F /* MobileBindingViewController.swift */; };
+		1406D62E223237060090C07F /* MobileBindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406D62D223237060090C07F /* MobileBindingView.swift */; };
 		1408745E221E45370051B7C3 /* GoodsDetailAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1408745D221E45370051B7C3 /* GoodsDetailAddressView.swift */; };
 		14087461221E56100051B7C3 /* GoodsDetailRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14087460221E56100051B7C3 /* GoodsDetailRightView.swift */; };
 		14087464221E74DA0051B7C3 /* MineMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14087463221E74DA0051B7C3 /* MineMessageViewController.swift */; };
@@ -69,7 +73,7 @@
 		144F43CC222F9F6C00218339 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F43CB222F9F6C00218339 /* File.swift */; };
 		144F43CE222FAF1400218339 /* CatagoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F43CD222FAF1400218339 /* CatagoryList.swift */; };
 		144F43D0222FC76E00218339 /* GoodsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F43CF222FC76E00218339 /* GoodsInfo.swift */; };
-		145100B02227903A00031FE2 /* FlashLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100AF2227903A00031FE2 /* FlashLoadingView.swift */; };
+		145100B02227903A00031FE2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100AF2227903A00031FE2 /* LoadingView.swift */; };
 		145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100B32227CBB800031FE2 /* Notification+Ex.swift */; };
 		145100B72227DB0700031FE2 /* StoreFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145100B62227DB0700031FE2 /* StoreFilterView.swift */; };
 		1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1451389921F8065B0038AFC6 /* WebAPI.swift */; };
@@ -286,6 +290,10 @@
 		14043D652212BD840023AA11 /* SwiftPopupPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPopupPresentationController.swift; sourceTree = "<group>"; };
 		14043D672212BF400023AA11 /* PaySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySelectViewController.swift; sourceTree = "<group>"; };
 		14043D692212C5300023AA11 /* PaySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySelectView.swift; sourceTree = "<group>"; };
+		1406D62522320F8D0090C07F /* MineSettingPayPsdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSettingPayPsdViewController.swift; sourceTree = "<group>"; };
+		1406D628223220780090C07F /* UserBanlance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBanlance.swift; sourceTree = "<group>"; };
+		1406D62A223234C70090C07F /* MobileBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileBindingViewController.swift; sourceTree = "<group>"; };
+		1406D62D223237060090C07F /* MobileBindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileBindingView.swift; sourceTree = "<group>"; };
 		1408745D221E45370051B7C3 /* GoodsDetailAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailAddressView.swift; sourceTree = "<group>"; };
 		14087460221E56100051B7C3 /* GoodsDetailRightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRightView.swift; sourceTree = "<group>"; };
 		14087463221E74DA0051B7C3 /* MineMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMessageViewController.swift; sourceTree = "<group>"; };
@@ -335,7 +343,7 @@
 		144F43CB222F9F6C00218339 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		144F43CD222FAF1400218339 /* CatagoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatagoryList.swift; sourceTree = "<group>"; };
 		144F43CF222FC76E00218339 /* GoodsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsInfo.swift; sourceTree = "<group>"; };
-		145100AF2227903A00031FE2 /* FlashLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashLoadingView.swift; sourceTree = "<group>"; };
+		145100AF2227903A00031FE2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		145100B32227CBB800031FE2 /* Notification+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ex.swift"; sourceTree = "<group>"; };
 		145100B62227DB0700031FE2 /* StoreFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterView.swift; sourceTree = "<group>"; };
 		1451389921F8065B0038AFC6 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
@@ -615,6 +623,23 @@
 			path = PaySelect;
 			sourceTree = "<group>";
 		};
+		1406D627223220650090C07F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1406D628223220780090C07F /* UserBanlance.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1406D62C223236B50090C07F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */,
+				1406D62D223237060090C07F /* MobileBindingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1408745F221E4AE20051B7C3 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -664,6 +689,7 @@
 		14151064222E66F000EA9026 /* Hud */ = {
 			isa = PBXGroup;
 			children = (
+				145100AF2227903A00031FE2 /* LoadingView.swift */,
 				14151062222E66E700EA9026 /* ProgressHUD.swift */,
 				8B25C8862231669E00A2D0C7 /* LoadingHud.swift */,
 			);
@@ -1029,7 +1055,8 @@
 			isa = PBXGroup;
 			children = (
 				1492DDB8221A9ACF00C79D88 /* PasswordLoginViewController.swift */,
-				1492DDBA221A9B7B00C79D88 /* PasswordLoginView.swift */,
+				1406D62A223234C70090C07F /* MobileBindingViewController.swift */,
+				1406D62C223236B50090C07F /* View */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -1039,6 +1066,7 @@
 			children = (
 				1411F75D21F944040076D763 /* MineViewController.swift */,
 				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
+				1406D627223220650090C07F /* Model */,
 				1492DDBD221AAEE100C79D88 /* TabCell */,
 				1468B1612215441A002B971F /* View */,
 			);
@@ -1057,6 +1085,7 @@
 			isa = PBXGroup;
 			children = (
 				149445AF222910AC0048BF65 /* MineWalletViewController.swift */,
+				1406D62522320F8D0090C07F /* MineSettingPayPsdViewController.swift */,
 				149445B1222911E90048BF65 /* MineWalletHeaderView.swift */,
 				149445B3222916530048BF65 /* MineWalletTabCell.swift */,
 				149445B5222918740048BF65 /* NoMoreFooterView.swift */,
@@ -1445,7 +1474,6 @@
 				14974BE821F710230088ABC3 /* WebViewController.swift */,
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
 				8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */,
-				145100AF2227903A00031FE2 /* FlashLoadingView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1880,12 +1908,14 @@
 				145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */,
 				14AE310F222126BD00302F89 /* MineAddressTitleView.swift in Sources */,
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
+				1406D62B223234C70090C07F /* MobileBindingViewController.swift in Sources */,
 				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
 				14043D6A2212C5300023AA11 /* PaySelectView.swift in Sources */,
 				1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */,
 				1408746B221E7AD10051B7C3 /* MineSettingTabCell.swift in Sources */,
+				1406D629223220780090C07F /* UserBanlance.swift in Sources */,
 				14F35C7F2202DB6C002122B6 /* MemberXinpinCell.swift in Sources */,
 				1468B1632215444D002B971F /* MineCenterView.swift in Sources */,
 				14C3EBCB221CF888003029EB /* DeliveryOrderInfoTabCell.swift in Sources */,
@@ -1942,6 +1972,7 @@
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
 				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
 				149445BD22291B7F0048BF65 /* MineVegetablesHeaderView.swift in Sources */,
+				1406D62E223237060090C07F /* MobileBindingView.swift in Sources */,
 				14C251082223C53B00F5CB53 /* PrivatefarmCropsModel.swift in Sources */,
 				14BBB8412230FB3400FF4AE3 /* MineAddressRowView.swift in Sources */,
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
@@ -2038,7 +2069,7 @@
 				146B74B9221E99E8005D2879 /* MineOrderViewController.swift in Sources */,
 				14F35C812202DCB7002122B6 /* BannerView.swift in Sources */,
 				14974BE721F70DF40088ABC3 /* Kingfisher+Rx.swift in Sources */,
-				145100B02227903A00031FE2 /* FlashLoadingView.swift in Sources */,
+				145100B02227903A00031FE2 /* LoadingView.swift in Sources */,
 				14ED11082216668B0021D185 /* ViewController+Ex.swift in Sources */,
 				1408745E221E45370051B7C3 /* GoodsDetailAddressView.swift in Sources */,
 				14974BEC21F710D80088ABC3 /* ActivityIndicator.swift in Sources */,
@@ -2071,6 +2102,7 @@
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
 				142CE018222CEB3B00F604B0 /* Refresh.swift in Sources */,
+				1406D62622320F8D0090C07F /* MineSettingPayPsdViewController.swift in Sources */,
 				1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */,
 				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,

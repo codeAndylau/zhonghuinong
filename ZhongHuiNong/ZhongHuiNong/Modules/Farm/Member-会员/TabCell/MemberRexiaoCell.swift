@@ -13,6 +13,15 @@ class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
     
     lazy var dataArray = ["farm_hot_1","farm_hot_2","farm_hot_3"]
     
+    var cellDidClosure: ((_ index: Int)->Void)?
+    
+    var hotsaleList: [GoodsInfo] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
@@ -43,27 +52,31 @@ class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
 extension MemberRexiaoCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataArray.count
+        return hotsaleList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberRexiaoSubCell.identifier, for: indexPath) as! MemberRexiaoSubCell
-        cell.titleLab.text = ["高山土鸡","有机野香猪","绿壳鸡蛋"][indexPath.row]
-        cell.detailLab.text = ["高山散养","山野香味","自然产卵"][indexPath.row]
+        cell.titleLab.text = hotsaleList[indexPath.row].productName
+        cell.detailLab.text = hotsaleList[indexPath.row].unit
         cell.topImg.image = UIImage(named: dataArray[indexPath.row])
+        //cell.topImg.lc_setImage(with: hotsaleList[indexPath.row])
+        //        cell.titleLab.text = ["高山土鸡","有机野香猪","绿壳鸡蛋"][indexPath.row]
+        //        cell.detailLab.text = ["高山散养","山野香味","自然产卵"][indexPath.row]
         return cell
     }
     
-    //定义每个Cell的大小
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (kScreenW - 30 - 20)/3, height: 150)
     }
     
-    //定义每个Section的四边间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .zero
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cellDidClosure?(indexPath.item)
+    }
     
 }
 

@@ -90,7 +90,7 @@ class GoodsDetailViewController: ViewController {
     // MARK: - Action
 
     func fetchGoodsInfo() {
-        WebAPITool.requestModel(WebAPI.goodsDetail(goodId), model: GoodsDetailInfo.self, complete: { [weak self] (info) in
+        WebAPITool.requestModelWithData(WebAPI.goodsDetail(goodId), model: GoodsDetailInfo.self, complete: { [weak self] (info) in
             debugPrints("商品详情信息---\(info)")
             guard let self = self else { return }
             self.goodsDetailInfo = info

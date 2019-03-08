@@ -8,6 +8,7 @@
 
 import UIKit
 
+public let wid = 1
 public let defaultId = -1
 public let kScreenS = UIScreen.main.bounds
 public let kScreenW = UIScreen.main.bounds.width
@@ -19,5 +20,5 @@ public let kNavBarH: CGFloat = IPhone_X ? 88.0 : 64.0
 public let kTabBarH: CGFloat = IPhone_X ? 83.0 : 49.0
 public let kIndicatorH: CGFloat = IPhone_X ? 34 : 0
 public let kBottomViewH: CGFloat = IPhone_X == true ? 56+kIndicatorH : 56
-
+public let defaults = UserDefaults.standard
 

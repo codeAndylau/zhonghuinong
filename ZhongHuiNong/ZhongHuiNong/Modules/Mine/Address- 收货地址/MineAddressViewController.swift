@@ -63,9 +63,9 @@ class MineAddressViewController: ViewController {
     func fetchAddressList() {
         var p = [String: Any]()
         p["user_id"] = 3261
-        p["wid"] = 5
+        p["wid"] = wid
         p["fromplat"] = "iOS"
-        WebAPITool.requestModelArray(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
         }) { (error) in

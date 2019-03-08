@@ -20,6 +20,11 @@ class LibsManager: NSObject {
         // 2. 视频播放
         setupEZOpen()
         
+        // 3. 设置默认的defaults
+        let dict: [String: Any] = [Configs.Identifier.SettingPayPsd : false]
+        defaults.register(defaults: dict)
+        
+        
     }
     
     func setupEZOpen() {

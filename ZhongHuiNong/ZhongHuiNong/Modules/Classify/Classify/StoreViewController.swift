@@ -13,22 +13,22 @@ import MJRefresh
 class StoreViewController: ViewController {
     
     // MARK: Property
+    let group = DispatchGroup()
     
-    var group = DispatchGroup()
     var currentIndexPath = IndexPath(row: 0, section: 0)
+    
+    var pageList: [Int] = [1,1,1]  // 默认page都是1
     
     var goodsList: [[GoodsInfo]] = []
     
     var catagoryList: [CatagoryList] = [] {
         didSet {
             for item in catagoryList {
-                if let id = item.id {
-                    fetchGoodsList(category_id: id)
-                }
+                self.fetchGoodsList(category_id: item.id)
             }
-            
             group.notify(queue: .main) {
-                
+                debugPrints("所有任务请求完成---mmp")
+                debugPrints("分类数量---\(self.catagoryList.count)---\(self.goodsList.count)")
                 if self.catagoryList.isEmpty || self.goodsList.isEmpty {
                     debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
                 }else {
@@ -45,7 +45,6 @@ class StoreViewController: ViewController {
                     }
                 }
             }
-            
         }
     }
     
@@ -56,6 +55,7 @@ class StoreViewController: ViewController {
         navigationItem.titleView = searchView
         navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightMsgItem
+        
         fetchCatagoryList()
     }
     
@@ -102,9 +102,6 @@ class StoreViewController: ViewController {
     }
     
     // MARK: - Lazy
-    // "store_qianggou", , "store_renquan"
-    //    lazy var leftArray = ["store_jingpin", "store_shuiguo", "store_danlei", "store_liangyou", "store_rupin", "store_tiaowei", "store_gaodian"]
-    
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
     lazy var vipItem = FarmHeaderView.loadView()
@@ -138,16 +135,22 @@ class StoreViewController: ViewController {
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
-        rightTableView.uHead = MJDIYHeader(refreshingBlock: {
-            if  let id = self.catagoryList[self.currentIndexPath.row].id {
-                self.fetchGoodsList(category_id: id, isRefresh: true)
-            }
-        })
         
+        rightTableView.uHead = MJDIYHeader(refreshingBlock: {
+            self.pageList[self.currentIndexPath.row] = 1
+            debugPrints("下拉刷新的分页数---\(self.pageList)")
+            let id = self.catagoryList[self.currentIndexPath.row].id
+            self.fetchGoodsList(category_id: id, isRefresh: true)
+        })
+
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
-            if  let id = self.catagoryList[self.currentIndexPath.row].id {
-                self.fetchGoodsList(category_id: id, isRefresh: true)
-            }
+            
+            //let page = self.pageList[self.currentIndexPath.row]
+            
+            self.pageList[self.currentIndexPath.row] += 1
+            debugPrints("上啦刷新的分页数---\(self.pageList)")
+            let id = self.catagoryList[self.currentIndexPath.row].id
+            self.fetchGoodsList(category_id: id, isRefresh: true)
         })
         
         return rightTableView
@@ -164,8 +167,8 @@ class StoreViewController: ViewController {
     /// 获取分类列表
     func fetchCatagoryList() {
         var p = [String: Any]()
-        p["wid"] = 5
-        WebAPITool.requestModelArray(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
+        p["wid"] = wid
+        WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.catagoryList = list
         }) { (error) in
@@ -175,16 +178,21 @@ class StoreViewController: ViewController {
     
     /// 分类id,如果为0，则取所有分类的商品数据
     func fetchGoodsList(category_id: Int, isRefresh: Bool = false) {
+        
         var p = [String: Any]()
         p["category_id"] = category_id
         p["keywords"] = ""
         p["page_size"] = 10
-        p["page_index"] = 1
-        p["wid"] = 5
-        debugPrints("分类id---\(category_id)")
+        p["page_index"] = isRefresh == true ? pageList[currentIndexPath.row] : 1
+        p["wid"] = wid
+        
+        debugPrints("请求的分页数---\(p)")
+        
         group.enter()
-        WebAPITool.requestModelArray(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
+            self.group.leave()
+            debugPrints("请求成功商品分类对应商品---\(list.count)")
             if isRefresh {
                 self.rightTableView.uHead.endRefreshing()
                 self.rightTableView.uFoot.endRefreshing()
@@ -199,10 +207,17 @@ class StoreViewController: ViewController {
             }else {
                 self.goodsList.append(list)
             }
-            self.group.leave()
+            debugPrints("添加了几次---\(category_id)")
         }) { (error) in
             self.group.leave()
-            debugPrints("商品分类列表---\(error)")
+            self.goodsList.append([])
+            
+            if isRefresh {
+                self.rightTableView.uHead.endRefreshing()
+                self.rightTableView.uFoot.endRefreshing()
+            }
+            
+            debugPrints("商品分类对应商品---\(error)")
         }
     }
 }
@@ -212,6 +227,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if leftTableView == tableView {
+            debugPrints("数据测试---\(catagoryList.count)---\(goodsList.count)---\(currentIndexPath.row)")
             return catagoryList.count
         } else {
             return goodsList[currentIndexPath.row].count
@@ -242,6 +258,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if leftTableView == tableView {
+            
             if currentIndexPath != indexPath {
                 let cell = tableView.cellForRow(at: currentIndexPath) as? StoreLeftCell
                 cell?.isShow = false
@@ -252,14 +269,20 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             
             currentIndexPath = indexPath
             leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
-            rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             rightTableView.reloadData()
+            
+            // FIXME: 没有数据的时候 会造成崩溃
+            //rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            
         }
         
         if rightTableView == tableView {
-            let goodId = goodsList[indexPath.row][indexPath.row].id
+            let goodId = goodsList[currentIndexPath.row][indexPath.row].id
             debugPrints("点击对应的商品id----\(goodId)")
             self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
         }
+        
     }
+    
 }
+

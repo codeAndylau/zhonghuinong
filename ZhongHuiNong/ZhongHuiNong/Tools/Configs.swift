@@ -16,6 +16,7 @@ struct Configs {
     }
     
     struct Identifier {
+        static let SettingPayPsd = "SettingPayPsd"
         static let WeChat_AppId = "wxaa1245f77008b79f"
         static let weChat_Secret = "047f3fab277cff56a56dd5ae8278b0f9"
         static let Bundle_ID = "com.cnkj.SmartFarm"

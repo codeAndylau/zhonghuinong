@@ -55,7 +55,7 @@ class MineHeaderView: View {
     }
     
     let cardNameLab = Label().then { (lab) in
-        lab.text = "会员卡(张)"
+        lab.text = "蔬菜斤数"
         lab.textColor = UIColor.hexColor(0x757882)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 13)
@@ -201,7 +201,7 @@ class MineHeaderView: View {
     var user: User = User() {
         didSet {
             nameLab.text = user.username
-            headerBtn.kf.setImage(with: URL(string: user.user_Img), for: .normal, placeholder: UIImage(named: "mine_default_ portrait"))
+            headerBtn.kf.setImage(with: URL(string: user.userImg), for: .normal, placeholder: UIImage(named: "mine_default_ portrait"))
             phoneLab.text = ""
             if user.isVip {
                 memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)

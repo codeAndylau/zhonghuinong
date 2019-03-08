@@ -20,11 +20,11 @@ struct GoodsInfo: Mappable {
     var descriptionField : String = ""
     var expiryEndDate : String = ""
     var focusImgUrl : String = ""
-    var goodreputationNum : Int = defaultId
+    var goodreputation_num : Int = defaultId
     var hotsale : Bool = false
     var id : Int = defaultId
     var latest : Bool = false
-    var linkUrl : String = ""
+    var link_url : String = ""
     var marketPrice : Int = defaultId
     var ordersNum : Int = defaultId
     var productName : String = ""
@@ -32,13 +32,13 @@ struct GoodsInfo: Mappable {
     var productionDate : String = ""
     var recommended : Bool = false
     var salePrice : Int = defaultId
-    var seoDescription : String = ""
-    var seoKeywords : String = ""
-    var seoTitle : String = ""
-    var shareNum : Int = defaultId
+    var seo_description : String = ""
+    var seo_keywords : String = ""
+    var seo_title : String = ""
+    var share_num : Int = defaultId
     var shortDesc : String = ""
     var sku : String = ""
-    var sortId : Int = defaultId
+    var sort_id : Int = defaultId
     var specialOffer : Bool = false
     var stock : Int = defaultId
     var thumbnailsUrll : String = ""
@@ -61,11 +61,11 @@ struct GoodsInfo: Mappable {
         descriptionField <- map["description"]
         expiryEndDate <- map["expiryEndDate"]
         focusImgUrl <- map["focusImgUrl"]
-        goodreputationNum <- map["goodreputation_num"]
+        goodreputation_num <- map["goodreputation_num"]
         hotsale <- map["hotsale"]
         id <- map["id"]
         latest <- map["latest"]
-        linkUrl <- map["link_url"]
+        link_url <- map["link_url"]
         marketPrice <- map["marketPrice"]
         ordersNum <- map["orders_num"]
         productName <- map["productName"]
@@ -73,13 +73,13 @@ struct GoodsInfo: Mappable {
         productionDate <- map["productionDate"]
         recommended <- map["recommended"]
         salePrice <- map["salePrice"]
-        seoDescription <- map["seo_description"]
-        seoKeywords <- map["seo_keywords"]
-        seoTitle <- map["seo_title"]
-        shareNum <- map["share_num"]
+        seo_description <- map["seo_description"]
+        seo_keywords <- map["seo_keywords"]
+        seo_title <- map["seo_title"]
+        share_num <- map["share_num"]
         shortDesc <- map["shortDesc"]
         sku <- map["sku"]
-        sortId <- map["sort_id"]
+        sort_id <- map["sort_id"]
         specialOffer <- map["specialOffer"]
         stock <- map["stock"]
         thumbnailsUrll <- map["thumbnailsUrll"]

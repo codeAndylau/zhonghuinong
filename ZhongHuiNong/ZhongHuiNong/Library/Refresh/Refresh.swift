@@ -156,7 +156,7 @@ class MJDIYHeader: MJRefreshHeader {
     override var pullingPercent: CGFloat {
         didSet
         {
-            debugPrint("下啦的比例---\(pullingPercent)")
+            //debugPrint("下啦的比例---\(pullingPercent)")
         }
     }
     
@@ -262,7 +262,7 @@ class MJDIYAutoFooter: MJRefreshBackFooter {
     override var pullingPercent: CGFloat {
         didSet
         {
-            debugPrint("下啦的比例---\(pullingPercent)")
+            //debugPrint("下啦的比例---\(pullingPercent)")
         }
     }
     

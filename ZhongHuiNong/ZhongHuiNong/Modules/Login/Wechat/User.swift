@@ -12,19 +12,27 @@ import ObjectMapper
 /// 用户token
 struct User: Mappable, Codable {
     
-    var userId = -1
-    var username = ""
-    var user_Img = ""
-    var isVip = false
+    var headimgUrl : String  = ""
+    var isPayPassword : Bool = false
+    var isVip : Bool = false
+    var mobile : String = ""
+    var nickname : String = ""
+    var userId : Int = defaultId
+    var userImg : String = ""
+    var username : String = ""
     
     init() {}
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
+        headimgUrl <- map["headimg_url"]
+        isPayPassword <- map["isPayPassword"]
         isVip <- map["isVip"]
+        mobile <- map["mobile"]
+        nickname <- map["nickname"]
         userId <- map["userId"]
+        userImg <- map["user_Img"]
         username <- map["username"]
-        user_Img <- map["user_Img"]
     }
 
 }
@@ -46,7 +54,7 @@ extension User {
     static func hasUser() -> Bool {
         let user = User.currentUser()
         debugPrints("用户信息---\(String(describing: user))")
-        if user.userId == -1 && user.username == "" && user.user_Img == "" && user.isVip == false {
+        if user.userId == -1 && user.username == "" && user.userImg == "" && user.isVip == false {
             return false
         }
         return true
@@ -70,7 +78,7 @@ extension User: Equatable {
         return (lhs.isVip    == rhs.isVip &&
                 lhs.userId   == rhs.userId &&
                 lhs.username == rhs.username &&
-                lhs.user_Img == rhs.user_Img)
+                lhs.userImg == rhs.userImg)
     }
     
 }

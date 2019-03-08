@@ -34,9 +34,7 @@ class PayPasswordView: View {
         addSubview(cancelBtn)
         addSubview(payLab)
         addSubview(boxView)
-        
-        
-        
+
         //        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification).subscribe(onNext: { (notification) in
         //            let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         //            let value = userInfo.object(forKey: UIResponder.keyboardFrameEndUserInfoKey)

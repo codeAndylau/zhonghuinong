@@ -31,7 +31,7 @@ class Navigator {
         case delivery
         case privateFarm
         case flash  // 抢购
-        case hot    // 热销
+        case hot(list: [CatagoryList])    // 热销
         case scan   // 扫码溯源
         
         // 分类
@@ -79,7 +79,10 @@ class Navigator {
         case .delivery: return DeliveryViewController()
         case .privateFarm: return PrivatefarmViewController()
         case .flash: return FlashViewController()
-        case .hot: return HotViewController()
+        case .hot(let list):
+            let vc = HotViewController()
+            vc.catagoryList = list
+            return vc
         case .scan: return ScanViewController()
             
             

@@ -140,14 +140,14 @@ class MineAddressModifyViewController: ViewController {
         params["youbian"] = "000000"
         params["isdefault"] = "\(isDefault)"
         params["address_id"] = "\(addressInfo.id)"
-        params["wid"] = "5"
+        params["wid"] = "\(wid)"
         params["fromplat"] = "iOS"
 
         debugPrints("用户地址参数---\(params)")
 
         HudHelper.showWaittingHUD(msg: "请求中...")
         WebAPITool.request(.editAddress(params), complete: { (value) in
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             let code = value["code"].intValue
             if code == 0 {
                 delay(by: 0.5, closure: {
@@ -160,7 +160,7 @@ class MineAddressModifyViewController: ViewController {
             debugPrints("编辑用户地址信息---\(value)")
         }) { (error) in
             debugPrints("编辑用户地址信息出错---\(error)")
-            HudHelper.hideHUD(FromView: nil)
+            HudHelper.hideHUD()
             ZYToast.showCenterWithText(text: error)
         }
 
@@ -174,12 +174,12 @@ class MineAddressModifyViewController: ViewController {
             var params = [String: Any]()
             params["address_id"] = self.addressInfo.id
             params["user_id"] = "3261"
-            params["wid"] = 5
+            params["wid"] = wid
             
             HudHelper.showWaittingHUD(msg: "请稍后...")
             WebAPITool.request(WebAPI.deleteUserAddress(params), complete: { (value) in
                 debugPrints("删除用户地址信息---\(value)")
-                HudHelper.hideHUD(FromView: nil)
+                HudHelper.hideHUD()
                 let code = value["code"].intValue
                 if code == 0 {
                     delay(by: 0.5, closure: {
@@ -191,7 +191,7 @@ class MineAddressModifyViewController: ViewController {
                 }
             }) { (error) in
                 debugPrints("删除用户地址信息---\(error)")
-                HudHelper.hideHUD(FromView: nil)
+                HudHelper.hideHUD()
                 ZYToast.showCenterWithText(text: error)
             }
         }

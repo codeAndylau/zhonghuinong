@@ -31,6 +31,16 @@ enum WebAPI {
     case userAddressList(_ p: [String: Any])
     /// 删除用户的收获地址
     case deleteUserAddress(_ p: [String: Any])
+    /// 验证支付密码
+    case validationPyaPassword(_ p: [String: Any])
+    /// 设置支付密码
+    case settingPayPassword(_ p: [String: Any])
+    /// 用户的额度信息
+    case userBalance(_ p: [String: Any])
+    /// 发送验证码
+    case sendCode(_ p: [String: Any])
+    /// 绑定手机
+    case verifyCode(_ p: [String: Any])
     
     // MARK: Farm-农场接口
     /// 私家农场
@@ -53,6 +63,12 @@ enum WebAPI {
     case goodsList(_ p: [String: Any])
     /// 商品详情页
     case goodsDetail(_ id: Int)
+    /// 首页热销商品
+    case goodsHotsaleList(_ p: [String: Any])
+    /// 首页爆款推荐
+    case goodsRecommendList(_ p: [String: Any])
+    
+    
     
     
     
@@ -63,7 +79,7 @@ extension WebAPI: TargetType, WebAPIType {
     
     var baseURL: URL {
         switch self {
-        case .wechatLogin(_),.mobileLogin(_),
+        case .wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_),
              .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_):
             return Configs.Network.debugUrl
         default:
@@ -74,13 +90,18 @@ extension WebAPI: TargetType, WebAPIType {
     var path: String {
         switch self {
             
+        case .verifyCode(_): return "/api/User/verifycode"
+        case .sendCode(_): return "/api/User/sendcode"
+        case .userBalance(_): return "/api/User/userbalance"
+        case .validationPyaPassword(_): return "/api/User/paymentpassword"
+        case .settingPayPassword(_): return "/api/User/paymentpassword"
+        case .wechatLogin(_): return "/api/User/wechatapp"
+        case .mobileLogin(_): return "/api/User/mobile"
+            
         case .editAddress(_): return "/api/User/EditAddressV2"
         case .userAddressDetail(_): return "/api/User/UserAddressDetailV2"
         case .userAddressList(_): return "/api/User/UserAddressListV2"
         case .deleteUserAddress(_): return "/api/User/DeleteUserAddress"
-            
-        case .wechatLogin(_): return "/api/User/wechatapp"
-        case .mobileLogin(_): return "/api/User/mobile"
             
         case .farmLand(_): return "/api/Farm/land"
         case .farmSensordata(_): return "/api/Farm/sensordata"
@@ -92,6 +113,8 @@ extension WebAPI: TargetType, WebAPIType {
         case .catagoryList(_): return "/api/Shop/CatagoryList"
         case .goodsList(_): return "/api/Shop/GoodsList"
         case .goodsDetail(let id): return "/api/Shop/GoodsDetail/\(id)"
+        case .goodsHotsaleList(_): return "/api/Shop/GoodsListHotsale"
+        case .goodsRecommendList(_): return "/api/Shop/GoodsListRecommend"
             
         default:
             return ""
@@ -100,7 +123,7 @@ extension WebAPI: TargetType, WebAPIType {
     
     var method: Moya.Method {
         switch self {
-        case .wechatLogin(_), .mobileLogin(_), .farmWater(_), .farmFertilize(_), .farmKillbug(_):
+        case .wechatLogin(_), .mobileLogin(_), .farmWater(_), .farmFertilize(_), .farmKillbug(_), .settingPayPassword(_), .verifyCode(_):
             return .post
         default:
             return .get
@@ -115,19 +138,31 @@ extension WebAPI: TargetType, WebAPIType {
         switch self {
         case .wechatLogin(let p):
             return .requestData(dictToData(dict: p)) //参数放在HttpBody中
-        case .editAddress(let p),
-             .userAddressDetail(let p),
-             .userAddressList(let p),
-             .deleteUserAddress(let p),
-             .mobileLogin(let p),
-             .farmLand(let p),
-             .farmSensordata(let p),
-             .farmWater(let p),
-             .farmFertilize(let p),
-             .farmKillbug(let p),
-             .homeBannerList(let p),
-             .catagoryList(let p),
-             .goodsList(let p):
+        case
+        
+        .sendCode(let p),
+        .verifyCode(let p),
+        .userBalance(let p),
+        .settingPayPassword(let p),
+        .validationPyaPassword(let p),
+        .editAddress(let p),
+        .userAddressDetail(let p),
+        .userAddressList(let p),
+        .deleteUserAddress(let p),
+        .mobileLogin(let p),
+        
+        .farmLand(let p),
+        .farmSensordata(let p),
+        .farmWater(let p),
+        .farmFertilize(let p),
+        .farmKillbug(let p),
+        
+        .homeBannerList(let p),
+        .catagoryList(let p),
+        .goodsList(let p),
+        .goodsHotsaleList(let p),
+        .goodsRecommendList(let p):
+            
             return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
         case .goodsDetail(_):
             let p: [String: Any] = ["wid": 5, "fromplat": "iOS"]
@@ -175,20 +210,17 @@ struct WebAPITool {
     static let provider = MoyaProvider<WebAPI>(requestClosure: timeoutClosure)
     static let LoadingProvider = MoyaProvider<WebAPI>(requestClosure: timeoutClosure, plugins: [LoadingPlugin])
     
-    /// 请求text接口
+    /// 测试接口
     static func requestText(_ target: WebAPI, complete: @escaping (JSON) ->Void, failure: @escaping (String) ->Void) {
-        provider.request(target) { (result) in
+        let request = provider.request(target) { (result) in
             switch result {
             case let .success(response):
-                do {
-                    debugPrints("通用接口数据---\(response)")
-                }catch let error {
-                    failure(error.localizedDescription) // 服务器连接成功，但数据返回错误（同时会返回错误信息）
-                }
+                debugPrints("text接口数据---\(response)")
             case let .failure(error):
                 failure(error.localizedDescription) // 服务器连接不上，网络异常等（同时会返回错误信息。必要的话，还可以在此增加自动重新请求的机制。）
             }
         }
+        debugPrints("测试接口的url---\(request)")
     }
     
     /// 请求通用接口
@@ -199,7 +231,7 @@ struct WebAPITool {
                 do {
                     let _ = try response.filterSuccessfulStatusCodes() // 只返回200-299的成功状态吗
                     let value = try JSON(response.mapJSON())
-                    debugPrints("通用接口数据---\(response)--\(value)")
+                    debugPrints("通用接口数据----\(value)")
                     complete(value)
                 }catch let error {
                     failure(error.localizedDescription) // 服务器连接成功，但数据返回错误（同时会返回错误信息）
@@ -210,8 +242,34 @@ struct WebAPITool {
         }
     }
     
-    /// 请求JSON数据
-    static func requestJSON(_ target: WebAPI, complete: @escaping (JSON)->Void, failure: @escaping (String)->Void) {
+    /// 请求对象数据
+    static func requestModel<T: BaseMappable>(_ target:WebAPI, model: T.Type, complete: @escaping (T)->Void, failure: @escaping (String)->Void) {
+        request(target, complete: { (value) in
+            if let model = Mapper<T>().map(JSONObject: value.object) {
+                complete(model)
+            }else {
+                failure(Configs.Constant.errorInfo)
+            }
+        }) { (msg) in
+            failure(msg)
+        }
+    }
+
+    /// 请求数组对象数据
+    static func requestModelArray<T: BaseMappable>(_ target: WebAPI, model: T.Type, complete: @escaping ([T])-> Void, failure: @escaping (String)->Void) {
+        request(target, complete: { (value) in
+            if let models =  Mapper<T>().mapArray(JSONObject: value.object) {
+                complete(models)
+            }else {
+                failure(Configs.Constant.errorInfo)
+            }
+        }) { (msg) in
+            failure(msg)
+        }
+    }
+    
+    /// 请求数据WithData
+    static func requestData(_ target: WebAPI, complete: @escaping (JSON)->Void, failure: @escaping (String)->Void) {
         request(target, complete: { (value) in
             guard let _ = value.dictionaryObject else{
                 failure(Configs.Constant.errorInfo)
@@ -223,9 +281,9 @@ struct WebAPITool {
         }
     }
     
-    /// 请求对象数据
-    static func requestModel<T: BaseMappable>(_ target:WebAPI, model: T.Type, complete: @escaping (T)->Void, failure: @escaping (String)->Void) {
-        requestJSON(target, complete: { (value) in
+    /// 请求对象数据WithData
+    static func requestModelWithData<T: BaseMappable>(_ target:WebAPI, model: T.Type, complete: @escaping (T)->Void, failure: @escaping (String)->Void) {
+        requestData(target, complete: { (value) in
             if let model = Mapper<T>().map(JSONObject: value.object) {
                 complete(model)
             }else {
@@ -236,9 +294,9 @@ struct WebAPITool {
         }
     }
     
-    /// 请求数组对象数据
-    static func requestModelArray<T: BaseMappable>(_ target: WebAPI, model: T.Type, complete: @escaping ([T])-> Void, failure: @escaping (String)->Void) {
-        requestJSON(target, complete: { (value) in
+    /// 请求数组对象数据WithData
+    static func requestModelArrayWithData<T: BaseMappable>(_ target: WebAPI, model: T.Type, complete: @escaping ([T])-> Void, failure: @escaping (String)->Void) {
+        requestData(target, complete: { (value) in
             if let models =  Mapper<T>().mapArray(JSONObject: value.object) {
                 complete(models)
             }else {
@@ -249,9 +307,22 @@ struct WebAPITool {
         }
     }
     
+    /// 请求对象数据WithKey
+    static func requestModelWithKey<T: BaseMappable>(_ target: WebAPI, model: T.Type, key: String, complete: @escaping (T)-> Void, failure: @escaping (String)->Void) {
+        requestData(target, complete: { (value) in
+            if let model =  Mapper<T>().map(JSONObject: value[key].object) {
+                complete(model)
+            }else {
+                failure(Configs.Constant.errorInfo)
+            }
+        }) { (msg) in
+            failure(msg)
+        }
+    }
+    
     /// 请求数组对象数据
     static func requestModelArrayWithKey<T: BaseMappable>(_ target: WebAPI, model: T.Type, key: String, complete: @escaping ([T])-> Void, failure: @escaping (String)->Void) {
-        requestJSON(target, complete: { (value) in
+        requestData(target, complete: { (value) in
             if let models =  Mapper<T>().mapArray(JSONObject: value[key].object) {
                 complete(models)
             }else {

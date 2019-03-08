@@ -43,26 +43,14 @@ class EZNetworkTool {
         }
     }
     
-    func requestAddress() {
-        let url = "https://api.smartfarm.villagetechnology.cn/api/User/EditAddressV2"
+    func requestAddress(_ url: String, params: [String: Any]) {
         
-        var params = [String: Any]()
-        params["user_id"] = 3261  //"\(User.currentUser().userId)"
-        params["linkMan"] = "兰超"
-        params["preaddress"] = "四川省-面光源市-青羊区"
-        params["address"] = "一栋一单元"
-        params["mobile"] = "18782967728"
-        params["youbian"] = "000000"
-        params["isdefault"] = "true"
-        params["address_id"] = 0
-        params["wid"] = 5
-        params["fromplat"] = "iOS"
-        
-        let header = ["content-type" : "application/json; charset=utf-8"]
-        
-        let request = Alamofire.request(url, method: HTTPMethod.get, parameters: params, encoding: URLEncoding.default, headers: header)
+        let request = Alamofire.request(url, method: HTTPMethod.get, parameters: params, encoding: URLEncoding.default)
         debugPrints("请求的data--\(request)")
         
+//        http://212.64.91.248   /api/User/verifycode?msgid=711586707391&code=567508&userid=3266&phonenumber=18782967728
+//        http://212.64.91.248:80/api/User/verifycode?code=567508&msgid=711586707391&phonenumber=18782967728&userid=3266
+//        
         request.responseJSON { (response) in
             guard let result = response.result.value else {
                 debugPrints("fuck失败---\(String(describing: response.result.error))")
