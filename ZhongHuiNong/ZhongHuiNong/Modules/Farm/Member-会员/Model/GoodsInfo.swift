@@ -16,7 +16,7 @@ struct GoodsInfo: Mappable {
     var brandId : Int = defaultId
     var catalogId : Int = defaultId
     var categoryId : Int = defaultId
-    var costPrice : Int = defaultId
+    var costPrice : CGFloat = 0
     var descriptionField : String = ""
     var expiryEndDate : String = ""
     var focusImgUrl : String = ""
@@ -31,7 +31,7 @@ struct GoodsInfo: Mappable {
     var productCode : String = ""
     var productionDate : String = ""
     var recommended : Bool = false
-    var salePrice : Int = defaultId
+    var salePrice : CGFloat = 0
     var seo_description : String = ""
     var seo_keywords : String = ""
     var seo_title : String = ""
@@ -49,6 +49,9 @@ struct GoodsInfo: Mappable {
     var weight : Int = defaultId
     var wid : Int = defaultId
     var youjia : Int = defaultId
+    
+    var checked: Bool = true   // 默认是被选中的
+    var goodsNum: CGFloat = 1  // 默认只添加了一个
 
     init() {}
     init?(map: Map) {}

@@ -38,6 +38,7 @@ class Navigator {
         case goodsDetail(id: Int)
         
         // 菜篮
+        case shoppingOrder(list: [GoodsInfo])
         
         // 我的
         case mineMember
@@ -46,7 +47,7 @@ class Navigator {
         case mineAbout
         case mineMessage
         case mineSetting
-        case mineOrder
+        case mineOrder(index: Int)
         case mineLogistics
         case mineAddress
         case mineAddressModify(info: UserAddressInfo)
@@ -94,6 +95,12 @@ class Navigator {
             
         // 菜篮
             
+            // 购物车确认订单
+        case .shoppingOrder(let list):
+            let vc = OrderViewController()
+            vc.goodsList = list
+            return vc
+            
         // 我的
         case .mineMember: return MineMemberViewController()
         case .mineVegetables: return MineVegetablesViewController()
@@ -101,7 +108,10 @@ class Navigator {
         case .mineAbout: return MineAboutViewController()
         case .mineMessage: return MineMessageViewController()
         case .mineSetting: return MineSettingViewController()
-        case .mineOrder: return MineOrderViewController()
+        case .mineOrder(let index):
+            let vc = MineOrderViewController()
+            vc.defaultIndex = index
+            return vc
         case .mineLogistics: return MineLogisticsViewController()
         case .mineAddress: return MineAddressViewController()
         case .mineAddressModify(let info):

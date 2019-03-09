@@ -57,22 +57,22 @@ class MineViewController: TableViewController {
         
         headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineOrder, sender: self)
+            self.navigator.show(segue: .mineOrder(index: 0), sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.orderView.peisongBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineOrder, sender: self)
+            self.navigator.show(segue: .mineOrder(index: 1), sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.orderView.shouhuoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineOrder, sender: self)
+            self.navigator.show(segue: .mineOrder(index: 2), sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.orderView.orderBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineOrder, sender: self)
+            self.navigator.show(segue: .mineOrder(index: 3), sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.walletBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
@@ -97,7 +97,7 @@ class MineViewController: TableViewController {
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
-
+    
     // MARK: - Public methods
     @objc func settingAction() {
         navigator.show(segue: .mineSetting, sender: self)

@@ -186,7 +186,7 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeliveryCollectionCell.identifier, for: indexPath) as! DeliveryCollectionCell
         
-            cell.addView.addDidClosure = { [weak self] in
+            cell.addView.addDidClosure = { [weak self] num in
 
                 guard let self = self else { return }
                 
@@ -200,7 +200,7 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
                 
             }
             
-            cell.addView.minusDidClosure = { [weak self] in
+            cell.addView.minusDidClosure = { [weak self] num in
                 
                 guard let self = self else { return }
                 

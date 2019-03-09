@@ -45,7 +45,7 @@ class EZNetworkTool {
     
     func requestAddress(_ url: String, params: [String: Any]) {
         
-        let request = Alamofire.request(url, method: HTTPMethod.get, parameters: params, encoding: URLEncoding.default)
+        let request = Alamofire.request(url, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default)
         debugPrints("请求的data--\(request)")
         
 //        http://212.64.91.248   /api/User/verifycode?msgid=711586707391&code=567508&userid=3266&phonenumber=18782967728
@@ -58,8 +58,22 @@ class EZNetworkTool {
             }
             // 直接解析
             let dict = JSON(result)
-            
             debugPrints("fuck---\(dict)")
+        }
+    }
+    
+    func requestBindPhone(_ url: String,completion: @escaping (Bool) ->Void, failure: @escaping (String) ->Void) {
+        let request = Alamofire.request(url, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default)
+        debugPrints("请求的data--\(request)")
+        request.responseJSON { (response) in
+            guard let result = response.result.value else {
+                failure(String(describing: response.result.error))
+                return
+            }
+            // 直接解析
+            let dict = JSON(result)
+            debugPrints("手机绑定---\(dict)")
+            completion(dict.boolValue)    
         }
     }
     

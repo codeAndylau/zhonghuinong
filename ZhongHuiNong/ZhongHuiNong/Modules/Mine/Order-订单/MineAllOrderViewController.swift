@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXCategoryView
 
 class MineAllOrderViewController: ViewController {
 
@@ -47,4 +48,12 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
         return 165
     }
     
+}
+
+
+extension MineAllOrderViewController: JXCategoryListContentViewDelegate {
+    
+    func listView() -> UIView { return self.view }
+    func listDidAppear() {}
+    func listDidDisappear() {}
 }

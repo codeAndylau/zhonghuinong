@@ -18,7 +18,7 @@ struct GoodsDetailInfo: Mappable {
     var brandId : Int = defaultId
     var catalogId : Int = defaultId
     var categoryId : Int = defaultId
-    var costPrice : Int = defaultId
+    var costPrice : CGFloat = 0
     var descriptionField : String = ""
     var expiryEndDate : String = ""
     var focusImgUrl : String = ""
@@ -32,7 +32,7 @@ struct GoodsDetailInfo: Mappable {
     var productCode : String = ""
     var productionDate : String = ""
     var recommended : Bool = false
-    var salePrice : Int = defaultId
+    var salePrice : CGFloat = 0
     var seoDescription : String = ""
     var seoKeywords : String = ""
     var seoTitle : String = ""

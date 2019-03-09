@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Kingfisher
+import Result
 
 class GoodsDetailViewController: ViewController {
 
@@ -26,7 +28,6 @@ class GoodsDetailViewController: ViewController {
     }
     
     // MARK: - Override
-    
     override func makeUI() {
         super.makeUI()
         statusBarStyle.accept(true)
@@ -82,7 +83,10 @@ class GoodsDetailViewController: ViewController {
         view.delegate = self
         view.tableHeaderView = headerView
         view.showsVerticalScrollIndicator = false
-        view.register(DeliveryTabCell.self, forCellReuseIdentifier: DeliveryTabCell.identifier)
+        view.register(GoodsDetailImgTabCell.self, forCellReuseIdentifier: GoodsDetailImgTabCell.identifier)
+        view.estimatedRowHeight = 100
+        view.rowHeight = UITableView.automaticDimension
+        
         return view
     }()
     
@@ -104,16 +108,47 @@ class GoodsDetailViewController: ViewController {
 extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 16
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DeliveryTabCell.identifier, for: indexPath) as! DeliveryTabCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: GoodsDetailImgTabCell.identifier, for: indexPath) as! GoodsDetailImgTabCell
+        let url = "https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E4%B8%8A%E6%B5%B7%E9%9D%92.jpg"
+        cell.imgView.lc_setImage(with: url)
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        let url = "https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E4%B8%8A%E6%B5%B7%E9%9D%92.jpg"
+        return calculteCellH(imgUrl: url)
+    }
+    
+    func calculteCellH(imgUrl: String) -> CGFloat {
+        
+        var cellH: CGSize = CGSize.zero
+        let cachedImg = ImageCache.default.retrieveImageInDiskCache(forKey: imgUrl)
+        
+        if let img = cachedImg {
+            debugPrints("图片缓存的高度---\(img.size.height)")
+            cellH = img.size
+        }else {
+            // 利用 Kingfisher 框架提供的功能下载图片
+            let url = URL(string: imgUrl)!
+            
+            ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (img, error, url, data) in
+                guard img != nil else {return }
+                ImageCache.default.store(img!, original: nil, forKey: imgUrl, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: {
+                    let cachedImg = ImageCache.default.retrieveImageInDiskCache(forKey: imgUrl)
+                    if let img = cachedImg {
+                        debugPrints("图片下载的高度---\(img.size.height)")
+                        cellH = img.size
+                    }
+                })
+            }
+        }
+        debugPrints("图片的缩放比例\(cellH.height/cellH.width*kScreenW)")
+        return cellH.height/cellH.width*kScreenW
     }
     
 }

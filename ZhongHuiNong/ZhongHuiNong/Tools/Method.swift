@@ -331,3 +331,14 @@ public func dictToData(dict: [String: Any]) -> Data {
     debugPrints("转换的data---\(data!)")
     return data!
 }
+
+
+/// 保留几位小数
+///
+/// - Parameters:
+///   - index: 保留位数
+///   - text: 字符串
+/// - Returns: 字符串
+public func Keepfigures(_ index: Int = 2, text: CGFloat) -> String {
+     return String(format: "%.\(index)f", text)
+}

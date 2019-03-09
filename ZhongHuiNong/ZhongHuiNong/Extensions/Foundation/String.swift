@@ -9,9 +9,9 @@
 import Foundation
 
 extension String {
-
-   static let ddd = localized("dd")
     
+    static let ddd = localized("dd")
+
 }
 
 extension String {

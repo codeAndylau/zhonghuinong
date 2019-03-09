@@ -10,6 +10,12 @@ import UIKit
 
 class OrderViewController: TableViewController {
 
+    var goodsList: [GoodsInfo] = [] {
+        didSet {
+            debugPrints("购物车的个数---\(goodsList)---\(goodsList.count)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

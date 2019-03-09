@@ -115,6 +115,8 @@ class WechatLoginViewController: ViewController {
                 parameters["country"] = dict["country"].stringValue
                 parameters["province"] = dict["province"].stringValue
                 parameters["headimgurl"] = dict["headimgurl"].stringValue
+            
+                debugPrints("微信登录参数---\(parameters)")
                 
                 self.wechatLogin(parameters)
                 
@@ -139,13 +141,12 @@ class WechatLoginViewController: ViewController {
     
     // 4. 通过获取微信用户信息后 请求微信登录
     func wechatLogin(_ parameters: [String: Any]) {
-        
         HudHelper.showWaittingHUD(msg: "登录中...")
         WebAPITool.request(WebAPI.wechatLogin(parameters), complete: { (value) in
+            HudHelper.hideHUD()
             if let user = Mapper<User>().map(JSONObject: value.object) {
                 debugPrints("微信登录的user--\(user)")
                 user.save()
-                HudHelper.hideHUD()
                 mainQueue {
                     self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
                 }
@@ -153,13 +154,9 @@ class WechatLoginViewController: ViewController {
                 ZYToast.showCenterWithText(text: "登录失败!")
             }
         }) { (error) in
+            HudHelper.hideHUD()
             ZYToast.showCenterWithText(text: "登录失败!")
         }
-        
-        /*
-         let noticeBar = NoticeBar(title: "数据解析失败!", defaultType: .info)
-         noticeBar.show(duration: 1.5, completed: nil)
-         */
     }
     
 }

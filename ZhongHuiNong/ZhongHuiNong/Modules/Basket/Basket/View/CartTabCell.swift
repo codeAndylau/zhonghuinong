@@ -10,13 +10,16 @@ import UIKit
 
 class CartTabCell: StoreRightCell {
     
+    let addView = AddSelectedView()
+    
     lazy var selectBtn: Button = {
         let btn = Button(type: UIButton.ButtonType.custom)
         btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_selected"), for: .selected)
+        btn.isSelected = false
+        btn.addTarget(self, action: #selector(selectedAction), for: UIControl.Event.touchUpInside)
         return btn
     }()
-    
-    let addView = AddSelectedView()
     
     override func makeUI() {
         addSubview(selectBtn)
@@ -67,6 +70,22 @@ class CartTabCell: StoreRightCell {
             make.width.equalTo(70)
             make.height.equalTo(25)
         }
+    }
+    
+    var selectBtnClosure: (()->Void)?
+    
+    var goodsInfo: GoodsInfo = GoodsInfo() {
+        didSet {
+            ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
+            titleLab.text = goodsInfo.productName
+            priceLab.text = "\(goodsInfo.salePrice)"
+            discountLab.text = "\(goodsInfo.costPrice)"
+            selectBtn.isSelected = goodsInfo.checked
+        }
+    }
+    
+    @objc func selectedAction() {
+        selectBtnClosure?()
     }
 
 }

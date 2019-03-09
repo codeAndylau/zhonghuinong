@@ -95,7 +95,9 @@ class StoreViewController: ViewController {
             
             self.currentIndexPath = indexPath
             self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
-            self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            
+            // FIXME: 没有数据的时候 会造成崩溃
+            //self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
         }).disposed(by: rx.disposeBag)
         

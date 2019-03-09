@@ -52,7 +52,7 @@ class EZPlayerView: UIView {
             if newValue != nil {
                 for view in newValue!.subviews {
                     if view.tag != 0 {
-                        view.isHidden = true // 这里用于cell播放时，隐藏播放按钮
+                        //view.isHidden = true // 这里用于cell播放时，隐藏播放按钮
                     }
                 }
             }
@@ -62,7 +62,7 @@ class EZPlayerView: UIView {
             if oldValue != nil && oldValue != fatherView {
                 for view in oldValue!.subviews {     // 当前播放器的tag为0
                     if view.tag != 0 {
-                        view.isHidden = false           // 显示cell上的播放按钮
+                        //view.isHidden = false           // 显示cell上的播放按钮
                     }
                 }
             }
@@ -114,13 +114,15 @@ class EZPlayerView: UIView {
         let v = EZPlayerControlView(frame: self.bounds, fullScreen: false)
         return v
     }()
+    
+    var playStatus: ((Bool)->Void)?
 
 }
 
 // MARK: 播放方法
 extension EZPlayerView {
     
-    func playVideoWith(_ url: String?, containView: UIView?) {
+    func playVideoWith(_ url: String?, containView: UIView?, complete: @escaping (Bool) ->Void) {
         
         self.playUrl = url
         
@@ -131,6 +133,8 @@ extension EZPlayerView {
         layouSubviews()
         addNotificationAndObserver()
         addUserActionBlock()
+        
+        playStatus = complete
     }
     
     func layouSubviews() {
@@ -222,9 +226,11 @@ extension EZPlayerView {
     
     func releasePlayer() {
         if self.player != nil {
+            self.playControlView.removeFromSuperview()
             self.player.previewView.removeFromSuperview()
             self.player.release()
             self.player = nil
+            self.removeFromSuperview()
             debugPrints("视频已经释放掉了")
         }
     }
@@ -326,22 +332,24 @@ extension EZPlayerView: EZUIPlayerDelegate {
     func ezuiPlayer(_ player: EZUIPlayer!, didPlayFailed error: EZUIError!) {
         let status = error.errorString
         guard let errorString = status else { return }
-        ZYToast.showCenterWithText(text: "播放失败!")
+        VideoError.showTip(rawValue: errorString)
         releasePlayer()
+        playStatus?(false)
     }
     
     // 播放成功
     func ezuiPlayerPlaySucceed(_ player: EZUIPlayer!) {
         debugPrints("视频播放成功")
+        playStatus?(true)
     }
     
     // 播放器回调返回视频宽高
     func ezuiPlayer(_ player: EZUIPlayer!, previewWidth pWidth: CGFloat, previewHeight pHeight: CGFloat) {
         
-        let ratio = pWidth/pHeight
-        let destWidth = frame.width
-        let destHeight = destWidth/ratio
-        //self.player.setPreviewFrame(CGRect(x: 0, y: player.previewView.frame.minY, width: destWidth, height: destHeight))
+//        let ratio = pWidth/pHeight
+//        let destWidth = frame.width
+//        let destHeight = destWidth/ratio
+//        self.player.setPreviewFrame(CGRect(x: 0, y: player.previewView.frame.minY, width: destWidth, height: destHeight))
     }
     
     // 播放器准备完成回调
@@ -360,4 +368,41 @@ extension EZPlayerView: EZUIPlayerDelegate {
     func ezuiPlayerPlayTime(_ osdTime: Date!) {
         
     }
+}
+
+enum VideoError: String {
+    
+    case UE001  // accesstoken异常或失效，需要重新获取accesstoken，并传入到sdk
+    case UE002  // appkey和AccessToken不匹配,建议更换appkey或者AccessToken
+    case UE004  // 通道不存在，设备参数错误，建议重新获取播放地址
+    case UE005  // 设备不存在，设备参数错误，建议重新获取播放地址
+    case UE006  // 参数错误，建议重新获取播放地址
+    case UE007  // 播放地址格式错误，建议重新获取播放地址
+    case UE101  // 设备连接数过大，升级设备固件版本,海康设备可咨询客服获取升级流程
+    case UE102  // 设备不在线，确认设备上线之后重试
+    case UE103  // 播放失败，请求连接设备超时，检测设备网路连接是否正常
+    case UE104  // 视频验证码错误，建议重新获取url地址增加验证码
+    case UE105  // 视频播放失败
+    case UE106  // 当前账号开启了终端绑定，只允许指定设备登录操作
+    case UE107  // 设备信息异常为空，建议重新获取播放地址
+    case UE108  // 未查找到录像文件
+    case UE109  // 取流并发路数限制
+    
+    static func showTip(rawValue: String) {
+        
+        // 通过原始值创建枚举值
+        if let value = VideoError(rawValue: rawValue) {
+            switch value {
+            case .UE004:
+                ZYToast.showCenterWithText(text: "通道不存在，设备参数错误", duration: 1.5)
+            case .UE006:
+                ZYToast.showCenterWithText(text: "设备不存在，设备参数错误", duration: 1.5)
+            case .UE104:
+                ZYToast.showCenterWithText(text: "视频验证码错误", duration: 1.5)
+            default:
+                ZYToast.showCenterWithText(text: "视频播放失败", duration: 1.5)
+            }
+        }
+    }
+    
 }

@@ -8,10 +8,14 @@
 
 import UIKit
 
+/// 购物车
 class BasketViewController: TableViewController {
-
-    var isEmpty = false
-    var num = 0
+    
+    var cartList: [GoodsInfo] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
 
     override func makeUI() {
         super.makeUI()
@@ -22,44 +26,182 @@ class BasketViewController: TableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CartTabCell.self, forCellReuseIdentifier: CartTabCell.identifier)
-        tableView.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: {
-            [weak self] in self?.loadData(true)
-        }) 
+        tableView.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: { })
+        
+        tableView.uHead = MJDIYHeader(refreshingBlock: {
+            self.fetchShopingCartList(isRefresh: true)
+        })
+        
         view.addSubview(settleView)
+        
+        fetchShopingCartList()
     }
 
     override func bindViewModel() {
         super.bindViewModel()
         
         settleView.settlementBtn.rx.tap.subscribe(onNext: { [weak self] in
-            debugPrints("button Tapped")
-            let order = OrderViewController()
-            self?.navigationController?.pushViewController(order, animated: true)
+            guard let self = self else { return }
+            
+            var list: [GoodsInfo] = []
+            
+            for item in self.cartList {
+                if item.checked {
+                    
+                }
+                
+            }
+            
+            
+            self.navigator.show(segue: .shoppingOrder(list: self.cartList), sender: nil)
         }).disposed(by: rx.disposeBag)
         
-        loadData()
+        settleView.selectBtn.rx.tap.subscribe(onNext: { [weak self] in
+            self?.settleViewAllSelectAction()
+        }).disposed(by: rx.disposeBag)
+        
     }
+
     
-    func loadData(_ more: Bool = false) {
-        tableView.uempty?.allowShow = true
-        if more {
-            num = 3
-            tableView.reloadData()
+    // MARK: - Lazy
+    lazy var cartItem = BarButtonItem.cartItem()
+    
+    lazy var emptyView = EmptyView.loadView()
+    
+    lazy var settleView = SettlementView.loadView()
+    
+    lazy var sectionView = CartSectionHeaderView.loadView()
+    
+    lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
+    
+    // MARK: - Public methods
+    
+    var isType = false
+    
+    @objc func messageAction() {
+        
+        isType = !isType
+        if isType {
+            settleView.type = .edit
+        }else {
+            settleView.type = .normal
+        }
+        
+   }
+    
+    /// 热销
+    func fetchShopingCartList(isRefresh: Bool = false) {
+        
+        var p = [String: Any]()
+        p["category_id"] = 0
+        p["page_size"] = 10
+        p["page_index"] = 1
+        p["wid"] = wid
+        
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+            debugPrints("获取热销列表---\(list.count)")
+            guard let self = self else { return }
+            if isRefresh {
+                self.cartList.removeAll()
+            }
+            self.cartList = list
+            self.calculateGoodsPrice()
+            self.checkSelectStatus()
+        }) { (error) in
+            debugPrints("获取热销列表失败---\(error)")
         }
         
     }
     
-    // MARK: - Lazy
-    lazy var cartItem = BarButtonItem.cartItem()
-    lazy var emptyView = EmptyView.loadView()
-    lazy var settleView = SettlementView.loadView()
-    lazy var sectionView = CartSectionHeaderView.loadView()
-    lazy var messageItem = BarButtonItem(image: UIImage(named: "mine_messge"), target: self, action: #selector(messageAction))
+    // MARK: - 购物车购买逻辑
     
-    // MARK: - Public methods
+    /// 结算时图全选
+    func settleViewAllSelectAction() {
+        
+        settleView.selectBtn.isSelected = !settleView.selectBtn.isSelected
+        
+        // 所有商品取消选中和全选
+        if settleView.selectBtn.isSelected {
+            for i in 0..<cartList.count {
+                var model = cartList[i]
+                model.checked = true
+                cartList[i] = model
+            }
+        }else {
+            for i in 0..<cartList.count {
+                var model = cartList[i]
+                model.checked = false
+                cartList[i] = model
+            }
+        }
+        
+        tableView.reloadData()
+        calculateGoodsPrice()
+        
+    }
     
-    @objc func messageAction() {
-        sectionView.titleLab.text = "共12件商品"
+    /// 价格的计算 和 商品总计个数
+    func calculateGoodsPrice() {
+        
+        var salePrice: CGFloat = 0
+        var costPrice: CGFloat = 0
+        
+        var num = 0
+        
+        cartList.forEach { (item) in
+            if item.checked {
+                costPrice += item.costPrice * item.goodsNum
+                salePrice += item.salePrice * item.goodsNum
+                num += Int(item.goodsNum)
+            }
+        }
+        
+        debugPrints("销售价格和成本价格总和----\(Keepfigures(text: salePrice))---\(Keepfigures(text: costPrice))")
+        
+        settleView.memberPriceLab.text = "¥" + Keepfigures(text: salePrice)
+        settleView.nonMemberPriceLab.text = "¥" + Keepfigures(text: costPrice)
+        
+        var isSettle = false  // 是否可以去结算
+        
+        for item in cartList {
+            // 思路是只要有一个被选中，即可 去结算，反之只有全部没有被选中才不能去结算
+            if item.checked {
+                isSettle = true
+                break
+            }
+        }
+        
+        if isSettle {
+            settleView.settlementBtn.setTitle("去结算\(num)", for: .normal)
+            settleView.settlementBtn.isUserInteractionEnabled = true
+            settleView.settlementBtn.alpha = 1
+        }else {
+            settleView.settlementBtn.setTitle("去结算", for: .normal)
+            settleView.settlementBtn.isUserInteractionEnabled = false
+            settleView.settlementBtn.alpha = 0.5
+        }
+        
+    }
+    
+    /// 检查是否已经是全选状态了
+    func checkSelectStatus() {
+        
+        var realRowNum = 0
+        var totalSelected = 0
+        
+        cartList.forEach { (item) in
+            realRowNum += 1
+            if item.checked {
+                totalSelected += 1
+            }
+        }
+        
+        if realRowNum == totalSelected {
+            settleView.selectBtn.isSelected = true
+        }else {
+            settleView.selectBtn.isSelected = false
+        }
+        
     }
 
 }
@@ -67,16 +209,46 @@ class BasketViewController: TableViewController {
 extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return num
+        return cartList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CartTabCell.identifier, for: indexPath) as! CartTabCell
+        cell.goodsInfo = cartList[indexPath.row]
         cell.selectionStyle = .none
-        
-        if indexPath.row == 2 {
-            cell.selectBtn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+        cell.selectBtnClosure = {
+            
+            var model = self.cartList[indexPath.row]
+            model.checked = !model.checked
+            self.cartList[indexPath.row] = model
+            
+            debugPrints("cell的选中状态---\(model.checked)")
+            
+            self.tableView.reloadData()
+            self.checkSelectStatus()
+            self.calculateGoodsPrice()
         }
+        
+        cell.addView.addDidClosure = { num in
+            
+            var model = self.cartList[indexPath.row]
+            model.goodsNum = CGFloat(num)
+            self.cartList[indexPath.row] = model
+            
+            self.checkSelectStatus()
+            self.calculateGoodsPrice()
+        }
+        
+        cell.addView.minusDidClosure = { num in
+            
+            var model = self.cartList[indexPath.row]
+            model.goodsNum = CGFloat(num)
+            self.cartList[indexPath.row] = model
+            
+            self.checkSelectStatus()
+            self.calculateGoodsPrice()
+        }
+
         return cell
     }
     
@@ -92,3 +264,4 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
         return 20
     }
 }
+

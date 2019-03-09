@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SettlementViewType {
+    case normal
+    case edit
+}
+
 class SettlementView: View {
 
     lazy var lineView: View = {
@@ -18,7 +23,9 @@ class SettlementView: View {
     
     lazy var selectBtn: Button = {
         let btn = Button(type: UIButton.ButtonType.custom)
-        btn.setImage(UIImage(named: "store_jiahao"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_selected"), for: .selected)
+        btn.isSelected = true
         return btn
     }()
     
@@ -98,6 +105,7 @@ class SettlementView: View {
         }
         
         totalLab.snp.makeConstraints { (make) in
+            make.left.lessThanOrEqualTo(selectLab.snp.right).offset(20)
             make.right.equalTo(memberPriceLab.snp.left)
             make.centerY.equalTo(memberPriceLab)
         }
@@ -122,5 +130,20 @@ class SettlementView: View {
         view.backgroundColor = Color.whiteColor
         return view
     }
-
+    
+    var type: SettlementViewType = .normal {
+        didSet {
+            switch type {
+            case .normal:
+                totalLab.isHidden = false
+                memberPriceLab.isHidden = false
+                nonMemberPriceLab.isHidden = false
+            default:
+                totalLab.isHidden = true
+                memberPriceLab.isHidden = true
+                nonMemberPriceLab.isHidden = true
+            }
+        }
+    }
+    
 }

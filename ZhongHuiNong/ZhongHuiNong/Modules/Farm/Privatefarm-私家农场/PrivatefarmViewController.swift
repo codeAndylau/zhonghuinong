@@ -11,6 +11,8 @@ import UIKit
 /// 私家农场
 class PrivatefarmViewController: ViewController {
 
+    var isValue = false
+    
     lazy var dataArray = [
         PrivatefarmCropsModel(color: 0x0BC7D8, title: "水份", total: 35.6, unit: "ppi", start: "0%", end: 100),
         PrivatefarmCropsModel(color: 0xFF7477, title: "温度", total: 18.8, unit: "℃", start: "0℃", end: 60),
@@ -27,15 +29,18 @@ class PrivatefarmViewController: ViewController {
     var sensorData: FarmSensordata = FarmSensordata() {
         didSet {
             
-            dataArray[0].total = sensorData.water
-            dataArray[1].total = sensorData.temperature
-            dataArray[2].total = sensorData.cO2
-            dataArray[3].total = sensorData.illumination
-            
-            self.navigationItem.titleView = self.titleView
-            self.tableView.tableHeaderView = self.headerView
-            self.view.addSubview(self.tableView)
-            self.tableView.reloadData()
+            if sensorData.water == -1 {
+                isValue = false
+                self.tableView.reloadData()
+            }else {
+                dataArray[0].total = sensorData.water
+                dataArray[1].total = sensorData.temperature
+                dataArray[2].total = sensorData.cO2
+                dataArray[3].total = sensorData.illumination
+                
+                isValue = true
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -67,6 +72,9 @@ class PrivatefarmViewController: ViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
         view.addSubview(loadView)
+        navigationItem.titleView = titleView
+        tableView.tableHeaderView = headerView
+        view.addSubview(tableView)
         fetchFarmLand()
     }
 
@@ -75,7 +83,11 @@ class PrivatefarmViewController: ViewController {
         
         headerView.playBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.playerView.playVideoWith(self.farmLand.cameraUrl, containView: self.headerView.videoImg)
+            self.playerView.playVideoWith(self.farmLand.cameraUrl, containView: self.headerView.videoImg, complete: { (flag) in
+                if flag {
+                   self.playerView.isHidden = true
+                }
+            })
         }).disposed(by: rx.disposeBag)
         
         headerView.jiaoshuiBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
@@ -97,7 +109,7 @@ class PrivatefarmViewController: ViewController {
             guard let self = self else { return }
             self.headerView.startTimer(.chucao)
         }).disposed(by: rx.disposeBag)
-
+        
     }
     
     func fetchFarmLand() {
@@ -128,8 +140,9 @@ class PrivatefarmViewController: ViewController {
             guard let self = self else { return }
             self.sensorData = model
         }) { (error) in
+            self.sensorData = FarmSensordata()
             debugPrints("请求传感器信息---\(error)")
-            ZYToast.showCenterWithText(text: "获取数据失败!")
+            ZYToast.showCenterWithText(text: "获取传感器数据失败!")
         }
     }
     
@@ -221,7 +234,7 @@ class PrivatefarmViewController: ViewController {
 extension PrivatefarmViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
+        return isValue == true ? dataArray.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

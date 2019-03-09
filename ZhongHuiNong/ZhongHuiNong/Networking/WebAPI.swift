@@ -89,8 +89,7 @@ extension WebAPI: TargetType, WebAPIType {
     
     var path: String {
         switch self {
-            
-        case .verifyCode(_): return "/api/User/verifycode"
+        case .verifyCode(_):return "/api/User/verifycode"
         case .sendCode(_): return "/api/User/sendcode"
         case .userBalance(_): return "/api/User/userbalance"
         case .validationPyaPassword(_): return "/api/User/paymentpassword"
@@ -138,30 +137,28 @@ extension WebAPI: TargetType, WebAPIType {
         switch self {
         case .wechatLogin(let p):
             return .requestData(dictToData(dict: p)) //参数放在HttpBody中
-        case
-        
-        .sendCode(let p),
-        .verifyCode(let p),
-        .userBalance(let p),
-        .settingPayPassword(let p),
-        .validationPyaPassword(let p),
-        .editAddress(let p),
-        .userAddressDetail(let p),
-        .userAddressList(let p),
-        .deleteUserAddress(let p),
-        .mobileLogin(let p),
-        
-        .farmLand(let p),
-        .farmSensordata(let p),
-        .farmWater(let p),
-        .farmFertilize(let p),
-        .farmKillbug(let p),
-        
-        .homeBannerList(let p),
-        .catagoryList(let p),
-        .goodsList(let p),
-        .goodsHotsaleList(let p),
-        .goodsRecommendList(let p):
+        case .sendCode(let p),
+             .userBalance(let p),
+             .settingPayPassword(let p),
+             .validationPyaPassword(let p),
+             .editAddress(let p),
+             .userAddressDetail(let p),
+             .userAddressList(let p),
+             .deleteUserAddress(let p),
+             .mobileLogin(let p),
+             .verifyCode(let p),
+             
+             .farmLand(let p),
+             .farmSensordata(let p),
+             .farmWater(let p),
+             .farmFertilize(let p),
+             .farmKillbug(let p),
+             
+             .homeBannerList(let p),
+             .catagoryList(let p),
+             .goodsList(let p),
+             .goodsHotsaleList(let p),
+             .goodsRecommendList(let p):
             
             return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
         case .goodsDetail(_):
@@ -173,7 +170,7 @@ extension WebAPI: TargetType, WebAPIType {
     }
     
     var headers: [String : String]? {
-        return ["content-type" : "application/json; charset=utf-8"]
+        return ["content-type" : "text/plain; charset=utf-8"] // text/plain, application/json
     }
     
     var addXAuth: Bool {
