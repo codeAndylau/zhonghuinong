@@ -57,3 +57,5 @@ struct UserAddressInfo: Mappable {
         preaddress <- map["preaddress"]
     }
 }
+
+

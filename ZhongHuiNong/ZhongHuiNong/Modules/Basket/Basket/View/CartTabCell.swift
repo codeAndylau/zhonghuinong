@@ -74,13 +74,14 @@ class CartTabCell: StoreRightCell {
     
     var selectBtnClosure: (()->Void)?
     
-    var goodsInfo: GoodsInfo = GoodsInfo() {
+    var goodsInfo: CartGoodsInfo = CartGoodsInfo() {
         didSet {
             ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
-            titleLab.text = goodsInfo.productName
-            priceLab.text = "\(goodsInfo.salePrice)"
-            discountLab.text = "\(goodsInfo.costPrice)"
+            titleLab.text = goodsInfo.productname
+            priceLab.text = "\(goodsInfo.sellprice)"
+            discountLab.text = "\(goodsInfo.marketprice)"
             selectBtn.isSelected = goodsInfo.checked
+            addView.numLab.text = "\(goodsInfo.quantity)"
         }
     }
     

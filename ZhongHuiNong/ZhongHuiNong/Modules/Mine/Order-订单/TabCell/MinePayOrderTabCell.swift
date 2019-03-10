@@ -120,5 +120,19 @@ class MinePayOrderTabCell: MineOrderTabCell {
         }
         
     }
+    
+    var payOrder: MineGoodsOrderInfo = MineGoodsOrderInfo() {
+        didSet {
+            
+            numLab.text = "\(payOrder.orderGoodsList.count)"
+            
+            var price: CGFloat = 0
+            payOrder.orderGoodsList.forEach { (item) in
+                price += item.goodsPrice * CGFloat(item.quantity)
+            }
+            
+            moneyLab.text = "\(price)"
+        }
+    }
 
 }

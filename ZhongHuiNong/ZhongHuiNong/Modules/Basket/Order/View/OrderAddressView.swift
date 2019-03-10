@@ -13,7 +13,7 @@ class OrderAddressView: View {
 
     let localView = View()
     let localImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait")
+        img.image = UIImage(named: "farm_delivery_local")
     }
     
     let modifyBtn = Button().then { (btn) in
@@ -21,23 +21,32 @@ class OrderAddressView: View {
     }
     
     let nameLab = Label().then { (lab) in
-        lab.text = "欧丫丫"
+        lab.text = ""  // 欧丫丫
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.boldSystemFont(ofSize: 15)
     }
     
     let phoneLab = Label().then { (lab) in
-        lab.text = "186********"
+        lab.text = "" // 186********
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
     let addressLab = Label().then { (lab) in
-        lab.text = "四川省成都市成华区天府新区高新区滨河花园A1栋1单元1号"
+        lab.text = "" // 四川省成都市成华区天府新区高新区滨河花园A1栋1单元1号
         lab.numberOfLines = 0
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
+    
+    let tipLab = Label().then { (lab) in
+        lab.text = "您还没有添加收获地址哦"
+        lab.textColor = UIColor.hexColor(0x333333)
+        lab.font = UIFont.boldSystemFont(ofSize: 15)
+        lab.isHidden = true
+    }
+    
+    let sureBtn = Button()
     
     override func makeUI() {
         super.makeUI()
@@ -50,13 +59,16 @@ class OrderAddressView: View {
         addSubview(nameLab)
         addSubview(phoneLab)
         addSubview(addressLab)
+        addSubview(tipLab)
+        addSubview(sureBtn)
+        
     }
     
     override func updateUI() {
         super.updateUI()
 
         localView.snp.makeConstraints { (make) in
-            make.left.equalTo(self).offset(15)
+            make.left.equalTo(self).offset(5)
             make.centerY.equalTo(self)
             make.width.height.equalTo(55)
         }
@@ -86,6 +98,15 @@ class OrderAddressView: View {
         modifyBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-15)
             make.centerY.equalTo(self)
+        }
+        
+        tipLab.snp.makeConstraints { (make) in
+            make.left.equalTo(localImg.snp.right).offset(13)
+            make.centerY.equalTo(self)
+        }
+        
+        sureBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
         }
 
     }

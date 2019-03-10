@@ -19,7 +19,7 @@ class PaySelectView: View {
     }
     
     let moneyLab = Label().then { (lab) in
-        lab.text = "¥1188.90"
+        lab.text = "¥0.0"
         lab.textColor = UIColor.hexColor(0x1DD1A8)
         lab.font = UIFont.boldSystemFont(ofSize: 20)
     }
@@ -49,11 +49,13 @@ class PaySelectView: View {
     }
     
     let bagSelectBtn = Button().then { (btn) in
-        btn.setImage(UIImage(named: "mine_order_selected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_selected"), for: .selected)
+        btn.isSelected = true
     }
     
     let otherLab = Label().then { (lab) in
-        lab.text = "其它方式支付"
+        lab.text = "其它方式支付(暂不支持)"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 14)
     }
@@ -74,6 +76,8 @@ class PaySelectView: View {
 
     let wechatSelectBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_disabled"), for: .disabled)
+        btn.isEnabled = false
     }
     
     let alipayImg = ImageView().then { (img) in
@@ -88,6 +92,8 @@ class PaySelectView: View {
     
     let alipaySelectBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "mine_order_unselected"), for: .normal)
+        btn.setImage(UIImage(named: "mine_order_disabled"), for: .disabled)
+        btn.isEnabled = false
     }
     
     let sureBtn = Button().then { (btn) in

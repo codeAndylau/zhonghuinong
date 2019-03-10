@@ -111,5 +111,19 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         }
         
     }
+    
+    var order: MineGoodsOrderInfo = MineGoodsOrderInfo() {
+        didSet {
+            
+            numLab.text = "\(order.orderGoodsList.count)"
+            
+            var price: CGFloat = 0
+            order.orderGoodsList.forEach { (item) in
+                price += item.goodsPrice * CGFloat(item.quantity)
+            }
+            
+            moneyLab.text = "\(price)"
+        }
+    }
 
 }

@@ -50,8 +50,8 @@ struct GoodsInfo: Mappable {
     var wid : Int = defaultId
     var youjia : Int = defaultId
     
-    var checked: Bool = true   // 默认是被选中的
-    var goodsNum: CGFloat = 1  // 默认只添加了一个
+//    var checked: Bool = true   // 默认是被选中的
+//    var goodsNum: CGFloat = 1  // 默认只添加了一个
 
     init() {}
     init?(map: Map) {}

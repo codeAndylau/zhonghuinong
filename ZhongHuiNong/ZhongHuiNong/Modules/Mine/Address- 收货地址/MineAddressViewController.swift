@@ -96,4 +96,11 @@ extension MineAddressViewController: UITableViewDataSource, UITableViewDelegate 
         return 80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let addressInfo = addressList[indexPath.row]
+        let dict = [NSNotification.Name.userOrderAddressEdit.rawValue: addressInfo]
+        NotificationCenter.default.post(name: .userOrderAddressEdit, object: nil, userInfo: dict)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }

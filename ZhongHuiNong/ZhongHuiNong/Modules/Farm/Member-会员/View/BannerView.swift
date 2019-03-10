@@ -39,6 +39,7 @@ class BannerView: UIView {
     
     /// 当前滑动到那一个
     var didScrollFrom: ((Int)->Void)?
+    var didSelectedClosure: ((Int)->Void)?
 }
 
 
@@ -100,8 +101,10 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
     }
     
     func pagerView(_ pageView: TYCyclePagerView, didSelectedItemCell cell: UICollectionViewCell, at index: Int) {
-        
+        didSelectedClosure?(index)
     }
+    
+    
 }
 
 

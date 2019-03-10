@@ -321,6 +321,26 @@ public func dictToJsonString(dict: [String: Any]) -> String {
     return jsonString
 }
 
+public func anyToData(any: Any) -> Data {
+    if !JSONSerialization.isValidJSONObject(any) {
+        return Data()
+    }
+    debugPrints("是否---\(JSONSerialization.isValidJSONObject(any))")
+    let data = try? JSONSerialization.data(withJSONObject: any, options: [])
+    debugPrints("any转换的data---\(data!)")
+    return data!
+}
+
+public func arrayToData(array: [Any]) -> Data {
+    if !JSONSerialization.isValidJSONObject(array) {
+        return Data()
+    }
+    debugPrints("是否---\(JSONSerialization.isValidJSONObject(array))")
+    let data = try? JSONSerialization.data(withJSONObject: array, options: [])
+    debugPrints("array转换的data---\(data!)")
+    return data!
+}
+
 public func dictToData(dict: [String: Any]) -> Data {
     
     if !JSONSerialization.isValidJSONObject(dict) {

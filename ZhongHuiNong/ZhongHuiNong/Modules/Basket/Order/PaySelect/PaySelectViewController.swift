@@ -10,6 +10,18 @@ import UIKit
 
 class PaySelectViewController: SwiftPopup {
     
+    var money: Double = 0 {
+        didSet {
+            paySelectView.moneyLab.text = "\(money)"
+        }
+    }
+    
+    var balance: Double = 0 {
+        didSet {
+           paySelectView.balanceLab.text = "\(balance)"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +55,7 @@ class PaySelectViewController: SwiftPopup {
         // 支付选择逻辑处理
         paySelectView.bagSelectBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.paySelectView.status = .bag
+            self.paySelectView.bagSelectBtn.isSelected = !self.paySelectView.bagSelectBtn.isSelected
         }).disposed(by: rx.disposeBag)
         
         paySelectView.wechatSelectBtn.rx.tap.subscribe(onNext: { [weak self] in

@@ -68,8 +68,26 @@ enum WebAPI {
     /// 首页爆款推荐
     case goodsRecommendList(_ p: [String: Any])
     
+    // MARK: Order-订单接口
+    /// 购物车创建订单
+    case createOrder(_ p: [String: Any])
+    /// 添加商品到购物车
+    case addToCart(_ userId: Int, _ p: [[String: Any]])
+    /// 清空购物车
+    case removeCart(_ userId: Int, _ isRemoveAll: Bool, _ p: [String: Any])
+    /// 获取购物车
+    case fetchCart(_ p: [String: Any])
     
-    
+    /// 获取用户的订单列表
+    case fetchUserOrderList(_ p: [String: Any])
+    /// 商品订单详情
+    case fetchUserOrderDetail(_ p: [String: Any])
+    /// 确认收货
+    case userOrderReceipt(_ p: [String: Any])
+    /// 商品评价
+    case userOrderReputation(_ p: [String: Any])
+    /// 获取商品评价信息
+    case userOrderReputationShow(_ p: [String: Any])
     
     
     case xxx(_ p: [String: Any])
@@ -79,8 +97,10 @@ extension WebAPI: TargetType, WebAPIType {
     
     var baseURL: URL {
         switch self {
-        case .wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_),
-             .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_):
+        case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_),
+            .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_),
+            .createOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _, _):
+            
             return Configs.Network.debugUrl
         default:
             return URL(string: "https://api.smartfarm.villagetechnology.cn")!
@@ -88,7 +108,9 @@ extension WebAPI: TargetType, WebAPIType {
     }
     
     var path: String {
+        
         switch self {
+            
         case .verifyCode(_):return "/api/User/verifycode"
         case .sendCode(_): return "/api/User/sendcode"
         case .userBalance(_): return "/api/User/userbalance"
@@ -115,6 +137,14 @@ extension WebAPI: TargetType, WebAPIType {
         case .goodsHotsaleList(_): return "/api/Shop/GoodsListHotsale"
         case .goodsRecommendList(_): return "/api/Shop/GoodsListRecommend"
             
+        case .createOrder(_): return "/api/Order/createorder"
+        case .addToCart(_, _): return "/api/Order/addtocart"
+        case .removeCart(_, _, _): return "/api/Order/removecart"
+        case .fetchCart(_): return "/api/Order/cart"
+        case .fetchUserOrderList(_): return "/api/Order/UserOrderList"
+        case .fetchUserOrderDetail(_): return "/api/Order/UserOrderDetail"
+        case .userOrderReceipt: return "/api/Order/UserOrderReceipt"
+            
         default:
             return ""
         }
@@ -122,7 +152,9 @@ extension WebAPI: TargetType, WebAPIType {
     
     var method: Moya.Method {
         switch self {
-        case .wechatLogin(_), .mobileLogin(_), .farmWater(_), .farmFertilize(_), .farmKillbug(_), .settingPayPassword(_), .verifyCode(_):
+        case .wechatLogin(_), .mobileLogin(_), .settingPayPassword(_), .verifyCode(_),
+             .farmWater(_), .farmFertilize(_), .farmKillbug(_),
+             .createOrder(_), .addToCart(_, _), .removeCart(_):
             return .post
         default:
             return .get
@@ -134,9 +166,20 @@ extension WebAPI: TargetType, WebAPIType {
     }
     
     var task: Task {
+        
         switch self {
-        case .wechatLogin(let p):
+            
+        case .wechatLogin(let p), .createOrder(let p):
             return .requestData(dictToData(dict: p)) //参数放在HttpBody中
+            
+        case .removeCart(let id, let isRemoveAll, let p):
+            let params: [String: Any] = ["userId": id, "isRemoveAll": isRemoveAll]
+            return .requestCompositeData(bodyData: dictToData(dict: p), urlParameters: params)
+            
+        case .addToCart(let id, let p):
+            let params = ["userId": id]
+            return .requestCompositeData(bodyData: arrayToData(array: p), urlParameters: params)
+            
         case .sendCode(let p),
              .userBalance(let p),
              .settingPayPassword(let p),
@@ -158,19 +201,34 @@ extension WebAPI: TargetType, WebAPIType {
              .catagoryList(let p),
              .goodsList(let p),
              .goodsHotsaleList(let p),
-             .goodsRecommendList(let p):
+             .goodsRecommendList(let p),
+             
+             .fetchCart(let p),
+             .fetchUserOrderList(let p),
+             .fetchUserOrderDetail(let p),
+             .userOrderReceipt(let p),
+             .userOrderReputation(let p),
+             .userOrderReputationShow(let p):
             
             return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
+            
         case .goodsDetail(_):
-            let p: [String: Any] = ["wid": 5, "fromplat": "iOS"]
-            return .requestParameters(parameters: p, encoding: URLEncoding.default) 
+            let p: [String: Any] = ["wid": 1, "fromplat": "iOS"]
+            return .requestParameters(parameters: p, encoding: URLEncoding.default)
+            
         default:
             return .requestPlain
         }
     }
     
     var headers: [String : String]? {
-        return ["content-type" : "text/plain; charset=utf-8"] // text/plain, application/json
+        switch self {
+        case .addToCart(_, _), .createOrder(_):
+            return ["content-type" : "application/json-patch+json"]
+        default:
+            return ["content-type" : "text/plain; charset=utf-8"] // application/json
+        }
+        
     }
     
     var addXAuth: Bool {
@@ -251,7 +309,7 @@ struct WebAPITool {
             failure(msg)
         }
     }
-
+    
     /// 请求数组对象数据
     static func requestModelArray<T: BaseMappable>(_ target: WebAPI, model: T.Type, complete: @escaping ([T])-> Void, failure: @escaping (String)->Void) {
         request(target, complete: { (value) in

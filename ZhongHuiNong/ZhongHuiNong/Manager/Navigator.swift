@@ -38,7 +38,7 @@ class Navigator {
         case goodsDetail(id: Int)
         
         // 菜篮
-        case shoppingOrder(list: [GoodsInfo])
+        case shoppingOrder(list: [CartGoodsInfo])
         
         // 我的
         case mineMember

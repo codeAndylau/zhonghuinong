@@ -10,13 +10,26 @@ import UIKit
 
 class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource, UITableViewDelegate {
 
+    var goodsList: [CartGoodsInfo] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     let contView = View()
     let tableView = TableView()
     let headerView = VegetableTabCellHeaderView.loadView()
     let footerView = VegetableTabCellFooterView.loadView()
+    let expressView = VegetableTabCellFooterView.loadView().then { (view) in
+        view.lineView.isHidden = true
+        view.titleLab.text = "配送费"
+        view.timeLab.text = "会员免运费"
+        // 配送-运费-会员免运费
+    }
     
     override func makeUI() {
         super.makeUI()
+        
         backgroundColor = Color.backdropColor
         tableView.backgroundColor = UIColor.orange
         tableView.dataSource = self
@@ -24,9 +37,11 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
         tableView.separatorStyle = .none
         tableView.register(VegetableTabSubCell.self, forCellReuseIdentifier: VegetableTabSubCell.identifier)
         addSubview(contView)
+        
         contView.addSubview(tableView)
         contView.addSubview(headerView)
         contView.addSubview(footerView)
+        contView.addSubview(expressView)
     }
 
     override func updateUI() {
@@ -41,7 +56,7 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
         
         headerView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(44)
         }
         
         tableView.snp.makeConstraints { (make) in
@@ -51,8 +66,14 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
         }
         
         footerView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(expressView.snp.top)
+            make.height.equalTo(44)
+        }
+        
+        expressView.snp.makeConstraints { (make) in
             make.bottom.left.right.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(44)
         }
     }
     
@@ -70,12 +91,13 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
     // MARK: - Tab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return goodsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: VegetableTabSubCell.identifier, for: indexPath) as! VegetableTabSubCell
         cell.selectionStyle = .none
+        cell.goodsInfo = goodsList[indexPath.row]
         return cell
     }
     
@@ -87,6 +109,16 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
 
 
 class VegetableTabSubCell: TableViewCell, TabReuseIdentifier {
+    
+    var goodsInfo: CartGoodsInfo = CartGoodsInfo() {
+        didSet {
+            leftImg.lc_setImage(with: goodsInfo.focusImgUrl)
+            titleLab.text = goodsInfo.productname
+            numLab.text = "x\(goodsInfo.quantity)"
+            priceLab.text = "\(goodsInfo.sellprice)"
+            nonPriceLab.text = "\(goodsInfo.marketprice)"
+        }
+    }
     
     let leftImg = ImageView().then { (img) in
         img.image = UIImage(named: "basket_luobo")
@@ -135,17 +167,6 @@ class VegetableTabSubCell: TableViewCell, TabReuseIdentifier {
             make.width.height.equalTo(44)
         }
         
-        titleLab.snp.makeConstraints { (make) in
-            make.left.equalTo(leftImg.snp.right).offset(8)
-            make.centerY.equalTo(self)
-            make.width.equalTo(kScreenW/2)
-        }
-        
-        numLab.snp.makeConstraints { (make) in
-            make.right.equalTo(priceLab.snp.left).offset(-30)
-            make.centerY.equalTo(self)
-        }
-        
         priceLab.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-15)
             make.centerY.equalTo(self)
@@ -155,7 +176,17 @@ class VegetableTabSubCell: TableViewCell, TabReuseIdentifier {
             make.right.equalTo(priceLab.snp.right)
             make.top.equalTo(priceLab.snp.bottom)
         }
+
+        titleLab.snp.makeConstraints { (make) in
+            make.left.equalTo(leftImg.snp.right).offset(8)
+            make.top.equalTo(self).offset(10)
+            make.right.greaterThanOrEqualTo(numLab.snp.left).offset(15)
+        }
         
+        numLab.snp.makeConstraints { (make) in
+            make.left.equalTo(titleLab)
+            make.top.equalTo(titleLab.snp.bottom).offset(2)
+        }
     }
     
 }
@@ -163,23 +194,23 @@ class VegetableTabSubCell: TableViewCell, TabReuseIdentifier {
 
 class VegetableTabCellHeaderView: View {
     
-    let leftImg = ImageView().then { (img) in
-        img.image = UIImage(named: "basket_luobo")
-    }
-    
     let titleLab = Label().then { (lab) in
-        lab.text = "精品时蔬"
-        lab.textColor = UIColor.hexColor(0xA0D911)
+        lab.text = "峻铭自营"
+        lab.textColor = UIColor.hexColor(0x333333)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
+    let arrowImg = ImageView().then { (img) in
+        img.image = UIImage(named: "farm_arrowright_icon")
+    }
+    
     let lineView = View().then { (view) in
-        view.backgroundColor = UIColor.hexColor(0xDCDCDC)
+        view.backgroundColor = UIColor.hexColor(0xE5E5E5)
     }
     
     override func makeUI() {
         super.makeUI()
-        addSubview(leftImg)
+        addSubview(arrowImg)
         addSubview(titleLab)
         addSubview(lineView)
     }
@@ -188,13 +219,13 @@ class VegetableTabCellHeaderView: View {
     override func updateUI() {
         super.updateUI()
         
-        leftImg.snp.makeConstraints { (make) in
-            make.left.equalTo(13)
+        titleLab.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(12)
             make.centerY.equalTo(self)
         }
         
-        titleLab.snp.makeConstraints { (make) in
-            make.left.equalTo(leftImg.snp.right).offset(6)
+        arrowImg.snp.makeConstraints { (make) in
+            make.left.equalTo(titleLab.snp.right).offset(6)
             make.centerY.equalTo(self)
         }
         
@@ -218,7 +249,7 @@ class VegetableTabCellHeaderView: View {
 class VegetableTabCellFooterView: View {
 
     let lineView = View().then { (view) in
-        view.backgroundColor = UIColor.hexColor(0xDCDCDC)
+        view.backgroundColor = UIColor.hexColor(0xE5E5E5)
     }
     
     let titleLab = Label().then { (lab) in
@@ -228,7 +259,7 @@ class VegetableTabCellFooterView: View {
     }
     
     let timeLab = Label().then { (lab) in
-        lab.text = "尽快配送（预计2月4日送达）"
+        lab.text = "尽快配送(预计2月4日送达)"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 14)
     }
@@ -242,7 +273,7 @@ class VegetableTabCellFooterView: View {
         addSubview(lineView)
         addSubview(titleLab)
         addSubview(timeLab)
-        addSubview(arrowImg)
+        //addSubview(arrowImg)
     }
     
     
@@ -261,15 +292,15 @@ class VegetableTabCellFooterView: View {
             make.centerY.equalTo(self)
         }
         
-        arrowImg.snp.makeConstraints { (make) in
-            make.right.equalTo(-13)
+        timeLab.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-10)
             make.centerY.equalTo(self)
         }
         
-        timeLab.snp.makeConstraints { (make) in
-            make.right.equalTo(arrowImg.snp.left).offset(10)
-            make.centerY.equalTo(self)
-        }
+        //        arrowImg.snp.makeConstraints { (make) in
+        //            make.right.equalTo(-13)
+        //            make.centerY.equalTo(self)
+        //        }
     }
     
     /// - Public methods

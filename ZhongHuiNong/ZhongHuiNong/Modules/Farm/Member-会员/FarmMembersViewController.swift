@@ -311,6 +311,12 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
             cell.bannerView.bannerArray.accept(imgArray)
+            cell.bannerView.didSelectedClosure = {[weak self] index in
+                guard let self = self else { return }
+                let goodId = self.bannerList[index].id
+                debugPrints("点击新品上架商品的id---\(goodId)")
+                self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
+            }
             return cell
         }
         

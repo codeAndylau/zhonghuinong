@@ -7,48 +7,194 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class OrderViewController: TableViewController {
 
-    var goodsList: [GoodsInfo] = [] {
+    // MARK: - Property
+    
+    func refreshValue() {
+        
+        if addressList.count > 0 && balance.id != defaultId {
+            
+            let defaultAddressInfo = addressList.filter { (item) -> Bool in
+                if item.isDefault {
+                    return true
+                }
+                return false
+            }
+            
+            // 获取默认地址
+            if defaultAddressInfo.count >= 1 {
+                headerView.addressInfo = defaultAddressInfo[0]
+            }else {
+                headerView.addressInfo = addressList[0]
+            }
+            
+            fadeInOnDisplay {
+                self.setupTab()
+                self.tableView.alpha = 1
+                mainQueue {
+                    self.tableView.reloadData()
+                }
+            }
+        }else {
+            debugPrints("两个接口数据没有请求完成")
+        }
+        
+    }
+    
+    var balance: UserBanlance = UserBanlance() {
         didSet {
-            debugPrints("购物车的个数---\(goodsList)---\(goodsList.count)")
+            refreshValue()
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var addressList: [UserAddressInfo] = [] {
+        didSet {
+            refreshValue()
+        }
+    }
+    
+    var payMoney: Double = 0
+    
+    var goodsList: [CartGoodsInfo] = [] {
+        didSet {
+            
+            var salePrice: CGFloat = 0
+            var costPrice: CGFloat = 0
+            
+            var num = 0
+            
+            goodsList.forEach { (item) in
+                costPrice += item.marketprice * CGFloat(item.quantity)
+                salePrice += item.sellprice * CGFloat(item.quantity)
+                num += Int(item.quantity)
+            }
+            
+            debugPrints("订单销售价格和成本价格总和----\(Keepfigures(text: salePrice))---\(Keepfigures(text: costPrice))")
+            
+            if costPrice > salePrice {
+                paySureView.priceLab.text = "已优惠¥" + "\(Keepfigures(text: costPrice - salePrice))"
+            }
+            
+            payMoney = Double(salePrice)
+            paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
+            paySureView.numLab.text = "共\(num)件"
+            
+        }
     }
     
     override func makeUI() {
         super.makeUI()
         navigationItem.title = localized("确认订单")
+        fetchUserAddressList()
+        fetchUserBalance()
+    }
+    
+    func setupTab() {
+        tableView.alpha = 0.1
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Color.backdropColor
         tableView.tableHeaderView = headerView
         tableView.register(VegetableTabCell.self, forCellReuseIdentifier: VegetableTabCell.identifier)
-        
         tableView.addSubview(paySureView)
+        view.addSubview(self.tableView)
     }
     
     override func bindViewModel() {
         super.bindViewModel()
         
+        /// 提交订单
         paySureView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.paySelectDemo.show()
+            self.commitOrder()
         }).disposed(by: rx.disposeBag)
+        
+        headerView.addressView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.navigator.show(segue: Navigator.Scene.mineAddress, sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx.notification(.userOrderAddressEdit).subscribe(onNext: { [weak self] (notification) in
+            guard let self = self else { return }
+            let addressInfo = notification.userInfo?[NSNotification.Name.userOrderAddressEdit.rawValue] as! UserAddressInfo
+            debugPrints("用户选择地址信息---\(addressInfo)")
+            self.headerView.addressInfo = addressInfo
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func commitOrder() {
+        
+        var productLists: [[String: Any]] = []
+        
+        for item in goodsList {
+            let dict = ["productid": item.productid, "quantity": Int(item.quantity)]
+            productLists.append(dict)
+        }
+        
+        var params = [String: Any]()
+        
+        params["user_id"] = 3261
+        params["remark"] = "暂无备注"
+        params["addressid"] = headerView.addressInfo.id
+        params["express_fee"] = 0
+        params["total_amount"] = 0
+        params["productLists"] = productLists
+        
+        debugPrints("创建订单参数---\(params)")
+        
+        HudHelper.showWaittingHUD(msg: "创建订单中...")
+        WebAPITool.requestModel(WebAPI.createOrder(params), model: CartOrderInfo.self, complete: { (model) in
+            debugPrints("创建订单成功---\(model)")
+            HudHelper.hideHUD()
+            MBProgressHUD.showSuccess("订单创建成功")
+        }) { (error) in
+            debugPrints("创建订单出错---\(error)")
+            HudHelper.hideHUD()
+        }
         
     }
     
+    func surePay() {
+        paySelectDemo.balance = balance.creditbalance
+        paySelectDemo.money = payMoney
+        paySelectDemo.show()
+    }
+    
     // MARK: - Lazy
+    
     lazy var headerView = OrderHeaderView.loadView()
+    
     lazy var paySureView = PaySureView.loadView()
+    
     lazy var paySelectDemo = PaySelectViewController()
     
     
     // MARK: - Public methods
+    
+    func fetchUserAddressList() {
+        var p = [String: Any]()
+        p["user_id"] = 3261
+        p["wid"] = wid
+        p["fromplat"] = "iOS"
+        WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
+            guard let self = self else { return }
+            self.addressList = list
+        }) { (error) in
+            ZYToast.showCenterWithText(text: error)
+        }
+    }
+    
+    func fetchUserBalance() {
+        let params = ["userid": "3233"]
+        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
+            self.balance = model
+        }) { (error) in
+            debugPrints("请求额度出错---\(error)")
+        }
+    }
 }
 
 extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
@@ -60,11 +206,12 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: VegetableTabCell.identifier, for: indexPath) as! VegetableTabCell
         cell.selectionStyle = .none
+        cell.goodsList = goodsList
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100+4*60+14
+        return CGFloat(44*3 + goodsList.count*60 + 14)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

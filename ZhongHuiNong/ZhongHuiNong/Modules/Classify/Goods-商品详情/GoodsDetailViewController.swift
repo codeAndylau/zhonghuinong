@@ -9,10 +9,25 @@
 import UIKit
 import Kingfisher
 import Result
+import PPBadgeViewSwift
+import MBProgressHUD
 
 class GoodsDetailViewController: ViewController {
 
     // MARK: - Property
+    
+    // 购物车数量
+    var cartNum = 0 {
+        didSet {
+            debugPrints("购物车数量---\(cartNum)")
+            if cartNum > 0 {
+                buyView.collectionBtn.pp.addBadge(number: cartNum)
+                buyView.collectionBtn.pp.setBadgeLabel { (lab) in
+                    lab.backgroundColor = Color.theme1DD1A8
+                }
+            }
+        }
+    }
     
     var goodId: Int = defaultId
     var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
@@ -36,6 +51,7 @@ class GoodsDetailViewController: ViewController {
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
         fetchGoodsInfo()
+        fetchShopingCartList()
     }
 
     override func bindViewModel() {
@@ -55,6 +71,66 @@ class GoodsDetailViewController: ViewController {
         rightBarView.shareBtn.rx.tap.subscribe(onNext: { (_) in
             debugPrints("点击了分享")
         }).disposed(by: rx.disposeBag)
+        
+        // 底部操作试图
+        buyView.cartBtn.rx.tap.subscribe(onNext: { (_) in
+            self.addToCart()
+        }).disposed(by: rx.disposeBag)
+        
+        buyView.buyBtn.rx.tap.subscribe(onNext: { (_) in
+            let list:[CartGoodsInfo]     = []
+            self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: list), sender: self)
+        }).disposed(by: rx.disposeBag)
+        
+        buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
+            NotificationCenter.default.post(name: .goodsDetailCartClicked, object: nil)
+            self.tabBarController?.selectedIndex = 2
+        }).disposed(by: rx.disposeBag)
+        
+    }
+    
+    func addToCart() {
+        
+        let productLists: [[String: Any]] = [["productid": goodsDetailInfo.id, "quantity": 1]]
+        let userId = User.currentUser().userId
+        
+        debugPrints("加入购物车参数--\(productLists)---\(userId)")
+        
+        HudHelper.showWaittingHUD(msg: "请求中...")
+        WebAPITool.request(WebAPI.addToCart(userId, productLists), complete: { (value) in
+            debugPrints("购物车参数成功--\(value))")
+            HudHelper.hideHUD()
+            if value.boolValue {
+                MBProgressHUD.showSuccess("加入购物车成功")
+                self.cartNum += 1
+            }else {
+                MBProgressHUD.showError("加入购物车失败")
+            }
+        }) { (error) in
+            debugPrints("购物车参数失败--\(error))")
+            HudHelper.hideHUD()
+        }
+        
+    }
+    
+    /// 获取购物车的数量
+    func fetchShopingCartList() {
+        
+        guard User.hasUser() else {
+            debugPrints("你还没有登录账号")
+            return
+        }
+        
+        var p = [String: Any]()
+        p["userid"] = User.currentUser().userId
+        
+        WebAPITool.requestModelArray(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
+            guard let self = self else { return }
+            self.cartNum = list.count
+        }) { (error) in
+            debugPrints("商品详情获取购物车数量出错---\(error)")
+        }
+        
     }
     
     // MARK: - Lazy

@@ -23,19 +23,19 @@ class PaySureView: View {
     }
     
     let priceLab = Label().then { (lab) in
-        lab.text = "已优惠¥800.0"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
     
     let numLab = Label().then { (lab) in
-        lab.text = "共8件"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.boldSystemFont(ofSize: 12)
     }
     
     let sureBtn = Button().then { (btn) in
-        btn.setTitle("确认支付", for: .normal)
+        btn.setTitle("提交订单", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)

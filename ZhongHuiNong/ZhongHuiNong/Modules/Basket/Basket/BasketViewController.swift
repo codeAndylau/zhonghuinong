@@ -11,7 +11,7 @@ import UIKit
 /// 购物车
 class BasketViewController: TableViewController {
     
-    var cartList: [GoodsInfo] = [] {
+    var cartList: [CartGoodsInfo] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -42,24 +42,21 @@ class BasketViewController: TableViewController {
         
         settleView.settlementBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            
-            var list: [GoodsInfo] = []
-            
-            for item in self.cartList {
-                if item.checked {
-                    
-                }
-                
-            }
-            
-            
-            self.navigator.show(segue: .shoppingOrder(list: self.cartList), sender: nil)
+            let list = self.cartList.filter({ (item) -> Bool in
+                if item.checked { return true }
+                return false
+            })
+            self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
         }).disposed(by: rx.disposeBag)
         
         settleView.selectBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?.settleViewAllSelectAction()
         }).disposed(by: rx.disposeBag)
         
+        NotificationCenter.default.rx.notification(.goodsDetailCartClicked).subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.fetchShopingCartList(isRefresh: true)
+        }).disposed(by: rx.disposeBag)
     }
 
     
@@ -89,26 +86,30 @@ class BasketViewController: TableViewController {
         
    }
     
-    /// 热销
+    /// 获取购物车
     func fetchShopingCartList(isRefresh: Bool = false) {
         
-        var p = [String: Any]()
-        p["category_id"] = 0
-        p["page_size"] = 10
-        p["page_index"] = 1
-        p["wid"] = wid
+        guard User.hasUser() else {
+            debugPrints("你还没有登录账号")
+            return
+        }
         
-        WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
-            debugPrints("获取热销列表---\(list.count)")
+        var p = [String: Any]()
+        p["userid"] = User.currentUser().userId
+        
+        WebAPITool.requestModelArrayWithData(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             if isRefresh {
+                self.tableView.uHead.endRefreshing()
                 self.cartList.removeAll()
             }
             self.cartList = list
             self.calculateGoodsPrice()
             self.checkSelectStatus()
         }) { (error) in
-            debugPrints("获取热销列表失败---\(error)")
+            if isRefresh {
+                self.tableView.uHead.endRefreshing()
+            }
         }
         
     }
@@ -150,9 +151,9 @@ class BasketViewController: TableViewController {
         
         cartList.forEach { (item) in
             if item.checked {
-                costPrice += item.costPrice * item.goodsNum
-                salePrice += item.salePrice * item.goodsNum
-                num += Int(item.goodsNum)
+                costPrice += item.marketprice * CGFloat(item.quantity)
+                salePrice += item.sellprice * CGFloat(item.quantity)
+                num += Int(item.quantity)
             }
         }
         
@@ -232,7 +233,7 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
         cell.addView.addDidClosure = { num in
             
             var model = self.cartList[indexPath.row]
-            model.goodsNum = CGFloat(num)
+            model.quantity = num
             self.cartList[indexPath.row] = model
             
             self.checkSelectStatus()
@@ -242,7 +243,7 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
         cell.addView.minusDidClosure = { num in
             
             var model = self.cartList[indexPath.row]
-            model.goodsNum = CGFloat(num)
+            model.quantity = num
             self.cartList[indexPath.row] = model
             
             self.checkSelectStatus()

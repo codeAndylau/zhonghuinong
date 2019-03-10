@@ -76,5 +76,21 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
             make.centerY.equalTo(tipsLab)
         }
     }
+    
+    var sendOrder: MineGoodsOrderInfo = MineGoodsOrderInfo() {
+        didSet {
+            
+            statusLab.text = "等待商家发货"
+            
+            numLab.text = "\(sendOrder.orderGoodsList.count)"
+            
+            var price: CGFloat = 0
+            sendOrder.orderGoodsList.forEach { (item) in
+                price += item.goodsPrice * CGFloat(item.quantity)
+            }
+            
+            moneyLab.text = "\(price)"
+        }
+    }
 
 }

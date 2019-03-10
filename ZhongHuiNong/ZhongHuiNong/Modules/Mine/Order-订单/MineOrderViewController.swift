@@ -58,7 +58,7 @@ class MineOrderViewController: ViewController {
     // MARK: - Lazy
     lazy var pageTitleView: PageTitleView = {
         let frame = CGRect(x: 0, y: kNavBarH, width: kScreenW, height: 44)
-        let titles = ["全部","待付款","待配送","待收货"]
+        let titles = ["全部","待付款","待发货","待收货"]
         let view = PageTitleView(frame: frame, titles: titles, currentIndex: 0)
         view.delegate = self
         return view

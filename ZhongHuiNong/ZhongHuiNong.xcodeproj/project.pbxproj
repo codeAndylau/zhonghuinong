@@ -31,10 +31,12 @@
 		14087466221E75250051B7C3 /* MineMessageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14087465221E75250051B7C3 /* MineMessageEmptyView.swift */; };
 		14087469221E78E10051B7C3 /* MineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14087468221E78E10051B7C3 /* MineSettingViewController.swift */; };
 		1408746B221E7AD10051B7C3 /* MineSettingTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1408746A221E7AD10051B7C3 /* MineSettingTabCell.swift */; };
+		140F3C852234E42D0059EBB3 /* CartGoodsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C842234E42D0059EBB3 /* CartGoodsInfo.swift */; };
+		140F3C872234F5160059EBB3 /* CartOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C862234F5160059EBB3 /* CartOrderInfo.swift */; };
+		140F3C892234FE030059EBB3 /* MineGoodsOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */; };
 		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
 		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
 		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
-		1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75921F943EC0076D763 /* BasketViewModel.swift */; };
 		1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75B21F943FA0076D763 /* MineViewModel.swift */; };
 		1411F75E21F944040076D763 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75D21F944040076D763 /* MineViewController.swift */; };
 		1411F76021F948770076D763 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75F21F948770076D763 /* RootNavigationController.swift */; };
@@ -86,6 +88,7 @@
 		145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145138AE21F855D40038AFC6 /* AuthManager.swift */; };
 		145138B121F858940038AFC6 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145138B021F858940038AFC6 /* Defaults.swift */; };
 		145138B421F8595D0038AFC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145138B321F8595D0038AFC6 /* User.swift */; };
+		14518A442234C26F00D3D257 /* ShoppingOrder.json in Resources */ = {isa = PBXBuildFile; fileRef = 14518A432234C26F00D3D257 /* ShoppingOrder.json */; };
 		14641B8421F55C5C00F4E032 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8321F55C5C00F4E032 /* Const.swift */; };
 		14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8521F57DBE00F4E032 /* FirstLaunch.swift */; };
 		14641B8921F5BFDD00F4E032 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14641B8821F5BFDD00F4E032 /* Operator.swift */; };
@@ -220,7 +223,6 @@
 		14DC340421F17060006EF1CF /* ZhongHuiNongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC340321F17060006EF1CF /* ZhongHuiNongUITests.swift */; };
 		14DC343121F175CF006EF1CF /* EmptyObject.json in Resources */ = {isa = PBXBuildFile; fileRef = 14DC342E21F175CF006EF1CF /* EmptyObject.json */; };
 		14DC343321F175CF006EF1CF /* EmptyArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 14DC343021F175CF006EF1CF /* EmptyArray.json */; };
-		14DC343521F1760A006EF1CF /* Area.json in Resources */ = {isa = PBXBuildFile; fileRef = 14DC343421F1760A006EF1CF /* Area.json */; };
 		14DC343721F1771F006EF1CF /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC343621F1771F006EF1CF /* Application.swift */; };
 		14DC343921F17A14006EF1CF /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC343821F17A14006EF1CF /* Label.swift */; };
 		14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */; };
@@ -301,10 +303,12 @@
 		14087465221E75250051B7C3 /* MineMessageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMessageEmptyView.swift; sourceTree = "<group>"; };
 		14087468221E78E10051B7C3 /* MineSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSettingViewController.swift; sourceTree = "<group>"; };
 		1408746A221E7AD10051B7C3 /* MineSettingTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSettingTabCell.swift; sourceTree = "<group>"; };
+		140F3C842234E42D0059EBB3 /* CartGoodsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartGoodsInfo.swift; sourceTree = "<group>"; };
+		140F3C862234F5160059EBB3 /* CartOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartOrderInfo.swift; sourceTree = "<group>"; };
+		140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineGoodsOrderInfo.swift; sourceTree = "<group>"; };
 		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
 		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
 		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
-		1411F75921F943EC0076D763 /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
 		1411F75B21F943FA0076D763 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		1411F75D21F944040076D763 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1411F75F21F948770076D763 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 		145138AE21F855D40038AFC6 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		145138B021F858940038AFC6 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		145138B321F8595D0038AFC6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		14518A432234C26F00D3D257 /* ShoppingOrder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShoppingOrder.json; sourceTree = "<group>"; };
 		14641B8321F55C5C00F4E032 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		14641B8521F57DBE00F4E032 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		14641B8821F5BFDD00F4E032 /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
@@ -497,7 +502,6 @@
 		14DC340521F17060006EF1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14DC342E21F175CF006EF1CF /* EmptyObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyObject.json; sourceTree = "<group>"; };
 		14DC343021F175CF006EF1CF /* EmptyArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyArray.json; sourceTree = "<group>"; };
-		14DC343421F1760A006EF1CF /* Area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Area.json; sourceTree = "<group>"; };
 		14DC343621F1771F006EF1CF /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		14DC343821F17A14006EF1CF /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		14DC344021F1833D006EF1CF /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
@@ -587,6 +591,7 @@
 				14043D592212AA140023AA11 /* OrderViewController.swift */,
 				14043D5B2212AAAF0023AA11 /* View */,
 				14043D6B2212C5E10023AA11 /* PaySelect */,
+				140F3C862234F5160059EBB3 /* CartOrderInfo.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 		14151064222E66F000EA9026 /* Hud */ = {
 			isa = PBXGroup;
 			children = (
+				14B27A51221BE45F0029648A /* ZYToast.swift */,
 				145100AF2227903A00031FE2 /* LoadingView.swift */,
 				14151062222E66E700EA9026 /* ProgressHUD.swift */,
 				8B25C8862231669E00A2D0C7 /* LoadingHud.swift */,
@@ -938,6 +944,7 @@
 				146B74C6221EA3D6005D2879 /* MineAcceptOrderViewController.swift */,
 				146B74C8221EA4A4005D2879 /* TabCell */,
 				146B74BA221E9B61005D2879 /* View */,
+				140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */,
 			);
 			path = "Order-订单";
 			sourceTree = "<group>";
@@ -998,7 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				1411F75721F943DD0076D763 /* BasketViewController.swift */,
-				1411F75921F943EC0076D763 /* BasketViewModel.swift */,
+				140F3C842234E42D0059EBB3 /* CartGoodsInfo.swift */,
 				14043D562212A9760023AA11 /* View */,
 			);
 			path = Basket;
@@ -1374,10 +1381,10 @@
 			isa = PBXGroup;
 			children = (
 				14B849EC2220F94700F409B0 /* Area.plist */,
-				14DC343421F1760A006EF1CF /* Area.json */,
 				14B849EE2220FBDE00F409B0 /* Example.json */,
 				14DC343021F175CF006EF1CF /* EmptyArray.json */,
 				14DC342E21F175CF006EF1CF /* EmptyObject.json */,
+				14518A432234C26F00D3D257 /* ShoppingOrder.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1416,7 +1423,6 @@
 				14641B8321F55C5C00F4E032 /* Const.swift */,
 				14974BDC21F706FE0088ABC3 /* Configs.swift */,
 				14974BD821F6F7080088ABC3 /* Method.swift */,
-				14B27A51221BE45F0029648A /* ZYToast.swift */,
 				14151065222E703800EA9026 /* EZNetworkTool.swift */,
 			);
 			path = Tools;
@@ -1718,11 +1724,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				14DC33EE21F17060006EF1CF /* LaunchScreen.storyboard in Resources */,
+				14518A442234C26F00D3D257 /* ShoppingOrder.json in Resources */,
 				14B849EF2220FBDE00F409B0 /* Example.json in Resources */,
 				14DC343321F175CF006EF1CF /* EmptyArray.json in Resources */,
 				14DC33EB21F17060006EF1CF /* Assets.xcassets in Resources */,
 				14B849ED2220F94700F409B0 /* Area.plist in Resources */,
-				14DC343521F1760A006EF1CF /* Area.json in Resources */,
 				14DC343121F175CF006EF1CF /* EmptyObject.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1785,6 +1791,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PPBadgeViewSwift/PPBadgeViewSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -1810,6 +1817,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PPBadgeViewSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -1968,7 +1976,6 @@
 				14087464221E74DA0051B7C3 /* MineMessageViewController.swift in Sources */,
 				14974BCD21F6C31B0088ABC3 /* Date.swift in Sources */,
 				145138A621F83A060038AFC6 /* Navigator.swift in Sources */,
-				1411F75A21F943EC0076D763 /* BasketViewModel.swift in Sources */,
 				14B27A54221BF0190029648A /* DeliveryOrderView.swift in Sources */,
 				1448B09B22250A9D009237E7 /* HotMeatViewController.swift in Sources */,
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
@@ -2006,9 +2013,11 @@
 				1448B0A122250DBC009237E7 /* HotBottomView.swift in Sources */,
 				14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
+				140F3C892234FE030059EBB3 /* MineGoodsOrderInfo.swift in Sources */,
 				14087469221E78E10051B7C3 /* MineSettingViewController.swift in Sources */,
 				14DC33E321F1705E006EF1CF /* ViewController.swift in Sources */,
 				14DC33E121F1705E006EF1CF /* AppDelegate.swift in Sources */,
+				140F3C872234F5160059EBB3 /* CartOrderInfo.swift in Sources */,
 				1468F29522262A7C00ECD45A /* MineSystemViewController.swift in Sources */,
 				1468B15822150B82002B971F /* SearchTextField.swift in Sources */,
 				14C251112223EB9600F5CB53 /* FlashOneTabCell.swift in Sources */,
@@ -2052,6 +2061,7 @@
 				8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */,
 				14D8D8AD2213CE4300603D41 /* VegetableTabCell.swift in Sources */,
 				14974BE521F70DD50088ABC3 /* TableRefresh+Rx.swift in Sources */,
+				140F3C852234E42D0059EBB3 /* CartGoodsInfo.swift in Sources */,
 				142CE027222D239A00F604B0 /* DeliveryDateViewController.swift in Sources */,
 				144F43CA222F983E00218339 /* BannerList.swift in Sources */,
 				146B74CA221EA4CE005D2879 /* MineOrderTabCell.swift in Sources */,
