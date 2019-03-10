@@ -79,6 +79,21 @@ class LoadingView: View {
         return view
     }
     
+    class func showView(view: UIView?) {
+        var tempView = view
+        if tempView == nil {
+            tempView = UIApplication.shared.windows.last
+        }
+        
+        guard let contentView = tempView else {
+            debugPrints("没有获取到tempView")
+            return
+        }
+        
+        let loadView = self.loadView()
+        contentView.addSubview(loadView)
+    }
+    
     // 隐藏 HUD
     class func hideHUD(view: UIView?) {
         var tempView = view

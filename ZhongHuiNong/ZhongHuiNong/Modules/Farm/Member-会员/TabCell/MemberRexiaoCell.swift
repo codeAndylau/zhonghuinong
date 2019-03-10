@@ -21,7 +21,6 @@ class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
         }
     }
     
-    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10

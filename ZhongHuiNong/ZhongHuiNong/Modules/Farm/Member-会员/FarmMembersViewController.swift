@@ -7,30 +7,26 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 /// 农场会员
 class FarmMembersViewController: TableViewController {
 
     // MARK: - Property
-    var isShadowColor = false
-    var menuView: DropdownMenu!
+
     var dropupView: DropupMenu!
     
-    var addItem = UIButton().then { (btn) in
-        btn.setImage(UIImage(named: "farm_add")!, for: .normal)
-    }
-    
-    /// 轮播图
-    var imgArray: [String] = [] {
+    var bannerArray: [String] = [] {
         didSet {
-            tableView_g.reloadData()
+            refreshValue()
         }
     }
 
     var bannerList: [BannerList] = [] {
         didSet {
             bannerList.forEach { (item) in
-                imgArray.append(item.bannerPicUrl)
+                bannerArray.append(item.bannerPicUrl)
             }
         }
     }
@@ -38,39 +34,48 @@ class FarmMembersViewController: TableViewController {
     /// 分类列表
     var catagoryList: [CatagoryList] = [] {
         didSet {
-           headerView.classView.catagoryList = catagoryList
+            refreshValue()
         }
     }
     
     /// 热销列表
     var hotsaleList: [GoodsInfo] = [] {
         didSet {
-            //tableView_g.reloadData()
-            tableView_g.reloadSections([1], with: UITableView.RowAnimation.fade)
+            refreshValue()
         }
     }
     
     var recommendList: [GoodsInfo] = [] {
         didSet {
-            tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
+            refreshValue()
         }
     }
     
     var isValue: Bool = false
 
     func refreshValue() {
-//         LoadingHud.hideHUD()
-//        if bannerList.isEmpty || catagoryList.isEmpty {
-//            isValue = true
-//            tableView_g.uempty?.allowShow = true
-//            return
-//        }
-//        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)")
-//        UIView.animate(withDuration: 0.25) {
-//            self.tableView_g.alpha = 1
-//        }
-//        tableView_g.tableHeaderView = headerView
-//        tableView_g.reloadData()
+        
+        LoadingView.hideHUD(view: self.view)
+        if catagoryList.isEmpty || bannerList.isEmpty || hotsaleList.isEmpty || recommendList.isEmpty {
+            return
+        }
+        
+        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)---\(hotsaleList.isEmpty)---\(recommendList.isEmpty)")
+        
+        isValue = true
+
+        view.addSubview(tableView_g)
+        
+        UIView.animate(withDuration: 0.25) {
+            self.tableView_g.alpha = 1
+        }
+
+        mainQueue {
+            self.tableView_g.tableHeaderView = self.headerView
+            self.headerView.classView.catagoryList = self.catagoryList
+            self.tableView_g.reloadSections([1], with: UITableView.RowAnimation.fade)
+            self.tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
+        }
     }
 
     override func makeUI() {
@@ -81,52 +86,40 @@ class FarmMembersViewController: TableViewController {
 //        }
         
         navigationItem.leftBarButtonItem = leftBarItem
+        navigationItem.rightBarButtonItem = rightMsgItem
         
-        navigationItem.rightBarButtonItems = [rightMsgItem,rightAddItem]
-        addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
-        
-        tableView_g.alpha = 0
         tableView_g.dataSource = self
         tableView_g.delegate = self
         tableView_g.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
         tableView_g.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
-        tableView_g.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: nil)
+        tableView_g.uHead = MJDIYHeader(refreshingBlock: {
+            self.loadAllData(isRefresh: true)
+        })
         
-        isValue = true
-        UIView.animate(withDuration: 0.25) {
-            self.tableView_g.alpha = 1
-        }
-        tableView_g.tableHeaderView = headerView
-        tableView_g.reloadData()
+        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
+        
+        //LoadingHud.showProgress(supView: self.view)
+        //LoadingHud.hideHUD()
+        LoadingView.showView(view: self.view)
+        loadAllData()
     }
     
     override func bindViewModel() {
         super.bindViewModel()
 
-        menuView = DropdownMenu(containerView: UIApplication.shared.keyWindow!, contentView: dropView) // 下拉
-        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
-        
-        dropView.cardView.rx.tap.subscribe(onNext: { (_) in
-            self.menuView.hide()
-        }).disposed(by: rx.disposeBag)
-        
-        dropView.scanView.rx.tap.subscribe(onNext: { (_) in
-            self.menuView.hide()
-        }).disposed(by: rx.disposeBag)
-        
         vipItem.sureBtn.rx.tap.subscribe(onNext: { (_) in
             self.showCenterView()
         }).disposed(by: rx.disposeBag)
         
-        headerView.searchView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+        
+        headerView.searchView.sureBtn.rx.tap.subscribe(onNext: {
             let search = SearchViewController()
-            self?.navigationController?.pushViewController(search, animated: true)
+            self.navigationController?.pushViewController(search, animated: true)
         }).disposed(by: rx.disposeBag)
         
-        headerView.cellDidSelectedClosure = {  [weak self] index in
-            guard let self = self else { return }
+        headerView.cellDidSelectedClosure = { index in
             switch index {
             case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
             case 1: self.navigator.show(segue: .scan, sender: self)         // 扫码溯源
@@ -136,22 +129,15 @@ class FarmMembersViewController: TableViewController {
             }
         }
         
-        headerView.classView.cellDidSelectedClosure = {  [weak self] index in
-            guard let self = self else { return }
+        headerView.classView.cellDidSelectedClosure = { index in
             self.tabBarController?.selectedIndex = 1
             let userInfo = [NSNotification.Name.HomeGoodsClassDid.rawValue : index]
             NotificationCenter.default.post(name: .HomeGoodsClassDid, object: nil, userInfo: userInfo)
         }
-        
-        //LoadingHud.showProgress(supView: self.view)
-        fetchBannerList()
-        fetchCatagoryList()
-        fetchHotsaleList()
-        fetchRecommendList()
+
     }
     
     // MARK: - Lazy
-    lazy var dataArray = ["goods_tuijian_1","goods_tuijian_2","goods_tuijian_3","goods_tuijian_4","goods_tuijian_5","goods_tuijian_6"]
     
     lazy var vipItem = FarmHeaderView.loadView()
     lazy var mineCenterView = MineCenterView.loadView()
@@ -159,20 +145,17 @@ class FarmMembersViewController: TableViewController {
     lazy var paySelectDemo = PaySelectViewController()
     lazy var headerView = MemberHeaderView.loadView()
     lazy var leftBarItem = BarButtonItem(customView: vipItem)
-    lazy var rightAddItem = BarButtonItem(customView: addItem)
+    lazy var searchView = MemberSearchView.loadView()
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
-    lazy var searchView = MemberSearchView().then { (view) in
-        view.frame = CGRect(x: 0, y: 0, width: kScreenW-150, height: 34)
-    }
+    
+    lazy var tableView_g: TableView = {
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kTabBarH), style: .grouped)
+        view.alpha = 0
+        view.separatorStyle = .none
+        return view
+    }()
     
     // MARK: - Public methods
-    @objc func addAction() {
-        if menuView.isShown {
-            menuView.hideMenu()
-        }else {
-            menuView.showMenu()
-        }
-    }
     
     @objc func messageAction() {
         let bindVC = MobileBindingViewController()
@@ -187,71 +170,52 @@ class FarmMembersViewController: TableViewController {
         }
     }
     
-    func roateArrow() {
-        let anim = CABasicAnimation()
-        if addItem.isSelected {
-            anim.fromValue = Double.pi/4
-            anim.toValue = 0
-        }else {
-            anim.fromValue = 0
-            anim.toValue = Double.pi/4
-        }
-        anim.keyPath = "transform.rotation"
-        anim.duration = 0.3
-        anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
-        anim.fillMode = CAMediaTimingFillMode.forwards
-        addItem.imageView?.layer.add(anim, forKey: nil)
-        //切换按钮的选中状态
-        addItem.isSelected = !addItem.isSelected
-        
-        if addItem.isSelected {
-            menuView.showMenu()
-        }else {
-            menuView.hideMenu()
-            let anim = CABasicAnimation()
-            anim.fromValue = Double.pi/4
-            anim.toValue = 0
-            anim.keyPath = "transform.rotation"
-            anim.duration = 0.3
-            anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
-            anim.fillMode = CAMediaTimingFillMode.forwards
-            addItem.imageView?.layer.add(anim, forKey: nil)
-        }
+    
+    func loadAllData(isRefresh:Bool = false) {
+        fetchBannerList(isRefresh)
+        fetchCatagoryList(isRefresh)
+        fetchHotsaleList(isRefresh)
+        fetchRecommendList(isRefresh)
     }
     
-    func loadData(more: Bool = false) {
-        tableView_g.uempty?.allowShow = true
-    }
-    
-    func fetchBannerList() {
-        
+    func fetchBannerList(_ isRefresh: Bool = false) {
         var p = [String: Any]()
         p["wid"] = 1
-        
-        WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { (list) in
             debugPrints("轮播图---\(list)")
-            guard let self = self else { return }
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+                self.bannerList.removeAll()
+            }
             self.bannerList = list
         }) { (error) in
-            self.bannerList = []
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+            }
             debugPrints("获取轮播图失败---\(error)")
         }
     }
     
-    func fetchCatagoryList() {
+    func fetchCatagoryList(_ isRefresh: Bool = false) {
+        
         var p = [String: Any]()
         p["wid"] = wid
-        WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
-            guard let self = self else { return }
+        WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { (list) in
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+                self.catagoryList.removeAll()
+            }
             self.catagoryList = list
         }) { (error) in
-            self.catagoryList = []
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+            }
             debugPrints("获取分类列表失败---\(error)")
         }
     }
     
     /// 热销
-    func fetchHotsaleList() {
+    func fetchHotsaleList(_ isRefresh: Bool = false) {
         
         var p = [String: Any]()
         p["category_id"] = 0
@@ -259,18 +223,24 @@ class FarmMembersViewController: TableViewController {
         p["page_index"] = 1
         p["wid"] = wid
         
-        WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { (list) in
             debugPrints("获取热销列表---\(list.count)")
-            guard let self = self else { return }
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+                self.hotsaleList.removeAll()
+            }
             self.hotsaleList = list
         }) { (error) in
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+            }
             debugPrints("获取热销列表失败---\(error)")
         }
 
     }
     
     /// 爆款
-    func fetchRecommendList() {
+    func fetchRecommendList(_ isRefresh: Bool = false) {
         
         var p = [String: Any]()
         p["category_id"] = 0
@@ -278,11 +248,17 @@ class FarmMembersViewController: TableViewController {
         p["page_index"] = 1
         p["wid"] = wid
         
-        WebAPITool.requestModelArrayWithData(WebAPI.goodsRecommendList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsRecommendList(p), model: GoodsInfo.self, complete: { (list) in
             debugPrints("获取爆款列表---\(list.count)")
-            guard let self = self else { return }
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+                self.recommendList.removeAll()
+            }
             self.recommendList = list
         }) { (error) in
+            if isRefresh {
+                self.tableView_g.uHead.endRefreshing()
+            }
             debugPrints("获取爆款列表失败---\(error)")
         }
     }
@@ -310,9 +286,8 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberXinpinCell.identifier, for: indexPath) as! MemberXinpinCell
-            cell.bannerView.bannerArray.accept(imgArray)
-            cell.bannerView.didSelectedClosure = {[weak self] index in
-                guard let self = self else { return }
+            cell.bannerView.bannerArray.accept(bannerArray)
+            cell.bannerView.didSelectedClosure = { index in
                 let goodId = self.bannerList[index].id
                 debugPrints("点击新品上架商品的id---\(goodId)")
                 self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
@@ -323,8 +298,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberRexiaoCell.identifier, for: indexPath) as! MemberRexiaoCell
             cell.hotsaleList = hotsaleList
-            cell.cellDidClosure = { [weak self] index in
-                guard let self = self else { return }
+            cell.cellDidClosure = { index in
                 let goodId = self.hotsaleList[indexPath.row].id
                 debugPrints("点击热销商品的id---\(goodId)")
                 self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
@@ -333,7 +307,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
-        cell.imgView.image = UIImage(named: dataArray[indexPath.row])
+        cell.imgView.lc_setImage(with: recommendList[indexPath.row].thumbnailsUrll)
         return cell
         
         //        if indexPath.section == 1 {  
@@ -350,8 +324,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         case 1:
             
             let view = MemberSectionView(type: .rexiao)
-            view.moreBtn.rx.tap.subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
+            view.moreBtn.rx.tap.subscribe(onNext: {
                 self.navigator.show(segue: .hot(list: self.catagoryList), sender: self)
             }).disposed(by: rx.disposeBag)
             return view
@@ -434,3 +407,78 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
 }
+
+
+// MARK: - 第一版本先隐藏掉
+/*
+ 
+ var isShadowColor = false
+ 
+ var menuView: DropdownMenu!
+ var dropupView: DropupMenu!
+ 
+ var addItem = Button().then { (btn) in
+ btn.setImage(UIImage(named: "farm_add")!, for: .normal)
+ }
+ addItem.addTarget(self, action: #selector(addAction), for: UIControl.Event.touchUpInside)
+ 
+ menuView = DropdownMenu(containerView: UIApplication.shared.keyWindow!, contentView: dropView) // 下拉
+ dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
+ 
+ dropView.cardView.rx.tap.subscribe(onNext: { (_) in
+ self.menuView.hide()
+ }).disposed(by: rx.disposeBag)
+ 
+ dropView.scanView.rx.tap.subscribe(onNext: { (_) in
+ self.menuView.hide()
+ }).disposed(by: rx.disposeBag)
+ 
+ lazy var rightAddItem = BarButtonItem(customView: addItem)
+ @objc func addAction() {
+ if menuView.isShown {
+ menuView.hideMenu()
+ }else {
+ menuView.showMenu()
+ }
+ }
+ 
+ func showCenterView() {
+ if dropupView.isShown {
+ dropupView.hideMenu()
+ }else {
+ dropupView.showMenu()
+ }
+ }
+ 
+ func roateArrow() {
+ let anim = CABasicAnimation()
+ if addItem.isSelected {
+ anim.fromValue = Double.pi/4
+ anim.toValue = 0
+ }else {
+ anim.fromValue = 0
+ anim.toValue = Double.pi/4
+ }
+ anim.keyPath = "transform.rotation"
+ anim.duration = 0.3
+ anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
+ anim.fillMode = CAMediaTimingFillMode.forwards
+ addItem.imageView?.layer.add(anim, forKey: nil)
+ //切换按钮的选中状态
+ addItem.isSelected = !addItem.isSelected
+ 
+ if addItem.isSelected {
+ menuView.showMenu()
+ }else {
+ menuView.hideMenu()
+ let anim = CABasicAnimation()
+ anim.fromValue = Double.pi/4
+ anim.toValue = 0
+ anim.keyPath = "transform.rotation"
+ anim.duration = 0.3
+ anim.isRemovedOnCompletion = false //以下两句可以设置动画结束时 layer停在toValue这里
+ anim.fillMode = CAMediaTimingFillMode.forwards
+ addItem.imageView?.layer.add(anim, forKey: nil)
+ }
+ }
+ */

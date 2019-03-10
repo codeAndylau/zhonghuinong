@@ -10,7 +10,10 @@ import UIKit
 
 class MemberTuijianCell: TableViewCell, TabReuseIdentifier {
     
-    lazy var imgView = UIImageView(image: UIImage(named: "goods_tuijian_1"))
+    let imgView = ImageView().then { (img) in
+        img.contentMode = .scaleAspectFit
+        img.clipsToBounds = true
+    }
     
     override func makeUI() {
         super.makeUI()
@@ -21,7 +24,6 @@ class MemberTuijianCell: TableViewCell, TabReuseIdentifier {
             make.top.equalTo(8)
             make.bottom.equalTo(self).offset(-8)
         }
-
     }
     
 }

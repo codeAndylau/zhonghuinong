@@ -140,10 +140,10 @@ class MJDIYHeader: MJRefreshHeader {
             switch (state) {
             case .idle:
                 self.loading.stopAnimating()
-                self.label.text = "我是来打酱油滴吖"
+                self.label.text = "峻铭健康有机食品" //我是来打酱油滴吖
             case .pulling:
                 self.loading.stopAnimating()
-                self.label.text = "我是来打酱油滴吖"
+                self.label.text = "峻铭健康有机食品"
             case .refreshing:
                 self.loading.startAnimating()
                 self.label.text = ""

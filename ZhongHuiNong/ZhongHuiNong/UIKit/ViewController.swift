@@ -14,6 +14,7 @@ import NSObject_Rx
 class ViewController: UIViewController, Navigatable {
     
     lazy var navigator: Navigator = Navigator.shared
+    lazy var reachablitity = ReachabilityManager.shared
     
     lazy var emptyDataSetTitle = ViewController.emptyTitle
     lazy var emptyDataSetImage = ViewController.emptyImage
@@ -74,6 +75,12 @@ class ViewController: UIViewController, Navigatable {
             guard let self = self else { return }
             self.navigationController?.navigationBar.isHidden = flag
         }).disposed(by: rx.disposeBag)
+        
+        reachablitity.reachreplay.asObserver().subscribe(onNext: { (flag) in
+            debugPrints("当前网络状态---\(flag)")
+            //LoadingView.showView(view: self.view)
+        }).disposed(by: rx.disposeBag)
+        
     }
     
     /// 创建UI

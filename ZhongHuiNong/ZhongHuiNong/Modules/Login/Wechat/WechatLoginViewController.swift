@@ -142,16 +142,11 @@ class WechatLoginViewController: ViewController {
     // 4. 通过获取微信用户信息后 请求微信登录
     func wechatLogin(_ parameters: [String: Any]) {
         HudHelper.showWaittingHUD(msg: "登录中...")
-        WebAPITool.request(WebAPI.wechatLogin(parameters), complete: { (value) in
+        WebAPITool.requestModel(WebAPI.wechatLogin(parameters), model: User.self, complete: { (user) in
             HudHelper.hideHUD()
-            if let user = Mapper<User>().map(JSONObject: value.object) {
-                debugPrints("微信登录的user--\(user)")
-                user.save()
-                mainQueue {
-                    self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
-                }
-            }else {
-                ZYToast.showCenterWithText(text: "登录失败!")
+            user.save()
+            mainQueue {
+                self.navigator.show(segue: .tabs, sender: nil, transition: .root(window: self.window))   // 登录了直接进入首页
             }
         }) { (error) in
             HudHelper.hideHUD()

@@ -14,7 +14,7 @@ struct User: Mappable, Codable {
     
     var headimgUrl : String  = ""
     var isPayPassword : Bool = false
-    var isVip : Bool = false
+    var isVip : Bool = false            // 0是非VIP 1是个人VIP 2是企业用户
     var mobile : String = ""
     var nickname : String = ""
     var userId : Int = defaultId

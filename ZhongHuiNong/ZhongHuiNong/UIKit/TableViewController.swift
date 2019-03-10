@@ -31,16 +31,6 @@ class TableViewController: ViewController {
         return view
     }()
     
-    lazy var tableView_g: TableView = {
-        let view = TableView(frame: CGRect.zero, style: .grouped)
-        view.separatorStyle = .none
-        self.view.addSubview(view)
-        view.snp.makeConstraints({ (make) in
-            make.edges.equalToSuperview()
-        })
-        return view
-    }()
-    
     override func makeUI() {
         super.makeUI()
         isRefresh.asObservable().subscribe(onNext: { [weak self] (flag) in
