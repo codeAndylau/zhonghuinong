@@ -44,6 +44,7 @@ class DeliveryViewController: ViewController {
         }
     }
     
+    /// 获取配送的日期
     var dispatchDate: DispatchDateInfo = DispatchDateInfo() {
         didSet {
             
@@ -53,15 +54,17 @@ class DeliveryViewController: ViewController {
                 mainQueue {
                     self.dateViewDemo.show()
                 }
+                
             }else {
                 
+                /// 2. 表示已经选择过了配送蔬菜的日期 ： 星期1-7 只少两天，并且提前两天选菜
+                
+                // 显示用户所选的配送日期
                 headerView.dateView.dispatchDate = dispatchDate
                 
                 debugPrints("是否可以选择菜--\(selectMenu())")
                 
-                if selectMenu() {
-                    fetchDispatchMenu()
-                }else {
+                if !selectMenu() {
                     
                     let emptyV = EmptyView()
                     view.addSubview(emptyV)
@@ -76,6 +79,9 @@ class DeliveryViewController: ViewController {
                     emptyV.sureBtnClosure = {
                         self.navigationController?.popViewController(animated: true)
                     }
+                }else {
+                    /// 请求是否有已经选择过了配送的订单
+                    fetchDispatchOrderList()
                 }
                 
             }
@@ -134,11 +140,35 @@ class DeliveryViewController: ViewController {
         return isSelect
     }
     
-    
     /// 所有用户可以选择的菜品
     var dispatchMenuInfo: [DispatchMenuInfo] = [] {
         didSet {
             
+        }
+    }
+    
+    /// 判断当前用户是否已经选择过蔬菜了
+    var vegetablesInfo: [DispatchVegetablesInfo] = [] {
+        didSet {
+            if vegetablesInfo.count > 0 {
+                let emptyV = EmptyView()
+                view.addSubview(emptyV)
+                emptyV.config = EmptyViewConfig(title: "你已经选过配送的蔬菜啦,请在历史订单中查看所选择的蔬菜配送信息🥬",
+                                                image: UIImage(named: "farm_delivery_nonmember"),
+                                                btnTitle: "确定")
+                emptyV.snp.makeConstraints { (make) in
+                    make.top.equalTo(kNavBarH+155)
+                    make.left.bottom.right.equalTo(self.view)
+                }
+                
+                emptyV.sureBtnClosure = {
+                    let recordVC = DeliveryOrderInfoViewController()
+                    self.navigationController?.pushViewController(recordVC, animated: true)
+                }
+            }else {
+                /// 没有选择就可以获取蔬菜列表，进行选择
+                fetchDispatchMenu()
+            }
         }
     }
     
@@ -158,6 +188,7 @@ class DeliveryViewController: ViewController {
         
         view.backgroundColor = UIColor.white
         
+        /// 1. 判断是否是vip
         if User.currentUser().isVip == 0 {
             
             navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
@@ -165,26 +196,24 @@ class DeliveryViewController: ViewController {
             view.addSubview(collectionView)
             view.addSubview(commitVew)
             collectionView.addSubview(headerView)
+            
             // 加载数据
             loadData()
+            
         }else {
             
+            // 不是vip提示联系客服 充值
             view.addSubview(emptyView)
-            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务",
-                                               image: UIImage(named: "farm_delivery_nonmember"),
-                                               btnTitle: "去开通")
+            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
             emptyView.snp.makeConstraints { (make) in
                 make.top.equalTo(kNavBarH)
                 make.left.bottom.right.equalTo(self.view)
             }
-            
             emptyView.sureBtnClosure = {
                 let phone = "18782967728"  // 填写运营人员的电话号码
                 callUpWith(phone)
             }
         }
-        
-        /// 显示配送的次数
         
     }
     
@@ -275,22 +304,20 @@ class DeliveryViewController: ViewController {
     
     func loadData() {
         
+        //fetchUserBalance()
         //fetchDispatchDate()
         //settingDispatchData()
         //fetchDispatchMenu()
         //createDispatchOrder()
         //fetchDispatchOrderList()
         
-        fetchUserBalance()
         fetchUserAddressList()
         fetchDispatchDate()
-        
     }
     
     /// 获取配送次数
     func fetchUserBalance() {
         let params = ["userid": User.currentUser().userId]
-        
         WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { [weak self] (model) in
             guard let self = self else { return }
             self.balanceInfo = model
@@ -318,7 +345,6 @@ class DeliveryViewController: ViewController {
     func fetchDispatchDate() {
         
         let params = ["userid": User.currentUser().userId]
-        
         WebAPITool.requestModel(WebAPI.fetchDispatchDate(params), model: DispatchDateInfo.self, complete: { [weak self] (model) in
             debugPrints("配送的时间---\(model)")
             guard let self = self else { return }
@@ -395,6 +421,7 @@ class DeliveryViewController: ViewController {
     
     ///  获取所有用户的配送菜单
     func fetchDispatchMenu() {
+        
         WebAPITool.requestModelArrayWithData(WebAPI.fetchDispatchMenu, model: DispatchMenuInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             debugPrints("配送清单列表---\(list.count)")
@@ -471,10 +498,11 @@ class DeliveryViewController: ViewController {
         params["userid"] = User.currentUser().userId
         params["status"] = 1  // status 1 等于在正在进行中的订单， status 2 是历史订单
         
-        WebAPITool.requestModelArrayWithKey(WebAPI.dispatchOrderList(params), model: DispatchOrderInfo.self, key: "page", complete: { (list) in
-            debugPrints("获取配送订单列表---\(list.count)")
+        WebAPITool.requestModelArrayWithData(WebAPI.dispatchOrderList(params), model: DispatchVegetablesInfo.self, complete: { [weak self] (list) in
+            guard let self = self else { return }
+            self.vegetablesInfo = list
         }) { (error) in
-            debugPrints("获取配送订单失败---\(error)")
+            debugPrints("获取配送订单列表（正在进行中，历史记录）失败---\(error)")
         }
     }
     

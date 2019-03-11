@@ -77,9 +77,18 @@ class GoodsDetailViewController: ViewController {
             self.addToCart()
         }).disposed(by: rx.disposeBag)
         
-        buyView.buyBtn.rx.tap.subscribe(onNext: { (_) in
-            let list:[CartGoodsInfo]     = []
-            self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: list), sender: self)
+        buyView.buyBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            
+            var goodsInfo = CartGoodsInfo()
+            goodsInfo.productid = self.goodsDetailInfo.id
+            goodsInfo.quantity = 1
+            goodsInfo.productname = self.goodsDetailInfo.productName
+            goodsInfo.marketprice = CGFloat(self.goodsDetailInfo.marketPrice)
+            goodsInfo.sellprice = self.goodsDetailInfo.salePrice
+            goodsInfo.focusImgUrl = self.goodsDetailInfo.focusImgUrl
+            
+            self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
         }).disposed(by: rx.disposeBag)
         
         buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
@@ -89,6 +98,7 @@ class GoodsDetailViewController: ViewController {
         
     }
     
+    /// 加入购物车
     func addToCart() {
         
         let productLists: [[String: Any]] = [["productid": goodsDetailInfo.id, "quantity": 1]]
@@ -160,8 +170,8 @@ class GoodsDetailViewController: ViewController {
         view.tableHeaderView = headerView
         view.showsVerticalScrollIndicator = false
         view.register(GoodsDetailImgTabCell.self, forCellReuseIdentifier: GoodsDetailImgTabCell.identifier)
-        view.estimatedRowHeight = 100
-        view.rowHeight = UITableView.automaticDimension
+//        view.estimatedRowHeight = 100
+//        view.rowHeight = UITableView.automaticDimension
         
         return view
     }()
@@ -171,7 +181,6 @@ class GoodsDetailViewController: ViewController {
 
     func fetchGoodsInfo() {
         WebAPITool.requestModelWithData(WebAPI.goodsDetail(goodId), model: GoodsDetailInfo.self, complete: { [weak self] (info) in
-            debugPrints("商品详情信息---\(info)")
             guard let self = self else { return }
             self.goodsDetailInfo = info
         }) { (error) in
@@ -184,19 +193,19 @@ class GoodsDetailViewController: ViewController {
 extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return goodsDetailInfo.detailImgUrl != "" ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GoodsDetailImgTabCell.identifier, for: indexPath) as! GoodsDetailImgTabCell
-        let url = "https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E4%B8%8A%E6%B5%B7%E9%9D%92.jpg"
+        let url = goodsDetailInfo.detailImgUrl
         cell.imgView.lc_setImage(with: url)
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let url = "https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E4%B8%8A%E6%B5%B7%E9%9D%92.jpg"
+        let url = goodsDetailInfo.detailImgUrl
         return calculteCellH(imgUrl: url)
     }
     
@@ -213,18 +222,25 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
             let url = URL(string: imgUrl)!
             
             ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (img, error, url, data) in
-                guard img != nil else {return }
+                guard img != nil else {
+                    cellH = CGSize.zero
+                    return
+                }
                 ImageCache.default.store(img!, original: nil, forKey: imgUrl, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: {
                     let cachedImg = ImageCache.default.retrieveImageInDiskCache(forKey: imgUrl)
                     if let img = cachedImg {
                         debugPrints("图片下载的高度---\(img.size.height)")
                         cellH = img.size
+                    }else {
+                        cellH = CGSize.zero
                     }
                 })
             }
         }
+        
         debugPrints("图片的缩放比例\(cellH.height/cellH.width*kScreenW)")
-        return cellH.height/cellH.width*kScreenW
+        
+        return 550 //cellH.height/cellH.width*kScreenW
     }
     
 }

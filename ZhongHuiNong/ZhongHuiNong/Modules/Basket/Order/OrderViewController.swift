@@ -174,9 +174,7 @@ class OrderViewController: TableViewController {
             debugPrints("创建订单出错---\(error)")
             HudHelper.hideHUD()
         }
-        
-//        self.surePay("190311095836771")
-        
+                
     }
     
     func surePay(_ order_no: String) {

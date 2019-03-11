@@ -252,7 +252,7 @@ extension WebAPI: TargetType, WebAPIType {
              .userOrderReputationShow(let p):
             return .requestParameters(parameters: p, encoding: URLEncoding.default)
             
-        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p): // 拼接在url中
+        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .dispatchOrderList(let p): // 拼接在url中
             return .requestCompositeData(bodyData: Data(), urlParameters: p)
             
         case .goodsDetail(_):

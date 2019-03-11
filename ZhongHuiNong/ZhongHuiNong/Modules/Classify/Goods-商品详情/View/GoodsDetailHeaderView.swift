@@ -137,8 +137,18 @@ class GoodsDetailHeaderView: View {
             }
 
             // 1. 上面轮播图
-            ImgArray = ["goods_tuijian_1","goods_tuijian_2"]
-            pageLab.text = "1/\(ImgArray)"
+            
+            if goodsDetailInfo.albums.count > 0 {
+                pageLab.text = "1/\(goodsDetailInfo.albums.count)"
+                for item in goodsDetailInfo.albums {
+                    ImgArray.append(item.originalPath)
+                }
+            }else {
+                pageLab.isHidden = true
+            }
+            
+            
+            
             bannerView.bannerArray.accept(ImgArray)
             
             // 2. 商品基本信息

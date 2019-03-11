@@ -45,6 +45,7 @@ struct GoodsDetailInfo: Mappable {
     var speclist : [Speclist] = []
     var stock : Int = defaultId
     var thumbnailsUrll : String = ""
+    var detailImgUrl: String = ""
     var unit : String = ""
     var updateDate : String = ""
     var upselling : Bool = false
@@ -89,6 +90,7 @@ struct GoodsDetailInfo: Mappable {
         speclist <- map["speclist"]
         stock <- map["stock"]
         thumbnailsUrll <- map["thumbnailsUrll"]
+        detailImgUrl <- map["detailImgUrl"]
         unit <- map["unit"]
         updateDate <- map["updateDate"]
         upselling <- map["upselling"]

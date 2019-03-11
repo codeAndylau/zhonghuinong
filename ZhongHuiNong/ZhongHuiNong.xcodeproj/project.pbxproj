@@ -38,6 +38,7 @@
 		140FFEC12236230C00EB90DD /* DispatchMenuInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */; };
 		140FFEC3223628E500EB90DD /* DispatchOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */; };
 		140FFEC6223658F000EB90DD /* KuaidiInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC5223658F000EB90DD /* KuaidiInfo.swift */; };
+		140FFEC822368EB700EB90DD /* DispatchVegetablesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC722368EB700EB90DD /* DispatchVegetablesInfo.swift */; };
 		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
 		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
 		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
@@ -314,6 +315,7 @@
 		140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchMenuInfo.swift; sourceTree = "<group>"; };
 		140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchOrderInfo.swift; sourceTree = "<group>"; };
 		140FFEC5223658F000EB90DD /* KuaidiInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuaidiInfo.swift; sourceTree = "<group>"; };
+		140FFEC722368EB700EB90DD /* DispatchVegetablesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchVegetablesInfo.swift; sourceTree = "<group>"; };
 		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
 		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
 		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
@@ -697,6 +699,7 @@
 				140FFEBE223612AA00EB90DD /* DispatchDateInfo.swift */,
 				140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */,
 				140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */,
+				140FFEC722368EB700EB90DD /* DispatchVegetablesInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2018,6 +2021,7 @@
 				1448B0A622252517009237E7 /* MineAboutHeaderView.swift in Sources */,
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */,
+				140FFEC822368EB700EB90DD /* DispatchVegetablesInfo.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14C251152223F01600F5CB53 /* FlashThreeViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,

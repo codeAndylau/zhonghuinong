@@ -9,17 +9,17 @@
 import UIKit
 
 class GoodsDetailImgTabCell: TableViewCell, TabReuseIdentifier {
-
+    
     let imgView = ImageView().then { (img) in
         img.contentMode = UIView.ContentMode.scaleAspectFit
     }
     
     override func makeUI() {
-        
+        selectionStyle = .none
         addSubview(imgView)
         imgView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
     }
-
+    
 }
