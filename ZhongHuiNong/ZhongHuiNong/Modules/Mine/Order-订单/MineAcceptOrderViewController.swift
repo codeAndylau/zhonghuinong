@@ -34,7 +34,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
     func fetchAcceptOrder(isRefresh: Bool = false) {
         
         var params = [String: Any]()
-        params["user_id"] = 3260
+        params["user_id"] = 3270
         params["status"] = 8  // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
         params["wid"] = 1
         
@@ -67,7 +67,7 @@ extension MineAcceptOrderViewController {
         
         cell.cancelBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineLogistics, sender: self)
+            self.navigator.show(segue: .mineLogistics, sender: topVC)
         }).disposed(by: rx.disposeBag)
         
         return cell

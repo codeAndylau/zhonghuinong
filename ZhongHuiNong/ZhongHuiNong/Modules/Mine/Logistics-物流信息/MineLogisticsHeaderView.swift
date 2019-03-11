@@ -38,14 +38,14 @@ class MineLogisticsHeaderView: View {
     }
     
     let orderLab = Label().then { (lab) in
-        lab.text = "运单号：75123631745869"
+        lab.text = "运单号：****"
         lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.systemFont(ofSize: 13)
     }
     
     let statusView = MineLogisticsAddressView().then { (view) in
         view.backgroundColor = UIColor.white
-        view.ststus = 2
+        view.ststus = 0
     }
     
     override func makeUI() {
@@ -54,7 +54,7 @@ class MineLogisticsHeaderView: View {
         contView.addSubview(leftImg)
         contView.addSubview(titleLab)
         contView.addSubview(phoneLab)
-        contView.addSubview(arrowImg)
+        //contView.addSubview(arrowImg)
         contView.addSubview(orderLab)
         contView.addSubview(statusView)
     }
@@ -82,14 +82,14 @@ class MineLogisticsHeaderView: View {
             make.top.equalTo(titleLab.snp.bottom).offset(3)
         }
         
-        arrowImg.snp.makeConstraints { (make) in
-            make.left.equalTo(phoneLab.snp.right).offset(5)
-            make.centerY.equalTo(phoneLab)
-        }
+//        arrowImg.snp.makeConstraints { (make) in
+//            make.left.equalTo(phoneLab.snp.right).offset(5)
+//            make.centerY.equalTo(phoneLab)
+//        }
         
         orderLab.snp.makeConstraints { (make) in
             make.left.equalTo(titleLab)
-            make.bottom.equalTo(leftImg.snp.bottom).offset(-5)
+            make.bottom.equalTo(leftImg.snp.bottom).offset(-15)
         }
         
         statusView.snp.makeConstraints { (make) in
@@ -105,6 +105,19 @@ class MineLogisticsHeaderView: View {
         let view = MineLogisticsHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 185))
         view.backgroundColor = UIColor.hexColor(0xFAFAFA)
         return view
+    }
+    
+    var kuaidiInfo: KuaidiInfo = KuaidiInfo() {
+        didSet {
+            titleLab.text = kuaidiInfo.expName
+            phoneLab.text = kuaidiInfo.expPhone
+            orderLab.text = kuaidiInfo.number
+            
+            /*  1.在途中 2.正在派件 3.已签收 4.派送失败  */
+            debugPrints("配送的状态---\(kuaidiInfo.deliverystatus)")
+            let status = Int(kuaidiInfo.deliverystatus)
+            statusView.ststus = (status ?? 0)
+        }
     }
 
 }

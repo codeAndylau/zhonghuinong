@@ -10,30 +10,15 @@ import UIKit
 
 class VegetablesView: View {
     
-    let btn1 = Button(type: .custom).then { (btn) in
-        btn.setImage(UIImage(named: "farm_peisong"), for: .normal)
-        btn.adjustsImageWhenHighlighted = false
-    }
+    let btn1 = ImageView()
     
-    let btn2 = Button(type: .custom).then { (btn) in
-        btn.setBackgroundImage(UIImage(named: "farm_peisong"), for: .normal)
-        btn.adjustsImageWhenHighlighted = false
-    }
+    let btn2 = ImageView()
     
-    let btn3 = Button(type: .custom).then { (btn) in
-        btn.setBackgroundImage(UIImage(named: "farm_peisong"), for: .normal)
-        btn.adjustsImageWhenHighlighted = false
-    }
+    let btn3 = ImageView()
     
-    let btn4 = Button(type: .custom).then { (btn) in
-        btn.setBackgroundImage(UIImage(named: "farm_peisong"), for: .normal)
-        btn.adjustsImageWhenHighlighted = false
-    }
+    let btn4 = ImageView()
     
-    let btn5 = Button(type: .custom).then { (btn) in
-        btn.setBackgroundImage(UIImage(named: "farm_peisong"), for: .normal)
-        btn.adjustsImageWhenHighlighted = false
-    }
+    let btn5 = ImageView()
 
     override func makeUI() {
         super.makeUI()

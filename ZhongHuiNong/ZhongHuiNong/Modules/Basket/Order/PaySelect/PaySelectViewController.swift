@@ -8,17 +8,22 @@
 
 import UIKit
 
+/// 支付选择试图控制器(账户余额支付，支付宝，微信)
 class PaySelectViewController: SwiftPopup {
+    
+    var order_no: String = ""
     
     var money: Double = 0 {
         didSet {
-            paySelectView.moneyLab.text = "\(money)"
+            let price = Keepfigures(text: CGFloat(money))
+            paySelectView.moneyLab.text = price
         }
     }
     
     var balance: Double = 0 {
         didSet {
-           paySelectView.balanceLab.text = "\(balance)"
+            let price = Keepfigures(text: CGFloat(balance))
+            paySelectView.balanceLab.text = price
         }
     }
     
@@ -68,8 +73,10 @@ class PaySelectViewController: SwiftPopup {
             self.paySelectView.status = .alipay
         }).disposed(by: rx.disposeBag)
         
+        /// 弹出密码支付框
         paySelectView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
+            self.PayPasswordDemo.order_no = self.order_no
             self.PayPasswordDemo.show(above: topVC, completion: nil)
         }).disposed(by: rx.disposeBag)
         
@@ -80,11 +87,20 @@ class PaySelectViewController: SwiftPopup {
         
     }
     
+    deinit {
+        debugPrints("支付方式选择界面已经销毁")
+    }
+    
     // MARK: - Lazy
+    
     lazy var paySureView = PaySureView.loadView()
+    
     lazy var paySelectView = PaySelectView.loadView()
+    
     lazy var paySuccessView = PaySuccessView.loadView()
+    
     lazy var payPasswordView = PayPasswordView.loadView()
+    
     lazy var PayPasswordDemo = PayPasswordViewController()
     
 }

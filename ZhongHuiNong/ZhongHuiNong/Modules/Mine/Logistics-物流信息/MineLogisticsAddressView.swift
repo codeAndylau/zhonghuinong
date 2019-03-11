@@ -15,19 +15,25 @@ class MineLogisticsAddressView: GoodsDetailAddressView {
     var ststus = 1 {
         didSet {
             
+            /*  1.在途中 2.正在派件 3.已签收 4.派送失败  */
+            
             switch ststus {
-            case 1:
+                
+            case 0:
+                
                 lab1.textColor = UIColor.hexColor(0x1DD1A8)
                 dot1View.backgroundColor = UIColor.hexColor(0x1DD1A8)
                 
-            case 2:
+            case 1:
+                
                 lab1.textColor = UIColor.hexColor(0x1DD1A8)
                 lab2.textColor = UIColor.hexColor(0x1DD1A8)
                 dot1View.backgroundColor = UIColor.hexColor(0x1DD1A8)
                 dot2View.backgroundColor = UIColor.hexColor(0x1DD1A8)
                 line1View.backgroundColor = UIColor.hexColor(0x1DD1A8)
                 
-            case 3:
+            case 2:
+                
                 lab1.textColor = UIColor.hexColor(0x1DD1A8)
                 lab2.textColor = UIColor.hexColor(0x1DD1A8)
                 lab3.textColor = UIColor.hexColor(0x1DD1A8)
@@ -38,7 +44,8 @@ class MineLogisticsAddressView: GoodsDetailAddressView {
                 
                 line1View.backgroundColor = UIColor.hexColor(0x1DD1A8)
                 line2View.backgroundColor = UIColor.hexColor(0x1DD1A8)
-            case 4:
+                
+            case 3:
                 
                 lab1.textColor = UIColor.hexColor(0x1DD1A8)
                 lab2.textColor = UIColor.hexColor(0x1DD1A8)
@@ -57,8 +64,6 @@ class MineLogisticsAddressView: GoodsDetailAddressView {
             default:
                 break
             }
-            
-            
         }
     }
     

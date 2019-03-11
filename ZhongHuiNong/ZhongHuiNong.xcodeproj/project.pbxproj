@@ -34,6 +34,10 @@
 		140F3C852234E42D0059EBB3 /* CartGoodsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C842234E42D0059EBB3 /* CartGoodsInfo.swift */; };
 		140F3C872234F5160059EBB3 /* CartOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C862234F5160059EBB3 /* CartOrderInfo.swift */; };
 		140F3C892234FE030059EBB3 /* MineGoodsOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */; };
+		140FFEBF223612AA00EB90DD /* DispatchDateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEBE223612AA00EB90DD /* DispatchDateInfo.swift */; };
+		140FFEC12236230C00EB90DD /* DispatchMenuInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */; };
+		140FFEC3223628E500EB90DD /* DispatchOrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */; };
+		140FFEC6223658F000EB90DD /* KuaidiInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140FFEC5223658F000EB90DD /* KuaidiInfo.swift */; };
 		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
 		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
 		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
@@ -306,6 +310,10 @@
 		140F3C842234E42D0059EBB3 /* CartGoodsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartGoodsInfo.swift; sourceTree = "<group>"; };
 		140F3C862234F5160059EBB3 /* CartOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartOrderInfo.swift; sourceTree = "<group>"; };
 		140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineGoodsOrderInfo.swift; sourceTree = "<group>"; };
+		140FFEBE223612AA00EB90DD /* DispatchDateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDateInfo.swift; sourceTree = "<group>"; };
+		140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchMenuInfo.swift; sourceTree = "<group>"; };
+		140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchOrderInfo.swift; sourceTree = "<group>"; };
+		140FFEC5223658F000EB90DD /* KuaidiInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuaidiInfo.swift; sourceTree = "<group>"; };
 		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
 		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
 		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
@@ -683,12 +691,23 @@
 			path = "Setting-设置";
 			sourceTree = "<group>";
 		};
+		140FFEC42236334E00EB90DD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				140FFEBE223612AA00EB90DD /* DispatchDateInfo.swift */,
+				140FFEC02236230C00EB90DD /* DispatchMenuInfo.swift */,
+				140FFEC2223628E500EB90DD /* DispatchOrderInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		14151061222E256400EA9026 /* Delivery */ = {
 			isa = PBXGroup;
 			children = (
 				1492DD97221A4B6B00C79D88 /* DeliveryViewController.swift */,
 				1492DD9E221A54FA00C79D88 /* TabCell */,
 				1492DD99221A4BBE00C79D88 /* View */,
+				140FFEC42236334E00EB90DD /* Model */,
 			);
 			path = Delivery;
 			sourceTree = "<group>";
@@ -942,9 +961,9 @@
 				146B74C2221EA338005D2879 /* MinePayOrderViewController.swift */,
 				146B74C4221EA394005D2879 /* MineSendOrderViewController.swift */,
 				146B74C6221EA3D6005D2879 /* MineAcceptOrderViewController.swift */,
+				140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */,
 				146B74C8221EA4A4005D2879 /* TabCell */,
 				146B74BA221E9B61005D2879 /* View */,
-				140F3C882234FE030059EBB3 /* MineGoodsOrderInfo.swift */,
 			);
 			path = "Order-订单";
 			sourceTree = "<group>";
@@ -1280,6 +1299,7 @@
 				14D5B33A221FA3BD00D08DD1 /* MineLogisticsTablCell.swift */,
 				14D5B33D221FC41B00D08DD1 /* MineLogisticsHeaderView.swift */,
 				14D5B33F221FC8FD00D08DD1 /* MineLogisticsAddressView.swift */,
+				140FFEC5223658F000EB90DD /* KuaidiInfo.swift */,
 			);
 			path = "Logistics-物流信息";
 			sourceTree = "<group>";
@@ -1971,6 +1991,7 @@
 				1415106D222E72CD00EA9026 /* EZPlayerOrientation.swift in Sources */,
 				145138A921F851C70038AFC6 /* MainTabBarViewController.swift in Sources */,
 				14B27A49221BA2500029648A /* DeliveryAddressView.swift in Sources */,
+				140FFEC6223658F000EB90DD /* KuaidiInfo.swift in Sources */,
 				145138A421F82E7E0038AFC6 /* LibsManager.swift in Sources */,
 				14D5B332221F945300D08DD1 /* MinePayOrderTabCell.swift in Sources */,
 				14087464221E74DA0051B7C3 /* MineMessageViewController.swift in Sources */,
@@ -2044,6 +2065,7 @@
 				14974BF221F713100088ABC3 /* ViewModel.swift in Sources */,
 				1492DDB3221A870A00C79D88 /* WechatLoginViewController.swift in Sources */,
 				14043D5322129F9F0023AA11 /* SettlementView.swift in Sources */,
+				140FFEBF223612AA00EB90DD /* DispatchDateInfo.swift in Sources */,
 				8BDF075C221AD88900CBFBE4 /* DeliveryTabCell.swift in Sources */,
 				14974BE121F70A050088ABC3 /* TableViewController.swift in Sources */,
 				1493B4402203EB2C009E394E /* StoreRightCell.swift in Sources */,
@@ -2068,6 +2090,7 @@
 				14C3EBD0221D1DA8003029EB /* GoodsDetailViewController.swift in Sources */,
 				14ED11122216AF560021D185 /* FlashView.swift in Sources */,
 				1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */,
+				140FFEC12236230C00EB90DD /* DispatchMenuInfo.swift in Sources */,
 				142CE02B222D247E00F604B0 /* DeliveryTimeView.swift in Sources */,
 				142CE01D222D0B0B00F604B0 /* NoticeBar.swift in Sources */,
 				14F35C6422029EF2002122B6 /* MemberLeftBarView.swift in Sources */,
@@ -2119,6 +2142,7 @@
 				1406D62622320F8D0090C07F /* MineSettingPayPsdViewController.swift in Sources */,
 				1448B0AD222537CA009237E7 /* MineMsgComponentViewController.swift in Sources */,
 				14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */,
+				140FFEC3223628E500EB90DD /* DispatchOrderInfo.swift in Sources */,
 				145138A021F80F950038AFC6 /* NetworkTool.swift in Sources */,
 				14F35C792202D39F002122B6 /* TabCellProtocol.swift in Sources */,
 				149445BB22291B190048BF65 /* MineVegetablesViewController.swift in Sources */,

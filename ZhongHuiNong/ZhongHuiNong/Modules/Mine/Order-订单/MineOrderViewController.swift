@@ -38,7 +38,7 @@ class MineOrderViewController: ViewController {
         view.addSubview(categoryView)
         
         listContainerView = JXCategoryListContainerView(delegate: self)
-        listContainerView.frame = CGRect(x: 0, y: kNavBarH+44, width: kScreenW, height: kScreenH-kNavBarH-44-kBottomViewH)
+        listContainerView.frame = CGRect(x: 0, y: kNavBarH+44, width: kScreenW, height: kScreenH-kNavBarH-44)
         view.addSubview(listContainerView)
         
         //关联cotentScrollView，关联之后才可以互相联动！！！
@@ -65,7 +65,7 @@ class MineOrderViewController: ViewController {
     }()
     
     lazy var pageContentView: PageContentView = {
-        let frame = CGRect(x: 0, y: kNavBarH+44, width: kScreenW, height: kScreenH-kNavBarH-44)
+        let frame = CGRect(x: 0, y: kNavBarH+44, width: kScreenW, height: kScreenH-kNavBarH)
         let childVCs = [MineAllOrderViewController(),MinePayOrderViewController(),
                         MineSendOrderViewController(),MineAcceptOrderViewController()]
         

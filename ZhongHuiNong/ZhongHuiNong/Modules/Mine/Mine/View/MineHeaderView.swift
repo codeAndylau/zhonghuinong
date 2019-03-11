@@ -203,8 +203,14 @@ class MineHeaderView: View {
             nameLab.text = user.username
             headerBtn.kf.setImage(with: URL(string: user.userImg), for: .normal, placeholder: UIImage(named: "mine_default_ portrait"))
             phoneLab.text = ""
-            if user.isVip {
-                memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+            
+            // 0是非VIP 1是个人VIP 2是企业用户
+            if user.isVip == 0 {
+                memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+            }else if user.isVip == 1 {
+                memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享VIP", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+            }else if user.isVip == 2 {
+                memberBtn.set(image: UIImage(named: "mine_vip"), title: "企业VIP", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
             }else {
                 memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
             }

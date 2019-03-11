@@ -50,7 +50,7 @@ class MineAllOrderViewController: ViewController {
     func fetchAllOrder(isRefresh: Bool = false) {
         
         var params = [String: Any]()
-        params["user_id"] = 3260
+        params["user_id"] = 3270
         params["status"] = 8  // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
         params["wid"] = 1
         
@@ -79,6 +79,8 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
+        // orderstatus, 1待付款（可以取消订单），  2, 待发货或者待收货， 3 待评价，已完成
+        // paymentstatus =1 未支付， =2 已支付，  expressstatus = 1未发货，  =2 已发货
         let order = orderList[indexPath.row]
         
         debugPrints("o订单状态--\(indexPath.row)-\(order.status)")

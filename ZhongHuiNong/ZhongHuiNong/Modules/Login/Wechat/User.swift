@@ -14,7 +14,7 @@ struct User: Mappable, Codable {
     
     var headimgUrl : String  = ""
     var isPayPassword : Bool = false
-    var isVip : Bool = false            // 0是非VIP 1是个人VIP 2是企业用户
+    var isVip : Int = defaultId            // 0是非VIP 1是个人VIP 2是企业用户
     var mobile : String = ""
     var nickname : String = ""
     var userId : Int = defaultId
@@ -54,7 +54,7 @@ extension User {
     static func hasUser() -> Bool {
         let user = User.currentUser()
         debugPrints("用户信息---\(String(describing: user))")
-        if user.userId == -1 && user.username == "" && user.userImg == "" && user.isVip == false {
+        if user.userId == -1 && user.username == "" && user.userImg == "" && user.isVip == defaultId {
             return false
         }
         return true

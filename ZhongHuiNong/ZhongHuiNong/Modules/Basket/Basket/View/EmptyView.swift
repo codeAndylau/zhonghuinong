@@ -34,6 +34,8 @@ class EmptyView: View {
         lab.text = "购物车空空如也"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
+        lab.numberOfLines = 0
+        lab.textAlignment = .center
     }
     
     let sureBtn = Button().then { (btn) in
@@ -63,6 +65,7 @@ class EmptyView: View {
         titleLab.snp.makeConstraints { (make) in
             make.top.equalTo(emptyImg.snp.bottom).offset(30)
             make.centerX.equalTo(emptyImg)
+            make.width.equalTo(kScreenW-50)
         }
         
         sureBtn.snp.makeConstraints { (make) in

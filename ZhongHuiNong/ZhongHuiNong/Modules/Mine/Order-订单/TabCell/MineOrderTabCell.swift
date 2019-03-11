@@ -89,7 +89,7 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         }
         
         vegetablesView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLab.snp.bottom).offset(25)
+            make.top.equalTo(titleLab.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
             make.height.equalTo(50)
@@ -97,7 +97,7 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         
         moneyLab.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-12)
-            make.bottom.equalToSuperview().offset(-15)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         tipsLab.snp.makeConstraints { (make) in
@@ -116,6 +116,32 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         didSet {
             
             numLab.text = "\(order.orderGoodsList.count)"
+            
+            for item in order.orderGoodsList.enumerated() {
+                
+                debugPrints("商品图片信息---\(item.element.goodsPic)")
+                
+                if item.offset == 0 {
+                    vegetablesView.btn1.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 1 {
+                    vegetablesView.btn2.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 2 {
+                    vegetablesView.btn3.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 3 {
+                    vegetablesView.btn4.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 4 {
+                    vegetablesView.btn5.lc_setImage(with: item.element.goodsPic)
+                }
+                
+            }
             
             var price: CGFloat = 0
             order.orderGoodsList.forEach { (item) in

@@ -48,6 +48,11 @@ class MineLogisticsTablCell: TableViewCell, TabReuseIdentifier {
     var isDownLine = false
     var isCurrented = false
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     override func makeUI() {
         super.makeUI()
         backgroundColor = UIColor.hexColor(0xFAFAFA)
@@ -84,50 +89,72 @@ class MineLogisticsTablCell: TableViewCell, TabReuseIdentifier {
     
     override func draw(_ rect: CGRect) {
         
-        if isUpCorner == true {
-            let corners: UIRectCorner = [.topLeft, .topRight]
-            contView.cuttingAnyCorner(roundingCorners: corners, corner: 10)
+        dotView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(17.5)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(6)
+        }
+        dotView.cuttingCorner(radius: 2.5)
+        dotView.backgroundColor = UIColor.hexColor(0xCECECE)
+        
+        uplineView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(dotView.snp.top)
+            make.width.equalTo(1)
         }
         
-        if isDownCorner == true {
-            let corners: UIRectCorner = [.bottomLeft, .bottomRight]
-            contView.cuttingAnyCorner(roundingCorners: corners, corner: 10)
+        downlineView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.top.equalTo(dotView.snp.bottom)
+            make.bottom.equalToSuperview()
+            make.width.equalTo(1)
         }
         
-        if isCurrented {
-            dotView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(25)
-                make.centerY.equalToSuperview()
-                make.width.height.equalTo(10)
-            }
-            dotView.cuttingCorner(radius: 5)
-        }else {
-            dotView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(27)
-                make.centerY.equalToSuperview()
-                make.width.height.equalTo(6)
-            }
-            dotView.cuttingCorner(radius: 2.5)
-            dotView.backgroundColor = UIColor.hexColor(0xCECECE)
-        }
-        
-        if isUpLine {
-            uplineView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(29.5)
-                make.top.equalToSuperview()
-                make.bottom.equalTo(dotView.snp.top)
-                make.width.equalTo(1)
-            }
-        }
-        
-        if isDownLine {
-            downlineView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(29.5)
-                make.top.equalTo(dotView.snp.bottom)
-                make.bottom.equalToSuperview()
-                make.width.equalTo(1)
-            }
-        }
+//        if isUpCorner == true {
+//            let corners: UIRectCorner = [.topLeft, .topRight]
+//            contView.cuttingAnyCorner(roundingCorners: corners, corner: 10)
+//        }
+//
+//        if isDownCorner == true {
+//            let corners: UIRectCorner = [.bottomLeft, .bottomRight]
+//            contView.cuttingAnyCorner(roundingCorners: corners, corner: 10)
+//        }
+//
+//        if isCurrented {
+//            dotView.snp.makeConstraints { (make) in
+//                make.left.equalToSuperview().offset(25)
+//                make.centerY.equalToSuperview()
+//                make.width.height.equalTo(10)
+//            }
+//            dotView.cuttingCorner(radius: 5)
+//        }else {
+//            dotView.snp.makeConstraints { (make) in
+//                make.left.equalToSuperview().offset(27)
+//                make.centerY.equalToSuperview()
+//                make.width.height.equalTo(6)
+//            }
+//            dotView.cuttingCorner(radius: 2.5)
+//            dotView.backgroundColor = UIColor.hexColor(0xCECECE)
+//        }
+//
+//        if isUpLine {
+//            uplineView.snp.makeConstraints { (make) in
+//                make.left.equalToSuperview().offset(29.5)
+//                make.top.equalToSuperview()
+//                make.bottom.equalTo(dotView.snp.top)
+//                make.width.equalTo(1)
+//            }
+//        }
+//
+//        if isDownLine {
+//            downlineView.snp.makeConstraints { (make) in
+//                make.left.equalToSuperview().offset(29.5)
+//                make.top.equalTo(dotView.snp.bottom)
+//                make.bottom.equalToSuperview()
+//                make.width.equalTo(1)
+//            }
+//        }
     }
 
 }

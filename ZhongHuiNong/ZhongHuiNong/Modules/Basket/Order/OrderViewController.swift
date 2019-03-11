@@ -13,6 +13,8 @@ class OrderViewController: TableViewController {
 
     // MARK: - Property
     
+    var isFreight = false // 是否免运费
+    
     func refreshValue() {
         
         if addressList.count > 0 && balance.id != defaultId {
@@ -26,9 +28,9 @@ class OrderViewController: TableViewController {
             
             // 获取默认地址
             if defaultAddressInfo.count >= 1 {
-                headerView.addressInfo = defaultAddressInfo[0]
+                headerView.addressView.addressInfo = defaultAddressInfo[0]
             }else {
-                headerView.addressInfo = addressList[0]
+                headerView.addressView.addressInfo = addressList[0]
             }
             
             fadeInOnDisplay {
@@ -78,6 +80,11 @@ class OrderViewController: TableViewController {
                 paySureView.priceLab.text = "已优惠¥" + "\(Keepfigures(text: costPrice - salePrice))"
             }
             
+            /// 超过168 则需要免运费
+            if salePrice > 168 {
+                isFreight = true
+            }
+            
             payMoney = Double(salePrice)
             paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
             paySureView.numLab.text = "共\(num)件"
@@ -121,45 +128,61 @@ class OrderViewController: TableViewController {
             guard let self = self else { return }
             let addressInfo = notification.userInfo?[NSNotification.Name.userOrderAddressEdit.rawValue] as! UserAddressInfo
             debugPrints("用户选择地址信息---\(addressInfo)")
-            self.headerView.addressInfo = addressInfo
+            self.headerView.addressView.addressInfo = addressInfo
+        }).disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
+            debugPrints("订单支付成功回到提交订单界面")
+            self.navigationController?.popViewController(animated: true)
         }).disposed(by: rx.disposeBag)
     }
     
     func commitOrder() {
         
         var productLists: [[String: Any]] = []
-        
+
         for item in goodsList {
             let dict = ["productid": item.productid, "quantity": Int(item.quantity)]
             productLists.append(dict)
         }
-        
+
         var params = [String: Any]()
-        
-        params["user_id"] = 3261
+
+        params["user_id"] = User.currentUser().userId
         params["remark"] = "暂无备注"
-        params["addressid"] = headerView.addressInfo.id
+        params["addressid"] = headerView.addressView.addressInfo.id
         params["express_fee"] = 0
         params["total_amount"] = 0
         params["productLists"] = productLists
-        
+
         debugPrints("创建订单参数---\(params)")
-        
+
         HudHelper.showWaittingHUD(msg: "创建订单中...")
         WebAPITool.requestModel(WebAPI.createOrder(params), model: CartOrderInfo.self, complete: { (model) in
             debugPrints("创建订单成功---\(model)")
             HudHelper.hideHUD()
             MBProgressHUD.showSuccess("订单创建成功")
+
+            if model.orderNumber != "" {
+                // MARK: TODO === 确认支付
+                self.surePay(model.orderNumber)
+            }else {
+                ZYToast.showCenterWithText(text: "订单编号有误!")
+            }
+
         }) { (error) in
             debugPrints("创建订单出错---\(error)")
             HudHelper.hideHUD()
         }
         
+//        self.surePay("190311095836771")
+        
     }
     
-    func surePay() {
+    func surePay(_ order_no: String) {
         paySelectDemo.balance = balance.creditbalance
         paySelectDemo.money = payMoney
+        paySelectDemo.order_no = order_no
         paySelectDemo.show()
     }
     
@@ -207,6 +230,7 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: VegetableTabCell.identifier, for: indexPath) as! VegetableTabCell
         cell.selectionStyle = .none
         cell.goodsList = goodsList
+        cell.isFreight = isFreight
         return cell
     }
     

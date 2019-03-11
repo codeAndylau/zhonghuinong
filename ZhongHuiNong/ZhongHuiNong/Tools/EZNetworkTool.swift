@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import ObjectMapper
 
 class EZNetworkTool {
     
@@ -74,6 +75,37 @@ class EZNetworkTool {
             let dict = JSON(result)
             debugPrints("手机绑定---\(dict)")
             completion(dict.boolValue)    
+        }
+    }
+    
+    /// 物流查询
+    func aliwuliuQuery(order: String, completion: @escaping (KuaidiInfo) ->Void, failure: @escaping (String) ->Void) {
+        
+        let url = "http://kdwlcxf.market.alicloudapi.com/kdwlcx?no=\(order)&type=auto"
+        let header = ["Authorization": "APPCODE 8ac99a4ed9a94e24826e8467623a4adb",
+                      "Content-Type": "application/json; charset=UTF-8"]
+        
+        Alamofire.request(url, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            guard let value = response.result.value else {
+                debugPrints("物流查询失败---\(String(describing: response.result.error))")
+                return
+            }
+            
+            // 直接解析
+            let dict = JSON(value)
+            debugPrints("物流查询---\(dict)")
+            let status = dict["status"].intValue
+            let msg = dict["msg"].stringValue
+            let result = dict["result"].object
+            if status == 0 {
+                if let model = Mapper<KuaidiInfo>().map(JSONObject: result) {
+                    completion(model)
+                }else {
+                    failure(msg)
+                }
+            }else {
+                failure(msg)
+            }
         }
     }
     

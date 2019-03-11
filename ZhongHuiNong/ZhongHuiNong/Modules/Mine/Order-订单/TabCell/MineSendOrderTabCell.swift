@@ -48,7 +48,7 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
         }
         
         vegetablesView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLab.snp.bottom).offset(25)
+            make.top.equalTo(titleLab.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
             make.height.equalTo(50)
@@ -63,7 +63,7 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
         
         moneyLab.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-12)
-            make.bottom.equalTo(cancelBtn.snp.top).offset(-15)
+            make.bottom.equalTo(cancelBtn.snp.top).offset(-10)
         }
         
         tipsLab.snp.makeConstraints { (make) in
@@ -82,7 +82,33 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
             
             statusLab.text = "等待商家发货"
             
-            numLab.text = "\(sendOrder.orderGoodsList.count)"
+            numLab.text = "共\(sendOrder.orderGoodsList.count)件"
+            
+            for item in sendOrder.orderGoodsList.enumerated() {
+                
+                debugPrints("待发货商品图片信息---\(item.element.goodsPic)")
+                
+                if item.offset == 0 {
+                    vegetablesView.btn1.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 1 {
+                    vegetablesView.btn2.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 2 {
+                    vegetablesView.btn3.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 3 {
+                    vegetablesView.btn4.lc_setImage(with: item.element.goodsPic)
+                }
+                
+                if item.offset == 4 {
+                    vegetablesView.btn5.lc_setImage(with: item.element.goodsPic)
+                }
+                
+            }
             
             var price: CGFloat = 0
             sendOrder.orderGoodsList.forEach { (item) in

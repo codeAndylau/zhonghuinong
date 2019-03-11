@@ -99,27 +99,18 @@ class MobileBindingViewController: ViewController {
     
     func sureBindingPhone() {
         
-//                var params = [String: Any]()
-//                params["msgid"] = msgid
-//                params["userid"] = User.currentUser().userId
-//                params["code"] = footerView.phoneTF.text!
-//                params["phonenumber"] = headerView.phoneTF.text!
-//
-//                debugPrints("手机绑定参数---\(params)")
-//                HudHelper.showWaittingHUD(msg: "请稍后...")
-//                WebAPITool.requestText(WebAPI.verifyCode(params), complete: { (value) in
-//                    debugPrints("手机绑定---\(value)")
-//                    HudHelper.hideHUD()
-//                }) { (error) in
-//                    HudHelper.hideHUD()
-//                    debugPrints("手机绑定出错---\(error)")
-//                }
-
-        let url = "http://212.64.91.248:80/api/User/verifycode?code=\(footerView.phoneTF.text!)&msgid=\(msgid)&phonenumber=\(headerView.phoneTF.text!)&userid=\(User.currentUser().userId)"
+        var params = [String: Any]()
+        params["msgid"] = msgid
+        params["userid"] = User.currentUser().userId
+        params["code"] = footerView.phoneTF.text!
+        params["phonenumber"] = headerView.phoneTF.text!
+        
+        debugPrints("手机绑定参数---\(params)")
         HudHelper.showWaittingHUD(msg: "请稍后...")
-        EZNetworkTool.shared.requestBindPhone(url, completion: { (value) in
+        WebAPITool.request(WebAPI.verifyCode(params), complete: { (value) in
+            debugPrints("手机绑定---\(value)")
             HudHelper.hideHUD()
-            if value {
+            if value.boolValue {
                 ZYToast.showCenterWithText(text: "绑定手机成功!")
             }else {
                 ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
@@ -127,11 +118,28 @@ class MobileBindingViewController: ViewController {
             delay(by: 0.5, closure: {
                 self.navigationController?.popViewController(animated: true)
             })
-
         }) { (error) in
             HudHelper.hideHUD()
-            ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
+            debugPrints("手机绑定出错---\(error)")
         }
+
+//        let url = "http://212.64.91.248:80/api/User/verifycode?code=\(footerView.phoneTF.text!)&msgid=\(msgid)&phonenumber=\(headerView.phoneTF.text!)&userid=\(User.currentUser().userId)"
+//        HudHelper.showWaittingHUD(msg: "请稍后...")
+//        EZNetworkTool.shared.requestBindPhone(url, completion: { (value) in
+//            HudHelper.hideHUD()
+//            if value {
+//                ZYToast.showCenterWithText(text: "绑定手机成功!")
+//            }else {
+//                ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
+//            }
+//            delay(by: 0.5, closure: {
+//                self.navigationController?.popViewController(animated: true)
+//            })
+//
+//        }) { (error) in
+//            HudHelper.hideHUD()
+//            ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
+//        }
         
     }
 

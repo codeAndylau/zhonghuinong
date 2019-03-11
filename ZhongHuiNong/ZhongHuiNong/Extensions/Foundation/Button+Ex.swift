@@ -9,9 +9,19 @@
 import UIKit
 
 extension UIButton {
+    
     /// 加载本地图片
     func lc_setLocalImage(with url: String) {
         self.setImage(UIImage(named: url), for: .normal)
+    }
+    
+    /// 加载网络图片
+    func lc_setImage(with url: String, placeholderImage placeholder: UIImage = placeHolder) {
+        guard let Url = URL(string: url) else {
+            self.contentMode = .scaleAspectFill
+            return
+        }
+        self.kf.setImage(with: Url, for: .normal, placeholder: placeholder, options: [.transition(.fade(0.3))])
     }
 }
 

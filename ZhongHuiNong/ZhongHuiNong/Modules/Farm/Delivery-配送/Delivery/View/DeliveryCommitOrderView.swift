@@ -23,19 +23,19 @@ class DeliveryCommitOrderView: View {
     }
     
     let totalLab = Label().then { (lab) in
-        lab.text = "7.95kg"
+        lab.text = "0kg"
         lab.textColor = UIColor.hexColor(0x1DD1A8)
         lab.font = UIFont.boldSystemFont(ofSize: 20)
     }
     
     let totalTipLab = Label().then { (lab) in
-        lab.text = "/10kg"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.boldSystemFont(ofSize: 16)
     }
     
     let timesLab = Label().then { (lab) in
-        lab.text = "剩余免配送次数：88"
+        lab.text = "配送次数：0"
         lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.boldSystemFont(ofSize: 11)
     }

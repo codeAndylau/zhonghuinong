@@ -22,6 +22,7 @@ class MineWalletViewController: TableViewController {
         tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
         isSettingPsd = defaults.bool(forKey: Configs.Identifier.SettingPayPsd)
         debugPrints("是否设置了支付密码---\(isSettingPsd)")
+        
     }
     
     override func bindViewModel() {
@@ -50,7 +51,7 @@ class MineWalletViewController: TableViewController {
     func settingPayPassword(psd: String) {
         
         var params = [String: Any]()
-        params["userid"] = 3261
+        params["userid"] = User.currentUser().userId
         params["paymentpassword"] = psd
         
         debugPrints("设置密码的参数---\(params)")
@@ -60,8 +61,9 @@ class MineWalletViewController: TableViewController {
             HudHelper.hideHUD()
             if value.boolValue {
                 defaults.set(true, forKey: Configs.Identifier.SettingPayPsd)
+                ZYToast.showCenterWithText(text: "设置支付密码成功!!!")
             }else {
-                ZYToast.showCenterWithText(text: "这是失败!!!")
+                ZYToast.showCenterWithText(text: "设置支付密码失败!!!")
             }
             debugPrints("设置支付密码成功---\(value)")
         }) { (error) in

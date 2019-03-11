@@ -10,6 +10,16 @@ import UIKit
 
 class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource, UITableViewDelegate {
 
+    var isFreight = false {
+        didSet {
+            if isFreight {
+                expressView.timeLab.text = "免运费"
+            }else {
+                expressView.timeLab.text = "8.0元"
+            }
+        }
+    }
+    
     var goodsList: [CartGoodsInfo] = [] {
         didSet {
             tableView.reloadData()

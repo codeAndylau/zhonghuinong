@@ -32,7 +32,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 101
+        btn.tag = 1
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -42,7 +42,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 102
+        btn.tag = 2
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -52,7 +52,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 103
+        btn.tag = 3
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -62,7 +62,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 104
+        btn.tag = 4
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -72,7 +72,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 105
+        btn.tag = 5
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
 
@@ -82,7 +82,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 106
+        btn.tag = 6
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -92,7 +92,7 @@ class DeliveryTimeView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.cuttingCorner(radius: 17.5)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0xF3F3F3))
-        btn.tag = 107
+        btn.tag = 7
         btn.addTarget(self, action: #selector(btnClickedAction(sender:)), for: .touchUpInside)
     }
     
@@ -192,7 +192,9 @@ class DeliveryTimeView: View {
     var tagArray: [Int] = []
     
     @objc func btnClickedAction(sender: UIButton) {
+        
         sender.isSelected = !sender.isSelected
+        
         if sender.isSelected {
             sender.backgroundColor = UIColor.hexColor(0x1DD1A8)
             sender.setTitleColor(UIColor.white, for: .normal)

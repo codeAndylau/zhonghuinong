@@ -7,39 +7,168 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 /// 配送选货
 class DeliveryViewController: ViewController {
-
+    
+    // MARK: Preparty
+    
     var isMember = true
     var isSelected = false
     
-    var isDay2 = true
-    var isDay5 = false
+    var goodsWeight: Double = 0  // 商品总重量
+    var deliverynum: Int = 1     // 配送需要减去的次数
+    var scheduleday: Int = 0     // 配送的日期： 星期一
     
-    var day2Array: [Int] = []
-    var day5Array: [Int] = []
+    var addressList: [UserAddressInfo] = [] {
+        didSet {
+            if addressList.count > 0 {
+                
+                let defaultAddressInfo = addressList.filter { (item) -> Bool in
+                    if item.isDefault {
+                        return true
+                    }
+                    return false
+                }
+                
+                // 获取默认地址
+                if defaultAddressInfo.count >= 1 {
+                    headerView.addressView.addressInfo = defaultAddressInfo[0]
+                }else {
+                    headerView.addressView.addressInfo = addressList[0]
+                }
+            }else {
+                debugPrints("两个接口数据没有请求完成")
+            }
+        }
+    }
+    
+    var dispatchDate: DispatchDateInfo = DispatchDateInfo() {
+        didSet {
+            
+            /// 1. 先判断是否选择过配送时间
+            if dispatchDate.monday == false && dispatchDate.tuesday == false && dispatchDate.wednesday == false &&
+                dispatchDate.thursday == false && dispatchDate.friday && dispatchDate.saturday == false && dispatchDate.sunday {
+                mainQueue {
+                    self.dateViewDemo.show()
+                }
+            }else {
+                
+                headerView.dateView.dispatchDate = dispatchDate
+                
+                debugPrints("是否可以选择菜--\(selectMenu())")
+                
+                if selectMenu() {
+                    fetchDispatchMenu()
+                }else {
+                    
+                    let emptyV = EmptyView()
+                    view.addSubview(emptyV)
+                    emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬",
+                                                    image: UIImage(named: "farm_delivery_nonmember"),
+                                                    btnTitle: "确定")
+                    emptyV.snp.makeConstraints { (make) in
+                        make.top.equalTo(kNavBarH+155)
+                        make.left.bottom.right.equalTo(self.view)
+                    }
+                    
+                    emptyV.sureBtnClosure = {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    /// 判断今天是否可以选菜
+    func selectMenu() -> Bool {
+        
+        let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday! - 1
+        
+        var isSelect = false
+        
+        /// 显示当天能配送的
+        switch week {
+            
+        case 0:
+            if dispatchDate.wednesday {
+                isSelect = true
+                scheduleday = 3
+            }
+        case 1:
+            if dispatchDate.thursday {
+                isSelect = true
+                scheduleday = 4
+            }
+        case 2:
+            if dispatchDate.friday {
+                isSelect = true
+                scheduleday = 5
+            }
+        case 3:
+            if dispatchDate.saturday {
+                isSelect = true
+                scheduleday = 6
+            }
+        case 4:
+            if dispatchDate.sunday {
+                isSelect = true
+                scheduleday = 7
+            }
+        case 5:
+            if dispatchDate.monday {
+                isSelect = true
+                scheduleday = 1
+            }
+        case 6:
+            if dispatchDate.tuesday {
+                isSelect = true
+                scheduleday = 2
+            }
+        default:
+            break
+        }
+        
+        return isSelect
+    }
+    
+    
+    /// 所有用户可以选择的菜品
+    var dispatchMenuInfo: [DispatchMenuInfo] = [] {
+        didSet {
+            
+        }
+    }
+    
+    /// 剩余配送次数
+    var balanceInfo: UserBanlance = UserBanlance() {
+        didSet {
+            //commitVew.timesLab.text = "剩余免配送次数：\(balanceInfo.deliverybalance)"
+        }
+    }
     
     override func makeUI() {
         super.makeUI()
         
-        view.backgroundColor = UIColor.white
-        view.addSubview(headerView)
+        debugPrints("今天星期---\(Date().week())")
         
-        if isSelected {
-            navigationItem.title = "本周订单"
-            view.addSubview(tableView)
-            tableView.addSubview(headerView)
-        }else {
+        debugPrints("返回不小x的最小整数---\(ceil(2.1))")
+        
+        view.backgroundColor = UIColor.white
+        
+        if User.currentUser().isVip == 0 {
+            
+            navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
             navigationItem.title = "配送选货"
             view.addSubview(collectionView)
             view.addSubview(commitVew)
             collectionView.addSubview(headerView)
-        }
-
-        if isMember {
-            navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
+            // 加载数据
+            loadData()
         }else {
+            
             view.addSubview(emptyView)
             emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务",
                                                image: UIImage(named: "farm_delivery_nonmember"),
@@ -54,52 +183,41 @@ class DeliveryViewController: ViewController {
                 callUpWith(phone)
             }
         }
-
+        
+        /// 显示配送的次数
+        
     }
-
+    
     override func bindViewModel() {
         super.bindViewModel()
         
-        headerView.addressView.modifyBtn.rx.tap.subscribe(onNext: { (_) in
-            let addressVC = DeliveryAddressViewController()
-            addressVC.show()
-        }).disposed(by: rx.disposeBag)
-        
-        headerView.dateView.day2Btn.rx.tap.subscribe(onNext: { [weak self] (_) in
+        headerView.addressView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.isDay2 = true
-            self.isDay5 = false
-            self.headerView.dateView.day2Height()
+            self.navigator.show(segue: Navigator.Scene.mineAddress, sender: self)
         }).disposed(by: rx.disposeBag)
         
-        headerView.dateView.day5Btn.rx.tap.subscribe(onNext: { [weak self] (_) in
+        /// 修改配送的地址信息
+        NotificationCenter.default.rx.notification(.userOrderAddressEdit).subscribe(onNext: { [weak self] (notification) in
             guard let self = self else { return }
-            self.isDay2 = false
-            self.isDay5 = true
-            self.headerView.dateView.day5Height()
+            let addressInfo = notification.userInfo?[NSNotification.Name.userOrderAddressEdit.rawValue] as! UserAddressInfo
+            self.headerView.addressView.addressInfo = addressInfo
         }).disposed(by: rx.disposeBag)
         
-        
+        /// 设置用户的蔬菜配送时间
+        dateViewDemo.dateView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            debugPrints("点击了蔬菜日期表的确认按钮")
+            self.dateViewDemo.dismiss()
+            self.settingDispatchData(tagArray: self.dateViewDemo.dateView.tagArray)
+        }).disposed(by: rx.disposeBag)
+
         commitVew.orderBtn.rx.tap.subscribe(onNext: {  [weak self] (_) in
             guard let self = self else {
                 debugPrints("没有self吗,zz")
                 return
             }
-            guard self.day2Array.count != 0 else {
-                ZYToast.showCenterWithText(text: "请选择周二配送菜单")
-                return
-            }
             
-            guard self.day5Array.count != 0 else {
-                ZYToast.showCenterWithText(text: "请选择周五配送菜单")
-                return
-            }
-            
-            debugPrints("周二菜单---\(self.day2Array)")
-            debugPrints("周五菜单---\(self.day5Array)")
-            
-            let orderVC = DeliveryOrderViewController()
-            orderVC.show()
+            self.createDispatchOrder()
             
         }).disposed(by: rx.disposeBag)
     }
@@ -152,7 +270,227 @@ class DeliveryViewController: ViewController {
     @objc func messageAction() {
         dateViewDemo.show()
     }
+    
+    // MARK: - Dispatch Methods
+    
+    func loadData() {
+        
+        //fetchDispatchDate()
+        //settingDispatchData()
+        //fetchDispatchMenu()
+        //createDispatchOrder()
+        //fetchDispatchOrderList()
+        
+        fetchUserBalance()
+        fetchUserAddressList()
+        fetchDispatchDate()
+        
+    }
+    
+    /// 获取配送次数
+    func fetchUserBalance() {
+        let params = ["userid": User.currentUser().userId]
+        
+        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { [weak self] (model) in
+            guard let self = self else { return }
+            self.balanceInfo = model
+        }) { (error) in
+            debugPrints("获取用户配送次数失败---\(error)")
+        }
+        
+    }
+    
+    /// 获取用户的默认地址信息
+    func fetchUserAddressList() {
+        var p = [String: Any]()
+        p["user_id"] = 3261
+        p["wid"] = wid
+        p["fromplat"] = "iOS"
+        WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
+            guard let self = self else { return }
+            self.addressList = list
+        }) { (error) in
+            ZYToast.showCenterWithText(text: error)
+        }
+    }
+    
+    ///  获取配送日期
+    func fetchDispatchDate() {
+        
+        let params = ["userid": User.currentUser().userId]
+        
+        WebAPITool.requestModel(WebAPI.fetchDispatchDate(params), model: DispatchDateInfo.self, complete: { [weak self] (model) in
+            debugPrints("配送的时间---\(model)")
+            guard let self = self else { return }
+            self.dispatchDate = model
+        }) { (error) in
+            debugPrints("配送的时间失败---\(error)")
+        }
+    }
+    
+    /// 设置配送日期
+    func settingDispatchData(tagArray: [Int]) {
+        
+        let userId = User.currentUser().userId
+        
+        var params = [String: Any]()
+        params["userid"] = userId
+        params["tuesday"] = false
+        params["wednesday"] = false
+        params["thursday"] = false
+        params["friday"] = false
+        params["saturday"] = false
+        params["sunday"] = false
+        
+        for item in tagArray.enumerated() {
+            
+            if item.element == 1 {
+                params["monday"] = true
+            }
+            
+            if item.element == 2 {
+                params["tuesday"] = true
+            }
+            
+            if item.element == 3 {
+                params["wednesday"] = true
+            }
+            
+            if item.element == 4 {
+                params["thursday"] = true
+            }
+            
+            if item.element == 5 {
+                params["friday"] = true
+            }
+            
+            if item.element == 6 {
+                params["saturday"] = true
+            }
+            
+            if item.element == 7 {
+                params["sunday"] = true
+            }
+            
+        }
+        
+        debugPrints("设置配送的日期参数---\(params)")
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        WebAPITool.request(WebAPI.settingDispatchDate(userId, params), complete: { (value) in
+            HudHelper.hideHUD()
+            if value.boolValue {
+                debugPrints("设置配送的时间---\(value)")
+                self.fetchDispatchDate()
+                ZYToast.showTopWithText(text: "设置配送日期成功")
+            }else {
+                ZYToast.showTopWithText(text: "设置配送日期失败")
+                debugPrints("设置配送的时间失败")
+            }
+        }) { (error) in
+            HudHelper.hideHUD()
+            debugPrints("设置配送的时间失败---\(error)")
+        }
+    }
+    
+    ///  获取所有用户的配送菜单
+    func fetchDispatchMenu() {
+        WebAPITool.requestModelArrayWithData(WebAPI.fetchDispatchMenu, model: DispatchMenuInfo.self, complete: { [weak self] (list) in
+            guard let self = self else { return }
+            debugPrints("配送清单列表---\(list.count)")
+            self.dispatchMenuInfo = list
+            mainQueue {
+                self.collectionView.reloadData()
+            }
+        }) { (error) in
+            debugPrints("配送清单列表失败---\(error)")
+        }
+    }
+    
+    /// 创建用户的配送蔬菜订单
+    func createDispatchOrder() {
+        
+        
+        /*
+         let orderVC = DeliveryOrderViewController()
+         orderVC.show()
+         */
+        
+        /// 所选择的菜品列表
+        var orderList: [[String: Any]] = []
+        
+        for item in dispatchMenuInfo {
+            
+            if item.num > 0 {
 
+                let dict: [String: Any]  = ["productid": item.productid,
+                                            "quantity": item.num,
+                                            "productname": item.producename,
+                                            "focusImgUrl": item.focusImgUrl,
+                                            "weight": item.unitweight]
+                
+                orderList.append(dict)
+                
+            }
+            
+        }
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        params["weight"] = goodsWeight
+        params["deliverynum"] = deliverynum
+        params["scheduleday"] = scheduleday
+        params["addressid"] = headerView.addressView.addressInfo.id
+        
+        debugPrints("配送蔬菜的参数---\(params)")
+        debugPrints("配送蔬菜的参数body---\(orderList)")
+        
+        //params["dispatchProductLists"] = orderList
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        WebAPITool.request(WebAPI.createDispatchOrder(orderList, params), complete: { (value) in
+            HudHelper.hideHUD()
+            if value.boolValue {
+                debugPrints("创建配送订单---\(value)")
+                MBProgressHUD.showSuccess("订单提交成功!")
+                self.navigationController?.popViewController(animated: true)
+            }else {
+                debugPrints("创建配送订单失败")
+            }
+        }) { (error) in
+            HudHelper.hideHUD()
+            debugPrints("创建配送订单失败")
+        }
+        
+    }
+    
+    /// 获取配送订单列表（正在进行中，历史记录）
+    func fetchDispatchOrderList() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        params["status"] = 1  // status 1 等于在正在进行中的订单， status 2 是历史订单
+        
+        WebAPITool.requestModelArrayWithKey(WebAPI.dispatchOrderList(params), model: DispatchOrderInfo.self, key: "page", complete: { (list) in
+            debugPrints("获取配送订单列表---\(list.count)")
+        }) { (error) in
+            debugPrints("获取配送订单失败---\(error)")
+        }
+    }
+    
+    /// 获取配送订单详情
+    func fetchDispatchOrderDetail() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        params["dispatchid"] = 1  // status 1 等于在正在进行中的订单， status 2 是历史订单
+        
+        WebAPITool.requestModelWithKey(WebAPI.dispatchOrderList(params), model: DispatchOrderInfo.self, key: "page", complete: { (model) in
+            debugPrints("获取配送订单详情---\(model)")
+        }) { (error) in
+            debugPrints("获取配送订单详情失败---\(error)")
+        }
+    }
 }
 
 extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
@@ -180,44 +518,59 @@ extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
 extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return dispatchMenuInfo.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeliveryCollectionCell.identifier, for: indexPath) as! DeliveryCollectionCell
         
-            cell.addView.addDidClosure = { [weak self] num in
+        cell.Info = dispatchMenuInfo[indexPath.row]
+        
+        cell.addView.addDidClosure = { [weak self] num in
+            guard let self = self else { return }
+            var model = self.dispatchMenuInfo[indexPath.row]
+            model.num = num
+            self.dispatchMenuInfo[indexPath.row] = model
+            self.calculateGoodsPrice()
+        }
 
-                guard let self = self else { return }
-                
-                if self.isDay2 {
-                    self.day2Array.append(indexPath.row)
-                }
-                
-                if self.isDay5 {
-                    self.day5Array.append(indexPath.row)
-                }
-                
-            }
-            
-            cell.addView.minusDidClosure = { [weak self] num in
-                
-                guard let self = self else { return }
-                
-                if self.isDay2 {
-                    self.day2Array.remove(at: indexPath.row)
-                }
-                if self.isDay5 {
-                    self.day5Array.remove(at: indexPath.row)
-                }
-            }
-
+        cell.addView.minusDidClosure = { [weak self] num in
+            guard let self = self else { return }
+            var model = self.dispatchMenuInfo[indexPath.row]
+            model.num = num
+            self.dispatchMenuInfo[indexPath.row] = model
+            self.calculateGoodsPrice()
+        }
+        
         return cell
     }
     
+    func calculateGoodsPrice() {
+        
+        var price: CGFloat = 0
+        
+        dispatchMenuInfo.forEach { (item) in
+            if item.num != 0 {
+                price += CGFloat(item.num) * item.unitweight
+            }
+        }
+        
+        let weight = price/1000.0
+        
+        deliverynum = Int(ceil(goodsWeight))
+        
+        goodsWeight = Double(weight)
+        
+        
+        debugPrints("选择的蔬菜重量---\(Keepfigures(text: weight))")
+        commitVew.totalLab.text = "\(Keepfigures(text: weight))kg"
+        commitVew.timesLab.text = "配送次数：-\(ceil(goodsWeight))"
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let specificationVC = SpecificationViewController()
-        specificationVC.show()
+        //let specificationVC = SpecificationViewController()
+        //specificationVC.show()
     }
     
     //定义每个Cell的大小
@@ -229,4 +582,21 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
     }
+    
+    
 }
+
+
+/*
+ 
+ iOS 常用的向上,向下取整, 四舍五入函数
+ 向上取整:ceil(x),返回不小于x的最小整数;
+ 
+ 向下取整:floor(x),返回不大于x的最大整数;
+ 
+ 四舍五入:round(x)
+ 
+ 截尾取整函数:trunc(x)
+ */
+
+

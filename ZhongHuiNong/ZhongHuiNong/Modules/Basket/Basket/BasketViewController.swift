@@ -57,6 +57,11 @@ class BasketViewController: TableViewController {
             guard let self = self else { return }
             self.fetchShopingCartList(isRefresh: true)
         }).disposed(by: rx.disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
+            debugPrints("订单支付成功回到购物车界面--刷新购物车-销毁一购物的商品")
+            self.fetchShopingCartList(isRefresh: true)
+        }).disposed(by: rx.disposeBag)
     }
 
     

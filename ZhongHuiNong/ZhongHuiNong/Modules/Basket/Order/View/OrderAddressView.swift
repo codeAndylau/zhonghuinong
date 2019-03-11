@@ -118,5 +118,18 @@ class OrderAddressView: View {
         view.backgroundColor = Color.whiteColor
         return view
     }
+    
+    var addressInfo: UserAddressInfo = UserAddressInfo() {
+        didSet {
+            // 还没有地址
+            if addressInfo.id == defaultId {
+                tipLab.isHidden = false
+            }else {
+                nameLab.text = addressInfo.linkMan
+                phoneLab.text = addressInfo.mobile
+                addressLab.text = addressInfo.preaddress+addressInfo.address
+            }
+        }
+    }
 
 }

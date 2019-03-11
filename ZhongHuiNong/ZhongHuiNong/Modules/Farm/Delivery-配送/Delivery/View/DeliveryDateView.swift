@@ -138,14 +138,14 @@ class DeliveryDateView: View {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        dayBtnAction(day2View)
-        dayBtnHeightAction(day2HeightView)
+//        dayBtnAction(day2View)
+//        dayBtnHeightAction(day2HeightView)
+//
+//        dayBtnAction(day5View)
+//        dayBtnHeightAction(day5HeightView)
         
-        dayBtnAction(day5View)
-        dayBtnHeightAction(day5HeightView)
-        
-        day2View.isHidden = true
-        day5HeightView.isHidden = true
+//        day2View.isHidden = true
+//        day5HeightView.isHidden = true
     }
     
     func day2Height() {
@@ -165,9 +165,9 @@ class DeliveryDateView: View {
         day2HeightView.isHidden = true
     }
     
-    func dayBtnAction(_ sender: View) {
+    func dayBtnAction(_ sender: Button) {
         
-        day5Btn.setTitleColor(UIColor.white, for: .normal)
+        //day5Btn.setTitleColor(UIColor.white, for: .normal)
         
         // strokeCode
         let borderLayer1 = CALayer()
@@ -183,9 +183,9 @@ class DeliveryDateView: View {
         sender.layer.insertSublayer(bgLayer1, at: 0)
     }
     
-    func dayBtnHeightAction(_ sender: View) {
+    func dayBtnHeightAction(_ sender: Button) {
         
-        day2Btn.setTitleColor(UIColor.white, for: .normal)
+        //day2Btn.setTitleColor(UIColor.white, for: .normal)
         
         // strokeCode
         let borderLayer1 = CALayer()
@@ -199,6 +199,77 @@ class DeliveryDateView: View {
         bgLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8).cgColor
         bgLayer1.cornerRadius = sender.bounds.insetBy(dx: 2.5, dy: 2.5).height/2
         sender.layer.insertSublayer(bgLayer1, at: 0)
+    }
+    
+    /// 本地计算那一点是可以
+    var dispatchDate: DispatchDateInfo = DispatchDateInfo() {
+        didSet {
+            
+            let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday!
+
+            /// 显示当天能配送的
+            switch week {
+            case 1:
+                if dispatchDate.thursday {
+                    dayBtnHeightAction(day3Btn)
+                }
+            case 2:
+                if dispatchDate.monday {
+                    dayBtnHeightAction(day4Btn)
+                }
+            case 3:
+                if dispatchDate.tuesday {
+                    dayBtnHeightAction(day5Btn)
+                }
+            case 4:
+                if dispatchDate.wednesday {
+                    dayBtnHeightAction(day6Btn)
+                }
+            case 5:
+                if dispatchDate.friday {
+                    dayBtnHeightAction(day7Btn)
+                }
+            case 6:
+                if dispatchDate.saturday {
+                    dayBtnHeightAction(day1Btn)
+                }
+            case 7:
+                if dispatchDate.sunday {
+                    dayBtnHeightAction(day2Btn)
+                }
+            default:
+                break
+            }
+            
+            /// 显示用户已经选择配送的日期
+            if dispatchDate.monday {
+                dayBtnAction(day1Btn)
+            }
+            
+            if dispatchDate.tuesday {
+                dayBtnAction(day1Btn)
+            }
+            
+            if dispatchDate.wednesday {
+                dayBtnAction(day3Btn)
+            }
+            
+            if dispatchDate.thursday {
+                dayBtnAction(day4Btn)
+            }
+            
+            if dispatchDate.friday {
+                dayBtnAction(day5Btn)
+            }
+            
+            if dispatchDate.saturday {
+                dayBtnAction(day6Btn)
+            }
+            
+            if dispatchDate.sunday {
+                dayBtnAction(day7Btn)
+            }
+        }
     }
 
 }

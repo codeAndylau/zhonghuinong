@@ -19,5 +19,7 @@ extension NSNotification.Name {
     static let userOrderAddressEdit = NSNotification.Name(localized("userOrderAddressEdit"))
     /// 商品详情点击购物车
     static let goodsDetailCartClicked = NSNotification.Name(localized("goodsDetailCartClicked"))
+    /// 购物车订单支付成功
+    static let cartOrderPaySuccess = NSNotification.Name(localized("cartOrderPaySuccess"))
     
 }

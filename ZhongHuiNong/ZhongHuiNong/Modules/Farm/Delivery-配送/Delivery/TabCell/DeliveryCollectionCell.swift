@@ -11,7 +11,7 @@ import UIKit
 class DeliveryCollectionCell: CollectionViewCell, TabReuseIdentifier {
     
     let topImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_vip_1")
+        img.cuttingCorner(radius: 8)
     }
     
     let titleLab = Label().then { (lab) in
@@ -21,14 +21,24 @@ class DeliveryCollectionCell: CollectionViewCell, TabReuseIdentifier {
         lab.font = UIFont.boldSystemFont(ofSize: 13)
     }
     
+    let detailLab = Label().then { (lab) in
+        lab.text = "g"
+        lab.textAlignment = .center
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 12)
+    }
+    
     let addView = AddSelectedView().then { (view) in
         view.backgroundColor = Color.whiteColor
+        view.numLab.text = "0"
     }
     
     override func makeUI() {
         super.makeUI()
+        backgroundColor = UIColor.white
         addSubview(topImg)
         addSubview(titleLab)
+        addSubview(detailLab)
         addSubview(addView)
     }
     
@@ -43,9 +53,14 @@ class DeliveryCollectionCell: CollectionViewCell, TabReuseIdentifier {
         }
         
         titleLab.snp.makeConstraints { (make) in
-            make.top.equalTo(topImg.snp.bottom).offset(8)
+            make.top.equalTo(topImg.snp.bottom).offset(5)
             make.left.right.equalTo(self)
             make.height.equalTo(16)
+        }
+        
+        detailLab.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLab.snp.bottom)
+            make.left.right.equalTo(self)
         }
         
         addView.snp.makeConstraints { (make) in
@@ -53,6 +68,15 @@ class DeliveryCollectionCell: CollectionViewCell, TabReuseIdentifier {
             make.centerX.equalTo(self)
             make.width.equalTo(80)
             make.height.equalTo(30)
+        }
+    }
+    
+    var Info: DispatchMenuInfo = DispatchMenuInfo() {
+        didSet {
+            topImg.lc_setImage(with: Info.focusImgUrl)
+            titleLab.text = Info.producename 
+            detailLab.text = "\(Info.unitweight)" + "g"
+            addView.numLab.text = "\(Info.num)"
         }
     }
 }

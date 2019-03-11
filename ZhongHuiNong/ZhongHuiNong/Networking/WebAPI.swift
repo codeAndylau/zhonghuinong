@@ -77,6 +77,10 @@ enum WebAPI {
     case removeCart(_ userId: Int, _ isRemoveAll: Bool, _ p: [String: Any])
     /// 获取购物车
     case fetchCart(_ p: [String: Any])
+    /// 验证支付密码
+    case validationPayPassword(_ p: [String: Any])
+    /// 用余额支付
+    case cartOrderPayment(_ p: [String: Any])
     
     /// 获取用户的订单列表
     case fetchUserOrderList(_ p: [String: Any])
@@ -90,6 +94,23 @@ enum WebAPI {
     case userOrderReputationShow(_ p: [String: Any])
     
     
+    // MARK: - Dispatch 用户蔬菜配送
+    
+    /// 取得配送日期
+    case fetchDispatchDate(_ p: [String: Any])
+    /// 设置配送日期， 如果是第一次，则是添加
+    case settingDispatchDate(_ userId: Int, _ p: [String: Any])
+    /// 获取所有用户的配送菜单
+    case fetchDispatchMenu
+    /// 创建配送订单
+    case createDispatchOrder(_ b: [[String: Any]], _ p: [String: Any])
+    /// 配送订单列表 status 1 等于在正在进行中的订单， status 2 是历史订单
+    case dispatchOrderList(_ p: [String: Any])
+    /// 配送订单详情
+    case dispatchOrderDetail(_ p: [String: Any])
+    /// 配送快递列表
+    case dispatchTrackingList(_ p: [String: Any])
+    
     case xxx(_ p: [String: Any])
 }
 
@@ -99,7 +120,9 @@ extension WebAPI: TargetType, WebAPIType {
         switch self {
         case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_),
             .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_),
-            .createOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _, _):
+            .createOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _, _), .cartOrderPayment(_), .validationPayPassword(_),
+            .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu, .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_), .dispatchTrackingList(_):
+            
             
             return Configs.Network.debugUrl
         default:
@@ -141,9 +164,20 @@ extension WebAPI: TargetType, WebAPIType {
         case .addToCart(_, _): return "/api/Order/addtocart"
         case .removeCart(_, _, _): return "/api/Order/removecart"
         case .fetchCart(_): return "/api/Order/cart"
+        case .validationPayPassword(_): return "/api/User/paymentpassword"
+            
+        case .cartOrderPayment(_): return "/api/Order/payment"
         case .fetchUserOrderList(_): return "/api/Order/UserOrderList"
         case .fetchUserOrderDetail(_): return "/api/Order/UserOrderDetail"
         case .userOrderReceipt: return "/api/Order/UserOrderReceipt"
+            
+        case .fetchDispatchDate(_): return "/api/Dispatch/dispatchdate"
+        case .settingDispatchDate(_,_): return "/api/Dispatch/dispatchdate"
+        case .fetchDispatchMenu: return "/api/Dispatch/dispatchmenu"
+        case .createDispatchOrder(_,_): return "/api/Dispatch/createdispatchorder"
+        case .dispatchOrderList(_): return "/api/Dispatch/dispatchorder"
+        case .dispatchOrderDetail(_): return "/api/Dispatch/dispatchorderdetail"
+        case .dispatchTrackingList(_): return "/api/Dispatch/dispatchtracking"
             
         default:
             return ""
@@ -154,7 +188,8 @@ extension WebAPI: TargetType, WebAPIType {
         switch self {
         case .wechatLogin(_), .mobileLogin(_), .settingPayPassword(_), .verifyCode(_),
              .farmWater(_), .farmFertilize(_), .farmKillbug(_),
-             .createOrder(_), .addToCart(_, _), .removeCart(_):
+             .createOrder(_), .addToCart(_, _), .removeCart(_), .cartOrderPayment(_),
+             .settingDispatchDate(_,_), .createDispatchOrder(_,_):
             return .post
         default:
             return .get
@@ -180,6 +215,13 @@ extension WebAPI: TargetType, WebAPIType {
             let params = ["userId": id]
             return .requestCompositeData(bodyData: arrayToData(array: p), urlParameters: params)
             
+        case .settingDispatchDate(let id, let p):
+            let params = ["userId": id]
+            return .requestCompositeData(bodyData: dictToData(dict: p), urlParameters: params)
+            
+        case .createDispatchOrder(let b, let p): // 创建配送订单
+            return .requestCompositeData(bodyData: arrayToData(array: b), urlParameters: p)
+            
         case .sendCode(let p),
              .userBalance(let p),
              .settingPayPassword(let p),
@@ -189,7 +231,6 @@ extension WebAPI: TargetType, WebAPIType {
              .userAddressList(let p),
              .deleteUserAddress(let p),
              .mobileLogin(let p),
-             .verifyCode(let p),
              
              .farmLand(let p),
              .farmSensordata(let p),
@@ -209,8 +250,10 @@ extension WebAPI: TargetType, WebAPIType {
              .userOrderReceipt(let p),
              .userOrderReputation(let p),
              .userOrderReputationShow(let p):
+            return .requestParameters(parameters: p, encoding: URLEncoding.default)
             
-            return .requestParameters(parameters: p, encoding: URLEncoding.default) // 拼接在url中
+        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p): // 拼接在url中
+            return .requestCompositeData(bodyData: Data(), urlParameters: p)
             
         case .goodsDetail(_):
             let p: [String: Any] = ["wid": 1, "fromplat": "iOS"]
@@ -222,8 +265,10 @@ extension WebAPI: TargetType, WebAPIType {
     }
     
     var headers: [String : String]? {
+        
         switch self {
-        case .addToCart(_, _), .createOrder(_):
+            
+        case .wechatLogin(_), .addToCart(_, _), .createOrder(_), .settingDispatchDate(_, _), .createDispatchOrder(_, _):
             return ["content-type" : "application/json-patch+json"]
         default:
             return ["content-type" : "text/plain; charset=utf-8"] // application/json

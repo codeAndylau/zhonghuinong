@@ -10,19 +10,6 @@ import UIKit
 
 class OrderHeaderView: View {
     
-    var addressInfo: UserAddressInfo = UserAddressInfo() {
-        didSet {
-            // 还没有地址
-            if addressInfo.id == defaultId {
-                addressView.tipLab.isHidden = false
-            }else {
-                addressView.nameLab.text = addressInfo.linkMan
-                addressView.phoneLab.text = addressInfo.mobile
-                addressView.addressLab.text = addressInfo.preaddress+addressInfo.address
-            }
-        }
-    }
-    
     lazy var addressView = OrderAddressView()
     
     override func makeUI() {
