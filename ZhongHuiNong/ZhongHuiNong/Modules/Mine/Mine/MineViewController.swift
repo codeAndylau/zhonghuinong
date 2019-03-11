@@ -16,9 +16,12 @@ class MineViewController: TableViewController {
     var balance: UserBanlance = UserBanlance() {
         didSet {
             debugPrints("用户的额度信息---\(balance)")
-            headerView.priceLab.text = "\(balance.creditbalance)"
-            headerView.cardLab.text = "\(balance.weightbalance)"
-            headerView.timesLab.text = "\(balance.deliverybalance)"
+            
+            if User.hasUser() && User.currentUser().isVip != 0 {
+                headerView.priceLab.text = "\(balance.creditbalance)"
+                headerView.cardLab.text = "\(balance.weightbalance)"
+                headerView.timesLab.text = "\(balance.deliverybalance)"
+            } 
         }
     }
     
@@ -33,7 +36,8 @@ class MineViewController: TableViewController {
     }
     
     func fetchUserBalance() {
-        let params = ["userid": "3233"]
+        
+        let params = ["userid": User.currentUser().userId]
         WebAPITool.request(WebAPI.userBalance(params), complete: { (value) in
             if  let balance = Mapper<UserBanlance>().map(JSONObject: value.object) {
                 self.balance = balance

@@ -58,8 +58,8 @@ extension MemberRexiaoCell: UICollectionViewDataSource, UICollectionViewDelegate
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberRexiaoSubCell.identifier, for: indexPath) as! MemberRexiaoSubCell
         cell.titleLab.text = hotsaleList[indexPath.row].productName
         cell.detailLab.text = hotsaleList[indexPath.row].unit
-        cell.topImg.image = UIImage(named: dataArray[indexPath.row])
-        //cell.topImg.lc_setImage(with: hotsaleList[indexPath.row])
+        cell.topImg.lc_setImage(with: hotsaleList[indexPath.row].focusImgUrl)
+        //cell.topImg.image = UIImage(named: dataArray[indexPath.row])
         //        cell.titleLab.text = ["高山土鸡","有机野香猪","绿壳鸡蛋"][indexPath.row]
         //        cell.detailLab.text = ["高山散养","山野香味","自然产卵"][indexPath.row]
         return cell

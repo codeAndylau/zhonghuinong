@@ -23,7 +23,7 @@ class HotView: View {
     
     /// Public method
     class func loadView() -> HotView {
-        let view = HotView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kNavBarH+44))
+        let view = HotView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kNavBarH))
         return view
     }
 }

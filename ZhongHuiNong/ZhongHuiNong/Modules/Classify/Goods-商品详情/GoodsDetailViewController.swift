@@ -45,11 +45,13 @@ class GoodsDetailViewController: ViewController {
     // MARK: - Override
     override func makeUI() {
         super.makeUI()
+        
         statusBarStyle.accept(true)
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
+        
         fetchGoodsInfo()
         fetchShopingCartList()
     }
@@ -170,9 +172,6 @@ class GoodsDetailViewController: ViewController {
         view.tableHeaderView = headerView
         view.showsVerticalScrollIndicator = false
         view.register(GoodsDetailImgTabCell.self, forCellReuseIdentifier: GoodsDetailImgTabCell.identifier)
-//        view.estimatedRowHeight = 100
-//        view.rowHeight = UITableView.automaticDimension
-        
         return view
     }()
     
@@ -198,49 +197,62 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GoodsDetailImgTabCell.identifier, for: indexPath) as! GoodsDetailImgTabCell
-        let url = goodsDetailInfo.detailImgUrl
-        cell.imgView.lc_setImage(with: url)
+        self.configureCell(cell: cell, indexPath: indexPath)
         return cell
     }
     
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let url = goodsDetailInfo.detailImgUrl
-        return calculteCellH(imgUrl: url)
-    }
-    
-    func calculteCellH(imgUrl: String) -> CGFloat {
+    func configureCell(cell: GoodsDetailImgTabCell, indexPath: IndexPath) {
         
-        var cellH: CGSize = CGSize.zero
-        let cachedImg = ImageCache.default.retrieveImageInDiskCache(forKey: imgUrl)
+        let url = goodsDetailInfo.detailImgUrl
+        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url)
         
         if let img = cachedImg {
-            debugPrints("图片缓存的高度---\(img.size.height)")
-            cellH = img.size
+            cell.imgView.image = img
         }else {
-            // 利用 Kingfisher 框架提供的功能下载图片
-            let url = URL(string: imgUrl)!
-            
-            ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (img, error, url, data) in
-                guard img != nil else {
-                    cellH = CGSize.zero
-                    return
-                }
-                ImageCache.default.store(img!, original: nil, forKey: imgUrl, processorIdentifier: "", cacheSerializer: DefaultCacheSerializer.default, toDisk: true, completionHandler: {
-                    let cachedImg = ImageCache.default.retrieveImageInDiskCache(forKey: imgUrl)
-                    if let img = cachedImg {
-                        debugPrints("图片下载的高度---\(img.size.height)")
-                        cellH = img.size
-                    }else {
-                        cellH = CGSize.zero
-                    }
-                })
-            }
+            downLoadImg(imgUrl: url, indexPath: indexPath)
+        }
+    }
+    
+    func downLoadImg(imgUrl: String, indexPath: IndexPath) {
+        
+        guard let url = URL(string: imgUrl) else {
+            debugPrints("商品详情图片url不存在-----")
+            return
         }
         
-        debugPrints("图片的缩放比例\(cellH.height/cellH.width*kScreenW)")
+        let downloader = ImageDownloader.default
         
-        return 550 //cellH.height/cellH.width*kScreenW
+        downloader.downloadImage(with: url, options: [KingfisherOptionsInfoItem.transition(ImageTransition.fade(1))], progressBlock: nil) { (result)    in
+            
+            switch result {
+                
+            case .success(let value):
+                debugPrints("商品详情页的图片下载成功---\(value.image)")
+                ImageCache.default.store(value.image, forKey: imgUrl)
+                ImageCache.default.store(value.image, original: value.originalData, forKey: imgUrl, options: KingfisherParsedOptionsInfo([KingfisherOptionsInfoItem.transition(ImageTransition.fade(1))]), toDisk: false, completionHandler: { (result) in
+                    mainQueue {
+                        self.tableView.reloadData()
+                    }
+                })
+            case .failure(let error):
+                debugPrints("商品详情页的图片下载失败---\(error)")
+            }
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
+        let url = goodsDetailInfo.detailImgUrl
+        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url)
+        
+        if let img = cachedImg {
+            let imgH = img.size.height/img.size.width*kScreenW
+            debugPrints("返回图片的高度---\(imgH)")
+            return imgH
+        }else {
+            return 100
+        }
     }
     
 }
@@ -268,3 +280,4 @@ extension GoodsDetailViewController: UIScrollViewDelegate {
         delta > 0.8 ? statusBarStyle.accept(false) : statusBarStyle.accept(true)
     }
 }
+

@@ -14,14 +14,33 @@ class MineWalletViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.title = localized("钱包")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.tableHeaderView = headerView
-        tableView.tableFooterView = nomoreView
-        tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
-        isSettingPsd = defaults.bool(forKey: Configs.Identifier.SettingPayPsd)
-        debugPrints("是否设置了支付密码---\(isSettingPsd)")
+        
+        if User.hasUser() && User.currentUser().isVip == 0 {
+            
+            let emptyView = EmptyView()
+            view.addSubview(emptyView)
+            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
+            emptyView.snp.makeConstraints { (make) in
+                make.top.equalTo(kNavBarH)
+                make.left.bottom.right.equalTo(self.view)
+            }
+            emptyView.sureBtnClosure = {
+                let phone = "18782967728"  // 填写运营人员的电话号码
+                callUpWith(phone)
+            }
+            
+        }else {
+            
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.tableHeaderView = headerView
+            tableView.tableFooterView = nomoreView
+            tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
+            isSettingPsd = defaults.bool(forKey: Configs.Identifier.SettingPayPsd)
+            debugPrints("是否设置了支付密码---\(isSettingPsd)")
+        }
         
     }
     
@@ -36,9 +55,11 @@ class MineWalletViewController: TableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isSettingPsd {
+        
+        if User.hasUser() && User.currentUser().isVip != 0 && !isSettingPsd  {
             PayPasswordDemo.show()
         }
+        
     }
     
     // MARK: - Lzay

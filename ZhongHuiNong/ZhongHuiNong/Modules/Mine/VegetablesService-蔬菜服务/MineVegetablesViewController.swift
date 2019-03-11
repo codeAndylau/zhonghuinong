@@ -13,11 +13,28 @@ class MineVegetablesViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         navigationItem.title = localized("蔬菜服务")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.tableHeaderView = headerView
-        tableView.tableFooterView = nomoreView
-        tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
+        
+        if User.hasUser() && User.currentUser().isVip == 0 {
+            
+            let emptyView = EmptyView()
+            view.addSubview(emptyView)
+            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
+            emptyView.snp.makeConstraints { (make) in
+                make.top.equalTo(kNavBarH)
+                make.left.bottom.right.equalTo(self.view)
+            }
+            emptyView.sureBtnClosure = {
+                let phone = "18782967728"  // 填写运营人员的电话号码
+                callUpWith(phone)
+            }
+        }else {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.tableHeaderView = headerView
+            tableView.tableFooterView = nomoreView
+            tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
+        }
+        
     }
     
     override func bindViewModel() {

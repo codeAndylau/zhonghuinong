@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 let GoodsDetailBannerH: CGFloat = 300
-let GoodsDetailHeaderH: CGFloat = 750
+let GoodsDetailHeaderH: CGFloat = 750 - 130
 
 class GoodsDetailHeaderView: View {
 
@@ -20,14 +20,16 @@ class GoodsDetailHeaderView: View {
     }
     
     let pageLab = Label().then { (lab) in
-        lab.backgroundColor = UIColor.hexColor(0x000000, alpha: 0.2)
+        lab.backgroundColor = UIColor.hexColor(0x000000, alpha: 0.3)
         lab.text = "1/5"
         lab.textColor = UIColor.white
         lab.font = UIFont.systemFont(ofSize: 13)
         lab.textAlignment = .center
     }
     
-    let topView = GoodsDetailHeaderOneView.loadView()
+    let topView = GoodsDetailHeaderOneView.loadView().then { (view) in
+        view.vipArrowImg.isHidden = true
+    }
     
     let bottomView = View().then { (view) in
         view.backgroundColor = UIColor.hexColor(0xFAFAFA)
@@ -37,21 +39,22 @@ class GoodsDetailHeaderView: View {
         view.titleLab.text = "已选"
         view.detailLab.text = "500g x1"
     }
-    
-    let peisongView = GoodsDetailRowView().then { (view) in
-        view.titleLab.text = "配送"
-        view.detailLab.text = "四川省成都市天府新区天府新区府河音乐花园A1-101四川省成都市天府新区天府新区府河音乐花园A1-101"
-        view.lineView.isHidden = true
-    }
-    
-    let addressView = GoodsDetailAddressView().then { (view) in
-        view.backgroundColor = UIColor.white
-    }
+//
+//    let peisongView = GoodsDetailRowView().then { (view) in
+//        view.titleLab.text = "配送"
+//        view.detailLab.text = "四川省成都市天府新区天府新区府河音乐花园A1-101"
+//        view.lineView.isHidden = true
+//    }
+//
+//    let addressView = GoodsDetailAddressView().then { (view) in
+//        view.backgroundColor = UIColor.white
+//    }
     
     let yunfeiView = GoodsDetailRowView().then { (view) in
         view.titleLab.text = "运费"
-        view.detailLab.text = "会员免运费 非会员满99包邮"
+        view.detailLab.text = "会员免运费 非会员满168包邮"
         view.lineView.isHidden = true
+        view.arrowImg.isHidden = true
     }
 
     override func makeUI() {
@@ -62,8 +65,8 @@ class GoodsDetailHeaderView: View {
         addSubview(bottomView)
         
         bottomView.addSubview(selectView)
-        bottomView.addSubview(peisongView)
-        bottomView.addSubview(addressView)
+        //bottomView.addSubview(peisongView)
+        //bottomView.addSubview(addressView)
         bottomView.addSubview(yunfeiView)
         
         bannerView.didScrollFrom = { [weak self] index in
@@ -94,7 +97,7 @@ class GoodsDetailHeaderView: View {
         bottomView.snp.makeConstraints { (make) in
             make.top.equalTo(topView.snp.bottom)
             make.left.right.equalTo(self)
-            make.height.equalTo(250)
+            make.height.equalTo(120)
         }
         
         selectView.snp.makeConstraints { (make) in
@@ -102,20 +105,20 @@ class GoodsDetailHeaderView: View {
             make.height.equalTo(55)
         }
         
-        peisongView.snp.makeConstraints { (make) in
-            make.top.equalTo(selectView.snp.bottom)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(55)
-        }
-        
-        addressView.snp.makeConstraints { (make) in
-            make.top.equalTo(peisongView.snp.bottom)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(75)
-        }
+//        peisongView.snp.makeConstraints { (make) in
+//            make.top.equalTo(selectView.snp.bottom)
+//            make.left.right.equalToSuperview()
+//            make.height.equalTo(55)
+//        }
+//
+//        addressView.snp.makeConstraints { (make) in
+//            make.top.equalTo(peisongView.snp.bottom)
+//            make.left.right.equalToSuperview()
+//            make.height.equalTo(75)
+//        }
         
         yunfeiView.snp.makeConstraints { (make) in
-            make.top.equalTo(addressView.snp.bottom)
+            make.top.equalTo(selectView.snp.bottom)
             make.left.right.equalToSuperview()
             make.height.equalTo(55)
         }
@@ -148,15 +151,13 @@ class GoodsDetailHeaderView: View {
             }
             
             
-            
             bannerView.bannerArray.accept(ImgArray)
             
             // 2. 商品基本信息
             topView.goodsDetailInfo = goodsDetailInfo
             
             // 3 .商品已选规格
-            selectView.detailLab.text = goodsDetailInfo.addDate
-            
+            selectView.detailLab.text = goodsDetailInfo.unit
             
         }
     }

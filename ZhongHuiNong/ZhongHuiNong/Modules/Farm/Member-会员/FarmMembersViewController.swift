@@ -14,12 +14,14 @@ import RxCocoa
 class FarmMembersViewController: TableViewController {
 
     // MARK: - Property
+    
+    var page = 1
 
     var dropupView: DropupMenu!
     
     var bannerArray: [String] = [] {
         didSet {
-            refreshValue()
+            self.tableView_g.reloadSections([0], with: UITableView.RowAnimation.fade)
         }
     }
 
@@ -34,20 +36,21 @@ class FarmMembersViewController: TableViewController {
     /// 分类列表
     var catagoryList: [CatagoryList] = [] {
         didSet {
-            refreshValue()
+            headerView.classView.catagoryList = catagoryList
         }
     }
     
     /// 热销列表
     var hotsaleList: [GoodsInfo] = [] {
         didSet {
-            refreshValue()
+            tableView_g.reloadData()
         }
     }
     
     var recommendList: [GoodsInfo] = [] {
         didSet {
-            refreshValue()
+            tableView_g.reloadData()
+            //self.tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
         }
     }
     
@@ -55,7 +58,7 @@ class FarmMembersViewController: TableViewController {
 
     func refreshValue() {
         
-        LoadingView.hideHUD(view: self.view)
+        //LoadingView.hideHUD(view: self.view)
         if catagoryList.isEmpty || bannerList.isEmpty || hotsaleList.isEmpty || recommendList.isEmpty {
             return
         }
@@ -70,22 +73,16 @@ class FarmMembersViewController: TableViewController {
             self.tableView_g.alpha = 1
         }
 
-        mainQueue {
-            self.tableView_g.tableHeaderView = self.headerView
-            self.headerView.classView.catagoryList = self.catagoryList
-            self.tableView_g.reloadSections([1], with: UITableView.RowAnimation.fade)
-            self.tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
-        }
+        mainQueue {  }
     }
 
     override func makeUI() {
         super.makeUI()
         
-//        if User.hasUser() && User.currentUser().isVip {
-//
-//        }
+        if User.hasUser() && User.currentUser().isVip != 0 {
+            navigationItem.leftBarButtonItem = leftBarItem
+        }
         
-        navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightMsgItem
         
         tableView_g.dataSource = self
@@ -95,14 +92,23 @@ class FarmMembersViewController: TableViewController {
         tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
         tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
         tableView_g.uHead = MJDIYHeader(refreshingBlock: {
+            self.page = 1
             self.loadAllData(isRefresh: true)
         })
+        
+        tableView_g.uFoot =  MJDIYAutoFooter(refreshingBlock: {
+            self.page += 1
+            self.fetchRecommendList(false)
+        })
+        
+        tableView_g.tableHeaderView = headerView
+        view.addSubview(tableView_g)
         
         dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
         
         //LoadingHud.showProgress(supView: self.view)
         //LoadingHud.hideHUD()
-        LoadingView.showView(view: self.view)
+        //LoadingView.showView(view: self.view)
         loadAllData()
     }
     
@@ -150,7 +156,6 @@ class FarmMembersViewController: TableViewController {
     
     lazy var tableView_g: TableView = {
         let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kTabBarH), style: .grouped)
-        view.alpha = 0
         view.separatorStyle = .none
         return view
     }()
@@ -158,8 +163,9 @@ class FarmMembersViewController: TableViewController {
     // MARK: - Public methods
     
     @objc func messageAction() {
-        let bindVC = MobileBindingViewController()
-        self.navigationController?.pushViewController(bindVC, animated: true)
+        navigator.show(segue: .mineMessage, sender: self)
+        //        let bindVC = MobileBindingViewController()
+        //        self.navigationController?.pushViewController(bindVC, animated: true)
     }
     
     func showCenterView() {
@@ -175,14 +181,14 @@ class FarmMembersViewController: TableViewController {
         fetchBannerList(isRefresh)
         fetchCatagoryList(isRefresh)
         fetchHotsaleList(isRefresh)
-        fetchRecommendList(isRefresh)
+        fetchRecommendList(true)
     }
     
     func fetchBannerList(_ isRefresh: Bool = false) {
         var p = [String: Any]()
         p["wid"] = 1
         WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { (list) in
-            debugPrints("轮播图---\(list)")
+            debugPrints("轮播图---\(list.count)")
             if isRefresh {
                 self.tableView_g.uHead.endRefreshing()
                 self.bannerList.removeAll()
@@ -201,8 +207,9 @@ class FarmMembersViewController: TableViewController {
         var p = [String: Any]()
         p["wid"] = wid
         WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { (list) in
+            debugPrints("分类列表个数---\(list.count)")
+            self.tableView_g.uHead.endRefreshing()
             if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
                 self.catagoryList.removeAll()
             }
             self.catagoryList = list
@@ -244,21 +251,28 @@ class FarmMembersViewController: TableViewController {
         
         var p = [String: Any]()
         p["category_id"] = 0
-        p["page_size"] = 3
-        p["page_index"] = 1
+        p["page_size"] = 10
+        p["page_index"] = page
         p["wid"] = wid
+        
+        debugPrints("获取爆款列表的参数---\(p)")
         
         WebAPITool.requestModelArrayWithData(WebAPI.goodsRecommendList(p), model: GoodsInfo.self, complete: { (list) in
             debugPrints("获取爆款列表---\(list.count)")
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
+            
+            self.tableView_g.uHead.endRefreshing()
+            self.tableView_g.uFoot.endRefreshing()
+            
+            if self.page > 1 {
+                self.recommendList += self.recommendList
+            }else {
                 self.recommendList.removeAll()
+                self.recommendList = list
             }
-            self.recommendList = list
+            
         }) { (error) in
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-            }
+            self.tableView_g.uHead.endRefreshing()
+            self.tableView_g.uFoot.endRefreshing()
             debugPrints("获取爆款列表失败---\(error)")
         }
     }
@@ -268,7 +282,7 @@ class FarmMembersViewController: TableViewController {
 extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isValue ? 3 : 0
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -307,7 +321,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
-        cell.imgView.lc_setImage(with: recommendList[indexPath.row].thumbnailsUrll)
+        cell.imgView.lc_setImage(with: recommendList[indexPath.row].focusImgUrl)
         return cell
         
         //        if indexPath.section == 1 {  
@@ -325,7 +339,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             
             let view = MemberSectionView(type: .rexiao)
             view.moreBtn.rx.tap.subscribe(onNext: {
-                self.navigator.show(segue: .hot(list: self.catagoryList), sender: self)
+                self.navigator.show(segue: .hot(list: self.hotsaleList), sender: self)
             }).disposed(by: rx.disposeBag)
             return view
         case 2:

@@ -20,12 +20,13 @@ struct GoodsInfo: Mappable {
     var descriptionField : String = ""
     var expiryEndDate : String = ""
     var focusImgUrl : String = ""
+    var detailImgUrl: String = ""
     var goodreputation_num : Int = defaultId
     var hotsale : Bool = false
     var id : Int = defaultId
     var latest : Bool = false
     var link_url : String = ""
-    var marketPrice : Int = defaultId
+    var marketPrice : CGFloat = 0
     var ordersNum : Int = defaultId
     var productName : String = ""
     var productCode : String = ""
@@ -64,6 +65,7 @@ struct GoodsInfo: Mappable {
         descriptionField <- map["description"]
         expiryEndDate <- map["expiryEndDate"]
         focusImgUrl <- map["focusImgUrl"]
+        detailImgUrl <- map["detailImgUrl"]
         goodreputation_num <- map["goodreputation_num"]
         hotsale <- map["hotsale"]
         id <- map["id"]

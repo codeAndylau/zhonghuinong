@@ -82,12 +82,14 @@ class BasketViewController: TableViewController {
     
     @objc func messageAction() {
         
-        isType = !isType
-        if isType {
-            settleView.type = .edit
-        }else {
-            settleView.type = .normal
-        }
+        navigator.show(segue: .mineMessage, sender: self)
+        
+        //        isType = !isType
+        //        if isType {
+        //            settleView.type = .edit
+        //        }else {
+        //            settleView.type = .normal
+        //        }
         
    }
     

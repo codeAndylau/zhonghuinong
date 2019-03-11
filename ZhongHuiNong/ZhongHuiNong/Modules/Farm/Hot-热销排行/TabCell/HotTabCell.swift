@@ -23,24 +23,34 @@ class HotTabCell: FlashOneTabCell {
     
     override func makeUI() {
         super.makeUI()
-        addSubview(hotView)
-        hotView.addSubview(tipsLab)
+        //addSubview(hotView)
+        //hotView.addSubview(tipsLab)
     }
     
     override func updateUI() {
         super.updateUI()
-        hotView.snp.makeConstraints { (make) in
-            make.left.equalTo(titleLab)
-            make.top.equalTo(titleLab.snp.bottom).offset(2)
-            make.width.equalTo(75)
-            make.height.equalTo(14)
-        }
         
-        tipsLab.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(6)
-            make.centerY.equalToSuperview()
-        }
+//        hotView.snp.makeConstraints { (make) in
+//            make.left.equalTo(titleLab)
+//            make.top.equalTo(titleLab.snp.bottom).offset(2)
+//            make.width.equalTo(75)
+//            make.height.equalTo(14)
+//        }
+//
+//        tipsLab.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(6)
+//            make.centerY.equalToSuperview()
+//        }
         
+    }
+    
+    var goodsInfo: GoodsInfo = GoodsInfo() {
+        didSet {
+            ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
+            titleLab.text = goodsInfo.productCode + goodsInfo.unit
+            priceLab.text = Keepfigures(text: goodsInfo.salePrice)
+            discountLab.text = Keepfigures(text: goodsInfo.marketPrice)
+        }
     }
 
 }

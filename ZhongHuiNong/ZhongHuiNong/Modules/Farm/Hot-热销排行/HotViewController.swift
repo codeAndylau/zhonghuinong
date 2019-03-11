@@ -14,14 +14,14 @@ class HotViewController: ViewController {
     var categoryView: JXCategoryTitleView!
     var listContainerView: JXCategoryListContainerView!
     
-    var titles: [String] = [] // "全网产品","新鲜水果","肉禽蛋类","粮油干货","乳品烘焙"
+    var titles: [String] = []  // "全网产品","新鲜水果","肉禽蛋类","粮油干货","乳品烘焙"
     var controllers: [ComponentViewController] = []
     
     var catagoryList: [CatagoryList] = [] {
         didSet {
             for item in catagoryList {
                 titles.append(item.title)
-                
+
                 let vc = ComponentViewController()
                 controllers.append(vc)
             }
@@ -99,16 +99,16 @@ extension HotViewController: JXCategoryListContainerViewDelegate {
     
     func listContainerView(_ listContainerView: JXCategoryListContainerView!, initListFor index: Int) -> JXCategoryListContentViewDelegate! {
         switch index {
-//        case 0:
-//            return HotAllViewController()
-//        case 1:
-//            return HotFruitViewController()
-//        case 2:
-//            return HotMeatViewController()
-//        case 3:
-//            return HotOilViewController()
-//        case 4:
-//            return HotDairyViewController()
+        case 0:
+            return HotAllViewController()
+        case 1:
+            return HotFruitViewController()
+        case 2:
+            return HotMeatViewController()
+        case 3:
+            return HotOilViewController()
+        case 4:
+            return HotDairyViewController()
         default:
             return ComponentViewController()
         }

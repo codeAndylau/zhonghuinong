@@ -38,7 +38,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let vipLab = Label().then { (lab) in
-        lab.text = "会员可享受超值价¥98.6"
+        lab.text = "充值会员可享受超值价"
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.systemFont(ofSize: 14)
     }
@@ -60,7 +60,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let detailLab = Label().then { (lab) in
-        lab.text = "来自大自然的馈赠，生长在雪山的什么什么，保证产品的优质新鲜美味可口，粒粒精挑细选"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.systemFont(ofSize: 12)
         lab.numberOfLines = 0
@@ -180,7 +180,7 @@ class GoodsDetailHeaderOneView: View {
             priceLab.text = "¥\(goodsDetailInfo.salePrice)"
             nonPriceLab.text = "¥\(goodsDetailInfo.marketPrice)"
             titleLab.text = goodsDetailInfo.productName
-            detailLab.text = goodsDetailInfo.productName
+            //detailLab.text = goodsDetailInfo.productName
         }
     }
 

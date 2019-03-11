@@ -22,19 +22,19 @@ class MineHeaderView: View {
     }
     
     let nameLab = Label().then { (lab) in
-        lab.text = "欧丫丫"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.boldSystemFont(ofSize: 18)
     }
     
     let phoneLab = Label().then { (lab) in
-        lab.text = "135****8888"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
     
     let priceLab = Label().then { (lab) in
-        lab.text = "10,000"
+        lab.text = "0.0"
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)
@@ -48,7 +48,7 @@ class MineHeaderView: View {
     }
     
     let cardLab = Label().then { (lab) in
-        lab.text = "10"
+        lab.text = "0"
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)
@@ -62,7 +62,7 @@ class MineHeaderView: View {
     }
     
     let timesLab = Label().then { (lab) in
-        lab.text = "10"
+        lab.text = "0"
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 14)

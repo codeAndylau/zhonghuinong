@@ -262,6 +262,8 @@
 		8B31B5BC221028F4003F475A /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BB221028F4003F475A /* MineHeaderView.swift */; };
 		8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B31B5BD22106164003F475A /* MineTabCell.swift */; };
 		8B7F697C222FFC2B009A28C4 /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */; };
+		8BDCF2CE2236C4C9003D5D4E /* GoodsDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDCF2CD2236C4C9003D5D4E /* GoodsDetailFooterView.swift */; };
+		8BDCF2D02236D57C003D5D4E /* HotGoodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDCF2CF2236D57C003D5D4E /* HotGoodsViewController.swift */; };
 		8BDF075C221AD88900CBFBE4 /* DeliveryTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */; };
 		8BDF075E221ADB4D00CBFBE4 /* DeliveryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */; };
 /* End PBXBuildFile section */
@@ -546,6 +548,8 @@
 		8B31B5BD22106164003F475A /* MineTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTabCell.swift; sourceTree = "<group>"; };
 		8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
 		8BA2174C9660B321BD205687 /* Pods_ZhongHuiNongUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhongHuiNongUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BDCF2CD2236C4C9003D5D4E /* GoodsDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailFooterView.swift; sourceTree = "<group>"; };
+		8BDCF2CF2236D57C003D5D4E /* HotGoodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotGoodsViewController.swift; sourceTree = "<group>"; };
 		8BDF075B221AD88900CBFBE4 /* DeliveryTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTabCell.swift; sourceTree = "<group>"; };
 		8BDF075D221ADB4D00CBFBE4 /* DeliveryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryFooterView.swift; sourceTree = "<group>"; };
 		9D3B4A1761C56E72801D98B5 /* Pods-ZhongHuiNongTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhongHuiNongTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhongHuiNongTests/Pods-ZhongHuiNongTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -661,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				14C3EBD1221D2536003029EB /* GoodsDetailHeaderView.swift */,
+				8BDCF2CD2236C4C9003D5D4E /* GoodsDetailFooterView.swift */,
 				14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */,
 				14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */,
 				14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */,
@@ -1245,6 +1250,7 @@
 		14C251092223D93800F5CB53 /* Hot-热销排行 */ = {
 			isa = PBXGroup;
 			children = (
+				8BDCF2CF2236D57C003D5D4E /* HotGoodsViewController.swift */,
 				14C2510A2223D98000F5CB53 /* HotViewController.swift */,
 				1448B0922224F444009237E7 /* ComponentViewController.swift */,
 				1448B09622250A32009237E7 /* HotAllViewController.swift */,
@@ -1939,6 +1945,7 @@
 				14D5B345221FD4B500D08DD1 /* MineAddressTabCell.swift in Sources */,
 				14B27A4C221BA8D40029648A /* DeliveryAddressTabCell.swift in Sources */,
 				14043D4F221290930023AA11 /* EmptyView.swift in Sources */,
+				8BDCF2CE2236C4C9003D5D4E /* GoodsDetailFooterView.swift in Sources */,
 				145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */,
 				14AE310F222126BD00302F89 /* MineAddressTitleView.swift in Sources */,
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
@@ -1956,6 +1963,7 @@
 				1492DDAB221A67EF00C79D88 /* SpecificationViewController.swift in Sources */,
 				14D5B349221FDF1900D08DD1 /* MineAddressModifyViewController.swift in Sources */,
 				14D5B347221FD69000D08DD1 /* MineAddressBottomView.swift in Sources */,
+				8BDCF2D02236D57C003D5D4E /* HotGoodsViewController.swift in Sources */,
 				146B74BC221E9B82005D2879 /* PageTitleView.swift in Sources */,
 				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,

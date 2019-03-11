@@ -10,8 +10,8 @@ import UIKit
 
 class GoodsDetailImgTabCell: TableViewCell, TabReuseIdentifier {
     
-    let imgView = ImageView().then { (img) in
-        img.contentMode = UIView.ContentMode.scaleAspectFit
+    var imgView = ImageView().then { (img) in
+        img.contentMode = UIView.ContentMode.scaleAspectFill
     }
     
     override func makeUI() {

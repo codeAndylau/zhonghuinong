@@ -32,7 +32,7 @@ extension MBProgressHUD {
         hud.label.textColor = UIColor.white
         hud.removeFromSuperViewOnHide = true
         //HUD窗口显示1秒后自动隐藏
-        hud.hide(animated: true, afterDelay: 2)
+        hud.hide(animated: true, afterDelay: 1.5)
     }
     
     //显示成功消息
@@ -49,7 +49,7 @@ extension MBProgressHUD {
         hud.label.textColor = UIColor.white
         hud.removeFromSuperViewOnHide = true
         //HUD窗口显示1秒后自动隐藏
-        hud.hide(animated: true, afterDelay: 2)
+        hud.hide(animated: true, afterDelay: 1.5)
     }
     
     //显示失败消息
@@ -66,7 +66,7 @@ extension MBProgressHUD {
         hud.label.textColor = UIColor.white
         hud.removeFromSuperViewOnHide = true
         //HUD窗口显示1秒后自动隐藏
-        hud.hide(animated: true, afterDelay: 2)
+        hud.hide(animated: true, afterDelay: 1.5)
     }
     
     //获取用于显示提示框的view

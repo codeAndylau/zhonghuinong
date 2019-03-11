@@ -161,9 +161,10 @@ class StoreViewController: ViewController {
     // MARK: - Action
     
     @objc func messageAction() {
-        let config = NoticeBarConfig(title: "点击了消息按钮", barStyle: NoticeBarStyle.onTabbar)
-        let noticeBar = NoticeBar(config: config)
-        noticeBar.show(duration: 1.5, completed: nil)
+        navigator.show(segue: .mineMessage, sender: self)
+        //        let config = NoticeBarConfig(title: "点击了消息按钮", barStyle: NoticeBarStyle.onTabbar)
+        //        let noticeBar = NoticeBar(config: config)
+        //        noticeBar.show(duration: 1.5, completed: nil)
     }
     
     /// 获取分类列表

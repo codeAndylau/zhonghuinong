@@ -144,7 +144,7 @@ class SearchViewController: ViewController {
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -207,27 +207,33 @@ extension SearchViewController: UITextFieldDelegate {
 
     /// 网络搜索请求
     func reloadSearchData(text: String) {
+        
         self.searchView.textField.resignFirstResponder()
-        if text == "1" {
-            view.addSubview(emptyView)
-        }else {
-            DispatchQueue.main.async {
-                // 1. 将搜索框文字写入到偏好设置
-                self.writeHistorySearchToUserDefaults(str: text)
-                
-                // 2. 隐藏scrollView
-                self.scrollView.isHidden = true
-                
-                // 3. 刷新tab
-                if self.isTab {
-                    self.tableView.isHidden = false
-                }else {
-                    self.view.addSubview(self.tableView)
-                    self.isTab = true
-                }
-                self.tableView.reloadData()
-            }
-        }
+        
+        view.addSubview(emptyView)
+        
+        //        if text == "" {
+        //            
+        //            view.addSubview(emptyView)
+        //            
+        //        }else {
+        //            DispatchQueue.main.async {
+        //                // 1. 将搜索框文字写入到偏好设置
+        //                self.writeHistorySearchToUserDefaults(str: text)
+        //                
+        //                // 2. 隐藏scrollView
+        //                self.scrollView.isHidden = true
+        //                
+        //                // 3. 刷新tab
+        //                if self.isTab {
+        //                    self.tableView.isHidden = false
+        //                }else {
+        //                    self.view.addSubview(self.tableView)
+        //                    self.isTab = true
+        //                }
+        //                self.tableView.reloadData()
+        //            }
+        //        }
        
     }
     

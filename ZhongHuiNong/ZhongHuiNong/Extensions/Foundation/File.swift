@@ -11,8 +11,29 @@ import Kingfisher
 
 public let placeHolder =  UIImage().getImageWithColor(color: UIColor.hexColor(0xf3f3f3))
 
+class PlaceholderView: View {
+    
+    var loading:UIActivityIndicatorView!
+    
+    override func makeUI() {
+        backgroundColor = Color.backdropColor
+        self.loading =  UIActivityIndicatorView(style: .gray)
+        self.addSubview(self.loading)
+        self.loading.startAnimating()
+        self.loading.center = self.center
+    }
+    
+}
+
+extension PlaceholderView: Placeholder {}
+
 // MARK: 对图片加载进行一次封装，现在使用 Kingfisher
 extension UIImageView {
+    
+    func lc_setImageWithCustom(with url: String?, placeholderImage placeholder: View = PlaceholderView()) {
+        self.kf.setImage(with: URL(string: url ?? ""), placeholder: PlaceholderView(), options: [.transition(.fade(0.3))])
+    
+    }
     
     /// 加载本地图片
     func lc_setLocalImage(with url: String) {

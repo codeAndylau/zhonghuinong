@@ -196,7 +196,7 @@ class MemberClassView: UIView, UICollectionViewDataSource, UICollectionViewDeleg
 /// headercell
 class MemberHeaderCell: CollectionViewCell, TabReuseIdentifier {
     
-    let imgView = ImageView().then { (img) in
+    var imgView = ImageView().then { (img) in
         img.image = UIImage(named: "farm_peisong")
     }
     

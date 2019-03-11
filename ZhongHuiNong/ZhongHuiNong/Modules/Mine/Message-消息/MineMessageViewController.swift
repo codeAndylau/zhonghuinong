@@ -15,7 +15,7 @@ class MineMessageViewController: ViewController {
     var listContainerView: JXCategoryListContainerView!
     
     var titles = ["产品上新","在线客服","系统通知"]
-    var isMsg = true
+    var isMsg = false
     
     override func makeUI() {
         super.makeUI()
