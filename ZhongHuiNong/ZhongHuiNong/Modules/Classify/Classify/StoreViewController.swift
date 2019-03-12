@@ -17,15 +17,17 @@ class StoreViewController: ViewController {
     
     var currentIndexPath = IndexPath(row: 0, section: 0)
     
-    var pageList: [Int] = [1,1,1]  // 默认page都是1
+    var pageList: [Int] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]  // 默认page都是1
     
     var goodsList: [[GoodsInfo]] = []
     
     var catagoryList: [CatagoryList] = [] {
         didSet {
+            
             for item in catagoryList {
                 self.fetchGoodsList(category_id: item.id)
             }
+            
             group.notify(queue: .main) {
                 debugPrints("所有任务请求完成---mmp")
                 debugPrints("分类数量---\(self.catagoryList.count)---\(self.goodsList.count)")
@@ -52,9 +54,13 @@ class StoreViewController: ViewController {
     
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.titleView = searchView
-        navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightMsgItem
+        
+        if User.hasUser() && User.currentUser().isVip != 0 {
+            navigationItem.leftBarButtonItem = leftBarItem
+        }
         
         fetchCatagoryList()
     }
@@ -99,6 +105,10 @@ class StoreViewController: ViewController {
             // FIXME: 没有数据的时候 会造成崩溃
             //self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
+        }).disposed(by: rx.disposeBag)
+        
+        searchView.sureBtn.rx.tap.subscribe(onNext: {
+            self.navigator.show(segue: Navigator.Scene.searchGoodsInfo, sender: self)
         }).disposed(by: rx.disposeBag)
         
     }

@@ -38,7 +38,9 @@ class GoodsDetailHeaderView: View {
     let selectView = GoodsDetailRowView().then { (view) in
         view.titleLab.text = "已选"
         view.detailLab.text = "500g x1"
+        view.arrowImg.isHidden = true
     }
+    
 //
 //    let peisongView = GoodsDetailRowView().then { (view) in
 //        view.titleLab.text = "配送"

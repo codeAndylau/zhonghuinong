@@ -16,6 +16,8 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
         statusLab.text = "买家已付款"
         cancelBtn.setTitle("修改地址", for: .normal)
         
+        cancelBtn.isHidden = true
+        
         addSubview(contView)
         contView.addSubview(titleLab)
         contView.addSubview(arrowImg)

@@ -50,7 +50,7 @@ class DeliveryViewController: ViewController {
             
             /// 1. 先判断是否选择过配送时间
             if dispatchDate.monday == false && dispatchDate.tuesday == false && dispatchDate.wednesday == false &&
-                dispatchDate.thursday == false && dispatchDate.friday && dispatchDate.saturday == false && dispatchDate.sunday {
+                dispatchDate.thursday == false && dispatchDate.friday == false && dispatchDate.saturday == false && dispatchDate.sunday == false {
                 mainQueue {
                     self.dateViewDemo.show()
                 }
@@ -151,22 +151,15 @@ class DeliveryViewController: ViewController {
     var vegetablesInfo: [DispatchVegetablesInfo] = [] {
         didSet {
             if vegetablesInfo.count > 0 {
-                let emptyV = EmptyView()
-                view.addSubview(emptyV)
-                emptyV.config = EmptyViewConfig(title: "你已经选过配送的蔬菜啦,请在历史订单中查看所选择的蔬菜配送信息🥬",
-                                                image: UIImage(named: "farm_delivery_nonmember"),
-                                                btnTitle: "确定")
-                emptyV.snp.makeConstraints { (make) in
-                    make.top.equalTo(kNavBarH+155)
-                    make.left.bottom.right.equalTo(self.view)
-                }
-                
-                emptyV.sureBtnClosure = {
-                    let recordVC = DeliveryOrderInfoViewController()
-                    self.navigationController?.pushViewController(recordVC, animated: true)
+                collectionView.isHidden = true
+                tableView.addSubview(headerView)
+                view.addSubview(tableView)
+                mainQueue {
+                    self.tableView.reloadData()
                 }
             }else {
                 /// 没有选择就可以获取蔬菜列表，进行选择
+                view.addSubview(commitVew)
                 fetchDispatchMenu()
             }
         }
@@ -189,12 +182,12 @@ class DeliveryViewController: ViewController {
         view.backgroundColor = UIColor.white
         
         /// 1. 判断是否是vip
-        if User.currentUser().isVip == 0 {
+        if User.currentUser().isVip != 0 {
             
-            navigationItem.rightBarButtonItems = [rightMsgItem, rightRecordItem]
             navigationItem.title = "配送选货"
+            navigationItem.rightBarButtonItem = rightRecordItem
+            
             view.addSubview(collectionView)
-            view.addSubview(commitVew)
             collectionView.addSubview(headerView)
             
             // 加载数据
@@ -210,7 +203,7 @@ class DeliveryViewController: ViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                let phone = "18782967728"  // 填写运营人员的电话号码
+                let phone = linkMan  // 填写运营人员的电话号码
                 callUpWith(phone)
             }
         }
@@ -252,7 +245,7 @@ class DeliveryViewController: ViewController {
     }
     
     
-    // MAKR: - Lazy
+    // MARK: - Lazy
     lazy var emptyView = EmptyView()
     lazy var headerView = DeliveryHeaderView.loadView()
     lazy var footerView = DeliveryFooterView.loadView()
@@ -288,6 +281,12 @@ class DeliveryViewController: ViewController {
     
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     lazy var rightRecordItem = BarButtonItem(image: UIImage(named: "farm_record"), target: self, action: #selector(recordAction))
+    
+    lazy var sectionTitleView = CartSectionHeaderView().then { (view) in
+        view.titleLab.text = "本次默认配送菜单："
+        view.titleLab.textColor = Color.theme1DD1A8
+        view.titleLab.font = UIFont.systemFont(ofSize: 14)
+    }
     
     // MARK: - Action
     
@@ -330,7 +329,7 @@ class DeliveryViewController: ViewController {
     /// 获取用户的默认地址信息
     func fetchUserAddressList() {
         var p = [String: Any]()
-        p["user_id"] = 3261
+        p["user_id"] = User.currentUser().userId
         p["wid"] = wid
         p["fromplat"] = "iOS"
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
@@ -497,11 +496,14 @@ class DeliveryViewController: ViewController {
         var params = [String: Any]()
         params["userid"] = User.currentUser().userId
         params["status"] = 1  // status 1 等于在正在进行中的订单， status 2 是历史订单
+        params["pageSize"] = 10
+        params["pageIndex"] = 1
         
         WebAPITool.requestModelArrayWithData(WebAPI.dispatchOrderList(params), model: DispatchVegetablesInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.vegetablesInfo = list
         }) { (error) in
+            self.vegetablesInfo = []
             debugPrints("获取配送订单列表（正在进行中，历史记录）失败---\(error)")
         }
     }
@@ -524,16 +526,25 @@ class DeliveryViewController: ViewController {
 extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return vegetablesInfo[0].dispatchOrderDetail.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DeliveryTabCell.identifier, for: indexPath) as! DeliveryTabCell
+        cell.info = vegetablesInfo[0].dispatchOrderDetail[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.sectionTitleView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -627,4 +638,21 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
  截尾取整函数:trunc(x)
  */
 
-
+/*
+ 
+ let emptyV = EmptyView()
+ view.addSubview(emptyV)
+ emptyV.config = EmptyViewConfig(title: "你已经选过配送的蔬菜啦,请在历史订单中查看所选择的蔬菜配送信息🥬",
+ image: UIImage(named: "farm_delivery_nonmember"),
+ btnTitle: "确定")
+ emptyV.snp.makeConstraints { (make) in
+ make.top.equalTo(kNavBarH+155)
+ make.left.bottom.right.equalTo(self.view)
+ }
+ 
+ emptyV.sureBtnClosure = {
+ let recordVC = DeliveryOrderInfoViewController()
+ self.navigationController?.pushViewController(recordVC, animated: true)
+ }
+ 
+ */

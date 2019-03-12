@@ -15,10 +15,46 @@ class SearchViewController: ViewController {
     // MARK: - Property
     var hotView: SearchHotView!
     var historyView: SearchHotView!
-    var isTab: Bool = false  // 是否添加过tab
+    var isTab = false  // 是否添加过tab
+    var isEmpty = false
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var goodsList: [GoodsInfo] = [] {
+        didSet {
+            
+            if goodsList.count == 0 {
+                sectionView.titleLab.text = ""
+                view.addSubview(emptyView)
+            }else {
+                
+                if isEmpty {
+                    debugPrints("刷新数据的时候---有占位符号")
+                    emptyView.removeFromSuperview()
+                }
+                
+                sectionView.titleLab.text = "共\(goodsList.count)件商品"
+                
+                
+                DispatchQueue.main.async {
+                    
+                    // 2. 隐藏scrollView
+                    self.scrollView.isHidden = true
+                    
+                    // 3. 刷新tab
+                    if self.isTab {
+                        self.tableView.isHidden = false
+                    }else {
+                        self.view.addSubview(self.tableView)
+                        self.isTab = true
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        HudHelper.hideHUD()
     }
     
     override func makeUI() {
@@ -43,7 +79,7 @@ class SearchViewController: ViewController {
 
     // MARK: - Lazy
     
-    lazy var emptyView = SearchEmptyView.loadView()
+    var emptyView = SearchEmptyView.loadView()
     lazy var sectionView = CartSectionHeaderView.loadOtherView()
     
     lazy var searchView: SearchView = {
@@ -97,7 +133,7 @@ class SearchViewController: ViewController {
         }
         
         //标签的标题 可以从服务器获得
-        let arr = ["年货大集", "酸奶", "水", "车厘子", "洽洽瓜子", "维他", "香烟", "周黑鸭", "草莓", "星巴克", "卤味"]
+        let arr = ["牛排", "土家鸡蛋", "精牛肉", "手工豆腐", "无常大米", "火锅料", "皇帝蕉", "麦趣尔牛奶"]
         hotView = SearchHotView(frame: CGRect(x: 10, y:33, width: kScreenW - 20, height: 100), titleLabelText: "热门搜索", btnTexts: arr, btnCallBackBlock: { [weak self](btn) in
             guard let weakSelf = self else { return }
             let str = btn.title(for: .normal)
@@ -119,7 +155,7 @@ class SearchViewController: ViewController {
         
         guard arr.count > 0 else { return }
         
-        historyView = SearchHotView(frame: CGRect(x: 10, y: hotView!.frame.maxY, width: kScreenW - 20, height: 100), titleLabelText: "历史记录", isHot: true, btnTexts: arr, btnCallBackBlock: { [weak self](btn) in
+        historyView = SearchHotView(frame: CGRect(x: 10, y: hotView!.frame.maxY + 20, width: kScreenW - 20, height: 100), titleLabelText: "历史记录", isHot: true, btnTexts: arr, btnCallBackBlock: { [weak self](btn) in
             guard let weakSelf = self else { return }
             let str = btn.title(for: .normal)
             weakSelf.searchView.textField.text = str
@@ -144,11 +180,12 @@ class SearchViewController: ViewController {
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return goodsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchGoodsTabCell.identifier, for: indexPath) as! SearchGoodsTabCell
+        cell.goodsInfo = goodsList[indexPath.row]
         cell.selectionStyle = .none
         return cell
     }
@@ -159,6 +196,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let goodId = goodsList[indexPath.row].id
+        debugPrints("点击搜索商品的id---\(goodId)")
+        self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -210,32 +251,41 @@ extension SearchViewController: UITextFieldDelegate {
         
         self.searchView.textField.resignFirstResponder()
         
-        view.addSubview(emptyView)
-        
-        //        if text == "" {
-        //            
-        //            view.addSubview(emptyView)
-        //            
-        //        }else {
-        //            DispatchQueue.main.async {
-        //                // 1. 将搜索框文字写入到偏好设置
-        //                self.writeHistorySearchToUserDefaults(str: text)
-        //                
-        //                // 2. 隐藏scrollView
-        //                self.scrollView.isHidden = true
-        //                
-        //                // 3. 刷新tab
-        //                if self.isTab {
-        //                    self.tableView.isHidden = false
-        //                }else {
-        //                    self.view.addSubview(self.tableView)
-        //                    self.isTab = true
-        //                }
-        //                self.tableView.reloadData()
-        //            }
-        //        }
+        if text == "" {
+            isEmpty = true
+            view.addSubview(emptyView)
+        }else {
+
+            // 1. 获取搜索的数据
+            fetchSearchGoodsInfo(text)
+            
+            // 2. 将搜索框文字写入到偏好设置
+            self.writeHistorySearchToUserDefaults(str: text)
+        }
        
     }
+    
+    
+    func fetchSearchGoodsInfo(_ key: String) {
+        
+        var params = [String: Any]()
+        params["category_id"] = 0 // 所有商品
+        params["keywords"] = key
+        params["page_size"] = 50
+        params["page_index"] = 1
+        params["wid"] = wid
+
+        HudHelper.showWaittingHUD(msg: "搜索中...")
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsList(params), model: GoodsInfo.self, complete: { (list) in
+            HudHelper.hideHUD()
+            self.goodsList = list
+        }) { (error) in
+            HudHelper.hideHUD()
+            self.goodsList = []
+        }
+        
+    }
+    
     
     /// 将历史搜索写入偏好设置
     func writeHistorySearchToUserDefaults(str: String) {

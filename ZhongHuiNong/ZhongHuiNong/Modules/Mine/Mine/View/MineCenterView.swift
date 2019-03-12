@@ -169,7 +169,7 @@ class MineCenterView: View {
     }
     
     func fetchUserBalance() {
-        let params = ["userid": "3233"]
+        let params = ["userid": User.currentUser().userId]
         WebAPITool.request(WebAPI.userBalance(params), complete: { (value) in
             if  let balance = Mapper<UserBanlance>().map(JSONObject: value.object) {
                 self.balance = balance

@@ -27,6 +27,20 @@ class MineAcceptOrderTabCell: MinePayOrderTabCell {
         contView.addSubview(moneyLab)
         contView.addSubview(tipsLab)
         contView.addSubview(numLab)
+        
+        cancelBtn.addTarget(self, action: #selector(AcceptCancelBtnAction), for: UIControl.Event.touchUpInside)
+        payBtn.addTarget(self, action: #selector(AcceptPayBtnAction), for: UIControl.Event.touchUpInside)
+    }
+    
+    /// 1 是取消 2 是支付
+    var AcceptBtnActionClosure:((_ index: Int)->Void)?
+    
+    @objc func AcceptCancelBtnAction() {
+        AcceptBtnActionClosure?(1)
+    }
+    
+    @objc func AcceptPayBtnAction() {
+        AcceptBtnActionClosure?(2)
     }
     
     override func updateUI() {

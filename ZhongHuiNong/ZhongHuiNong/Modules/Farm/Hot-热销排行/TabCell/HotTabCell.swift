@@ -47,7 +47,7 @@ class HotTabCell: FlashOneTabCell {
     var goodsInfo: GoodsInfo = GoodsInfo() {
         didSet {
             ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
-            titleLab.text = goodsInfo.productCode + goodsInfo.unit
+            titleLab.text = goodsInfo.productName 
             priceLab.text = Keepfigures(text: goodsInfo.salePrice)
             discountLab.text = Keepfigures(text: goodsInfo.marketPrice)
         }

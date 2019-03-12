@@ -21,8 +21,8 @@ class GoodsDetailViewController: ViewController {
         didSet {
             debugPrints("购物车数量---\(cartNum)")
             if cartNum > 0 {
-                buyView.collectionBtn.pp.addBadge(number: cartNum)
-                buyView.collectionBtn.pp.setBadgeLabel { (lab) in
+                buyView.caiLanBtn.pp.addBadge(number: cartNum)
+                buyView.caiLanBtn.pp.setBadgeLabel { (lab) in
                     lab.backgroundColor = Color.theme1DD1A8
                 }
             }
@@ -81,22 +81,35 @@ class GoodsDetailViewController: ViewController {
         
         buyView.buyBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            
-            var goodsInfo = CartGoodsInfo()
-            goodsInfo.productid = self.goodsDetailInfo.id
-            goodsInfo.quantity = 1
-            goodsInfo.productname = self.goodsDetailInfo.productName
-            goodsInfo.marketprice = CGFloat(self.goodsDetailInfo.marketPrice)
-            goodsInfo.sellprice = self.goodsDetailInfo.salePrice
-            goodsInfo.focusImgUrl = self.goodsDetailInfo.focusImgUrl
-            
-            self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
+            self.bindingPhone()
         }).disposed(by: rx.disposeBag)
         
         buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
-            NotificationCenter.default.post(name: .goodsDetailCartClicked, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.goodsDetailCartClicked, object: nil)
             self.tabBarController?.selectedIndex = 2
         }).disposed(by: rx.disposeBag)
+        
+    }
+    
+    func bindingPhone() {
+        
+        if User.hasUser() && User.currentUser().mobile != "" {
+            buyCart()
+        }else {
+            navigator.show(segue: .bindingMobile, sender: self)
+        }
+    }
+    
+    func buyCart() {
+        
+        var goodsInfo = CartGoodsInfo()
+        goodsInfo.productid = self.goodsDetailInfo.id
+        goodsInfo.quantity = 1
+        goodsInfo.productname = self.goodsDetailInfo.productName
+        goodsInfo.marketprice = CGFloat(self.goodsDetailInfo.marketPrice)
+        goodsInfo.sellprice = self.goodsDetailInfo.salePrice
+        goodsInfo.focusImgUrl = self.goodsDetailInfo.focusImgUrl
+        self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
         
     }
     
@@ -108,10 +121,8 @@ class GoodsDetailViewController: ViewController {
         
         debugPrints("加入购物车参数--\(productLists)---\(userId)")
         
-        HudHelper.showWaittingHUD(msg: "请求中...")
         WebAPITool.request(WebAPI.addToCart(userId, productLists), complete: { (value) in
             debugPrints("购物车参数成功--\(value))")
-            HudHelper.hideHUD()
             if value.boolValue {
                 MBProgressHUD.showSuccess("加入购物车成功")
                 self.cartNum += 1
@@ -120,7 +131,6 @@ class GoodsDetailViewController: ViewController {
             }
         }) { (error) in
             debugPrints("购物车参数失败--\(error))")
-            HudHelper.hideHUD()
         }
         
     }

@@ -58,8 +58,9 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: MineSettingTabCell.identifier, for: indexPath) as! MineSettingTabCell
         // FIXME: 后期优化
         if indexPath.section == 0 {
+            cell.arrowImg.isHidden = true
             if indexPath.row == 0 {
-                cell.isHeader = true
+                cell.arrowImg.isHidden = true
                 cell.titleLab.text = "头像"
                 cell.headerImg.lc_setImage(with: user.userImg)
             }
@@ -76,9 +77,10 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             cell.isLine = true
             if indexPath.row == 0 {
                 cell.titleLab.text = "手机号"
-                cell.detailLab.text = "暂未绑定"
+                cell.detailLab.text = user.mobile == "" ? "暂未绑定手机" : user.mobile
             }
             if indexPath.row == 1 {
+                cell.arrowImg.isHidden = true
                 cell.titleLab.text = "微信号"
                 cell.detailLab.text = "已绑定"
             }
@@ -107,6 +109,11 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            self.navigator.show(segue: .bindingMobile, sender: self)
+        }
+        
         if indexPath.section == 2 {
             self.navigator.show(segue: .mineAddress, sender: self)
         }
@@ -124,7 +131,6 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
         return View()
     }
     
-    //设置分组尾的高度
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 3 {
             return 0
@@ -132,7 +138,6 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
         return 10
     }
     
-    //将分组尾设置为一个空的View
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = View().then { (view) in
             view.backgroundColor = UIColor.hexColor(0xFAFAFA)

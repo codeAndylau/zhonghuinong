@@ -269,7 +269,7 @@ class VegetableTabCellFooterView: View {
     }
     
     let timeLab = Label().then { (lab) in
-        lab.text = "尽快配送(预计2月4日送达)"
+        lab.text = "尽快配送"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 14)
     }

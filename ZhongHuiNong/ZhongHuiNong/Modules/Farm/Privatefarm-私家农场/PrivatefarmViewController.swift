@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 /// 私家农场
 class PrivatefarmViewController: ViewController {
@@ -82,7 +83,14 @@ class PrivatefarmViewController: ViewController {
         super.bindViewModel()
         
         headerView.playBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
+            
             guard let self = self else { return }
+            
+            guard !self.farmLand.cameraUrl.isEmpty && self.farmLand.cameraUrl != "" else {
+                MBProgressHUD.showError("视频播放链接有误")
+                return
+            }
+            
             self.playerView.playVideoWith(self.farmLand.cameraUrl, containView: self.headerView.videoImg, complete: { (flag) in
                 if flag {
                    self.playerView.isHidden = true
@@ -115,7 +123,7 @@ class PrivatefarmViewController: ViewController {
     func fetchFarmLand() {
         
         var p = [String: Any]()
-        p["userid"] = 3261 //User.userId()
+        p["userid"] = User.currentUser().userId
         
         /// 请求农场的信息
         WebAPITool.requestModel(WebAPI.farmLand(p), model: FarmLand.self, complete: { [weak self] (model) in

@@ -10,7 +10,7 @@ import UIKit
 
 class MineLogisticsViewController: ViewController {
 
-    var order_no = "VB50271617760"
+    var order_no = ""  // VB50271617760
     
     var kuaidiInfo: KuaidiInfo = KuaidiInfo() {
         didSet {
@@ -76,10 +76,11 @@ class MineLogisticsViewController: ViewController {
     
     func fetchData() {
         
-        guard order_no != "" else {
-            ZYToast.showCenterWithText(text: "请输入快递单号")
-            return
-        }
+//        guard order_no != "" else {
+//            ZYToast.showCenterWithText(text: "请输入快递单号")
+//            return
+//        }
+        
         HudHelper.showWaittingHUD(msg: "请稍后")
         EZNetworkTool.shared.aliwuliuQuery(order: order_no, completion: { (model) in
             HudHelper.hideHUD()

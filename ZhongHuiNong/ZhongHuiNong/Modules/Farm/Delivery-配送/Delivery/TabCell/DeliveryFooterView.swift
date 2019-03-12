@@ -21,7 +21,7 @@ class DeliveryFooterView: View {
     }
     
     lazy var numLab = Label().then { (lab) in
-        lab.text = "-1"
+        lab.text = "0"
         lab.font = UIFont.boldSystemFont(ofSize: 16)
         lab.textColor = UIColor.hexColor(0x4A4A4A)
     }
@@ -33,7 +33,7 @@ class DeliveryFooterView: View {
     }
     
     lazy var totalCountLab = Label().then { (lab) in
-        lab.text = "7.75kg"
+        lab.text = "0kg"
         lab.font = UIFont.boldSystemFont(ofSize: 16)
         lab.textColor = UIColor.hexColor(0x1DD1A8)
     }
@@ -83,5 +83,12 @@ class DeliveryFooterView: View {
     class func loadView() -> DeliveryFooterView {
         let view = DeliveryFooterView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 88))
         return view
+    }
+    
+    var info: DispatchVegetablesInfo = DispatchVegetablesInfo() {
+        didSet {
+            numLab.text = "\(info.deliverynum)"
+            totalCountLab.text = "\(info.weight)Kg"
+        }
     }
 }

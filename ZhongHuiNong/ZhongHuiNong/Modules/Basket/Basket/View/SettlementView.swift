@@ -138,10 +138,12 @@ class SettlementView: View {
                 totalLab.isHidden = false
                 memberPriceLab.isHidden = false
                 nonMemberPriceLab.isHidden = false
+                settlementBtn.setTitle("去结算", for: .normal)
             default:
                 totalLab.isHidden = true
                 memberPriceLab.isHidden = true
                 nonMemberPriceLab.isHidden = true
+                settlementBtn.setTitle("删除", for: .normal)
             }
         }
     }

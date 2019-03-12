@@ -21,11 +21,11 @@ class MineOrderView: View {
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btn.adjustsImageWhenHighlighted = false
-        btn.lc_setLocalImage(with: "mine_fukuan")
+        btn.lc_setLocalImage(with: "mine_order")
     }
     
     let fukuanLab = Label().then { (lab) in
-        lab.text = "待付款"
+        lab.text =  "全部订单"
         lab.textColor = UIColor.hexColor(0x333333)
         lab.textAlignment = .left
         lab.font = UIFont.systemFont(ofSize: 12)
@@ -35,11 +35,11 @@ class MineOrderView: View {
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btn.adjustsImageWhenHighlighted = false
-        btn.lc_setLocalImage(with: "mine_peisong")
+        btn.lc_setLocalImage(with: "mine_fukuan")
     }
     
     let peisongLab = Label().then { (lab) in
-        lab.text = "待配送"
+        lab.text = "待付款"
         lab.textColor = UIColor.hexColor(0x333333)
         lab.textAlignment = .left
         lab.font = UIFont.systemFont(ofSize: 12)
@@ -49,11 +49,11 @@ class MineOrderView: View {
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btn.adjustsImageWhenHighlighted = false
-        btn.lc_setLocalImage(with: "mine_shouhuo")
+        btn.lc_setLocalImage(with: "mine_peisong") 
     }
     
     let shouhuoLab = Label().then { (lab) in
-        lab.text = "待收货"
+        lab.text = "待配送"
         lab.textColor = UIColor.hexColor(0x333333)
         lab.textAlignment = .left
         lab.font = UIFont.systemFont(ofSize: 12)
@@ -63,11 +63,11 @@ class MineOrderView: View {
         btn.setTitleColor(UIColor.hexColor(0x333333), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btn.adjustsImageWhenHighlighted = false
-        btn.lc_setLocalImage(with: "mine_order")
+        btn.lc_setLocalImage(with: "mine_shouhuo")
     }
     
     let allOrderLab = Label().then { (lab) in
-        lab.text = "全部订单"
+        lab.text = "待收货"
         lab.textColor = UIColor.hexColor(0x333333)
         lab.textAlignment = .left
         lab.font = UIFont.systemFont(ofSize: 12)

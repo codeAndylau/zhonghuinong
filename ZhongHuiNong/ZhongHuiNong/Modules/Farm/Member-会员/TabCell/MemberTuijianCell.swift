@@ -11,7 +11,7 @@ import UIKit
 class MemberTuijianCell: TableViewCell, TabReuseIdentifier {
     
     let imgView = ImageView().then { (img) in
-        img.contentMode = .scaleAspectFit
+        img.contentMode = .scaleAspectFill
         img.cuttingCorner(radius: 10)
     }
     

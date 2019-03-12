@@ -46,7 +46,7 @@ class DeliveryTabCell: TableViewCell, TabReuseIdentifier {
 
     lazy var totalCountLab: Label = {
         let lab = Label()
-        lab.text = "1.5kg"
+        lab.text = ""
         lab.font = UIFont.systemFont(ofSize: 12)
         lab.textColor = UIColor.hexColor(0xB1B1B1)
         lab.numberOfLines = 0
@@ -89,6 +89,15 @@ class DeliveryTabCell: TableViewCell, TabReuseIdentifier {
         totalCountLab.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-30)
             make.centerY.equalTo(countLab)
+        }
+    }
+    
+    var info: DispatchOrderDetailInfo = DispatchOrderDetailInfo() {
+        didSet {
+            leftImg.lc_setImage(with: info.focusImgUrl)
+            titleLab.text = info.productname
+            countLab.text = "\(info.weight)g"
+            numLab.text = "x\(info.quantity)"
         }
     }
 }

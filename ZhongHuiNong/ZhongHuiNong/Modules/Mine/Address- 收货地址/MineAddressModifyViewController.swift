@@ -132,7 +132,7 @@ class MineAddressModifyViewController: ViewController {
     func saveUserAddressInfo(_ p: [String: String]) {
         
         var params = [String: Any]()
-        params["user_id"] = "3261"  //"\(User.currentUser().userId)"
+        params["user_id"] = User.currentUser().userId
         params["linkMan"] = p["linkMan"]
         params["preaddress"] = p["preaddress"]
         params["address"] = p["address"]
@@ -173,7 +173,7 @@ class MineAddressModifyViewController: ViewController {
             
             var params = [String: Any]()
             params["address_id"] = self.addressInfo.id
-            params["user_id"] = "3261"
+            params["user_id"] = User.currentUser().userId
             params["wid"] = wid
             
             HudHelper.showWaittingHUD(msg: "请稍后...")

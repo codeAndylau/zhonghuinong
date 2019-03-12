@@ -38,8 +38,14 @@ class MobileBindingViewController: ViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //ZYToast.showCenterWithText(text: "请先绑定手机号")
+    }
+    
     // MARK: - Lazy
     lazy var headerView = MobileBindingView.loadView()
+    
     let footerView = MobileBindingView.loadView().then { (view) in
         view.codeBtn.isHidden = true
         view.titleLab.text = "验证码"
@@ -106,12 +112,11 @@ class MobileBindingViewController: ViewController {
         params["phonenumber"] = headerView.phoneTF.text!
         
         debugPrints("手机绑定参数---\(params)")
-        HudHelper.showWaittingHUD(msg: "请稍后...")
+        
         WebAPITool.request(WebAPI.verifyCode(params), complete: { (value) in
             debugPrints("手机绑定---\(value)")
-            HudHelper.hideHUD()
             if value.boolValue {
-                ZYToast.showCenterWithText(text: "绑定手机成功!")
+                self.fetchUserInfo()
             }else {
                 ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
             }
@@ -119,7 +124,6 @@ class MobileBindingViewController: ViewController {
                 self.navigationController?.popViewController(animated: true)
             })
         }) { (error) in
-            HudHelper.hideHUD()
             debugPrints("手机绑定出错---\(error)")
         }
 
@@ -132,14 +136,32 @@ class MobileBindingViewController: ViewController {
 //            }else {
 //                ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
 //            }
-//            delay(by: 0.5, closure: {
-//                self.navigationController?.popViewController(animated: true)
-//            })
 //
 //        }) { (error) in
 //            HudHelper.hideHUD()
 //            ZYToast.showCenterWithText(text: "绑定手机失败，请稍后再试")
 //        }
+        
+    }
+    
+    func fetchUserInfo() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        WebAPITool.requestModel(WebAPI.fetchUserInfo(params), model: User.self, complete: { (model) in
+            debugPrints("绑定手机成功获取用户的信息---\(model)")
+            HudHelper.hideHUD()
+            ZYToast.showCenterWithText(text: "绑定手机成功!")
+            model.save()
+            delay(by: 0.5, closure: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            
+        }) { (error) in
+            HudHelper.hideHUD()
+        }
         
     }
 

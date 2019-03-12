@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 
+/// 确定订单界面
 class OrderViewController: TableViewController {
 
     // MARK: - Property
@@ -34,8 +35,6 @@ class OrderViewController: TableViewController {
             }
             
             fadeInOnDisplay {
-                self.setupTab()
-                self.tableView.alpha = 1
                 mainQueue {
                     self.tableView.reloadData()
                 }
@@ -83,24 +82,26 @@ class OrderViewController: TableViewController {
             /// 超过168 则需要免运费
             if salePrice > 168 {
                 isFreight = true
+                payMoney = Double(salePrice)
+                paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
+            }else {
+                payMoney = Double(salePrice+8)
+                paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice+8)
             }
-            
-            payMoney = Double(salePrice)
-            paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
             paySureView.numLab.text = "共\(num)件"
-            
         }
     }
     
     override func makeUI() {
         super.makeUI()
         navigationItem.title = localized("确认订单")
+        setupTab()
         fetchUserAddressList()
         fetchUserBalance()
     }
     
     func setupTab() {
-        tableView.alpha = 0.1
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Color.backdropColor
@@ -116,7 +117,7 @@ class OrderViewController: TableViewController {
         /// 提交订单
         paySureView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.commitOrder()
+            self.bindingPhone()
         }).disposed(by: rx.disposeBag)
         
         headerView.addressView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -137,7 +138,22 @@ class OrderViewController: TableViewController {
         }).disposed(by: rx.disposeBag)
     }
     
+    /// 验证用户是否绑定了手机
+    func bindingPhone() {
+        
+        if User.hasUser() && User.currentUser().mobile == "" {
+            navigator.show(segue: .bindingMobile, sender: self)
+        }else {
+            commitOrder()
+        }
+    }
+    
     func commitOrder() {
+        
+        guard headerView.addressView.addressInfo.id != defaultId else {
+            ZYToast.showCenterWithText(text: "您还没有填写收货地址")
+            return
+        }
         
         var productLists: [[String: Any]] = []
 
@@ -151,8 +167,8 @@ class OrderViewController: TableViewController {
         params["user_id"] = User.currentUser().userId
         params["remark"] = "暂无备注"
         params["addressid"] = headerView.addressView.addressInfo.id
-        params["express_fee"] = 0
-        params["total_amount"] = 0
+        params["express_fee"] = isFreight == true ? "0" : "8"
+        params["total_amount"] = "\(payMoney)"
         params["productLists"] = productLists
 
         debugPrints("创建订单参数---\(params)")
@@ -178,10 +194,17 @@ class OrderViewController: TableViewController {
     }
     
     func surePay(_ order_no: String) {
+        
         paySelectDemo.balance = balance.creditbalance
         paySelectDemo.money = payMoney
         paySelectDemo.order_no = order_no
         paySelectDemo.show()
+        
+        /// 支付成功后退回根试图控制器
+        paySelectDemo.PayPasswordDemo.paySuccessClosure = {
+            // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Lazy
@@ -197,19 +220,20 @@ class OrderViewController: TableViewController {
     
     func fetchUserAddressList() {
         var p = [String: Any]()
-        p["user_id"] = 3261
+        p["user_id"] = User.currentUser().userId
         p["wid"] = wid
         p["fromplat"] = "iOS"
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
         }) { (error) in
-            ZYToast.showCenterWithText(text: error)
+            self.addressList = []
+            //ZYToast.showCenterWithText(text: error)
         }
     }
     
     func fetchUserBalance() {
-        let params = ["userid": "3233"]
+        let params = ["userid": User.currentUser().userId]
         WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
             self.balance = model
         }) { (error) in

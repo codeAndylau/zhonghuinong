@@ -13,18 +13,16 @@ import ObjectMapper
 struct DispatchVegetablesInfo: Mappable {
     
     var address : String = ""
-    var assigneeid : AnyObject?
-    var completedat : AnyObject?
-    var contactperson : String?
+    var assigneeid : String = ""
+    var completedat : String = ""
+    var contactPerson : String = ""
     var createdat : String = ""
     var deliverynum : Int = defaultId
-    var id : Int = defaultId
+    var dispatchOrderDetail : [DispatchOrderDetailInfo] = []
     var phonenumber : String = ""
-    var scheduleday : String = ""
-    var sfDispatchOrderDetail : [AnyObject]?
     var status : Int = defaultId
     var userid : Int = defaultId
-    var weight : Float = 0
+    var weight : CGFloat = 0
     
     init() {}
     init?(map: Map) {}
@@ -33,15 +31,36 @@ struct DispatchVegetablesInfo: Mappable {
         address <- map["address"]
         assigneeid <- map["assigneeid"]
         completedat <- map["completedat"]
-        contactperson <- map["contactperson"]
+        contactPerson <- map["contactPerson"]
         createdat <- map["createdat"]
         deliverynum <- map["deliverynum"]
-        id <- map["id"]
+        dispatchOrderDetail <- map["dispatchOrderDetail"]
         phonenumber <- map["phonenumber"]
-        scheduleday <- map["scheduleday"]
-        sfDispatchOrderDetail <- map["sfDispatchOrderDetail"]
         status <- map["status"]
         userid <- map["userid"]
+        weight <- map["weight"]
+    }
+}
+
+struct DispatchOrderDetailInfo: Mappable {
+    
+    var focusImgUrl : String = ""
+    var orderid : Int = defaultId
+    var productid : Int = defaultId
+    var productname : String = ""
+    var quantity : Int = defaultId
+    var weight : Int = 0
+    
+    init() {}
+    init?(map: Map) {}
+    
+    mutating func mapping(map: Map) {
+        
+        focusImgUrl <- map["focusImgUrl"]
+        orderid <- map["orderid"]
+        productid <- map["productid"]
+        productname <- map["productname"]
+        quantity <- map["quantity"]
         weight <- map["weight"]
     }
 }

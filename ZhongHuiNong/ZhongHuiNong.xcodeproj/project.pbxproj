@@ -603,9 +603,9 @@
 			isa = PBXGroup;
 			children = (
 				14043D592212AA140023AA11 /* OrderViewController.swift */,
+				140F3C862234F5160059EBB3 /* CartOrderInfo.swift */,
 				14043D5B2212AAAF0023AA11 /* View */,
 				14043D6B2212C5E10023AA11 /* PaySelect */,
-				140F3C862234F5160059EBB3 /* CartOrderInfo.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";

@@ -13,7 +13,8 @@ class BasketViewController: TableViewController {
     
     var cartList: [CartGoodsInfo] = [] {
         didSet {
-            self.tableView.reloadData()
+            sectionView.titleLab.text = "共\(cartList.count)件商品"
+            tableView.reloadData()
         }
     }
 
@@ -21,7 +22,7 @@ class BasketViewController: TableViewController {
         super.makeUI()
         
         navigationItem.leftBarButtonItem = cartItem
-        navigationItem.rightBarButtonItem = messageItem
+        //navigationItem.rightBarButtonItem = editItem
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -36,6 +37,12 @@ class BasketViewController: TableViewController {
         
         fetchShopingCartList()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        debugPrints("即将进入购物车")
+        fetchShopingCartList()
+    }
 
     override func bindViewModel() {
         super.bindViewModel()
@@ -47,10 +54,26 @@ class BasketViewController: TableViewController {
                 return false
             })
             self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
+            
+            //            if self.settleView.type == .edit {
+            //                self.cartDeleteGoodsInfo(0, isRemoveAll: true)
+            //            }else {
+            //                let list = self.cartList.filter({ (item) -> Bool in
+            //                    if item.checked { return true }
+            //                    return false
+            //                })
+            //                self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
+            //            }
         }).disposed(by: rx.disposeBag)
         
         settleView.selectBtn.rx.tap.subscribe(onNext: { [weak self] in
-            self?.settleViewAllSelectAction()
+            guard let self = self else { return }
+            self.settleViewAllSelectAction()
+            if self.settleView.type == .edit {
+                self.settleView.settlementBtn.setTitle("删除", for: .normal)
+            }else {
+                self.settleView.settlementBtn.setTitle("去结算", for: .normal)
+            }
         }).disposed(by: rx.disposeBag)
         
         NotificationCenter.default.rx.notification(.goodsDetailCartClicked).subscribe(onNext: { [weak self] (_) in
@@ -76,13 +99,16 @@ class BasketViewController: TableViewController {
     
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
+    lazy var editItem = BarButtonItem(title: "编辑", style: UIBarButtonItem.Style.plain, target: self, action: #selector(messageAction))
+    
     // MARK: - Public methods
     
     var isType = false
+    var isEdit = false
     
     @objc func messageAction() {
         
-        navigator.show(segue: .mineMessage, sender: self)
+        //navigator.show(segue: .mineMessage, sender: self)
         
         //        isType = !isType
         //        if isType {
@@ -90,6 +116,20 @@ class BasketViewController: TableViewController {
         //        }else {
         //            settleView.type = .normal
         //        }
+        
+        isEdit = !isEdit
+        guard let item = navigationItem.rightBarButtonItem else { return }
+        if isEdit {
+            item.title = "完成"
+            settleView.type = .edit
+            
+            debugPrints("全选按钮的选择状态---\(settleView.selectBtn.isSelected)")
+            
+            
+        }else {
+            item.title = "编辑"
+            settleView.type = .normal
+        }
         
    }
     
@@ -113,12 +153,34 @@ class BasketViewController: TableViewController {
             self.cartList = list
             self.calculateGoodsPrice()
             self.checkSelectStatus()
+            
+            if list.count <= 0 {
+                //self.setupEmptyView()
+            }
+            
         }) { (error) in
             if isRefresh {
                 self.tableView.uHead.endRefreshing()
             }
         }
         
+    }
+    
+    func setupEmptyView() {
+        
+        let emptyV = EmptyView()
+        view.addSubview(emptyV)
+        emptyV.config = EmptyViewConfig(title: "购物车空空如也",
+                                        image: UIImage(named: "basket_empty"),
+                                        btnTitle: "去逛逛")
+        emptyV.snp.makeConstraints { (make) in
+            make.top.equalTo(kNavBarH)
+            make.left.bottom.right.equalTo(self.view)
+        }
+        
+        emptyV.sureBtnClosure = {
+            self.tabBarController?.selectedIndex = 1
+        }
     }
     
     // MARK: - 购物车购买逻辑
@@ -211,6 +273,51 @@ class BasketViewController: TableViewController {
         }
         
     }
+    
+    /// 删除购物车
+    func cartDeleteGoodsInfo(_ index: Int, isRemoveAll: Bool = false) {
+        
+        let remove = isRemoveAll == true ? "true" : "false"
+        
+        let params: [String: Any] = ["userid": User.currentUser().userId, "isRemoveAll": remove]
+        
+        var body = [[String: Any]]()
+        
+        if isRemoveAll {
+            for item in cartList {
+                let dict = ["productid": item.productid, "quantity": item.quantity]
+                body.append(dict)
+            }
+        }else {
+            let info = cartList[index]
+            body = [["productid": info.productid, "quantity": info.quantity]]
+        }
+        
+        debugPrints("删除购物车的参数---\(params)")
+        debugPrints("删除购物车的body---\(body)")
+
+        WebAPITool.request(WebAPI.removeCart(body, params), complete: { (value) in
+            debugPrints("购物车单个商品删除成功---\(value)")
+            
+            if isRemoveAll {
+                self.cartList.removeAll()
+            }else {
+                self.cartList.remove(at: index)
+            }
+            
+            self.calculateGoodsPrice()
+            mainQueue {
+                self.tableView.reloadData()
+            }
+            
+            if self.cartList.count == 0 {
+                //self.setupEmptyView()
+            }
+            
+        }) { (error) in
+            ZYToast.showCenterWithText(text: error)
+        }
+    }
 
 }
 
@@ -258,6 +365,35 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
         }
 
         return cell
+    }
+    
+    // MARK: TODO 购物车删除功能
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return UITableViewCell.EditingStyle.delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+       
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            cartDeleteGoodsInfo(indexPath.row)
+        }
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        //创建“删除”事件按钮
+        let delete = UIContextualAction(style: .destructive, title: "删除") {
+            (action, view, completionHandler) in
+            self.cartDeleteGoodsInfo(indexPath.row)
+            completionHandler(false)
+        }
+        
+        //返回所有的事件按钮
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

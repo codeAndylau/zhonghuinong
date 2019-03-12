@@ -17,7 +17,7 @@ class PaySureView: View {
     }
     
     let moneyLab = Label().then { (lab) in
-        lab.text = "¥388.0"
+        lab.text = "¥0.0"
         lab.textColor = UIColor.hexColor(0x1DD1A8)
         lab.font = UIFont.boldSystemFont(ofSize: 24)
     }

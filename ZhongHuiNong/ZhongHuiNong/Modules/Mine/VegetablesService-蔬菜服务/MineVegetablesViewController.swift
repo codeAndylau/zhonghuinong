@@ -24,7 +24,7 @@ class MineVegetablesViewController: TableViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                let phone = "18782967728"  // 填写运营人员的电话号码
+                let phone = linkMan  // 填写运营人员的电话号码
                 callUpWith(phone)
             }
         }else {

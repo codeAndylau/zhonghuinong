@@ -59,22 +59,18 @@ class PayPasswordViewController: SwiftPopup {
     
     lazy var paySureView = PayPasswordView.loadView()
 
+    /// 支付成功毁掉
+    var paySuccessClosure: (()->Void)?
 
     
     // MARK: - Action
     
+    /// 验证支付密码
     func validationPayPassword(_ psd: String) {
+        
         var params = [String: Any]()
         params["userid"] = User.currentUser().userId
         params["paymentpassword"] = psd
-        
-//        if psd == "123456" {
-//            // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
-//            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//            NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
-//        }else {
-//
-//        }
         
         paySureView.boxView.clearLayer()
         
@@ -93,6 +89,7 @@ class PayPasswordViewController: SwiftPopup {
         
     }
     
+    /// 用额度支付
     func cartOrderPayment() {
         
         guard order_no != "" else {
@@ -112,9 +109,7 @@ class PayPasswordViewController: SwiftPopup {
             let success = value.boolValue
             if success {
                 debugPrint("订单支付成功---\(value)")
-                // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
-                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                self.dismiss()
+                self.paySuccessClosure?()
                 NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
             }else {
                 debugPrint("订单支付失败")
@@ -126,3 +121,10 @@ class PayPasswordViewController: SwiftPopup {
         
     }
 }
+
+
+/*
+ // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
+ self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+ self.dismiss()
+ */

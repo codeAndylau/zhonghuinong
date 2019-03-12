@@ -23,7 +23,7 @@ class PaySelectViewController: SwiftPopup {
     var balance: Double = 0 {
         didSet {
             let price = Keepfigures(text: CGFloat(balance))
-            paySelectView.balanceLab.text = price
+            paySelectView.balanceLab.text =  "可用余额\(price)元"
         }
     }
     
@@ -76,8 +76,7 @@ class PaySelectViewController: SwiftPopup {
         /// 弹出密码支付框
         paySelectView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.PayPasswordDemo.order_no = self.order_no
-            self.PayPasswordDemo.show(above: topVC, completion: nil)
+            self.validationMoney()
         }).disposed(by: rx.disposeBag)
         
         payPasswordView.cancelBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -102,5 +101,19 @@ class PaySelectViewController: SwiftPopup {
     lazy var payPasswordView = PayPasswordView.loadView()
     
     lazy var PayPasswordDemo = PayPasswordViewController()
+    
+    
+    // MARK: - Action
+    
+    func validationMoney() {
+        
+        if balance > money {
+            self.PayPasswordDemo.order_no = self.order_no
+            self.PayPasswordDemo.show(above: topVC, completion: nil)
+        }else {
+            ZYToast.showCenterWithText(text: "您的余额不足,请联系客服充值")
+        }
+        
+    }
     
 }

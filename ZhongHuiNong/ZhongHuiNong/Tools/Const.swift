@@ -8,7 +8,7 @@
 
 import UIKit
 
-public let wid = 1
+public let wid = 1   //  店铺id
 public let defaultId = -1
 public let kScreenS = UIScreen.main.bounds
 public let kScreenW = UIScreen.main.bounds.width
@@ -22,3 +22,4 @@ public let kIndicatorH: CGFloat = IPhone_X ? 34 : 0
 public let kBottomViewH: CGFloat = IPhone_X == true ? 56+kIndicatorH : 56
 public let defaults = UserDefaults.standard
 
+public let linkMan = "18681252035"

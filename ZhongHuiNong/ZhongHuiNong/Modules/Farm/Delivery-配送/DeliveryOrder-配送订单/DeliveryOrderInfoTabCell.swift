@@ -41,11 +41,10 @@ class DeliveryOrderInfoTabCell: TableViewCell, TabReuseIdentifier {
     }
     
     let numLab = Label().then { (lab) in
-        lab.text = "共7件"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x999999)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
-    
     
     override func makeUI() {
         super.makeUI()
@@ -96,6 +95,42 @@ class DeliveryOrderInfoTabCell: TableViewCell, TabReuseIdentifier {
         lineView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self)
             make.height.equalTo(10)
+        }
+    }
+    
+    var info: DispatchVegetablesInfo = DispatchVegetablesInfo() {
+        didSet {
+            
+            weekLab.text = ""
+            dateLab.text = info.createdat
+            totalLab.text = Keepfigures(text: CGFloat(info.weight))
+            numLab.text = "共\(info.dispatchOrderDetail.count)件"
+            
+            for item in info.dispatchOrderDetail.enumerated() {
+                
+                debugPrints("商品图片信息---\(item.element.focusImgUrl)")
+                
+                if item.offset == 0 {
+                    vegetablesView.btn1.lc_setImage(with: item.element.focusImgUrl)
+                }
+                
+                if item.offset == 1 {
+                    vegetablesView.btn2.lc_setImage(with: item.element.focusImgUrl)
+                }
+                
+                if item.offset == 2 {
+                    vegetablesView.btn3.lc_setImage(with: item.element.focusImgUrl)
+                }
+                
+                if item.offset == 3 {
+                    vegetablesView.btn4.lc_setImage(with: item.element.focusImgUrl)
+                }
+                
+                if item.offset == 4 {
+                    vegetablesView.btn5.lc_setImage(with: item.element.focusImgUrl)
+                }
+                
+            }
         }
     }
     

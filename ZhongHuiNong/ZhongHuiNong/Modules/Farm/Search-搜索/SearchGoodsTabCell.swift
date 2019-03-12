@@ -46,4 +46,13 @@ class SearchGoodsTabCell: StoreRightCell {
     }
     
     
+    var goodsInfo: GoodsInfo = GoodsInfo() {
+        didSet {
+            ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
+            titleLab.text = goodsInfo.productName
+            priceLab.text = "¥\(String(describing: goodsInfo.salePrice))"      // 销售价格
+            discountLab.text = "¥\(String(describing: goodsInfo.marketPrice))" // 市场价格
+        }
+    }
+    
 }

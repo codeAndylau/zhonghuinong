@@ -13,11 +13,7 @@ class HotGoodsViewController: ViewController {
 
     var page = 1
     
-    var hotsaleList: [GoodsInfo] = [] {
-        didSet {
-            
-        }
-    }
+    var hotsaleList: [GoodsInfo] = []
     
     override func makeUI() {
         super.makeUI()

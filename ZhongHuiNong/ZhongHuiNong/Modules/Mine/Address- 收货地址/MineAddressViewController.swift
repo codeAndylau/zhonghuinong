@@ -11,6 +11,9 @@ import UIKit
 class MineAddressViewController: ViewController {
 
     // MARK: - Property
+    
+    var falg = false
+    
     var addressList: [UserAddressInfo] = [] {
         didSet {
             fadeInOnDisplay {
@@ -62,14 +65,15 @@ class MineAddressViewController: ViewController {
     // MARK: - Action
     func fetchAddressList() {
         var p = [String: Any]()
-        p["user_id"] = 3261
+        p["user_id"] = User.currentUser().userId
         p["wid"] = wid
         p["fromplat"] = "iOS"
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
         }) { (error) in
-            ZYToast.showCenterWithText(text: error)
+            self.addressList = []
+            //ZYToast.showCenterWithText(text: error)
         }
     }
 

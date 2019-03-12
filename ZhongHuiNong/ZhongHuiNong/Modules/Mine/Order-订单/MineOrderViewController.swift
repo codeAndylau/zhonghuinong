@@ -125,5 +125,4 @@ extension MineOrderViewController: PageTitleViewDelegate, PageContentViewDelegat
         pageTitleView.setTitleWithTargetIndex(index)
     }
     
-    
 }

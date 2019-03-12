@@ -27,6 +27,7 @@ class FarmMembersViewController: TableViewController {
 
     var bannerList: [BannerList] = [] {
         didSet {
+            bannerArray.removeAll()
             bannerList.forEach { (item) in
                 bannerArray.append(item.bannerPicUrl)
             }
@@ -119,10 +120,8 @@ class FarmMembersViewController: TableViewController {
             self.showCenterView()
         }).disposed(by: rx.disposeBag)
         
-        
         headerView.searchView.sureBtn.rx.tap.subscribe(onNext: {
-            let search = SearchViewController()
-            self.navigationController?.pushViewController(search, animated: true)
+            self.navigator.show(segue: Navigator.Scene.searchGoodsInfo, sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.cellDidSelectedClosure = { index in
@@ -166,6 +165,7 @@ class FarmMembersViewController: TableViewController {
         navigator.show(segue: .mineMessage, sender: self)
         //        let bindVC = MobileBindingViewController()
         //        self.navigationController?.pushViewController(bindVC, animated: true)
+
     }
     
     func showCenterView() {
@@ -187,6 +187,7 @@ class FarmMembersViewController: TableViewController {
     func fetchBannerList(_ isRefresh: Bool = false) {
         var p = [String: Any]()
         p["wid"] = 1
+        
         WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { (list) in
             debugPrints("轮播图---\(list.count)")
             if isRefresh {
@@ -304,7 +305,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             cell.bannerView.didSelectedClosure = { index in
                 let goodId = self.bannerList[index].id
                 debugPrints("点击新品上架商品的id---\(goodId)")
-                self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
+                //self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
             }
             return cell
         }
@@ -374,6 +375,9 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 {
+            return kScreenW - 30
+        }
         return 200
     }
     

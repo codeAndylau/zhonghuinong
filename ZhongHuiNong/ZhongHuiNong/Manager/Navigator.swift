@@ -26,6 +26,7 @@ class Navigator {
         // 登录
         case login
         case psdLogin
+        case bindingMobile
         
         // 首页
         case delivery
@@ -36,6 +37,7 @@ class Navigator {
         
         // 分类
         case goodsDetail(id: Int)
+        case searchGoodsInfo
         
         // 菜篮
         case shoppingOrder(list: [CartGoodsInfo])
@@ -74,6 +76,7 @@ class Navigator {
         // 登录
         case .login: return RootNavigationController(rootViewController: WechatLoginViewController())
         case .psdLogin: return PasswordLoginViewController()
+        case .bindingMobile: return MobileBindingViewController()
             
             
         // 首页
@@ -90,6 +93,8 @@ class Navigator {
             
             
         // 分类
+        case .searchGoodsInfo: return SearchViewController()
+            
         case .goodsDetail(let id):
             let vc = GoodsDetailViewController()
             vc.goodId = id
@@ -115,13 +120,16 @@ class Navigator {
             vc.defaultIndex = index
             return vc
         case .mineLogistics: return MineLogisticsViewController()
-        case .mineAddress: return MineAddressViewController()
+            
+        case .mineAddress:
+            let vc = MineAddressViewController()
+            
+            return vc
+            
         case .mineAddressModify(let info):
             let vc = MineAddressModifyViewController()
             vc.addressInfo = info
             return vc
-            
-            
         }
     }
     

@@ -17,11 +17,15 @@ class MineViewController: TableViewController {
         didSet {
             debugPrints("用户的额度信息---\(balance)")
             
-            if User.hasUser() && User.currentUser().isVip != 0 {
-                headerView.priceLab.text = "\(balance.creditbalance)"
-                headerView.cardLab.text = "\(balance.weightbalance)"
-                headerView.timesLab.text = "\(balance.deliverybalance)"
-            } 
+            headerView.priceLab.text = "\(balance.creditbalance)"
+            headerView.cardLab.text = "\(balance.weightbalance)"
+            headerView.timesLab.text = "\(balance.deliverybalance)"
+            
+            //            if User.hasUser() && User.currentUser().isVip != 0 {
+            //                headerView.priceLab.text = "\(balance.creditbalance)"
+            //                headerView.cardLab.text = "\(balance.weightbalance)"
+            //                headerView.timesLab.text = "\(balance.deliverybalance)"
+            //            }
         }
     }
     
@@ -32,19 +36,25 @@ class MineViewController: TableViewController {
         tableView.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(MineTabCell.self, forCellReuseIdentifier: MineTabCell.identifier)
+        
+        tableView.uHead = MJDIYHeader(refreshingBlock: {
+            self.fetchUserBalance()
+        })
+        
         fetchUserBalance()
     }
     
     func fetchUserBalance() {
         
         let params = ["userid": User.currentUser().userId]
-        WebAPITool.request(WebAPI.userBalance(params), complete: { (value) in
-            if  let balance = Mapper<UserBanlance>().map(JSONObject: value.object) {
-                self.balance = balance
-            }
+        
+        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
+            self.tableView.uHead.endRefreshing()
+            self.balance = model
         }) { (error) in
-            debugPrints("请求额度出错---\(error)")
+            self.tableView.uHead.endRefreshing()
         }
+
     }
 
     override func bindViewModel() {

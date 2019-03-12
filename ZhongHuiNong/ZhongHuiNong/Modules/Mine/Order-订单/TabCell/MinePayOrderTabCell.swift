@@ -24,6 +24,7 @@ class MinePayOrderTabCell: MineOrderTabCell {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0x999999))
         btn.cuttingCorner(radius: 15)
+        
     }
     
     let payBtn = Button().then { (btn) in
@@ -32,6 +33,17 @@ class MinePayOrderTabCell: MineOrderTabCell {
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         btn.setupBorder(width: 1, color: UIColor.hexColor(0x1DD1A8))
         btn.cuttingCorner(radius: 15)
+    }
+    
+    /// 1 是取消 2 是支付
+    var btnActionClosure:((_ index: Int)->Void)?
+    
+    @objc func cancelBtnAction() {
+        btnActionClosure?(1)
+    }
+    
+    @objc func payBtnAction() {
+        btnActionClosure?(2)
     }
     
     override func makeUI() {
@@ -50,6 +62,9 @@ class MinePayOrderTabCell: MineOrderTabCell {
         contView.addSubview(numLab)
         contView.addSubview(cancelBtn)
         contView.addSubview(payBtn)
+        
+        cancelBtn.addTarget(self, action: #selector(cancelBtnAction), for: UIControl.Event.touchUpInside)
+        payBtn.addTarget(self, action: #selector(payBtnAction), for: UIControl.Event.touchUpInside)
     }
     
     override func updateUI() {
