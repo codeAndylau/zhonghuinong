@@ -11,6 +11,12 @@ import UIKit
 /// 配送选货周一到周天
 class DeliveryDateView: View {
 
+    let tipsLab = Label().then { (lab) in
+        lab.text = "以下是您所选择的每周蔬菜配送日期"
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 10)
+    }
+    
     let day1Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周一", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
@@ -61,6 +67,7 @@ class DeliveryDateView: View {
     
     override func makeUI() {
         super.makeUI()
+        addSubview(tipsLab)
         addSubview(day1Btn)
         addSubview(day2View)
         addSubview(day2HeightView)
@@ -77,8 +84,13 @@ class DeliveryDateView: View {
     override func updateUI() {
         super.updateUI()
         
+        tipsLab.snp.makeConstraints { (make) in
+            make.top.equalTo(self)
+            make.left.equalTo(self).offset(10)
+        }
+        
         day1Btn.snp.makeConstraints { (make) in
-            make.left.centerY.equalTo(self)
+            make.left.centerY.equalTo(self).offset(10)
             make.width.equalTo(kScreenW/7)
             make.height.equalTo(30)
         }
@@ -201,47 +213,57 @@ class DeliveryDateView: View {
         sender.layer.insertSublayer(bgLayer1, at: 0)
     }
     
-    /// 本地计算那一点是可以
+    /// 本地计算那一天是可以选择配送蔬菜的
     var dispatchDate: DispatchDateInfo = DispatchDateInfo() {
+        
         didSet {
             
             let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday!
 
+//            case 1: "周日"
+//            case 2: "周一"
+//            case 3: "周二"
+//            case 4: "周三"
+//            case 5: "周四"
+//            case 6: "周五"
+//            case 7: "周六"
+            
             /// 显示当天能配送的
             switch week {
-            case 1:
-                if dispatchDate.thursday {
+                
+            case 1: // "周日"
+                if dispatchDate.wednesday {
                     dayBtnHeightAction(day3Btn)
                 }
-            case 2:
-                if dispatchDate.monday {
+            case 2: // "周一"
+                if dispatchDate.thursday {
                     dayBtnHeightAction(day4Btn)
                 }
-            case 3:
-                if dispatchDate.tuesday {
+            case 3: // "周二"
+                if dispatchDate.friday {
                     dayBtnHeightAction(day5Btn)
                 }
-            case 4:
-                if dispatchDate.wednesday {
+            case 4: // "周三"
+                if dispatchDate.saturday {
                     dayBtnHeightAction(day6Btn)
                 }
-            case 5:
-                if dispatchDate.friday {
+            case 5: // "周四"
+                if dispatchDate.sunday {
                     dayBtnHeightAction(day7Btn)
                 }
-            case 6:
-                if dispatchDate.saturday {
+            case 6: // "周五"
+                if dispatchDate.monday {
                     dayBtnHeightAction(day1Btn)
                 }
-            case 7:
-                if dispatchDate.sunday {
+            case 7: // "周六"
+                if dispatchDate.tuesday {
                     dayBtnHeightAction(day2Btn)
                 }
             default:
                 break
             }
             
-            /// 显示用户已经选择配送的日期
+            // MARK: - TODO 显示用户选择配送的蔬菜日期
             if dispatchDate.monday {
                 dayBtnAction(day1Btn)
             }

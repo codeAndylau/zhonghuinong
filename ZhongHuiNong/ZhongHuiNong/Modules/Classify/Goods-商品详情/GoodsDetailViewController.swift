@@ -214,11 +214,13 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func configureCell(cell: GoodsDetailImgTabCell, indexPath: IndexPath) {
         
         let url = goodsDetailInfo.detailImgUrl
-        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url)
+        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url) // 缓存在内存中的 ，响应速度更快
         
         if let img = cachedImg {
+            cell.activity.stopAnimating()
             cell.imgView.image = img
         }else {
+            cell.activity.startAnimating()
             downLoadImg(imgUrl: url, indexPath: indexPath)
         }
     }
@@ -261,7 +263,7 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
             debugPrints("返回图片的高度---\(imgH)")
             return imgH
         }else {
-            return 100
+            return 500
         }
     }
     

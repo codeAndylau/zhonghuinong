@@ -10,6 +10,9 @@ import UIKit
 
 class GoodsDetailImgTabCell: TableViewCell, TabReuseIdentifier {
     
+    
+    let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    
     var imgView = ImageView().then { (img) in
         img.contentMode = UIView.ContentMode.scaleAspectFill
     }
@@ -17,7 +20,13 @@ class GoodsDetailImgTabCell: TableViewCell, TabReuseIdentifier {
     override func makeUI() {
         selectionStyle = .none
         addSubview(imgView)
+        addSubview(activity)
+        
         imgView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
+        }
+        
+        activity.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
     }

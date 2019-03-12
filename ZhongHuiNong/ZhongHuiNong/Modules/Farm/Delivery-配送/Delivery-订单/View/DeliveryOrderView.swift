@@ -10,24 +10,13 @@ import UIKit
 
 class DeliveryOrderView: View {
 
-    let day2Btn = Button(type: .custom).then { (btn) in
-        btn.setTitle("周二", for: .normal)
-        btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+    let tipsLab = Label().then { (lab) in
+        lab.text = "本次所选蔬菜列表清单"
+        lab.textColor = Color.themeColor
+        lab.font = UIFont.boldSystemFont(ofSize: 15)
     }
     
-    let day2View = View()
-    let day2HeightView = View()
-    
-    let day5Btn = Button(type: .custom).then { (btn) in
-        btn.setTitle("周五", for: .normal)
-        btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-    }
-    
-    let day5View = View()
-    let day5HeightView = View()
-    
+
     let cancelBtn = Button().then { (btn) in
         btn.setImage(UIImage(named: "basket_cancel"), for: .normal)
     }
@@ -44,7 +33,7 @@ class DeliveryOrderView: View {
     let bottomView = DeliveryFooterView.loadView()
     
     let sureBtn = Button().then { (btn) in
-        btn.setTitle("确认", for: .normal)
+        btn.setTitle("提交订单", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -54,13 +43,7 @@ class DeliveryOrderView: View {
     override func makeUI() {
         super.makeUI()
 
-        addSubview(day2View)
-        addSubview(day2HeightView)
-        addSubview(day2Btn)
-        
-        addSubview(day5View)
-        addSubview(day5HeightView)
-        addSubview(day5Btn)
+        addSubview(tipsLab)
         addSubview(cancelBtn)
         addSubview(tableView)
         addSubview(bottomView)
@@ -71,48 +54,9 @@ class DeliveryOrderView: View {
     override func updateUI() {
         super.updateUI()
 
-        day2Btn.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(8)
+        tipsLab.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(12)
             make.left.equalTo(self).offset(30)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-        }
-        
-        day2View.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(8)
-            make.left.equalTo(self).offset(30)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-        }
-        
-        day2HeightView.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(8)
-            make.left.equalTo(self).offset(30)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-        }
-        
-        day5Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day2Btn.snp.right).offset(40)
-            make.centerY.equalTo(day2Btn)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-        }
-        
-        day5View.snp.makeConstraints { (make) in
-            make.left.equalTo(day2Btn.snp.right).offset(40)
-            make.centerY.equalTo(day2Btn)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-
-        }
-        
-        day5HeightView.snp.makeConstraints { (make) in
-            make.left.equalTo(day2Btn.snp.right).offset(40)
-            make.centerY.equalTo(day2Btn)
-            make.width.equalTo(45)
-            make.height.equalTo(30)
-
         }
         
         cancelBtn.snp.makeConstraints { (make) in
@@ -139,76 +83,7 @@ class DeliveryOrderView: View {
         }
         
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        dayBtnAction(day2View)
-        dayBtnHeightAction(day2HeightView)
 
-        dayBtnAction(day5View)
-        dayBtnHeightAction(day5HeightView)
-
-        day2View.isHidden = true
-        day5HeightView.isHidden = true
-        
-    }
-    
-    func day2Height() {
-        day5HeightView.isHidden = true
-        day2View.isHidden = true
-        
-        day5View.isHidden = false
-        day2HeightView.isHidden = false
-        
-        sureBtn.setTitle("确认", for: .normal)
-    }
-    
-    func day5Height() {
-        
-        day5HeightView.isHidden = false
-        day2View.isHidden = false
-        
-        day5View.isHidden = true
-        day2HeightView.isHidden = true
-        
-        sureBtn.setTitle("提交订单", for: .normal)
-    }
-    
-    func dayBtnAction(_ sender: View) {
-        
-        // strokeCode
-        let borderLayer1 = CALayer()
-        borderLayer1.frame = sender.bounds
-        borderLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.4).cgColor
-        borderLayer1.cornerRadius = sender.bounds.height/2
-        sender.layer.insertSublayer(borderLayer1, at: 0)
-        
-        // fillCode
-        let bgLayer1 = CALayer()
-        bgLayer1.frame = sender.bounds.insetBy(dx: 2.5, dy: 2.5)
-        bgLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.5).cgColor
-        bgLayer1.cornerRadius = sender.bounds.insetBy(dx: 2.5, dy: 2.5).height/2
-        sender.layer.insertSublayer(bgLayer1, at: 0)
-    }
-    
-    func dayBtnHeightAction(_ sender: View) {
-        
-        // strokeCode
-        let borderLayer1 = CALayer()
-        borderLayer1.frame = sender.bounds
-        borderLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.4).cgColor
-        borderLayer1.cornerRadius = sender.bounds.height/2
-        sender.layer.insertSublayer(borderLayer1, at: 0)
-        // fillCode
-        let bgLayer1 = CALayer()
-        bgLayer1.frame = sender.bounds.insetBy(dx: 2.5, dy: 2.5)
-        bgLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8).cgColor
-        bgLayer1.cornerRadius = sender.bounds.insetBy(dx: 2.5, dy: 2.5).height/2
-        sender.layer.insertSublayer(bgLayer1, at: 0)
-    }
-
-    
     /// - Public methods
     class func loadView() -> DeliveryOrderView {
         let view = DeliveryOrderView()
@@ -218,27 +93,29 @@ class DeliveryOrderView: View {
         view.cuttingAnyCorner(roundingCorners: corners, corner: 16)
         return view
     }
-
-    // MAKR: Property
-    var isDay5 = false
     
-    var dataArray: Int = 6 {
+    /// 所有用户可以选择的菜品
+    var dispatchMenuInfo: [DispatchMenuInfo] = [] {
         didSet {
             self.tableView.reloadData()
         }
     }
-    
     
 }
 
 extension DeliveryOrderView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray
+        return dispatchMenuInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DeliveryTabCell.identifier, for: indexPath) as! DeliveryTabCell
+        let info = dispatchMenuInfo[indexPath.row]
+        cell.leftImg.lc_setImage(with: info.focusImgUrl)
+        cell.titleLab.text = info.producename
+        cell.countLab.text = "\(info.unitweight)g"
+        cell.numLab.text = "x\(info.num)"
         return cell
     }
     

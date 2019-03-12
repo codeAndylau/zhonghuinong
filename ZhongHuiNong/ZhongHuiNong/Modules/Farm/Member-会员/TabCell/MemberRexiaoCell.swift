@@ -11,7 +11,7 @@ import UIKit
 class MemberRexiaoCell: TableViewCell, TabReuseIdentifier {
 
     
-    lazy var dataArray = ["farm_hot_1","farm_hot_2","farm_hot_3"]
+    //lazy var dataArray = ["farm_hot_1","farm_hot_2","farm_hot_3"]
     
     var cellDidClosure: ((_ index: Int)->Void)?
     

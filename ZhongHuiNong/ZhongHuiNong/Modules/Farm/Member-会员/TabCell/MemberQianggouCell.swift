@@ -10,7 +10,7 @@ import UIKit
 
 class MemberQianggouCell: TableViewCell, TabReuseIdentifier {
     
-    lazy var dataArray = ["farm_flash_1","farm_flash_2","farm_flash_3"]
+    lazy var dataArray = ["","",""]
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

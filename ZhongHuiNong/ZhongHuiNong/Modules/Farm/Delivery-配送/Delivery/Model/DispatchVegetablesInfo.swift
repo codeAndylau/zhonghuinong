@@ -18,6 +18,7 @@ struct DispatchVegetablesInfo: Mappable {
     var contactPerson : String = ""
     var createdat : String = ""
     var deliverynum : Int = defaultId
+    var scheduleDay: String = ""
     var dispatchOrderDetail : [DispatchOrderDetailInfo] = []
     var phonenumber : String = ""
     var status : Int = defaultId
@@ -34,6 +35,7 @@ struct DispatchVegetablesInfo: Mappable {
         contactPerson <- map["contactPerson"]
         createdat <- map["createdat"]
         deliverynum <- map["deliverynum"]
+        scheduleDay <- map["scheduleDay"]
         dispatchOrderDetail <- map["dispatchOrderDetail"]
         phonenumber <- map["phonenumber"]
         status <- map["status"]

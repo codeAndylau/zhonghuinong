@@ -265,7 +265,7 @@ class FarmMembersViewController: TableViewController {
             self.tableView_g.uFoot.endRefreshing()
             
             if self.page > 1 {
-                self.recommendList += self.recommendList
+                self.recommendList += list
             }else {
                 self.recommendList.removeAll()
                 self.recommendList = list

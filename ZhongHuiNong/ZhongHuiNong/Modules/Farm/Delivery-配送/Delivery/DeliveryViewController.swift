@@ -17,9 +17,10 @@ class DeliveryViewController: ViewController {
     var isMember = true
     var isSelected = false
     
-    var goodsWeight: Double = 0  // 商品总重量
-    var deliverynum: Int = 1     // 配送需要减去的次数
-    var scheduleday: Int = 0     // 配送的日期： 星期一
+    var goodsWeight: CGFloat = 0  // 商品总重量
+    var deliverynum: Int = 1      // 配送需要减去的次数
+    var scheduleday: Int = 0      // 配送的日期： 星期一
+    var deliveryday: String = ""
     
     var addressList: [UserAddressInfo] = [] {
         didSet {
@@ -57,15 +58,22 @@ class DeliveryViewController: ViewController {
                 
             }else {
                 
-                /// 2. 表示已经选择过了配送蔬菜的日期 ： 星期1-7 只少两天，并且提前两天选菜
+                /// 2. 表示已经选择过了配送蔬菜的日期: 星期1-7 只少两天，并且提前两天选菜
                 
                 // 显示用户所选的配送日期
                 headerView.dateView.dispatchDate = dispatchDate
                 
                 debugPrints("是否可以选择菜--\(selectMenu())")
                 
-                if !selectMenu() {
+                /// 3. 判断当前能否有阔以选择的蔬菜日期
+                if selectMenu() {
                     
+                    /// 4. 再去判断当前是否已经选择过了配送的蔬菜
+                    fetchDispatchOrderList()
+                    
+                }else {
+                    
+                    /// 请求是否有已经选择过了配送的订单
                     let emptyV = EmptyView()
                     view.addSubview(emptyV)
                     emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬",
@@ -79,11 +87,7 @@ class DeliveryViewController: ViewController {
                     emptyV.sureBtnClosure = {
                         self.navigationController?.popViewController(animated: true)
                     }
-                }else {
-                    /// 请求是否有已经选择过了配送的订单
-                    fetchDispatchOrderList()
                 }
-                
             }
         }
     }
@@ -102,36 +106,43 @@ class DeliveryViewController: ViewController {
             if dispatchDate.wednesday {
                 isSelect = true
                 scheduleday = 3
+                deliveryday = "星期三"
             }
         case 1:
             if dispatchDate.thursday {
                 isSelect = true
                 scheduleday = 4
+                deliveryday = "星期四"
             }
         case 2:
             if dispatchDate.friday {
                 isSelect = true
                 scheduleday = 5
+                deliveryday = "星期五"
             }
         case 3:
             if dispatchDate.saturday {
                 isSelect = true
                 scheduleday = 6
+                deliveryday = "星期六"
             }
         case 4:
             if dispatchDate.sunday {
                 isSelect = true
                 scheduleday = 7
+                deliveryday = "星期天"
             }
         case 5:
             if dispatchDate.monday {
                 isSelect = true
                 scheduleday = 1
+                deliveryday = "星期一"
             }
         case 6:
             if dispatchDate.tuesday {
                 isSelect = true
                 scheduleday = 2
+                deliveryday = "星期二"
             }
         default:
             break
@@ -143,24 +154,65 @@ class DeliveryViewController: ViewController {
     /// 所有用户可以选择的菜品
     var dispatchMenuInfo: [DispatchMenuInfo] = [] {
         didSet {
-            
+            debugPrints("所以阔以选择的菜单列表有\(dispatchMenuInfo.count)个")
         }
     }
     
     /// 判断当前用户是否已经选择过蔬菜了
     var vegetablesInfo: [DispatchVegetablesInfo] = [] {
+        
         didSet {
+            
             if vegetablesInfo.count > 0 {
-                collectionView.isHidden = true
-                tableView.addSubview(headerView)
-                view.addSubview(tableView)
-                mainQueue {
-                    self.tableView.reloadData()
+                
+                /// 判断当前是否已经选择过了
+                var isSelected = false
+                for item in vegetablesInfo {
+                    if item.scheduleDay == deliveryday  {
+                        isSelected = true
+                        break
+                    }
                 }
+                
+                /// 表示已经选择过了
+                if isSelected {
+                    
+                    collectionView.isHidden = true
+                    tableView.addSubview(headerView)
+                    
+                    let info = vegetablesInfo[0]
+                    sectionTitleView.titleLab.text = "这是您\(info.scheduleDay)配送的菜单："
+                    
+                    footerView.numLab.text = "-\(info.deliverynum)"
+                    footerView.totalCountLab.text = Keepfigures(text: CGFloat(info.weight))+"Kg" 
+                    
+                    view.addSubview(tableView)
+                    mainQueue {
+                        self.tableView.reloadData()
+                    }
+                    
+                }else {
+                    /// 之前没有选择过的话今天就阔以选菜就直接选择
+                    view.addSubview(commitVew)
+                    fetchDispatchMenu()
+                }
+
             }else {
-                /// 没有选择就可以获取蔬菜列表，进行选择
-                view.addSubview(commitVew)
-                fetchDispatchMenu()
+                
+                /// 请求是否有已经选择过了配送的订单
+                let emptyV = EmptyView()
+                view.addSubview(emptyV)
+                emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬",
+                                                image: UIImage(named: "farm_delivery_nonmember"),
+                                                btnTitle: "确定")
+                emptyV.snp.makeConstraints { (make) in
+                    make.top.equalTo(kNavBarH+155)
+                    make.left.bottom.right.equalTo(self.view)
+                }
+                
+                emptyV.sureBtnClosure = {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }
@@ -175,20 +227,19 @@ class DeliveryViewController: ViewController {
     override func makeUI() {
         super.makeUI()
         
-        debugPrints("今天星期---\(Date().week())")
-        
-        debugPrints("返回不小x的最小整数---\(ceil(2.1))")
+        //        debugPrints("今天星期---\(Date().week())")
+        //        debugPrints("返回不小x的最小整数---\(ceil(2.1))")
         
         view.backgroundColor = UIColor.white
         
         /// 1. 判断是否是vip
-        if User.currentUser().isVip != 0 {
+        if User.currentUser().isVip == 0 {
             
             navigationItem.title = "配送选货"
             navigationItem.rightBarButtonItem = rightRecordItem
             
-            view.addSubview(collectionView)
             collectionView.addSubview(headerView)
+            view.addSubview(collectionView)
             
             // 加载数据
             loadData()
@@ -197,7 +248,7 @@ class DeliveryViewController: ViewController {
             
             // 不是vip提示联系客服 充值
             view.addSubview(emptyView)
-            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
+            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务,可联系我们的工作人员申请开通VIP", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
             emptyView.snp.makeConstraints { (make) in
                 make.top.equalTo(kNavBarH)
                 make.left.bottom.right.equalTo(self.view)
@@ -238,10 +289,36 @@ class DeliveryViewController: ViewController {
                 debugPrints("没有self吗,zz")
                 return
             }
-            
-            self.createDispatchOrder()
+
+            self.browseSelectedVegetablesList()
             
         }).disposed(by: rx.disposeBag)
+    }
+    
+    /// 让用户浏览所选择的蔬菜列表
+    func browseSelectedVegetablesList() {
+
+        let menuInfo = dispatchMenuInfo.filter { (item) -> Bool in
+            if item.num == 0 {
+                return false
+            }
+            return true
+        }
+        
+        guard !menuInfo.isEmpty else {
+            //ZYToast.showTopWithText(text: "您还没有选择所配送的蔬菜呢")
+            MBProgressHUD.showInfo("您还没有选择所配送的蔬菜呢")
+            return
+        }
+        
+        browseOrderVC.orderView.bottomView.numLab.text = "-\(deliverynum)"
+        browseOrderVC.orderView.bottomView.totalCountLab.text = "\(Keepfigures(text: CGFloat(goodsWeight)))kg"
+        browseOrderVC.orderView.dispatchMenuInfo = menuInfo
+        browseOrderVC.show()
+        browseOrderVC.commitOrderClosure = {
+            debugPrints("点击了提交订单列表")
+            self.createDispatchOrder()
+        }
     }
     
     
@@ -251,9 +328,10 @@ class DeliveryViewController: ViewController {
     lazy var footerView = DeliveryFooterView.loadView()
     lazy var commitVew = DeliveryCommitOrderView.loadView()
     lazy var dateViewDemo = DeliveryDateViewController()
+    lazy var browseOrderVC = DeliveryOrderViewController()
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kBottomViewH), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
@@ -283,7 +361,7 @@ class DeliveryViewController: ViewController {
     lazy var rightRecordItem = BarButtonItem(image: UIImage(named: "farm_record"), target: self, action: #selector(recordAction))
     
     lazy var sectionTitleView = CartSectionHeaderView().then { (view) in
-        view.titleLab.text = "本次默认配送菜单："
+        view.titleLab.text = "最近一次配送的菜单："
         view.titleLab.textColor = Color.theme1DD1A8
         view.titleLab.font = UIFont.systemFont(ofSize: 14)
     }
@@ -328,10 +406,12 @@ class DeliveryViewController: ViewController {
     
     /// 获取用户的默认地址信息
     func fetchUserAddressList() {
+        
         var p = [String: Any]()
         p["user_id"] = User.currentUser().userId
         p["wid"] = wid
         p["fromplat"] = "iOS"
+        
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
@@ -418,7 +498,7 @@ class DeliveryViewController: ViewController {
         }
     }
     
-    ///  获取所有用户的配送菜单
+    ///  获取所有用户的配送菜单列表
     func fetchDispatchMenu() {
         
         WebAPITool.requestModelArrayWithData(WebAPI.fetchDispatchMenu, model: DispatchMenuInfo.self, complete: { [weak self] (list) in
@@ -435,12 +515,6 @@ class DeliveryViewController: ViewController {
     
     /// 创建用户的配送蔬菜订单
     func createDispatchOrder() {
-        
-        
-        /*
-         let orderVC = DeliveryOrderViewController()
-         orderVC.show()
-         */
         
         /// 所选择的菜品列表
         var orderList: [[String: Any]] = []
@@ -476,11 +550,15 @@ class DeliveryViewController: ViewController {
         HudHelper.showWaittingHUD(msg: "请稍后...")
         WebAPITool.request(WebAPI.createDispatchOrder(orderList, params), complete: { (value) in
             HudHelper.hideHUD()
-            if value.boolValue {
+            
+            let status = value["status"].intValue
+            
+            if status == 1 {
                 debugPrints("创建配送订单---\(value)")
                 MBProgressHUD.showSuccess("订单提交成功!")
                 self.navigationController?.popViewController(animated: true)
             }else {
+                MBProgressHUD.showError("订单提交失败,请稍后再试")
                 debugPrints("创建配送订单失败")
             }
         }) { (error) in
@@ -595,16 +673,15 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
             }
         }
         
-        let weight = price/1000.0
+        /// 商品总重量
+        goodsWeight = price/1000.0
         
-        deliverynum = Int(ceil(goodsWeight))
+        /// 蔬菜重量每超过5Kg，多加一次配送次数
+        deliverynum = Int(ceil(Double(goodsWeight)/5))
         
-        goodsWeight = Double(weight)
-        
-        
-        debugPrints("选择的蔬菜重量---\(Keepfigures(text: weight))")
-        commitVew.totalLab.text = "\(Keepfigures(text: weight))kg"
-        commitVew.timesLab.text = "配送次数：-\(ceil(goodsWeight))"
+        debugPrints("选择的蔬菜重量---\(Keepfigures(text: goodsWeight))")
+        commitVew.totalLab.text = "\(Keepfigures(text: goodsWeight))kg"
+        commitVew.timesLab.text = "配送次数：-\(deliverynum)"
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
