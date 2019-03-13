@@ -323,6 +323,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
         cell.imgView.lc_setImage(with: recommendList[indexPath.row].focusImgUrl)
+        
         return cell
         
         //        if indexPath.section == 1 {  

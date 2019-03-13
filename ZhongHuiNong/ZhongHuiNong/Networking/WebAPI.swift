@@ -40,8 +40,10 @@ enum WebAPI {
     case userBalance(_ p: [String: Any])
     /// 发送验证码
     case sendCode(_ p: [String: Any])
-    /// 绑定手机
+    /// 验证手机
     case verifyCode(_ p: [String: Any])
+    /// 绑定手机
+    case bindMobile(_ p: [String: Any])
     /// 获取用户信息
     case fetchUserInfo(_ p: [String: Any])
     
@@ -123,7 +125,7 @@ extension WebAPI: TargetType, WebAPIType {
     
     var baseURL: URL {
         switch self {
-        case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_), .fetchUserInfo(_),
+        case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_), .bindMobile(_), .fetchUserInfo(_),
             .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_),
             .createOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
             .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu, .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_), .dispatchTrackingList(_):
@@ -139,7 +141,8 @@ extension WebAPI: TargetType, WebAPIType {
         
         switch self {
             
-        case .verifyCode(_):return "/api/User/verifycode"
+        case .bindMobile(_): return "/api/User/bindmobile"
+        case .verifyCode(_): return "/api/User/verifycode"
         case .sendCode(_): return "/api/User/sendcode"
         case .userBalance(_): return "/api/User/userbalance"
         case .validationPyaPassword(_): return "/api/User/paymentpassword"
@@ -193,7 +196,7 @@ extension WebAPI: TargetType, WebAPIType {
     
     var method: Moya.Method {
         switch self {
-        case .wechatLogin(_), .mobileLogin(_), .settingPayPassword(_), .verifyCode(_),
+        case .wechatLogin(_), .mobileLogin(_), .settingPayPassword(_), .verifyCode(_), .bindMobile(_),
              .farmWater(_), .farmFertilize(_), .farmKillbug(_),
              .createOrder(_), .addToCart(_, _), .removeCart(_,_), .cartOrderPayment(_),
              .settingDispatchDate(_,_), .createDispatchOrder(_,_):
@@ -236,7 +239,6 @@ extension WebAPI: TargetType, WebAPIType {
              .userAddressDetail(let p),
              .userAddressList(let p),
              .deleteUserAddress(let p),
-             .mobileLogin(let p),
              
              .farmLand(let p),
              .farmSensordata(let p),
@@ -260,7 +262,8 @@ extension WebAPI: TargetType, WebAPIType {
             
             return .requestParameters(parameters: p, encoding: URLEncoding.default)
             
-        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .dispatchOrderList(let p), .fetchUserInfo(let p): // 拼接在url中
+        // 拼接在url中
+        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .bindMobile(let p), .dispatchOrderList(let p), .fetchUserInfo(let p), .mobileLogin(let p):
             return .requestCompositeData(bodyData: Data(), urlParameters: p)
             
         case .goodsDetail(_):

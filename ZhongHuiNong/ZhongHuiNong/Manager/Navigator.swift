@@ -30,6 +30,7 @@ class Navigator {
         
         // 首页
         case delivery
+        case deliveryOrderInfo
         case privateFarm
         case flash  // 抢购
         case hot(list: [GoodsInfo])    // 热销
@@ -81,8 +82,10 @@ class Navigator {
             
         // 首页
         case .delivery: return DeliveryViewController()
+        case .deliveryOrderInfo: return DeliveryOrderInfoViewController()
         case .privateFarm: return PrivatefarmViewController()
         case .flash: return FlashViewController()
+            
             
         // MARK: - FIXME 热销排行
         case .hot(let list):

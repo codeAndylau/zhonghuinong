@@ -23,3 +23,7 @@ public let kBottomViewH: CGFloat = IPhone_X == true ? 56+kIndicatorH : 56
 public let defaults = UserDefaults.standard
 
 public let linkMan = "18681252035"
+public let developmentMan = "18782967728"
+
+/// 直接获取用户的信息
+let userInfo = User.currentUser()

@@ -362,3 +362,14 @@ public func dictToData(dict: [String: Any]) -> Data {
 public func Keepfigures(_ index: Int = 2, text: CGFloat) -> String {
      return String(format: "%.\(index)f", text)
 }
+
+
+/// 显示noticebar
+///
+/// - Parameters:
+///   - text: 显示内容
+///   - type: 显示消息的内心
+public func showNoticebar(text: String, type: NoticeBarDefaultType = .info) {
+    let noticeBar = NoticeBar(title: text, defaultType: type)
+    noticeBar.show(duration: 1.5, completed: nil)
+}

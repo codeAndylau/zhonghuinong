@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 /// 购物车
 class BasketViewController: TableViewController {
+    
+
+    //let isEmptyCart = BehaviorRelay(value: true) // 默认为空的
     
     var cartList: [CartGoodsInfo] = [] {
         didSet {
@@ -17,12 +22,12 @@ class BasketViewController: TableViewController {
             tableView.reloadData()
         }
     }
-
+    
     override func makeUI() {
         super.makeUI()
         
         navigationItem.leftBarButtonItem = cartItem
-        //navigationItem.rightBarButtonItem = editItem
+        navigationItem.rightBarButtonItem = editItem
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -41,29 +46,25 @@ class BasketViewController: TableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         debugPrints("即将进入购物车")
-        fetchShopingCartList()
+        //fetchShopingCartList()
     }
-
+    
     override func bindViewModel() {
         super.bindViewModel()
         
         settleView.settlementBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            let list = self.cartList.filter({ (item) -> Bool in
-                if item.checked { return true }
-                return false
-            })
-            self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
             
-            //            if self.settleView.type == .edit {
-            //                self.cartDeleteGoodsInfo(0, isRemoveAll: true)
-            //            }else {
-            //                let list = self.cartList.filter({ (item) -> Bool in
-            //                    if item.checked { return true }
-            //                    return false
-            //                })
-            //                self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
-            //            }
+            if self.isEdit {
+                self.cartDeleteGoodsInfo(0, isRemoveAll: true)
+            }else {
+                let list = self.cartList.filter({ (item) -> Bool in
+                    if item.checked { return true }
+                    return false
+                })
+                self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
+            }
+            
         }).disposed(by: rx.disposeBag)
         
         settleView.selectBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -86,7 +87,7 @@ class BasketViewController: TableViewController {
             self.fetchShopingCartList(isRefresh: true)
         }).disposed(by: rx.disposeBag)
     }
-
+    
     
     // MARK: - Lazy
     lazy var cartItem = BarButtonItem.cartItem()
@@ -108,44 +109,28 @@ class BasketViewController: TableViewController {
     
     @objc func messageAction() {
         
-        //navigator.show(segue: .mineMessage, sender: self)
-        
-        //        isType = !isType
-        //        if isType {
-        //            settleView.type = .edit
-        //        }else {
-        //            settleView.type = .normal
-        //        }
-        
         isEdit = !isEdit
         guard let item = navigationItem.rightBarButtonItem else { return }
         if isEdit {
             item.title = "完成"
             settleView.type = .edit
-            
             debugPrints("全选按钮的选择状态---\(settleView.selectBtn.isSelected)")
-            
-            
         }else {
             item.title = "编辑"
             settleView.type = .normal
         }
         
-   }
+    }
     
     /// 获取购物车
     func fetchShopingCartList(isRefresh: Bool = false) {
         
-        guard User.hasUser() else {
-            debugPrints("你还没有登录账号")
-            return
-        }
-        
         var p = [String: Any]()
-        p["userid"] = User.currentUser().userId
+        p["userid"] = userInfo.userId
         
         WebAPITool.requestModelArrayWithData(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
+          
             if isRefresh {
                 self.tableView.uHead.endRefreshing()
                 self.cartList.removeAll()
@@ -154,11 +139,8 @@ class BasketViewController: TableViewController {
             self.calculateGoodsPrice()
             self.checkSelectStatus()
             
-            if list.count <= 0 {
-                //self.setupEmptyView()
-            }
-            
         }) { (error) in
+            
             if isRefresh {
                 self.tableView.uHead.endRefreshing()
             }
@@ -295,12 +277,13 @@ class BasketViewController: TableViewController {
         
         debugPrints("删除购物车的参数---\(params)")
         debugPrints("删除购物车的body---\(body)")
-
+        
         WebAPITool.request(WebAPI.removeCart(body, params), complete: { (value) in
             debugPrints("购物车单个商品删除成功---\(value)")
             
             if isRemoveAll {
                 self.cartList.removeAll()
+                self.cartList = []
             }else {
                 self.cartList.remove(at: index)
             }
@@ -310,15 +293,11 @@ class BasketViewController: TableViewController {
                 self.tableView.reloadData()
             }
             
-            if self.cartList.count == 0 {
-                //self.setupEmptyView()
-            }
-            
         }) { (error) in
             ZYToast.showCenterWithText(text: error)
         }
     }
-
+    
 }
 
 extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
@@ -363,7 +342,7 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
             self.checkSelectStatus()
             self.calculateGoodsPrice()
         }
-
+        
         return cell
     }
     
@@ -374,7 +353,7 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-       
+        
         if editingStyle == UITableViewCell.EditingStyle.delete {
             cartDeleteGoodsInfo(indexPath.row)
         }
@@ -401,11 +380,12 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return sectionView
+        return cartList.count == 0 ? nil : sectionView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return cartList.count == 0 ? 0 : 20
     }
+    
 }
 

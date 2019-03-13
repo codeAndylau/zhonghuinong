@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 /// 代付款
 class MinePayOrderViewController: MineAllOrderViewController {
 
+    var balance: UserBanlance = UserBanlance()
+    
     var payOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
             tableView.reloadData()
@@ -28,6 +31,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
     override func bindViewModel() {
         super.bindViewModel()
         fetchPayOrder()
+        fetchUserBalance()
     }
     
     lazy var payDemo = PayPasswordViewController()
@@ -35,6 +39,19 @@ class MinePayOrderViewController: MineAllOrderViewController {
     
     // MARK: - Action
 
+    func fetchUserBalance() {
+        
+        let params = ["userid": User.currentUser().userId]
+        
+        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
+            self.tableView.uHead.endRefreshing()
+            self.balance = model
+        }) { (error) in
+            self.tableView.uHead.endRefreshing()
+        }
+        
+    }
+    
     func fetchPayOrder(isRefresh: Bool = false) {
         var params = [String: Any]()
         params["user_id"] = User.currentUser().userId
@@ -78,11 +95,20 @@ class MinePayOrderViewController: MineAllOrderViewController {
         }
     }
     
-    func payOrder(_ orderId: String) {
+    func payOrder(_ orderId: String, amountReal: Double) {
+        
+        debugPrint("商品价格--用户账户余额---\(amountReal)---\(balance.creditbalance)")
+        
+        guard amountReal < balance.creditbalance else {
+            MBProgressHUD.showInfo("您的余额不足,请联系运营人员进行充值")
+            return
+        }
+        
+        payDemo.paySureView.payLab.text = "¥\(amountReal)"
         payDemo.order_no = orderId
         payDemo.show()
-        payDemo.paySuccessClosure = {
-            
+        payDemo.paySuccessClosure = { [weak self] in
+            self?.fetchPayOrder()
         }
     }
 }
@@ -102,15 +128,15 @@ extension MinePayOrderViewController {
         cell.btnActionClosure = { [weak self] index in
             guard let self = self else { return }
             
-            let orderId = self.payOrderList[indexPath.row].orderNumber
-            debugPrints("点击了第\(index)---\(orderId)个")
+            let info = self.payOrderList[indexPath.row]
+            debugPrints("点击了第\(index)---\(info.orderNumber)个")
             
             if index == 1 {
-                self.cancelOrder(orderId, indexPath: indexPath)
+                self.cancelOrder(info.orderNumber, indexPath: indexPath)
             }
             
             if index == 2 {
-                self.payOrder(orderId)
+                self.payOrder(info.orderNumber, amountReal: info.amountReal)
             }
         }
         

@@ -11,7 +11,7 @@ import MBProgressHUD
 
 /// 确定订单界面
 class OrderViewController: TableViewController {
-
+    
     // MARK: - Property
     
     var isFreight = false // 是否免运费
@@ -74,20 +74,47 @@ class OrderViewController: TableViewController {
             }
             
             debugPrints("订单销售价格和成本价格总和----\(Keepfigures(text: salePrice))---\(Keepfigures(text: costPrice))")
+
+            /*
+             企业用户 和 vip 用户没有什么其他区别， 唯一区别就是  企业用户正常下单不扣配送次数，然后支付的时候你们传参数0 就可以了，就是不花钱，只要我们有这个订单详情就好了
+             还有一个逻辑是， 普通用户满98 包邮， VIP用户 在商城里包邮，但是扣配送次数。 这个由我这边逻辑去自动减
+             0是非VIP 1是个人VIP 2是企业用户
+             */
             
-            if costPrice > salePrice {
-                paySureView.priceLab.text = "已优惠¥" + "\(Keepfigures(text: costPrice - salePrice))"
-            }
-            
-            /// 超过168 则需要免运费
-            if salePrice > 168 {
+            switch userInfo.isVip {
+            case 0:
+                
+                debugPrints("普遍用户")
+                /// 普遍用户 超过98 则需要免运费
+                if costPrice > 98 {
+                    isFreight = true
+                }
+                payMoney = Double(costPrice)
+                paySureView.moneyLab.text = "¥" + Keepfigures(text: costPrice)
+                paySureView.priceLab.text = ""
+                
+            case 1:
+                
+                debugPrints("VIP用户")
+                
                 isFreight = true
                 payMoney = Double(salePrice)
                 paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
-            }else {
-                payMoney = Double(salePrice+8)
-                paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice+8)
+                paySureView.priceLab.text = "已优惠¥" + "\(Keepfigures(text: costPrice - salePrice))"
+                
+            case 2:
+                
+                /// 企业用
+                debugPrints("企业VIP")
+                isFreight = true
+                payMoney = 0
+                paySureView.moneyLab.text = "¥0"
+                paySureView.priceLab.text = "您是企业用户,可直接购买"
+                
+            default: break
+                
             }
+
             paySureView.numLab.text = "共\(num)件"
         }
     }
@@ -101,7 +128,7 @@ class OrderViewController: TableViewController {
     }
     
     func setupTab() {
-
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = Color.backdropColor
@@ -156,23 +183,23 @@ class OrderViewController: TableViewController {
         }
         
         var productLists: [[String: Any]] = []
-
+        
         for item in goodsList {
             let dict = ["productid": item.productid, "quantity": Int(item.quantity)]
             productLists.append(dict)
         }
-
+        
         var params = [String: Any]()
-
+        
         params["user_id"] = User.currentUser().userId
         params["remark"] = "暂无备注"
         params["addressid"] = headerView.addressView.addressInfo.id
         params["express_fee"] = isFreight == true ? "0" : "8"
-        params["total_amount"] = "\(payMoney)"
+        params["product_amount"] = "\(payMoney)"
         params["productLists"] = productLists
-
+        
         debugPrints("创建订单参数---\(params)")
-
+        
         HudHelper.showWaittingHUD(msg: "创建订单中...")
         WebAPITool.requestModel(WebAPI.createOrder(params), model: CartOrderInfo.self, complete: { (model) in
             debugPrints("创建订单成功---\(model)")
@@ -190,7 +217,7 @@ class OrderViewController: TableViewController {
             debugPrints("创建订单出错---\(error)")
             HudHelper.hideHUD()
         }
-                
+        
     }
     
     func surePay(_ order_no: String) {
@@ -199,6 +226,7 @@ class OrderViewController: TableViewController {
         paySelectDemo.money = payMoney
         paySelectDemo.order_no = order_no
         paySelectDemo.show()
+        paySelectDemo.PayPasswordDemo.paySureView.payLab.text = "¥\(payMoney)"
         
         /// 支付成功后退回根试图控制器
         paySelectDemo.PayPasswordDemo.paySuccessClosure = {
@@ -243,7 +271,7 @@ class OrderViewController: TableViewController {
 }
 
 extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -264,5 +292,5 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
         let offsetY = scrollView.contentOffset.y
         paySureView.frame = CGRect(x: 0, y: kScreenH-kBottomViewH+offsetY, width: kScreenW, height: kBottomViewH)
     }
-
+    
 }

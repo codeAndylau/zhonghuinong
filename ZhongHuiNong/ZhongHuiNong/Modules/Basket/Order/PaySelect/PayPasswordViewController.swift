@@ -108,8 +108,11 @@ class PayPasswordViewController: SwiftPopup {
             HudHelper.hideHUD()
             let success = value.boolValue
             if success {
-                debugPrint("订单支付成功---\(value)")
-                self.paySuccessClosure?()
+                debugPrints("订单支付成功---\(value)")
+                mainQueue {
+                    self.dismiss()
+                    self.paySuccessClosure?()
+                }
                 NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
             }else {
                 debugPrint("订单支付失败")

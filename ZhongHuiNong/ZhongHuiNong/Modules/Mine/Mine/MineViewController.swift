@@ -41,6 +41,11 @@ class MineViewController: TableViewController {
             self.fetchUserBalance()
         })
         
+        NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
+            debugPrints("订单支付成功-刷新用户的账户余额信息")
+            self.fetchUserBalance()
+        }).disposed(by: rx.disposeBag)
+        
         fetchUserBalance()
     }
     
@@ -107,7 +112,7 @@ class MineViewController: TableViewController {
     }
     
     // MARK: - Lazy
-    lazy var titleArray = ["配送订单","我的地块","我的收藏","好友推荐","关于我们","设置"]
+    lazy var titleArray = ["配送订单","我的收藏","好友推荐","关于我们","设置"] // "我的地块",
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
@@ -142,8 +147,12 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 4:
+        case 0:
+            self.navigator.show(segue: .deliveryOrderInfo, sender: self)
+        case 3:
             self.navigator.show(segue: .mineAbout, sender: self)
+        case 4:
+            self.navigator.show(segue: .mineSetting, sender: self)
         default:
             break
         }

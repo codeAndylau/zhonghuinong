@@ -165,7 +165,7 @@ class DeliveryViewController: ViewController {
             
             if vegetablesInfo.count > 0 {
                 
-                /// 判断当前是否已经选择过了
+                /// 判断今天是否已经选择过了
                 var isSelected = false
                 for item in vegetablesInfo {
                     if item.scheduleDay == deliveryday  {
@@ -173,28 +173,33 @@ class DeliveryViewController: ViewController {
                         break
                     }
                 }
-                
+
                 /// 表示已经选择过了
                 if isSelected {
-                    
-                    collectionView.isHidden = true
-                    tableView.addSubview(headerView)
-                    
-                    let info = vegetablesInfo[0]
-                    sectionTitleView.titleLab.text = "这是您\(info.scheduleDay)配送的菜单："
-                    
-                    footerView.numLab.text = "-\(info.deliverynum)"
-                    footerView.totalCountLab.text = Keepfigures(text: CGFloat(info.weight))+"Kg" 
-                    
-                    view.addSubview(tableView)
+
                     mainQueue {
+                        
+                        self.navigationItem.title = "进行中的订单"
+                        self.collectionView.isHidden = true
+                        
+//                        let info = self.vegetablesInfo[0]
+//                        self.sectionTitleView.titleLab.text = "这是您\(info.scheduleDay)配送的菜单："
+                        
+//                        self.footerView.numLab.text = "-\(info.deliverynum)"
+//                        self.footerView.totalCountLab.text = Keepfigures(text: CGFloat(info.weight))+"Kg"
+                        
+                        self.view.addSubview(self.tableView)
+                        //tableView.addSubview(headerView)
                         self.tableView.reloadData()
                     }
-                    
+
                 }else {
+                    
                     /// 之前没有选择过的话今天就阔以选菜就直接选择
+                    collectionView.addSubview(headerView)
                     view.addSubview(commitVew)
                     fetchDispatchMenu()
+                    
                 }
 
             }else {
@@ -238,7 +243,7 @@ class DeliveryViewController: ViewController {
             navigationItem.title = "配送选货"
             navigationItem.rightBarButtonItem = rightRecordItem
             
-            collectionView.addSubview(headerView)
+            //collectionView.addSubview(headerView)
             view.addSubview(collectionView)
             
             // 加载数据
@@ -311,7 +316,23 @@ class DeliveryViewController: ViewController {
             return
         }
         
-        browseOrderVC.orderView.bottomView.numLab.text = "-\(deliverynum)"
+        /*
+         企业用户 和 vip 用户没有什么其他区别， 唯一区别就是  企业用户正常下单不扣配送次数，然后支付的时候你们传参数0 就可以了，就是不花钱，只要我们有这个订单详情就好了
+         还有一个逻辑是， 普通用户满98 包邮， VIP用户 在商城里包邮，但是扣配送次数。 这个由我这边逻辑去自动减
+         0是非VIP 1是个人VIP 2是企业用户
+         */
+        
+        switch userInfo.isVip {
+        case 1:
+            debugPrint("vip用户")
+            browseOrderVC.orderView.bottomView.numLab.text = "-\(deliverynum)"
+        case 2:
+            debugPrint("企业用户")
+            browseOrderVC.orderView.bottomView.numLab.text = "免配配送"
+        default:
+            break
+        }
+        
         browseOrderVC.orderView.bottomView.totalCountLab.text = "\(Keepfigures(text: CGFloat(goodsWeight)))kg"
         browseOrderVC.orderView.dispatchMenuInfo = menuInfo
         browseOrderVC.show()
@@ -331,14 +352,13 @@ class DeliveryViewController: ViewController {
     lazy var browseOrderVC = DeliveryOrderViewController()
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .grouped)
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
-        view.tableFooterView = footerView
         view.showsVerticalScrollIndicator = false
         view.register(DeliveryTabCell.self, forCellReuseIdentifier: DeliveryTabCell.identifier)
-        view.contentInset = UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
+        view.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)  // 去除表格上放多余的空隙
         return view
     }()
     
@@ -360,7 +380,7 @@ class DeliveryViewController: ViewController {
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     lazy var rightRecordItem = BarButtonItem(image: UIImage(named: "farm_record"), target: self, action: #selector(recordAction))
     
-    lazy var sectionTitleView = CartSectionHeaderView().then { (view) in
+    var sectionTitleView = CartSectionHeaderView().then { (view) in
         view.titleLab.text = "最近一次配送的菜单："
         view.titleLab.textColor = Color.theme1DD1A8
         view.titleLab.font = UIFont.systemFont(ofSize: 14)
@@ -369,8 +389,7 @@ class DeliveryViewController: ViewController {
     // MARK: - Action
     
     @objc func recordAction() {
-        let recordVC = DeliveryOrderInfoViewController()
-        self.navigationController?.pushViewController(recordVC, animated: true)
+        self.navigator.show(segue: .deliveryOrderInfo, sender: self)
     }
     
     @objc func messageAction() {
@@ -603,13 +622,17 @@ class DeliveryViewController: ViewController {
 
 extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return vegetablesInfo.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vegetablesInfo[0].dispatchOrderDetail.count
+        return vegetablesInfo[section].dispatchOrderDetail.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DeliveryTabCell.identifier, for: indexPath) as! DeliveryTabCell
-        cell.info = vegetablesInfo[0].dispatchOrderDetail[indexPath.row]
+        cell.info = vegetablesInfo[indexPath.section].dispatchOrderDetail[indexPath.row]
         return cell
     }
     
@@ -618,11 +641,27 @@ extension DeliveryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.sectionTitleView
+        let view = CartSectionHeaderView()
+        view.titleLab.textColor = Color.theme1DD1A8
+        view.titleLab.font = UIFont.systemFont(ofSize: 14)
+        view.titleLab.text = "这是您\(vegetablesInfo[section].scheduleDay)配送的菜单："
+        return view
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let info = vegetablesInfo[section]
+        let view = DeliveryFooterView.loadView()
+        view.numLab.text = "-\(info.deliverynum)"
+        view.totalCountLab.text = Keepfigures(text: CGFloat(info.weight))+"Kg"
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 88
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -681,7 +720,24 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
         
         debugPrints("选择的蔬菜重量---\(Keepfigures(text: goodsWeight))")
         commitVew.totalLab.text = "\(Keepfigures(text: goodsWeight))kg"
-        commitVew.timesLab.text = "配送次数：-\(deliverynum)"
+        
+        /*
+         企业用户 和 vip 用户没有什么其他区别， 唯一区别就是  企业用户正常下单不扣配送次数，然后支付的时候你们传参数0 就可以了，就是不花钱，只要我们有这个订单详情就好了
+         还有一个逻辑是， 普通用户满98 包邮， VIP用户 在商城里包邮，但是扣配送次数。 这个由我这边逻辑去自动减
+         0是非VIP 1是个人VIP 2是企业用户
+         */
+        
+        switch userInfo.isVip {
+        case 1:
+            debugPrint("vip用户")
+            commitVew.timesLab.text = "-\(deliverynum)"
+        case 2:
+            debugPrint("企业用户")
+            commitVew.timesLab.text = "免配配送"
+        default:
+            break
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

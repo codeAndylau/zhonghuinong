@@ -113,7 +113,7 @@ class MobileBindingViewController: ViewController {
         
         debugPrints("手机绑定参数---\(params)")
         
-        WebAPITool.request(WebAPI.verifyCode(params), complete: { (value) in
+        WebAPITool.request(WebAPI.bindMobile(params), complete: { (value) in
             debugPrints("手机绑定---\(value)")
             if value.boolValue {
                 self.fetchUserInfo()

@@ -29,8 +29,12 @@ class StoreViewController: ViewController {
             }
             
             group.notify(queue: .main) {
+                
                 debugPrints("所有任务请求完成---mmp")
                 debugPrints("分类数量---\(self.catagoryList.count)---\(self.goodsList.count)")
+                
+                self.activityView.stopAnimating()
+                
                 if self.catagoryList.isEmpty || self.goodsList.isEmpty {
                     debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
                 }else {
@@ -63,6 +67,10 @@ class StoreViewController: ViewController {
         }
         
         fetchCatagoryList()
+        
+        view.addSubview(activityView)
+        activityView.center = view.center
+        activityView.startAnimating()
     }
     
     override func bindViewModel() {
@@ -114,6 +122,8 @@ class StoreViewController: ViewController {
     }
     
     // MARK: - Lazy
+    
+    lazy var activityView = UIActivityIndicatorView(style: .gray)
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
     lazy var vipItem = FarmHeaderView.loadView()
@@ -156,9 +166,6 @@ class StoreViewController: ViewController {
         })
 
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
-            
-            //let page = self.pageList[self.currentIndexPath.row]
-            
             self.pageList[self.currentIndexPath.row] += 1
             debugPrints("上啦刷新的分页数---\(self.pageList)")
             let id = self.catagoryList[self.currentIndexPath.row].id
@@ -179,6 +186,7 @@ class StoreViewController: ViewController {
     
     /// 获取分类列表
     func fetchCatagoryList() {
+        
         var p = [String: Any]()
         p["wid"] = wid
         WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { [weak self] (list) in
@@ -192,11 +200,13 @@ class StoreViewController: ViewController {
     /// 分类id,如果为0，则取所有分类的商品数据
     func fetchGoodsList(category_id: Int, isRefresh: Bool = false) {
         
+        let page = isRefresh == true ? pageList[currentIndexPath.row] : 1
+        
         var p = [String: Any]()
         p["category_id"] = category_id
         p["keywords"] = ""
         p["page_size"] = 10
-        p["page_index"] = isRefresh == true ? pageList[currentIndexPath.row] : 1
+        p["page_index"] = page
         p["wid"] = wid
         
         debugPrints("请求的分页数---\(p)")
@@ -206,14 +216,24 @@ class StoreViewController: ViewController {
             guard let self = self else { return }
             self.group.leave()
             debugPrints("请求成功商品分类对应商品---\(list.count)")
+            self.rightTableView.uHead.endRefreshing()
+            self.rightTableView.uFoot.endRefreshing()
+            
             if isRefresh {
-                self.rightTableView.uHead.endRefreshing()
-                self.rightTableView.uFoot.endRefreshing()
-                var array = self.goodsList[self.currentIndexPath.row]
-                list.forEach({ (item) in
-                    array.append(item)
-                })
-                self.goodsList[self.currentIndexPath.row] = array
+                if page > 1 {
+                    var array = self.goodsList[self.currentIndexPath.row]
+                    list.forEach({ (item) in
+                        array.append(item)
+                    })
+                    self.goodsList[self.currentIndexPath.row] += array
+                }else{
+                    var array = self.goodsList[self.currentIndexPath.row]
+                    list.forEach({ (item) in
+                        array.append(item)
+                    })
+                    self.goodsList[self.currentIndexPath.row] = []
+                    self.goodsList[self.currentIndexPath.row] = array
+                }
                 mainQueue {
                     self.rightTableView.reloadData()
                 }
@@ -222,14 +242,13 @@ class StoreViewController: ViewController {
             }
             debugPrints("添加了几次---\(category_id)")
         }) { (error) in
+            
             self.group.leave()
             self.goodsList.append([])
-            
             if isRefresh {
                 self.rightTableView.uHead.endRefreshing()
                 self.rightTableView.uFoot.endRefreshing()
             }
-            
             debugPrints("商品分类对应商品---\(error)")
         }
     }

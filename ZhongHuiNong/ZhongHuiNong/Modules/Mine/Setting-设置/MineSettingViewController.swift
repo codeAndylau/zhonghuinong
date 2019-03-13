@@ -60,12 +60,12 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             cell.arrowImg.isHidden = true
             if indexPath.row == 0 {
-                cell.arrowImg.isHidden = true
+                cell.isHeader = true
                 cell.titleLab.text = "头像"
                 cell.headerImg.lc_setImage(with: user.userImg)
             }
             if indexPath.row == 1 {
-                cell.isLine = true
+                cell.lineView.isHidden = true
                 cell.isTitle = true
                 cell.titleLab.text = "昵称"
                 cell.detailLab.text = user.username

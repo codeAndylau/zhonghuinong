@@ -10,6 +10,7 @@ import Foundation
 import MBProgressHUD
 
 extension MBProgressHUD {
+    
     //显示等待消息
     class func showWait(_ title: String) {
         let view = viewToShow()

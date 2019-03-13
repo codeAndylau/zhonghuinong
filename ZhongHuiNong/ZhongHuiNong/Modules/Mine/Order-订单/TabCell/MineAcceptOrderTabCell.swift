@@ -11,6 +11,7 @@ import UIKit
 class MineAcceptOrderTabCell: MinePayOrderTabCell {
     
     override func makeUI() {
+        
         selectionStyle = .none
         backgroundColor = UIColor.hexColor(0xFAFAFA)
         statusLab.text = "已发货"
@@ -128,15 +129,8 @@ class MineAcceptOrderTabCell: MinePayOrderTabCell {
                 if item.offset == 4 {
                     vegetablesView.btn5.lc_setImage(with: item.element.goodsPic)
                 }
-
             }
-            
-            var price: CGFloat = 0
-            acceptOrder.orderGoodsList.forEach { (item) in
-                price += item.goodsPrice * CGFloat(item.quantity)
-            }
-            
-            moneyLab.text = "\(price)"
+            moneyLab.text = "\(acceptOrder.amountReal)"
         }
     }
     

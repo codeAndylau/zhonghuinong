@@ -13,7 +13,7 @@ import ObjectMapper
 struct MineGoodsOrderInfo: Mappable {
     
     var add_time : String = ""
-    var amountReal : Int = defaultId
+    var amountReal : Double = 0
     var express_id : Int = defaultId
     var express_no : String = ""
     var express_status : Int = defaultId

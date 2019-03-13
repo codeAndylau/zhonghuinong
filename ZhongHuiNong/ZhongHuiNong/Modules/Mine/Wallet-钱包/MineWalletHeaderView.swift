@@ -13,7 +13,7 @@ class MineWalletHeaderView: View {
     let contView = View()
     
     let titleLab = Label().then { (lab) in
-        lab.text = "中慧农"
+        lab.text = "峻铭健康"
         lab.textColor = UIColor.white
         lab.textAlignment = .left
         lab.font = UIFont.systemFont(ofSize: 16)

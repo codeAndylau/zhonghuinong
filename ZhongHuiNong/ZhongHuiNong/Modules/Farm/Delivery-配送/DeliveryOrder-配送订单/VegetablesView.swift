@@ -27,10 +27,16 @@ class VegetablesView: View {
         addSubview(btn3)
         addSubview(btn4)
         addSubview(btn5)
+        btn1.cuttingCorner(radius: 6)
+        btn2.cuttingCorner(radius: 6)
+        btn3.cuttingCorner(radius: 6)
+        btn4.cuttingCorner(radius: 6)
+        btn5.cuttingCorner(radius: 6)
     }
     
     override func updateUI() {
         super.updateUI()
+        
         btn1.snp.makeConstraints { (make) in
             make.left.centerY.equalTo(self)
             make.width.height.equalTo(44)

@@ -32,7 +32,7 @@ class PasswordLoginView: View {
     
     let codeBtn = Button(type: .custom).then { (btn) in
         btn.setTitle("获取验证码", for: .normal)
-        btn.setTitleColor(UIColor.hexColor(0x95DBD5), for: .normal)
+        btn.setTitleColor(Color.theme1DD1A8, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
     }
     

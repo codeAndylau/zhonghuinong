@@ -112,12 +112,8 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
                 
             }
             
-            var price: CGFloat = 0
-            sendOrder.orderGoodsList.forEach { (item) in
-                price += item.goodsPrice * CGFloat(item.quantity)
-            }
+            moneyLab.text = "\(sendOrder.amountReal)"
             
-            moneyLab.text = "\(price)"
         }
     }
 

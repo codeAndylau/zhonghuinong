@@ -51,8 +51,11 @@ class GoodsDetailViewController: ViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
         //navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
-        
         fetchGoodsInfo()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchShopingCartList()
     }
 
@@ -146,11 +149,13 @@ class GoodsDetailViewController: ViewController {
         var p = [String: Any]()
         p["userid"] = User.currentUser().userId
         
-        WebAPITool.requestModelArray(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
+        WebAPITool.requestModelArrayWithData(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
-            self.cartNum = list.count
+            mainQueue {
+                self.cartNum = list.count
+            }
         }) { (error) in
-            debugPrints("商品详情获取购物车数量出错---\(error)")
+             debugPrints("商品详情获取购物车数量出错---\(error)")
         }
         
     }

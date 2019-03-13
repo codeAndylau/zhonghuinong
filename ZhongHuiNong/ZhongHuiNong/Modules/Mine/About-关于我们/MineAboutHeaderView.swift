@@ -15,7 +15,7 @@ class MineAboutHeaderView: View {
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "中慧农"
+        lab.text = "峻铭健康"
         lab.textColor = UIColor.hexColor(0x524C4A)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 26)

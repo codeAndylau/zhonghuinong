@@ -54,7 +54,7 @@ class GoodsDetailHeaderView: View {
     
     let yunfeiView = GoodsDetailRowView().then { (view) in
         view.titleLab.text = "运费"
-        view.detailLab.text = "会员免运费 非会员满168包邮"
+        view.detailLab.text = "会员免运费 非会员满98包邮"
         view.lineView.isHidden = true
         view.arrowImg.isHidden = true
     }

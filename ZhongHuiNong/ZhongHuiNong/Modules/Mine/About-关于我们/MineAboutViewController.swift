@@ -25,7 +25,7 @@ class MineAboutViewController: TableViewController {
     }
     
     // MARK: - Lzay
-    lazy var titleArray = ["中慧农简介","峻铭健康简介"]
+    lazy var titleArray = ["峻铭健康简介"]
     lazy var headerView = MineAboutHeaderView.loadView()
 }
 
