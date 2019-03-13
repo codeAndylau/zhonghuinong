@@ -15,42 +15,35 @@ class StoreViewController: ViewController {
     // MARK: Property
     let group = DispatchGroup()
     
+    /// 默认请求的第一个数据
     var currentIndexPath = IndexPath(row: 0, section: 0)
     
-    var pageList: [Int] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]  // 默认page都是1
-    
-    var goodsList: [[GoodsInfo]] = []
+    var classInfos: [StoreModel] = [] {
+        didSet {
+            rightTableView.reloadData()
+        }
+    }
     
     var catagoryList: [CatagoryList] = [] {
         didSet {
-            
+
             for item in catagoryList {
-                self.fetchGoodsList(category_id: item.id)
+                let model = StoreModel(page: 1, goodsId: item.id)
+                classInfos.append(model)
             }
             
-            group.notify(queue: .main) {
-                
-                debugPrints("所有任务请求完成---mmp")
-                debugPrints("分类数量---\(self.catagoryList.count)---\(self.goodsList.count)")
-                
-                self.activityView.stopAnimating()
-                
-                if self.catagoryList.isEmpty || self.goodsList.isEmpty {
-                    debugPrints("请求的集市数据数据-----\(self.catagoryList.isEmpty)---\(self.goodsList.isEmpty)")
-                }else {
-                    mainQueue {
-                        UIView.animate(withDuration: 0.25) {
-                            self.leftTableView.alpha = 1
-                            self.rightTableView.alpha = 1
-                        }
-                        self.leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
-                        self.view.addSubview(self.leftTableView)
-                        self.view.addSubview(self.rightTableView)
-                        self.leftTableView.reloadData()
-                        self.rightTableView.reloadData()
-                    }
-                }
+            fadeInOnDisplay {
+                self.leftTableView.alpha = 1
+                self.rightTableView.alpha = 1
             }
+            
+            view.addSubview(leftTableView)
+            view.addSubview(rightTableView)
+            
+            leftTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+            
+            /// 只会获取第一个分类的数据，后面点击过后再获取
+            fetchGoodsInfos(category_id: classInfos[currentIndexPath.row].goodsId, isHeader: true, isFooter: false)
         }
     }
     
@@ -58,7 +51,7 @@ class StoreViewController: ViewController {
     
     override func makeUI() {
         super.makeUI()
-        
+
         navigationItem.titleView = searchView
         navigationItem.rightBarButtonItem = rightMsgItem
         
@@ -158,18 +151,19 @@ class StoreViewController: ViewController {
         rightTableView.backgroundColor = UIColor.white
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
         
+        /// 解决刷新的时候存在都用的问题
+        rightTableView.estimatedRowHeight = 0
+        rightTableView.estimatedSectionFooterHeight = 0
+        rightTableView.estimatedSectionHeaderHeight = 0
+        
         rightTableView.uHead = MJDIYHeader(refreshingBlock: {
-            self.pageList[self.currentIndexPath.row] = 1
-            debugPrints("下拉刷新的分页数---\(self.pageList)")
-            let id = self.catagoryList[self.currentIndexPath.row].id
-            self.fetchGoodsList(category_id: id, isRefresh: true)
+            self.classInfos[self.currentIndexPath.row].page = 1
+            self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: true, isFooter: false)
         })
 
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
-            self.pageList[self.currentIndexPath.row] += 1
-            debugPrints("上啦刷新的分页数---\(self.pageList)")
-            let id = self.catagoryList[self.currentIndexPath.row].id
-            self.fetchGoodsList(category_id: id, isRefresh: true)
+            self.classInfos[self.currentIndexPath.row].page += 1
+            self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: false, isFooter: true)
         })
         
         return rightTableView
@@ -179,9 +173,6 @@ class StoreViewController: ViewController {
     
     @objc func messageAction() {
         navigator.show(segue: .mineMessage, sender: self)
-        //        let config = NoticeBarConfig(title: "点击了消息按钮", barStyle: NoticeBarStyle.onTabbar)
-        //        let noticeBar = NoticeBar(config: config)
-        //        noticeBar.show(duration: 1.5, completed: nil)
     }
     
     /// 获取分类列表
@@ -197,61 +188,62 @@ class StoreViewController: ViewController {
         }
     }
     
-    /// 分类id,如果为0，则取所有分类的商品数据
-    func fetchGoodsList(category_id: Int, isRefresh: Bool = false) {
-        
-        let page = isRefresh == true ? pageList[currentIndexPath.row] : 1
+    func fetchGoodsInfos(category_id: Int, isHeader: Bool = true, isFooter: Bool = false) {
         
         var p = [String: Any]()
-        p["category_id"] = category_id
         p["keywords"] = ""
+        p["category_id"] = category_id
         p["page_size"] = 10
-        p["page_index"] = page
+        p["page_index"] = classInfos[currentIndexPath.row].page
         p["wid"] = wid
         
         debugPrints("请求的分页数---\(p)")
         
-        group.enter()
-        WebAPITool.requestModelArrayWithData(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { [weak self] (list) in
-            guard let self = self else { return }
-            self.group.leave()
-            debugPrints("请求成功商品分类对应商品---\(list.count)")
-            self.rightTableView.uHead.endRefreshing()
-            self.rightTableView.uFoot.endRefreshing()
+        WebAPITool.requestModelArrayWithData(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { (list) in
             
-            if isRefresh {
-                if page > 1 {
-                    var array = self.goodsList[self.currentIndexPath.row]
-                    list.forEach({ (item) in
-                        array.append(item)
-                    })
-                    self.goodsList[self.currentIndexPath.row] += array
-                }else{
-                    var array = self.goodsList[self.currentIndexPath.row]
-                    list.forEach({ (item) in
-                        array.append(item)
-                    })
-                    self.goodsList[self.currentIndexPath.row] = []
-                    self.goodsList[self.currentIndexPath.row] = array
-                }
-                mainQueue {
-                    self.rightTableView.reloadData()
-                }
-            }else {
-                self.goodsList.append(list)
+            if isHeader {
+                self.rightTableView.uHead.endRefreshing()
+                self.classInfos[self.currentIndexPath.row].goodsInfo.removeAll()
+                self.classInfos[self.currentIndexPath.row].goodsInfo = list
             }
-            debugPrints("添加了几次---\(category_id)")
+            
+            if isFooter {
+                self.rightTableView.uFoot.endRefreshing()
+                var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
+                tempList += list
+                
+                debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
+                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
+            }
+            
         }) { (error) in
             
-            self.group.leave()
-            self.goodsList.append([])
-            if isRefresh {
+            self.classInfos[self.currentIndexPath.row].goodsInfo = []
+            
+            if isHeader {
                 self.rightTableView.uHead.endRefreshing()
+            }
+            
+            if isFooter {
                 self.rightTableView.uFoot.endRefreshing()
             }
-            debugPrints("商品分类对应商品---\(error)")
         }
     }
+    
+    /// 过滤掉重复的元素
+    func handleFilterArray(arr:[GoodsInfo]) -> [GoodsInfo] {
+        var temp = [GoodsInfo]()  //存放符合条件的model
+        var nameArray = [String]()   //存放符合条件model的name，用来判断是否重复
+        for model in arr {
+            let name = model.productName   //遍历获得model的唯一标识aID
+            if !nameArray.contains(name){    //如果该name已经添加过，则不再添加
+                nameArray.append(name)
+                temp.append(model)    //如果该name没有添加过，则添加到temp数组中
+            }
+        }
+        return temp    //最终返回的数组中已经筛选掉重复name的model
+    }
+
 }
 
 // MARK: - UITableViewDataSource
@@ -259,10 +251,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if leftTableView == tableView {
-            debugPrints("数据测试---\(catagoryList.count)---\(goodsList.count)---\(currentIndexPath.row)")
             return catagoryList.count
         } else {
-            return goodsList[currentIndexPath.row].count
+            return classInfos[currentIndexPath.row].goodsInfo.count
         }
     }
     
@@ -274,7 +265,7 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreRightCell.identifier, for: indexPath) as! StoreRightCell
-            cell.model = goodsList[currentIndexPath.row][indexPath.row]
+            cell.model = classInfos[currentIndexPath.row].goodsInfo[indexPath.row]
             return cell
         }
     }
@@ -299,19 +290,26 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath) as! StoreLeftCell
             cell.isShow = true
             
+            debugPrint("点击的分类id---\(classInfos[indexPath.row].goodsId)")
+            
             currentIndexPath = indexPath
             leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
-            rightTableView.reloadData()
             
+            if classInfos[indexPath.row].goodsInfo.count == 0 {
+                fetchGoodsInfos(category_id: classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false)
+            }else {
+                rightTableView.reloadData()
+            }
+
             // FIXME: 没有数据的时候 会造成崩溃
             //rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
         }
         
         if rightTableView == tableView {
-            let goodId = goodsList[currentIndexPath.row][indexPath.row].id
-            debugPrints("点击对应的商品id----\(goodId)")
-            self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
+            let goodsId = classInfos[currentIndexPath.row].goodsInfo[indexPath.row].id
+            debugPrints("点击对应的商品id----\(goodsId)")
+            self.navigator.show(segue: .goodsDetail(id: goodsId), sender: self)
         }
         
     }

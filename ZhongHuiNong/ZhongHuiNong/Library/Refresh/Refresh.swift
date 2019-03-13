@@ -65,6 +65,7 @@ enum RefreshStatus {
 }
 
 extension UIScrollView {
+    
     var uHead: MJRefreshHeader {
         get { return mj_header }
         set { mj_header = newValue }
@@ -73,6 +74,15 @@ extension UIScrollView {
     var uFoot: MJRefreshFooter {
         get { return mj_footer }
         set { mj_footer = newValue }
+    }
+    
+    func stopRefreshing() {
+        debugPrint("滚动视图停止刷新了")
+        debugPrint("滚动视图停止刷新了")
+        debugPrint("滚动视图停止刷新了")
+        debugPrint("滚动视图停止刷新了")
+        self.uFoot.endRefreshing()
+        self.uHead.endRefreshing()
     }
 }
 

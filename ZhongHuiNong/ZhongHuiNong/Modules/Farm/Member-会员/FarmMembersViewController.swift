@@ -86,23 +86,7 @@ class FarmMembersViewController: TableViewController {
         
         navigationItem.rightBarButtonItem = rightMsgItem
         
-        tableView_g.dataSource = self
-        tableView_g.delegate = self
-        tableView_g.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
-        tableView_g.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
-        tableView_g.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
-        tableView_g.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
-        tableView_g.uHead = MJDIYHeader(refreshingBlock: {
-            self.page = 1
-            self.loadAllData(isRefresh: true)
-        })
         
-        tableView_g.uFoot =  MJDIYAutoFooter(refreshingBlock: {
-            self.page += 1
-            self.fetchRecommendList(false)
-        })
-        
-        tableView_g.tableHeaderView = headerView
         view.addSubview(tableView_g)
         
         dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
@@ -156,6 +140,29 @@ class FarmMembersViewController: TableViewController {
     lazy var tableView_g: TableView = {
         let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH-kTabBarH), style: .grouped)
         view.separatorStyle = .none
+        view.dataSource = self
+        view.delegate = self
+        view.tableHeaderView = headerView
+        view.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
+        view.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
+        view.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell
+        view.register(MemberTuijianCell.self, forCellReuseIdentifier: MemberTuijianCell.identifier)     // 推荐cell
+        
+        /// 解决刷新的时候存在都用的问题
+        view.estimatedRowHeight = 0
+        view.estimatedSectionFooterHeight = 0
+        view.estimatedSectionHeaderHeight = 0
+        
+        view.uHead = MJDIYHeader(refreshingBlock: {
+            self.page = 1
+            self.loadAllData()
+        })
+        
+        view.uFoot =  MJDIYAutoFooter(refreshingBlock: {
+            self.page += 1
+            self.fetchRecommendList(isHeader: false, isFooter: true)
+        })
+
         return view
     }()
     
@@ -177,53 +184,42 @@ class FarmMembersViewController: TableViewController {
     }
     
     
-    func loadAllData(isRefresh:Bool = false) {
-        fetchBannerList(isRefresh)
-        fetchCatagoryList(isRefresh)
-        fetchHotsaleList(isRefresh)
-        fetchRecommendList(true)
+    func loadAllData() {
+        fetchBannerList()
+        fetchCatagoryList()
+        fetchHotsaleList()
+        fetchRecommendList()
     }
     
-    func fetchBannerList(_ isRefresh: Bool = false) {
+    func fetchBannerList() {
+        
         var p = [String: Any]()
         p["wid"] = 1
         
         WebAPITool.requestModelArrayWithData(.homeBannerList(p), model: BannerList.self, complete: { (list) in
-            debugPrints("轮播图---\(list.count)")
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-                self.bannerList.removeAll()
-            }
+            self.tableView_g.uHead.endRefreshing()
+            self.bannerList.removeAll()
             self.bannerList = list
         }) { (error) in
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-            }
-            debugPrints("获取轮播图失败---\(error)")
+            self.tableView_g.uHead.endRefreshing()
         }
     }
     
-    func fetchCatagoryList(_ isRefresh: Bool = false) {
+    func fetchCatagoryList() {
         
         var p = [String: Any]()
         p["wid"] = wid
         WebAPITool.requestModelArrayWithData(WebAPI.catagoryList(p), model: CatagoryList.self, complete: { (list) in
-            debugPrints("分类列表个数---\(list.count)")
             self.tableView_g.uHead.endRefreshing()
-            if isRefresh {
-                self.catagoryList.removeAll()
-            }
+            self.catagoryList.removeAll()
             self.catagoryList = list
         }) { (error) in
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-            }
-            debugPrints("获取分类列表失败---\(error)")
+            self.tableView_g.uHead.endRefreshing()
         }
     }
     
     /// 热销
-    func fetchHotsaleList(_ isRefresh: Bool = false) {
+    func fetchHotsaleList() {
         
         var p = [String: Any]()
         p["category_id"] = 0
@@ -232,23 +228,17 @@ class FarmMembersViewController: TableViewController {
         p["wid"] = wid
         
         WebAPITool.requestModelArrayWithData(WebAPI.goodsHotsaleList(p), model: GoodsInfo.self, complete: { (list) in
-            debugPrints("获取热销列表---\(list.count)")
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-                self.hotsaleList.removeAll()
-            }
+            self.tableView_g.uHead.endRefreshing()
+            self.hotsaleList.removeAll()
             self.hotsaleList = list
         }) { (error) in
-            if isRefresh {
-                self.tableView_g.uHead.endRefreshing()
-            }
-            debugPrints("获取热销列表失败---\(error)")
+            self.tableView_g.uHead.endRefreshing()
         }
 
     }
     
     /// 爆款
-    func fetchRecommendList(_ isRefresh: Bool = false) {
+    func fetchRecommendList(isHeader: Bool = true, isFooter: Bool = false ) {
         
         var p = [String: Any]()
         p["category_id"] = 0
@@ -256,26 +246,43 @@ class FarmMembersViewController: TableViewController {
         p["page_index"] = page
         p["wid"] = wid
         
-        debugPrints("获取爆款列表的参数---\(p)")
-        
         WebAPITool.requestModelArrayWithData(WebAPI.goodsRecommendList(p), model: GoodsInfo.self, complete: { (list) in
-            debugPrints("获取爆款列表---\(list.count)")
-            
-            self.tableView_g.uHead.endRefreshing()
-            self.tableView_g.uFoot.endRefreshing()
-            
-            if self.page > 1 {
-                self.recommendList += list
-            }else {
+
+            if isHeader {
+                self.tableView_g.uHead.endRefreshing()
                 self.recommendList.removeAll()
                 self.recommendList = list
             }
             
+            if isFooter {
+                self.tableView_g.uFoot.endRefreshing()
+                self.recommendList += list
+                self.recommendList = self.handleFilterArray(arr: self.recommendList)
+            }
+
         }) { (error) in
-            self.tableView_g.uHead.endRefreshing()
-            self.tableView_g.uFoot.endRefreshing()
-            debugPrints("获取爆款列表失败---\(error)")
+            if isHeader {
+                self.tableView_g.uHead.endRefreshing()
+            }
+            
+            if isFooter {
+                self.tableView_g.uFoot.endRefreshing()
+            }
         }
+    }
+    
+    /// 过滤掉重复的元素
+    func handleFilterArray(arr:[GoodsInfo]) -> [GoodsInfo] {
+        var temp = [GoodsInfo]()
+        var nameArray = [String]()
+        for model in arr {
+            let name = model.productName
+            if !nameArray.contains(name){
+                nameArray.append(name)
+                temp.append(model)    
+            }
+        }
+        return temp    //最终返回的数组中已经筛选掉重复name的model
     }
 
 }
