@@ -11,8 +11,9 @@ target 'ZhongHuiNong' do
     pod 'Moya/RxSwift'
     pod 'ObjectMapper'
     pod 'Kingfisher'
-    pod 'ReachabilitySwift'
     pod 'SwiftyJSON'
+    pod 'ReachabilitySwift'
+    
     
     # Rx
     pod 'RxSwift'
@@ -24,15 +25,17 @@ target 'ZhongHuiNong' do
     pod 'MJRefresh'
     pod 'MBProgressHUD'
     pod 'JXCategoryView'
+    pod 'PPBadgeViewSwift'
     pod 'TYCyclePagerView'
     pod 'EmptyDataSet-Swift'
-    pod 'PPBadgeViewSwift'
     
     # Tools
     pod 'Then'
+    pod 'Cache'
+    pod 'EZUIKit' # 萤石开放平台OpenSDK封装的UI组件, 直播流播放，视频监控
     pod 'WechatOpenSDK'
     pod 'RTRootNavigationController'
-    pod 'EZUIKit' # 萤石开放平台OpenSDK封装的UI组件, 直播流播放，视频监控
+    
      
     target 'ZhongHuiNongTests' do
         inherit! :search_paths

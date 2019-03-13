@@ -15,6 +15,8 @@ class FarmMembersViewController: TableViewController {
 
     // MARK: - Property
     
+    var isData = true  //  默认刷新是有数据的
+    
     var page = 1
 
     var dropupView: DropupMenu!
@@ -51,31 +53,9 @@ class FarmMembersViewController: TableViewController {
     var recommendList: [GoodsInfo] = [] {
         didSet {
             tableView_g.reloadData()
-            //self.tableView_g.reloadSections([2], with: UITableView.RowAnimation.fade)
         }
     }
-    
-    var isValue: Bool = false
 
-    func refreshValue() {
-        
-        //LoadingView.hideHUD(view: self.view)
-        if catagoryList.isEmpty || bannerList.isEmpty || hotsaleList.isEmpty || recommendList.isEmpty {
-            return
-        }
-        
-        debugPrints("首页数据---\(bannerList.isEmpty)--\(catagoryList.isEmpty)---\(hotsaleList.isEmpty)---\(recommendList.isEmpty)")
-        
-        isValue = true
-
-        view.addSubview(tableView_g)
-        
-        UIView.animate(withDuration: 0.25) {
-            self.tableView_g.alpha = 1
-        }
-
-        mainQueue {  }
-    }
 
     override func makeUI() {
         super.makeUI()
@@ -94,6 +74,7 @@ class FarmMembersViewController: TableViewController {
         //LoadingHud.showProgress(supView: self.view)
         //LoadingHud.hideHUD()
         //LoadingView.showView(view: self.view)
+        
         loadAllData()
     }
     
@@ -155,6 +136,9 @@ class FarmMembersViewController: TableViewController {
         
         view.uHead = MJDIYHeader(refreshingBlock: {
             self.page = 1
+            self.isData = true
+            self.tableView_g.uFoot.isHidden = false
+            self.tableView_g.uFoot.resetNoMoreData()
             self.loadAllData()
         })
         
@@ -255,12 +239,42 @@ class FarmMembersViewController: TableViewController {
             }
             
             if isFooter {
-                self.tableView_g.uFoot.endRefreshing()
-                self.recommendList += list
-                self.recommendList = self.handleFilterArray(arr: self.recommendList)
+                
+                if list.count == 0 {
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    self.isData = false
+                    self.tableView_g.uFoot.endRefreshingWithNoMoreData()
+                    self.tableView_g.uFoot.isHidden = true
+                    self.tableView_g.reloadData()
+                }else {
+                    self.tableView_g.uFoot.endRefreshing()
+                    self.recommendList += list
+                    self.recommendList = self.handleFilterArray(arr: self.recommendList)
+                    
+                    if self.recommendList.count == self.handleFilterArray(arr: self.recommendList).count {
+                        debugPrints("没有多余的数据了---\(self.recommendList.count)---\(self.handleFilterArray(arr: self.recommendList).count)")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        self.isData = false
+                        self.tableView_g.uFoot.endRefreshingWithNoMoreData()
+                        self.tableView_g.uFoot.isHidden = true
+                        self.tableView_g.reloadData()
+                    }
+                }
+                
             }
 
         }) { (error) in
+            
             if isHeader {
                 self.tableView_g.uHead.endRefreshing()
             }
@@ -391,11 +405,19 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     
     //设置分组尾的高度
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
+        if section == 2 && isData == false {
+            return 50
+        }
+        return  0.01
     }
     
     //将分组尾设置为一个空的View
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 2 && isData == false {
+            let view = NoMoreFooterView.loadView()
+            view.titleLab.text = "没有更多了~"
+            return view
+        }
         return UIView()
     }
     

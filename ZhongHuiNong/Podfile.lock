@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.0)
+  - Cache (5.2.0)
   - EmptyDataSet-Swift (4.2.0)
   - EZOpenSDK (4.8.3)
   - EZUIKit (2.0):
@@ -35,6 +36,7 @@ PODS:
   - WechatOpenSDK (1.8.4)
 
 DEPENDENCIES:
+  - Cache
   - EmptyDataSet-Swift
   - EZUIKit
   - JXCategoryView
@@ -58,6 +60,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Cache
     - EmptyDataSet-Swift
     - EZOpenSDK
     - EZUIKit
@@ -83,6 +86,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   EmptyDataSet-Swift: 1fa0b35f530a35f852ecb2b53564728b0c300aaf
   EZOpenSDK: 355c8ae8e9660a52bbd877898cf46e1f67dc7d8f
   EZUIKit: 45134cb675f154a62a5b2a7e0d78014672bfc328
@@ -106,6 +110,6 @@ SPEC CHECKSUMS:
   TYCyclePagerView: 0f67b0986995fd614843e819bc974cadd7f98008
   WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
 
-PODFILE CHECKSUM: 6f819989fcd83db5e3c1f7eb62ab02013d26c0fe
+PODFILE CHECKSUM: d46730e833b3ba30ad79ae983a925e8e0d454475
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.1
