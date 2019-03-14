@@ -96,23 +96,24 @@ class MineViewController: TableViewController {
         
         headerView.walletBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineWallet, sender: self)
+            self.navigator.show(segue: .mineWallet(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
         
         headerView.vegetablesBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.navigator.show(segue: .mineVegetables, sender: self)
+            self.navigator.show(segue: .mineVegetables(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
         
-        headerView.memberBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
-            guard let self = self else { return }
-            self.navigator.show(segue: .mineMember, sender: self)
+        headerView.memberBtn.rx.tap.subscribe(onNext: { (_) in
+            guard userInfo.isVip == 0 else {return}
+            callUpWith(linkMan) // 填写运营人员的电话号码
+            //self.navigator.show(segue: .mineMember(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
         
     }
     
     // MARK: - Lazy
-    lazy var titleArray = ["配送订单","我的收藏","好友推荐","关于我们","设置"] // "我的地块",
+    lazy var titleArray = ["配送订单","我的收藏","联系客服","关于我们","设置"] // "我的地块",
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
@@ -149,6 +150,8 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             self.navigator.show(segue: .deliveryOrderInfo, sender: self)
+        case 2:
+            callUpWith(linkMan)
         case 3:
             self.navigator.show(segue: .mineAbout, sender: self)
         case 4:

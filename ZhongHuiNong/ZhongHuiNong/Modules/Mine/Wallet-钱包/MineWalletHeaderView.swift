@@ -20,7 +20,7 @@ class MineWalletHeaderView: View {
     }
     
     let balanceLab = Label().then { (lab) in
-        lab.text = "¥8969.5"
+        lab.text = "¥"
         lab.textColor = UIColor.white
         lab.textAlignment = .left
         lab.font = UIFont.boldSystemFont(ofSize: 40)

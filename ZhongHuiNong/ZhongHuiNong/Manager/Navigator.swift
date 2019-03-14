@@ -44,9 +44,9 @@ class Navigator {
         case shoppingOrder(list: [CartGoodsInfo])
         
         // 我的
-        case mineMember
-        case mineVegetables
-        case mineWallet
+        case mineMember(info: UserBanlance)
+        case mineVegetables(info: UserBanlance)
+        case mineWallet(info: UserBanlance)
         case mineAbout
         case mineMessage
         case mineSetting
@@ -103,26 +103,41 @@ class Navigator {
             vc.goodId = id
             return vc
             
-        // 菜篮
+            // 菜篮
             
-            // 购物车确认订单
+        // 购物车确认订单
         case .shoppingOrder(let list):
             let vc = OrderViewController()
             vc.goodsList = list
             return vc
             
         // 我的
-        case .mineMember: return MineMemberViewController()
-        case .mineVegetables: return MineVegetablesViewController()
-        case .mineWallet: return MineWalletViewController()
         case .mineAbout: return MineAboutViewController()
         case .mineMessage: return MineMessageViewController()
         case .mineSetting: return MineSettingViewController()
+            
+        case .mineLogistics: return MineLogisticsViewController()
+            
+        case .mineVegetables(let banlance):
+            let vc = MineVegetablesViewController()
+            vc.banlance = banlance
+            return vc
+            
+        case .mineWallet(let banlance):
+            let vc = MineWalletViewController()
+            vc.banlance = banlance
+            return vc
+            
+        case .mineMember(let banlance):
+            let vc = MineMemberViewController()
+            vc.banlance = banlance
+            return vc
+            
         case .mineOrder(let index):
             let vc = MineOrderViewController()
             vc.defaultIndex = index
             return vc
-        case .mineLogistics: return MineLogisticsViewController()
+            
             
         case .mineAddress:
             let vc = MineAddressViewController()

@@ -73,6 +73,11 @@ class DeliveryViewController: ViewController {
                     
                 }else {
                     
+                    headerView.dateView.tipsLab.text = ""
+                    
+                    /// 之前没有选择过的话今天就阔以选菜就直接选择
+                    collectionView.addSubview(headerView)
+                    
                     /// 请求是否有已经选择过了配送的订单
                     let emptyV = EmptyView()
                     view.addSubview(emptyV)
@@ -181,25 +186,15 @@ class DeliveryViewController: ViewController {
                         
                         self.navigationItem.title = "进行中的订单"
                         self.collectionView.isHidden = true
-                        
-//                        let info = self.vegetablesInfo[0]
-//                        self.sectionTitleView.titleLab.text = "这是您\(info.scheduleDay)配送的菜单："
-                        
-//                        self.footerView.numLab.text = "-\(info.deliverynum)"
-//                        self.footerView.totalCountLab.text = Keepfigures(text: CGFloat(info.weight))+"Kg"
-                        
                         self.view.addSubview(self.tableView)
-                        //tableView.addSubview(headerView)
                         self.tableView.reloadData()
                     }
 
                 }else {
-                    
                     /// 之前没有选择过的话今天就阔以选菜就直接选择
                     collectionView.addSubview(headerView)
                     view.addSubview(commitVew)
                     fetchDispatchMenu()
-                    
                 }
 
             }else {
@@ -207,7 +202,7 @@ class DeliveryViewController: ViewController {
                 /// 请求是否有已经选择过了配送的订单
                 let emptyV = EmptyView()
                 view.addSubview(emptyV)
-                emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬",
+                emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬,是否查看所选蔬菜的历史订单",
                                                 image: UIImage(named: "farm_delivery_nonmember"),
                                                 btnTitle: "确定")
                 emptyV.snp.makeConstraints { (make) in
@@ -216,7 +211,7 @@ class DeliveryViewController: ViewController {
                 }
                 
                 emptyV.sureBtnClosure = {
-                    self.navigationController?.popViewController(animated: true)
+                    self.navigator.show(segue: .deliveryOrderInfo, sender: self)
                 }
             }
         }

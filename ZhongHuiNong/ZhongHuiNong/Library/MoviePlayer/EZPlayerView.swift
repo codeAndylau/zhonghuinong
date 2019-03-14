@@ -52,7 +52,7 @@ class EZPlayerView: UIView {
             if newValue != nil {
                 for view in newValue!.subviews {
                     if view.tag != 0 {
-                        //view.isHidden = true // 这里用于cell播放时，隐藏播放按钮
+                        view.isHidden = true // 这里用于cell播放时，隐藏播放按钮
                     }
                 }
             }
@@ -62,7 +62,7 @@ class EZPlayerView: UIView {
             if oldValue != nil && oldValue != fatherView {
                 for view in oldValue!.subviews {     // 当前播放器的tag为0
                     if view.tag != 0 {
-                        //view.isHidden = false           // 显示cell上的播放按钮
+                        view.isHidden = false           // 显示cell上的播放按钮
                     }
                 }
             }
@@ -122,7 +122,7 @@ class EZPlayerView: UIView {
 // MARK: 播放方法
 extension EZPlayerView {
     
-    func playVideoWith(_ url: String?, containView: UIView?, complete: @escaping (Bool) ->Void) {
+    func playVideoWith(_ url: String?, containView: UIView?) {
         
         self.playUrl = url
         
@@ -133,8 +133,7 @@ extension EZPlayerView {
         layouSubviews()
         addNotificationAndObserver()
         addUserActionBlock()
-        
-        playStatus = complete
+
     }
     
     func layouSubviews() {

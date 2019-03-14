@@ -10,6 +10,13 @@ import UIKit
 
 class MineVegetablesViewController: TableViewController {
 
+    var banlance: UserBanlance = UserBanlance() {
+        didSet {
+            headerView.jinNumLab.text = "\(banlance.weightbalance)"
+            headerView.timeNumLab.text = "\(banlance.deliverybalance)"
+        }
+    }
+    
     override func makeUI() {
         super.makeUI()
         navigationItem.title = localized("蔬菜服务")
@@ -24,8 +31,7 @@ class MineVegetablesViewController: TableViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                let phone = linkMan  // 填写运营人员的电话号码
-                callUpWith(phone)
+                callUpWith(linkMan) // 填写运营人员的电话号码
             }
         }else {
             tableView.dataSource = self
@@ -49,7 +55,7 @@ class MineVegetablesViewController: TableViewController {
 extension MineVegetablesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

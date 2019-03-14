@@ -162,7 +162,7 @@ class MinePayOrderTabCell: MineOrderTabCell {
                 }
                 
                 if item.offset == 4 {
-                    vegetablesView.btn5.lc_setImage(with: item.element.goodsPic)
+                    vegetablesView.btn5.lc_setLocalImage(with: "mine_order_omit")
                 }
                 
             }

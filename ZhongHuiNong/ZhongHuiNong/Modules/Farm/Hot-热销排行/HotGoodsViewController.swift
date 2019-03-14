@@ -13,6 +13,8 @@ class HotGoodsViewController: ViewController {
 
     var page = 1
     
+    var isData = true
+    
     var hotsaleList: [GoodsInfo] = []
     
     override func makeUI() {
@@ -42,15 +44,20 @@ class HotGoodsViewController: ViewController {
     lazy var topView = HotView.loadView()
 
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .grouped)
         view.backgroundColor = UIColor.white
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.register(HotTabCell.self, forCellReuseIdentifier: HotTabCell.identifier)
+        view.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+        
         view.uHead = MJDIYHeader(refreshingBlock: {
             self.page = 1
+            self.isData = true
+            self.tableView.uFoot.isHidden = false
+            self.tableView.uFoot.resetNoMoreData()
             self.fetchHotsaleList(true)
         })
         
@@ -76,17 +83,29 @@ class HotGoodsViewController: ViewController {
             debugPrints("获取热销列表---\(list.count)")
             self.tableView.uHead.endRefreshing()
             self.tableView.uFoot.endRefreshing()
-            
-            if isRefresh {
-                self.hotsaleList.removeAll()
-            }
-            
+
             if self.page > 1 {
-                self.hotsaleList += list
+                
+                if list.count == 0 {
+                    self.isData = false
+                    self.tableView.uFoot.endRefreshingWithNoMoreData()
+                    self.tableView.uFoot.isHidden = true
+                    self.tableView.reloadData()
+                }else {
+                    self.hotsaleList += list
+                    self.hotsaleList = self.handleFilterArray(arr: self.hotsaleList)
+                    if self.hotsaleList.count == self.handleFilterArray(arr: self.hotsaleList).count {
+                        self.isData = false
+                        self.tableView.uFoot.endRefreshingWithNoMoreData()
+                        self.tableView.uFoot.isHidden = true
+                        self.tableView.reloadData()
+                    }
+                }
             }else {
+                self.hotsaleList.removeAll()
                 self.hotsaleList = list
             }
-            
+
             mainQueue {
                 self.tableView.reloadData()
             }
@@ -96,7 +115,20 @@ class HotGoodsViewController: ViewController {
             self.tableView.uFoot.endRefreshing()
             debugPrints("获取热销列表失败---\(error)")
         }
-        
+    }
+    
+    /// 过滤掉重复的元素
+    func handleFilterArray(arr:[GoodsInfo]) -> [GoodsInfo] {
+        var temp = [GoodsInfo]()
+        var nameArray = [String]()
+        for model in arr {
+            let name = model.productName
+            if !nameArray.contains(name){
+                nameArray.append(name)
+                temp.append(model)
+            }
+        }
+        return temp    //最终返回的数组中已经筛选掉重复name的model
     }
 }
 
@@ -117,12 +149,24 @@ extension HotGoodsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let goodsId = hotsaleList[indexPath.row].id
-        
-        debugPrints("点击热销排行商品的id--\(goodsId)")
-        
         self.navigator.show(segue: .goodsDetail(id: goodsId), sender: topVC)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if isData == false {
+            return 50
+        }
+        return  0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if isData == false {
+            let view = NoMoreFooterView.loadView()
+            view.titleLab.text = "没有更多了~"
+            return view
+        }
+        return UIView()
     }
     
 }

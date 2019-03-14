@@ -247,20 +247,22 @@ class OrderViewController: TableViewController {
     // MARK: - Public methods
     
     func fetchUserAddressList() {
+        
         var p = [String: Any]()
         p["user_id"] = User.currentUser().userId
         p["wid"] = wid
         p["fromplat"] = "iOS"
+        
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
             self.addressList = list
         }) { (error) in
             self.addressList = []
-            //ZYToast.showCenterWithText(text: error)
         }
     }
     
     func fetchUserBalance() {
+        
         let params = ["userid": User.currentUser().userId]
         WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
             self.balance = model

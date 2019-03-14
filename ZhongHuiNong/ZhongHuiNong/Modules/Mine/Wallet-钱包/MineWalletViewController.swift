@@ -12,12 +12,18 @@ class MineWalletViewController: TableViewController {
 
     var isSettingPsd = false
     
+    var banlance: UserBanlance = UserBanlance() {
+        didSet {
+            headerView.balanceLab.text = "¥\(banlance.creditbalance)"
+        }
+    }
+    
     override func makeUI() {
         super.makeUI()
         
         navigationItem.title = localized("钱包")
         
-        if User.hasUser() && User.currentUser().isVip == 0 {
+        if User.hasUser() && User.currentUser().isVip != 0 {
             
             let emptyView = EmptyView()
             view.addSubview(emptyView)
@@ -98,7 +104,7 @@ class MineWalletViewController: TableViewController {
 extension MineWalletViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

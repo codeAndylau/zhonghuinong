@@ -64,15 +64,15 @@ class DeliveryOrderInfoTabCell: TableViewCell, TabReuseIdentifier {
             make.top.equalTo(self).offset(5)
             make.left.equalTo(self).offset(15)
         }
-        
-        finishLab.snp.makeConstraints { (make) in
-            make.centerY.equalTo(weekLab)
-            make.right.equalTo(self).offset(-15)
-        }
-        
+
         dateLab.snp.makeConstraints { (make) in
             make.top.equalTo(weekLab.snp.bottom)
             make.left.equalTo(weekLab)
+        }
+        
+        finishLab.snp.makeConstraints { (make) in
+            make.centerY.equalTo(dateLab)
+            make.right.equalTo(self).offset(-15)
         }
         
         vegetablesView.snp.makeConstraints { (make) in
@@ -127,7 +127,7 @@ class DeliveryOrderInfoTabCell: TableViewCell, TabReuseIdentifier {
                 }
                 
                 if item.offset == 4 {
-                    vegetablesView.btn5.lc_setImage(with: item.element.focusImgUrl)
+                    vegetablesView.btn5.lc_setLocalImage(with: "mine_order_omit")
                 }
                 
             }

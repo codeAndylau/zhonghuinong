@@ -46,6 +46,20 @@
 		1411F75E21F944040076D763 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75D21F944040076D763 /* MineViewController.swift */; };
 		1411F76021F948770076D763 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75F21F948770076D763 /* RootNavigationController.swift */; };
 		1411F76221F982BC0076D763 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F76121F982BC0076D763 /* Image.swift */; };
+		1412CD412239FD800075C70B /* MoyaMapper+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD302239FD7F0075C70B /* MoyaMapper+Rx.swift */; };
+		1412CD422239FD800075C70B /* RxMoyaProviderType+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD322239FD7F0075C70B /* RxMoyaProviderType+Cache.swift */; };
+		1412CD432239FD800075C70B /* MoyaMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD342239FD800075C70B /* MoyaMapper.swift */; };
+		1412CD442239FD800075C70B /* Modelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD352239FD800075C70B /* Modelable.swift */; };
+		1412CD452239FD800075C70B /* MapperParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD362239FD800075C70B /* MapperParameter.swift */; };
+		1412CD462239FD800075C70B /* MoyaMapperPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD372239FD800075C70B /* MoyaMapperPlugin.swift */; };
+		1412CD472239FD800075C70B /* MMConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD382239FD800075C70B /* MMConvertable.swift */; };
+		1412CD482239FD800075C70B /* MMCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3A2239FD800075C70B /* MMCache.swift */; };
+		1412CD492239FD800075C70B /* MoyaProviderType+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3B2239FD800075C70B /* MoyaProviderType+Cache.swift */; };
+		1412CD4A2239FD800075C70B /* MMCache+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3C2239FD800075C70B /* MMCache+JSON.swift */; };
+		1412CD4B2239FD800075C70B /* MMCache+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3D2239FD800075C70B /* MMCache+Response.swift */; };
+		1412CD4C2239FD800075C70B /* TransformerFactory+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3E2239FD800075C70B /* TransformerFactory+Extensions.swift */; };
+		1412CD4D2239FD800075C70B /* MMCache+Modelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD3F2239FD800075C70B /* MMCache+Modelable.swift */; };
+		1412CD4E2239FD800075C70B /* TargetType+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1412CD402239FD800075C70B /* TargetType+Cache.swift */; };
 		1414E0C521FAB74400347050 /* FarmSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C421FAB74400347050 /* FarmSegmentedView.swift */; };
 		1414E0C721FABA5600347050 /* View+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C621FABA5600347050 /* View+Ex.swift */; };
 		1414E0C921FACCE300347050 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414E0C821FACCE200347050 /* Button.swift */; };
@@ -327,6 +341,20 @@
 		1411F75D21F944040076D763 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1411F75F21F948770076D763 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		1411F76121F982BC0076D763 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		1412CD302239FD7F0075C70B /* MoyaMapper+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoyaMapper+Rx.swift"; sourceTree = "<group>"; };
+		1412CD322239FD7F0075C70B /* RxMoyaProviderType+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxMoyaProviderType+Cache.swift"; sourceTree = "<group>"; };
+		1412CD342239FD800075C70B /* MoyaMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaMapper.swift; sourceTree = "<group>"; };
+		1412CD352239FD800075C70B /* Modelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modelable.swift; sourceTree = "<group>"; };
+		1412CD362239FD800075C70B /* MapperParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapperParameter.swift; sourceTree = "<group>"; };
+		1412CD372239FD800075C70B /* MoyaMapperPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaMapperPlugin.swift; sourceTree = "<group>"; };
+		1412CD382239FD800075C70B /* MMConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMConvertable.swift; sourceTree = "<group>"; };
+		1412CD3A2239FD800075C70B /* MMCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMCache.swift; sourceTree = "<group>"; };
+		1412CD3B2239FD800075C70B /* MoyaProviderType+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoyaProviderType+Cache.swift"; sourceTree = "<group>"; };
+		1412CD3C2239FD800075C70B /* MMCache+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMCache+JSON.swift"; sourceTree = "<group>"; };
+		1412CD3D2239FD800075C70B /* MMCache+Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMCache+Response.swift"; sourceTree = "<group>"; };
+		1412CD3E2239FD800075C70B /* TransformerFactory+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransformerFactory+Extensions.swift"; sourceTree = "<group>"; };
+		1412CD3F2239FD800075C70B /* MMCache+Modelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMCache+Modelable.swift"; sourceTree = "<group>"; };
+		1412CD402239FD800075C70B /* TargetType+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TargetType+Cache.swift"; sourceTree = "<group>"; };
 		1414E0C421FAB74400347050 /* FarmSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSegmentedView.swift; sourceTree = "<group>"; };
 		1414E0C621FABA5600347050 /* View+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ex.swift"; sourceTree = "<group>"; };
 		1414E0C821FACCE200347050 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -711,6 +739,59 @@
 				140FFEC722368EB700EB90DD /* DispatchVegetablesInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		1412CD172239F63C0075C70B /* MMCache */ = {
+			isa = PBXGroup;
+			children = (
+				1412CD332239FD800075C70B /* Core */,
+				1412CD392239FD800075C70B /* MMCache */,
+				1412CD2F2239FD7F0075C70B /* Rx */,
+				1412CD312239FD7F0075C70B /* RxCache */,
+			);
+			path = MMCache;
+			sourceTree = "<group>";
+		};
+		1412CD2F2239FD7F0075C70B /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				1412CD302239FD7F0075C70B /* MoyaMapper+Rx.swift */,
+			);
+			path = Rx;
+			sourceTree = "<group>";
+		};
+		1412CD312239FD7F0075C70B /* RxCache */ = {
+			isa = PBXGroup;
+			children = (
+				1412CD322239FD7F0075C70B /* RxMoyaProviderType+Cache.swift */,
+			);
+			path = RxCache;
+			sourceTree = "<group>";
+		};
+		1412CD332239FD800075C70B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1412CD342239FD800075C70B /* MoyaMapper.swift */,
+				1412CD352239FD800075C70B /* Modelable.swift */,
+				1412CD362239FD800075C70B /* MapperParameter.swift */,
+				1412CD372239FD800075C70B /* MoyaMapperPlugin.swift */,
+				1412CD382239FD800075C70B /* MMConvertable.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1412CD392239FD800075C70B /* MMCache */ = {
+			isa = PBXGroup;
+			children = (
+				1412CD3A2239FD800075C70B /* MMCache.swift */,
+				1412CD3B2239FD800075C70B /* MoyaProviderType+Cache.swift */,
+				1412CD3C2239FD800075C70B /* MMCache+JSON.swift */,
+				1412CD3D2239FD800075C70B /* MMCache+Response.swift */,
+				1412CD3E2239FD800075C70B /* TransformerFactory+Extensions.swift */,
+				1412CD3F2239FD800075C70B /* MMCache+Modelable.swift */,
+				1412CD402239FD800075C70B /* TargetType+Cache.swift */,
+			);
+			path = MMCache;
 			sourceTree = "<group>";
 		};
 		14151061222E256400EA9026 /* Delivery */ = {
@@ -1427,6 +1508,7 @@
 		14DC341321F170B6006EF1CF /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				1412CD172239F63C0075C70B /* MMCache */,
 				14151067222E72CD00EA9026 /* MoviePlayer */,
 				14151064222E66F000EA9026 /* Hud */,
 				142CE016222CEB1300F604B0 /* Refresh */,
@@ -1948,6 +2030,7 @@
 				14B27A4E221BAF540029648A /* DeliveryAddressModifyView.swift in Sources */,
 				149445B4222916530048BF65 /* MineWalletTabCell.swift in Sources */,
 				14043D4B221272D60023AA11 /* Button+Ex.swift in Sources */,
+				1412CD4C2239FD800075C70B /* TransformerFactory+Extensions.swift in Sources */,
 				14974BD921F6F7080088ABC3 /* Method.swift in Sources */,
 				1468F2A522268A7600ECD45A /* WebBottomView.swift in Sources */,
 				145100B72227DB0700031FE2 /* StoreFilterView.swift in Sources */,
@@ -1955,6 +2038,7 @@
 				14B27A4C221BA8D40029648A /* DeliveryAddressTabCell.swift in Sources */,
 				14043D4F221290930023AA11 /* EmptyView.swift in Sources */,
 				8BDCF2CE2236C4C9003D5D4E /* GoodsDetailFooterView.swift in Sources */,
+				1412CD492239FD800075C70B /* MoyaProviderType+Cache.swift in Sources */,
 				145100B42227CBB800031FE2 /* Notification+Ex.swift in Sources */,
 				14AE310F222126BD00302F89 /* MineAddressTitleView.swift in Sources */,
 				14043D4D2212773B0023AA11 /* MineOrderView.swift in Sources */,
@@ -1977,6 +2061,7 @@
 				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				14C251132223F00200F5CB53 /* FlashTwoViewController.swift in Sources */,
+				1412CD4A2239FD800075C70B /* MMCache+JSON.swift in Sources */,
 				8B31B5BE22106164003F475A /* MineTabCell.swift in Sources */,
 				1414E0C721FABA5600347050 /* View+Ex.swift in Sources */,
 				14B27A50221BB0610029648A /* DeliveryRowView.swift in Sources */,
@@ -1993,11 +2078,13 @@
 				14AE310C222112FF00302F89 /* MineAreaTabCell.swift in Sources */,
 				1492DDA6221A5DC900C79D88 /* DeliveryDateView.swift in Sources */,
 				14ED110A221694A40021D185 /* MemberDropdownView.swift in Sources */,
+				1412CD4D2239FD800075C70B /* MMCache+Modelable.swift in Sources */,
 				1448B0912224ECA7009237E7 /* HotView.swift in Sources */,
 				14043D662212BD840023AA11 /* SwiftPopupPresentationController.swift in Sources */,
 				14F35C722202BE7C002122B6 /* MemberSectionView.swift in Sources */,
 				14043D5F2212B0770023AA11 /* OrderHeaderView.swift in Sources */,
 				149445B0222910AC0048BF65 /* MineWalletViewController.swift in Sources */,
+				1412CD442239FD800075C70B /* Modelable.swift in Sources */,
 				1492DDA8221A621A00C79D88 /* DeliveryCommitOrderView.swift in Sources */,
 				14974BDF21F707C50088ABC3 /* StackView.swift in Sources */,
 				1468F29122262A0700ECD45A /* MineNewProductViewController.swift in Sources */,
@@ -2020,6 +2107,8 @@
 				14B27A54221BF0190029648A /* DeliveryOrderView.swift in Sources */,
 				1448B09B22250A9D009237E7 /* HotMeatViewController.swift in Sources */,
 				14974BF421F714910088ABC3 /* CollectionView.swift in Sources */,
+				1412CD482239FD800075C70B /* MMCache.swift in Sources */,
+				1412CD432239FD800075C70B /* MoyaMapper.swift in Sources */,
 				1451389C21F80A6E0038AFC6 /* Networking.swift in Sources */,
 				1492DDB1221A7EED00C79D88 /* SpecificationCollectionCell.swift in Sources */,
 				149445BD22291B7F0048BF65 /* MineVegetablesHeaderView.swift in Sources */,
@@ -2029,6 +2118,7 @@
 				14974BFE21F717080088ABC3 /* Color.swift in Sources */,
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14C250FD2223856F00F5CB53 /* PrivatefarmViewController.swift in Sources */,
+				1412CD422239FD800075C70B /* RxMoyaProviderType+Cache.swift in Sources */,
 				14043D5A2212AA140023AA11 /* OrderViewController.swift in Sources */,
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
@@ -2044,6 +2134,7 @@
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,
 				149445B2222911E90048BF65 /* MineWalletHeaderView.swift in Sources */,
 				14043D682212BF400023AA11 /* PaySelectViewController.swift in Sources */,
+				1412CD472239FD800075C70B /* MMConvertable.swift in Sources */,
 				146B74BE221E9D12005D2879 /* PageContentView.swift in Sources */,
 				1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */,
 				14F35C7B2202D86F002122B6 /* MemberRexiaoCell.swift in Sources */,
@@ -2054,6 +2145,7 @@
 				145138B421F8595D0038AFC6 /* User.swift in Sources */,
 				1448B0A122250DBC009237E7 /* HotBottomView.swift in Sources */,
 				14F35C702202A907002122B6 /* MemberHeaderView.swift in Sources */,
+				1412CD4E2239FD800075C70B /* TargetType+Cache.swift in Sources */,
 				14DC343921F17A14006EF1CF /* Label.swift in Sources */,
 				140F3C892234FE030059EBB3 /* MineGoodsOrderInfo.swift in Sources */,
 				14087469221E78E10051B7C3 /* MineSettingViewController.swift in Sources */,
@@ -2070,6 +2162,7 @@
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14C25101222388F400F5CB53 /* PrivatefarmTitleView.swift in Sources */,
 				14DC344121F1833D006EF1CF /* Response+ObjectMapper.swift in Sources */,
+				1412CD412239FD800075C70B /* MoyaMapper+Rx.swift in Sources */,
 				146B74C5221EA394005D2879 /* MineSendOrderViewController.swift in Sources */,
 				1492DDB9221A9ACF00C79D88 /* PasswordLoginViewController.swift in Sources */,
 				1468F29C2226388D00ECD45A /* MineSystemTabCell.swift in Sources */,
@@ -2138,6 +2231,7 @@
 				1448B09F22250AFE009237E7 /* HotDairyViewController.swift in Sources */,
 				14BBB83F2230E70800FF4AE3 /* UserAddressInfo.swift in Sources */,
 				14F35C752202D297002122B6 /* MemberTuijianCell.swift in Sources */,
+				1412CD452239FD800075C70B /* MapperParameter.swift in Sources */,
 				146B74C1221EA0F7005D2879 /* MineAllOrderViewController.swift in Sources */,
 				144F43CC222F9F6C00218339 /* File.swift in Sources */,
 				8BF9188C2239320500EEB345 /* StoreModel.swift in Sources */,
@@ -2154,11 +2248,13 @@
 				8B25C88522314FFF00A2D0C7 /* MineAddressDefaultView.swift in Sources */,
 				1448B09922250A6B009237E7 /* HotFruitViewController.swift in Sources */,
 				1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */,
+				1412CD4B2239FD800075C70B /* MMCache+Response.swift in Sources */,
 				1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */,
 				1448B09D22250AD3009237E7 /* HotOilViewController.swift in Sources */,
 				1492DDA4221A5AD200C79D88 /* AddSelectedView.swift in Sources */,
 				14043D642212BD400023AA11 /* SwiftPopupShowAnimation.swift in Sources */,
 				1414E0CB21FADCEE00347050 /* FarmMembersViewController.swift in Sources */,
+				1412CD462239FD800075C70B /* MoyaMapperPlugin.swift in Sources */,
 				1451389A21F8065B0038AFC6 /* WebAPI.swift in Sources */,
 				142CE018222CEB3B00F604B0 /* Refresh.swift in Sources */,
 				1406D62622320F8D0090C07F /* MineSettingPayPsdViewController.swift in Sources */,
@@ -2341,6 +2437,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/ZhongHuiNong/Application/Info.plist";
@@ -2355,6 +2452,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -2366,8 +2464,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
 				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/ZhongHuiNong/Application/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2379,6 +2479,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "ZhongHuiNong/Application/ZhongHuiNong-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};

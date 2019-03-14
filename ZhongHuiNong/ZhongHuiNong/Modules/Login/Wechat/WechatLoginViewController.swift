@@ -18,10 +18,25 @@ class WechatLoginViewController: ViewController {
     
     override func makeUI() {
         super.makeUI()
+        
         view.addSubview(loginView)
-        if !WXApi.isWXAppInstalled() || isIPad() {
-            loginView.wechatBtn.isHidden = true
+        
+        if appstore() {
+            loginView.wechatBtn.setTitle("验证码登录", for: .normal)
+            loginView.wechatBtn.setImage(UIImage(), for: .normal)
+            loginView.otherBtn.isHidden = true
         }
+        
+    }
+    
+    /// 判断是否安装了微信和是否是iPad, 以此来隐藏验证码按钮
+    ///
+    /// - Returns: bool
+    func appstore() -> Bool {
+        if !WXApi.isWXAppInstalled() || isIPad() {
+            return true
+        }
+        return false
     }
     
     override func bindViewModel() {
@@ -30,7 +45,11 @@ class WechatLoginViewController: ViewController {
         navigationBarHidden.accept(true)
         loginView.wechatBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.wechatLoginAction()
+            if self.appstore() {
+                self.navigator.show(segue: .psdLogin, sender: self, transition: .navigation)
+            }else {
+                self.wechatLoginAction()
+            }
         }).disposed(by: rx.disposeBag)
         
         loginView.otherBtn.rx.tap.subscribe(onNext: { [weak self] (_) in

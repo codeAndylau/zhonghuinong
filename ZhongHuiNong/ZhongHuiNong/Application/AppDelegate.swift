@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         // FIXME: - 后期需要删除
-        Thread.sleep(forTimeInterval: 1)
+        //Thread.sleep(forTimeInterval: 1)
         
         LibsManager.shared.setupLibs()
         Application.shared.presentInitialScreen(in: window!)

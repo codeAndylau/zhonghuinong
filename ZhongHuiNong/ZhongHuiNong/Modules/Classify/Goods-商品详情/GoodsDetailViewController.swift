@@ -90,6 +90,7 @@ class GoodsDetailViewController: ViewController {
         buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
             NotificationCenter.default.post(name: NSNotification.Name.goodsDetailCartClicked, object: nil)
             self.tabBarController?.selectedIndex = 2
+            self.navigationController?.popToRootViewController(animated: false)
         }).disposed(by: rx.disposeBag)
         
     }
@@ -194,6 +195,7 @@ class GoodsDetailViewController: ViewController {
     // MARK: - Action
 
     func fetchGoodsInfo() {
+        
         WebAPITool.requestModelWithData(WebAPI.goodsDetail(goodId), model: GoodsDetailInfo.self, complete: { [weak self] (info) in
             guard let self = self else { return }
             self.goodsDetailInfo = info

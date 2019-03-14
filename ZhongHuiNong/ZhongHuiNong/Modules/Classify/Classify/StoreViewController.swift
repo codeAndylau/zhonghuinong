@@ -18,6 +18,8 @@ class StoreViewController: ViewController {
     /// 默认请求的第一个数据
     var currentIndexPath = IndexPath(row: 0, section: 0)
     
+    var isData = true
+    
     var classInfos: [StoreModel] = [] {
         didSet {
             rightTableView.reloadData()
@@ -140,15 +142,16 @@ class StoreViewController: ViewController {
     
     //右侧表格
     lazy var rightTableView : UITableView = {
-        let rightTableView = UITableView()
+        let rightTableView = UITableView(frame: CGRect.zero, style: UITableView.Style.grouped)
+        rightTableView.frame = CGRect(x: 88, y: kNavBarH, width: UIScreen.main.bounds.width - 88, height: kScreenH-kNavBarH-kTabBarH)
         rightTableView.alpha = 0
         rightTableView.delegate = self
         rightTableView.dataSource = self
-        rightTableView.frame = CGRect(x: 88, y: kNavBarH, width: UIScreen.main.bounds.width - 88, height: kScreenH-kNavBarH-kTabBarH)
         rightTableView.rowHeight = 80
         rightTableView.showsVerticalScrollIndicator = false
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
+        rightTableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
         
         /// 解决刷新的时候存在都用的问题
@@ -158,6 +161,9 @@ class StoreViewController: ViewController {
         
         rightTableView.uHead = MJDIYHeader(refreshingBlock: {
             self.classInfos[self.currentIndexPath.row].page = 1
+            self.isData = true
+            self.rightTableView.uFoot.isHidden = false
+            self.rightTableView.uFoot.resetNoMoreData()
             self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: true, isFooter: false)
         })
 
@@ -208,12 +214,39 @@ class StoreViewController: ViewController {
             }
             
             if isFooter {
-                self.rightTableView.uFoot.endRefreshing()
-                var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
-                tempList += list
                 
-                debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
-                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
+                if list.count == 0 {
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    debugPrints("数据已经加载完毕了")
+                    self.isData = false
+                    self.rightTableView.uFoot.endRefreshingWithNoMoreData()
+                    self.rightTableView.uFoot.isHidden = true
+                    self.rightTableView.reloadData()
+                }else {
+                    self.rightTableView.uFoot.endRefreshing()
+                    var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
+                    tempList += list
+                    
+                    debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
+                    self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
+                    
+                    if self.classInfos[self.currentIndexPath.row].goodsInfo.count == self.handleFilterArray(arr: tempList).count {
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        debugPrints("数据已经加载完毕了")
+                        self.isData = false
+                        self.rightTableView.uFoot.endRefreshingWithNoMoreData()
+                        self.rightTableView.uFoot.isHidden = true
+                        self.rightTableView.reloadData()
+                    }
+                }
             }
             
         }) { (error) in
@@ -283,6 +316,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         if leftTableView == tableView {
             
             if currentIndexPath != indexPath {
+                self.isData = true
+                self.rightTableView.uFoot.isHidden = false
+                self.rightTableView.uFoot.resetNoMoreData()
                 let cell = tableView.cellForRow(at: currentIndexPath) as? StoreLeftCell
                 cell?.isShow = false
             }
@@ -312,6 +348,24 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigator.show(segue: .goodsDetail(id: goodsId), sender: self)
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        if rightTableView == tableView && isData == false {
+            return 50
+        }
+
+        return  0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if rightTableView == tableView && isData == false {
+            let view = NoMoreFooterView.loadView()
+            view.titleLab.text = "没有更多了~"
+            return view
+        }
+        return UIView()
     }
     
 }

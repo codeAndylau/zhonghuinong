@@ -70,11 +70,7 @@ class FarmMembersViewController: TableViewController {
         view.addSubview(tableView_g)
         
         dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
-        
-        //LoadingHud.showProgress(supView: self.view)
-        //LoadingHud.hideHUD()
-        //LoadingView.showView(view: self.view)
-        
+    
         loadAllData()
     }
     
@@ -154,9 +150,6 @@ class FarmMembersViewController: TableViewController {
     
     @objc func messageAction() {
         navigator.show(segue: .mineMessage, sender: self)
-        //        let bindVC = MobileBindingViewController()
-        //        self.navigationController?.pushViewController(bindVC, animated: true)
-
     }
     
     func showCenterView() {
@@ -239,14 +232,7 @@ class FarmMembersViewController: TableViewController {
             }
             
             if isFooter {
-                
                 if list.count == 0 {
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
                     self.isData = false
                     self.tableView_g.uFoot.endRefreshingWithNoMoreData()
                     self.tableView_g.uFoot.isHidden = true
@@ -255,22 +241,13 @@ class FarmMembersViewController: TableViewController {
                     self.tableView_g.uFoot.endRefreshing()
                     self.recommendList += list
                     self.recommendList = self.handleFilterArray(arr: self.recommendList)
-                    
                     if self.recommendList.count == self.handleFilterArray(arr: self.recommendList).count {
-                        debugPrints("没有多余的数据了---\(self.recommendList.count)---\(self.handleFilterArray(arr: self.recommendList).count)")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
                         self.isData = false
                         self.tableView_g.uFoot.endRefreshingWithNoMoreData()
                         self.tableView_g.uFoot.isHidden = true
                         self.tableView_g.reloadData()
                     }
                 }
-                
             }
 
         }) { (error) in

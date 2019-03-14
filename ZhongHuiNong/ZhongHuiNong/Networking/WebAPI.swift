@@ -13,7 +13,8 @@ import SwiftyJSON
 import Moya
 
 protocol WebAPIType {
-    var addXAuth: Bool { get }
+    var addAuth: Bool { get }
+    var addCache: Bool { get }
 }
 
 enum WebAPI {
@@ -287,9 +288,18 @@ extension WebAPI: TargetType, WebAPIType {
         
     }
     
-    var addXAuth: Bool {
+    var addAuth: Bool {
         switch self {
         default: return true
+        }
+    }
+    
+    var addCache: Bool {
+        switch self {
+        case .homeBannerList(_), .catagoryList(_), .goodsHotsaleList(_), .userBalance(_), .fetchUserInfo(_):
+            return true
+        default:
+            return false
         }
     }
     
@@ -336,21 +346,39 @@ struct WebAPITool {
     
     /// 请求通用接口
     static func request(_ target: WebAPI, complete: @escaping (JSON) ->Void, failure: @escaping (String) ->Void) {
-        provider.request(target) { (result) in
-            switch result {
-            case let .success(response):
-                do {
-                    let _ = try response.filterSuccessfulStatusCodes() // 只返回200-299的成功状态吗
-                    let value = try JSON(response.mapJSON())
-                    debugPrints("通用接口数据---\(target.path)---\(value)")
-                    complete(value)
-                }catch let error {
-                    failure(error.localizedDescription) // 服务器连接成功，但数据返回错误（同时会返回错误信息）
+        if target.addCache {
+           let _ = provider.cacheRequest(target) { (result) in
+                switch result {
+                case let .success(response):
+                    do {
+                        let _ = try response.filterSuccessfulStatusCodes()
+                        let value = try JSON(response.mapJSON())
+                        debugPrints("缓存接口\(target.path)---\(target.path)---\(value)")
+                        complete(value)
+                    }catch let error {
+                        failure(error.localizedDescription)
+                    }
+                case let .failure(error):
+                    failure(error.localizedDescription)
                 }
-            case let .failure(error):
-                failure(error.localizedDescription) // 服务器连接不上，网络异常等（同时会返回错误信息。必要的话，还可以在此增加自动重新请求的机制。）
             }
-        }
+        }else {
+            provider.request(target) { (result) in
+                switch result {
+                case let .success(response):
+                    do {
+                        let _ = try response.filterSuccessfulStatusCodes() // 只返回200-299的成功状态吗
+                        let value = try JSON(response.mapJSON())
+                        debugPrints("通用接口数据---\(target.path)---\(value)")
+                        complete(value)
+                    }catch let error {
+                        failure(error.localizedDescription) // 服务器连接成功，但数据返回错误（同时会返回错误信息）
+                    }
+                case let .failure(error):
+                    failure(error.localizedDescription) // 服务器连接不上，网络异常等（同时会返回错误信息。必要的话，还可以在此增加自动重新请求的机制。）
+                }
+            }
+        } 
     }
     
     /// 请求对象数据

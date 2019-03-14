@@ -85,18 +85,26 @@ class PrivatefarmViewController: ViewController {
         headerView.playBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             
             guard let self = self else { return }
+//            guard !self.farmLand.cameraUrl.isEmpty && self.farmLand.cameraUrl != "" else {
+//                MBProgressHUD.showError("视频播放链接有误")
+//                return
+//            }
+            //let url = self.farmLand.cameraUrl
             
-            guard !self.farmLand.cameraUrl.isEmpty && self.farmLand.cameraUrl != "" else {
-                MBProgressHUD.showError("视频播放链接有误")
-                return
-            }
+            let url = "ezopen://open.ys7.com/691254818/1.hd.live"
+            self.playerView.playVideoWith(url, containView: self.headerView.videoImg)
             
-            self.playerView.playVideoWith(self.farmLand.cameraUrl, containView: self.headerView.videoImg, complete: { (flag) in
-                if flag {
-                   self.playerView.isHidden = true
-                }
-            })
         }).disposed(by: rx.disposeBag)
+        
+        self.playerView.playStatus = { [weak self] flag in
+            if flag {
+                self?.headerView.playBtn.isHidden = true
+                debugPrint("农场视频播放成功")
+            }else {
+                self?.headerView.playBtn.isHidden = true
+                debugPrint("农场视频播放失败")
+            }
+        }
         
         headerView.jiaoshuiBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
@@ -130,10 +138,7 @@ class PrivatefarmViewController: ViewController {
             guard let self = self else { return }
             self.farmLand = model
             self.fetchSensorData(model.did)
-            LoadingView.hideHUD(view: self.view)
         }) { (error) in
-            ZYToast.showCenterWithText(text: error)
-            LoadingView.hideHUD(view: self.view)
             debugPrints("请求农场的信息---\(error)")
         }
     }

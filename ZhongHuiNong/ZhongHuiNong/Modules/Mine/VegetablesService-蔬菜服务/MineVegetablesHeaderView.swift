@@ -47,7 +47,7 @@ class MineVegetablesHeaderView: View {
     }
     
     let jinNumLab = Label().then { (lab) in
-        lab.text = "1000"
+        lab.text = "0"
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 30)
@@ -61,7 +61,7 @@ class MineVegetablesHeaderView: View {
     }
     
     let timeNumLab = Label().then { (lab) in
-        lab.text = "96"
+        lab.text = "0"
         lab.textColor = UIColor.hexColor(0x010205)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 30)
