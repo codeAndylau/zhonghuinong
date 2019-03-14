@@ -33,6 +33,7 @@ class GoodsDetailViewController: ViewController {
     var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
         didSet {
             fadeInOnDisplay {
+                self.activityVIew.stopAnimating()
                 self.tableView.alpha = 1
                 self.headerView.goodsDetailInfo = self.goodsDetailInfo
                 self.view.addSubview(self.tableView)
@@ -51,12 +52,19 @@ class GoodsDetailViewController: ViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
         //navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
+        view.addSubview(activityVIew)
+        activityVIew.startAnimating()
         fetchGoodsInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fetchShopingCartList()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        activityVIew.center = view.center
     }
 
     override func bindViewModel() {
@@ -162,7 +170,7 @@ class GoodsDetailViewController: ViewController {
     }
     
     // MARK: - Lazy
-    
+    lazy var activityVIew = UIActivityIndicatorView(style: .gray)
     lazy var buyView = GoodsDetailBuyView.loadView()
     lazy var rightBarView = GoodsDetailRightView.loadView()
     
