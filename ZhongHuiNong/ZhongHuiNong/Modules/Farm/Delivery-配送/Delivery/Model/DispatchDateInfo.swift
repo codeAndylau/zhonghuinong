@@ -17,16 +17,22 @@ struct DispatchDateInfo: Mappable {
     
     /// 星期一
     var monday : Bool = false
+    
     /// 星期二
     var tuesday : Bool = false
+    
     /// 星期三
     var wednesday : Bool = false
+    
     /// 星期四
     var thursday : Bool = false
+    
     /// 星期五
     var friday : Bool = false
+    
     /// 星期六
     var saturday : Bool = false
+    
     /// 星期天
     var sunday : Bool = false
     

@@ -231,22 +231,15 @@ class FarmMembersViewController: TableViewController {
             }
             
             if isFooter {
-                if list.count == 0 {
+                if list.count < 10 {
                     self.isData = false
                     self.tableView_g.uFoot.endRefreshingWithNoMoreData()
                     self.tableView_g.uFoot.isHidden = true
                     self.tableView_g.reloadData()
-                }else {
-                    self.tableView_g.uFoot.endRefreshing()
-                    self.recommendList += list
-                    self.recommendList = self.handleFilterArray(arr: self.recommendList)
-                    if self.recommendList.count == self.handleFilterArray(arr: self.recommendList).count {
-                        self.isData = false
-                        self.tableView_g.uFoot.endRefreshingWithNoMoreData()
-                        self.tableView_g.uFoot.isHidden = true
-                        self.tableView_g.reloadData()
-                    }
                 }
+                self.tableView_g.uFoot.endRefreshing()
+                self.recommendList += list
+                self.recommendList = self.handleFilterArray(arr: self.recommendList)
             }
 
         }) { (error) in

@@ -50,7 +50,7 @@ class DeliveryHeaderView: View {
     /// - Public methods
     class func loadView() -> DeliveryHeaderView {
         let view = DeliveryHeaderView()
-        view.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 150)
+        view.frame = CGRect(x: 0, y: kNavBarH, width: kScreenW, height: 150)
         view.backgroundColor = Color.whiteColor
         return view
     }

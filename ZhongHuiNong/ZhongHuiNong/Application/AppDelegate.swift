@@ -139,3 +139,16 @@ extension AppDelegate: WXApiDelegate {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

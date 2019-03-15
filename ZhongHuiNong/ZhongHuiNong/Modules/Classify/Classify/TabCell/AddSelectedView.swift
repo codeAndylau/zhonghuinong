@@ -55,7 +55,7 @@ class AddSelectedView: View {
                 num -= 1
                 self.minusDidClosure?(num)
             }else {
-                num = 1
+                num = 0
             }
         }else {
             if num > 1 {

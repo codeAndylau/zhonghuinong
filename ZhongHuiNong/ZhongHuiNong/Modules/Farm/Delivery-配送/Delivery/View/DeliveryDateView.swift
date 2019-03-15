@@ -28,10 +28,7 @@ class DeliveryDateView: View {
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
     }
-    
-    let day2View = View()
-    let day2HeightView = View()
-    
+
     let day3Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周三", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
@@ -50,9 +47,6 @@ class DeliveryDateView: View {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
     }
     
-    let day5View = View()
-    let day5HeightView = View()
-    
     let day6Btn = Button(type: .custom).then { (btn) in
         btn.setTitle("周六", for: .normal)
         btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
@@ -69,13 +63,9 @@ class DeliveryDateView: View {
         super.makeUI()
         addSubview(tipsLab)
         addSubview(day1Btn)
-        addSubview(day2View)
-        addSubview(day2HeightView)
         addSubview(day2Btn)
         addSubview(day3Btn)
         addSubview(day4Btn)
-        addSubview(day5View)
-        addSubview(day5HeightView)
         addSubview(day5Btn)
         addSubview(day6Btn)
         addSubview(day7Btn)
@@ -94,17 +84,7 @@ class DeliveryDateView: View {
             make.width.equalTo((kScreenW-50)/7)
             make.height.equalTo(30)
         }
-        
-        day2View.snp.makeConstraints { (make) in
-            make.left.equalTo(day1Btn.snp.right).offset(5)
-            make.centerY.width.height.equalTo(day1Btn)
-        }
-        
-        day2HeightView.snp.makeConstraints { (make) in
-            make.left.equalTo(day1Btn.snp.right).offset(5)
-            make.centerY.width.height.equalTo(day1Btn)
-        }
-        
+
         day2Btn.snp.makeConstraints { (make) in
             make.left.equalTo(day1Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day1Btn)
@@ -119,17 +99,7 @@ class DeliveryDateView: View {
             make.left.equalTo(day3Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day3Btn)
         }
-        
-        day5View.snp.makeConstraints { (make) in
-            make.left.equalTo(day4Btn.snp.right).offset(5)
-            make.centerY.width.height.equalTo(day4Btn)
-        }
-        
-        day5HeightView.snp.makeConstraints { (make) in
-            make.left.equalTo(day4Btn.snp.right).offset(5)
-            make.centerY.width.height.equalTo(day4Btn)
-        }
-        
+
         day5Btn.snp.makeConstraints { (make) in
             make.left.equalTo(day4Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day4Btn)
@@ -146,23 +116,6 @@ class DeliveryDateView: View {
         }
         
     }
-
-    func day2Height() {
-        day5HeightView.isHidden = true
-        day2View.isHidden = true
-        
-        day5View.isHidden = false
-        day2HeightView.isHidden = false
-    }
-    
-    func day5Height() {
-        
-        day5HeightView.isHidden = false
-        day2View.isHidden = false
-        
-        day5View.isHidden = true
-        day2HeightView.isHidden = true
-    }
     
     func dayBtnAction(_ sender: Button) {
         
@@ -175,7 +128,7 @@ class DeliveryDateView: View {
         // fillCode
         let bgLayer1 = CALayer()
         bgLayer1.frame = sender.bounds.insetBy(dx: 2.5, dy: 2.5)
-        bgLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.5).cgColor
+        bgLayer1.backgroundColor = UIColor.hexColor(0x1DD1A8, alpha: 0.3).cgColor
         bgLayer1.cornerRadius = sender.bounds.insetBy(dx: 2.5, dy: 2.5).height/2
         sender.layer.insertSublayer(bgLayer1, at: 0)
     }
@@ -201,78 +154,30 @@ class DeliveryDateView: View {
         
         didSet {
             
-            let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday!
-
-//            case 1: "周日"
-//            case 2: "周一"
-//            case 3: "周二"
-//            case 4: "周三"
-//            case 5: "周四"
-//            case 6: "周五"
-//            case 7: "周六"
+            // FIXME: - 1. 显示用户选择配送的蔬菜日期
+            if dispatchDate.monday { dayBtnAction(day1Btn) }
+            if dispatchDate.tuesday { dayBtnAction(day2Btn) }
+            if dispatchDate.wednesday { dayBtnAction(day3Btn) }
+            if dispatchDate.thursday { dayBtnAction(day4Btn) }
+            if dispatchDate.friday { dayBtnHeightAction(day1Btn) }
+            if dispatchDate.saturday { dayBtnAction(day6Btn) }
+            if dispatchDate.sunday { dayBtnAction(day7Btn) }
             
-            /// 显示当天能配送的
+            // FIXME: - 2. 判断今天能否可以选择（只能提前两天选择蔬菜）
+            let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday! - 1
+
             switch week {
                 
-            case 1: // "周日"
-                if dispatchDate.wednesday {
-                    dayBtnHeightAction(day3Btn)
-                }
-            case 2: // "周一"
-                if dispatchDate.thursday {
-                    dayBtnHeightAction(day4Btn)
-                }
-            case 3: // "周二"
-                if dispatchDate.friday {
-                    dayBtnHeightAction(day5Btn)
-                }
-            case 4: // "周三"
-                if dispatchDate.saturday {
-                    dayBtnHeightAction(day6Btn)
-                }
-            case 5: // "周四"
-                if dispatchDate.sunday {
-                    dayBtnHeightAction(day7Btn)
-                }
-            case 6: // "周五"
-                if dispatchDate.monday {
-                    dayBtnHeightAction(day1Btn)
-                }
-            case 7: // "周六"
-                if dispatchDate.tuesday {
-                    dayBtnHeightAction(day2Btn)
-                }
+            case 0: if dispatchDate.wednesday { dayBtnHeightAction(day3Btn) }
+            case 1: if dispatchDate.thursday { dayBtnHeightAction(day4Btn) }
+            case 2: if dispatchDate.friday { dayBtnHeightAction(day5Btn) }
+            case 3: if dispatchDate.saturday { dayBtnHeightAction(day6Btn) }
+            case 4: if dispatchDate.sunday { dayBtnHeightAction(day7Btn) }
+            case 5: if dispatchDate.monday { dayBtnHeightAction(day1Btn) }
+            case 6: if dispatchDate.tuesday { dayBtnHeightAction(day2Btn) }
+                
             default:
                 break
-            }
-            
-            // MARK: - TODO 显示用户选择配送的蔬菜日期
-            if dispatchDate.monday {
-                dayBtnAction(day1Btn)
-            }
-            
-            if dispatchDate.tuesday {
-                dayBtnAction(day1Btn)
-            }
-            
-            if dispatchDate.wednesday {
-                dayBtnAction(day3Btn)
-            }
-            
-            if dispatchDate.thursday {
-                dayBtnAction(day4Btn)
-            }
-            
-            if dispatchDate.friday {
-                dayBtnAction(day5Btn)
-            }
-            
-            if dispatchDate.saturday {
-                dayBtnAction(day6Btn)
-            }
-            
-            if dispatchDate.sunday {
-                dayBtnAction(day7Btn)
             }
         }
     }

@@ -232,7 +232,7 @@ class StoreViewController: ViewController {
             
             if isFooter {
                 
-                if list.count == 0 {
+                if list.count < 10 {
                     debugPrints("数据已经加载完毕了")
                     debugPrints("数据已经加载完毕了")
                     debugPrints("数据已经加载完毕了")
@@ -243,27 +243,14 @@ class StoreViewController: ViewController {
                     self.rightTableView.uFoot.endRefreshingWithNoMoreData()
                     self.rightTableView.uFoot.isHidden = true
                     self.rightTableView.reloadData()
-                }else {
-                    self.rightTableView.uFoot.endRefreshing()
-                    var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
-                    tempList += list
-                    
-                    debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
-                    self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
-                    
-                    if self.classInfos[self.currentIndexPath.row].goodsInfo.count == self.handleFilterArray(arr: tempList).count {
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        debugPrints("数据已经加载完毕了")
-                        self.isData = false
-                        self.rightTableView.uFoot.endRefreshingWithNoMoreData()
-                        self.rightTableView.uFoot.isHidden = true
-                        self.rightTableView.reloadData()
-                    }
                 }
+                
+                self.rightTableView.uFoot.endRefreshing()
+                var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
+                tempList += list
+                
+                debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
+                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
             }
             
         }) { (error) in
