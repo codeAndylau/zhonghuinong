@@ -8,14 +8,12 @@
 
 import UIKit
 import MBProgressHUD
+import PPBadgeViewSwift
 
 /// 配送选货
 class DeliveryViewController: ViewController {
     
     // MARK: Preparty
-    
-    var isMember = true
-    var isSelected = false
     
     var goodsWeight: CGFloat = 0  // 商品总重量
     var deliverynum: Int = 1      // 配送需要减去的次数
@@ -40,6 +38,7 @@ class DeliveryViewController: ViewController {
                     headerView.addressView.addressInfo = addressList[0]
                 }
             }else {
+                headerView.addressView.tipLab.isHidden = false
                 debugPrints("两个接口数据没有请求完成")
             }
         }
@@ -49,26 +48,24 @@ class DeliveryViewController: ViewController {
     var dispatchDate: DispatchDateInfo = DispatchDateInfo() {
         didSet {
             
+            // 显示用户所选的配送日期
+            headerView.dateView.dispatchDate = dispatchDate
+            
             /// 1. 先判断是否选择过配送时间
             if dispatchDate.monday == false && dispatchDate.tuesday == false && dispatchDate.wednesday == false &&
-                dispatchDate.thursday == false && dispatchDate.friday == false && dispatchDate.saturday == false && dispatchDate.sunday == false {
+                dispatchDate.thursday == false && dispatchDate.friday == false && dispatchDate.saturday == false &&
+                dispatchDate.sunday == false {
                 mainQueue {
                     self.dateViewDemo.show()
                 }
-                
             }else {
-                
-                /// 2. 表示已经选择过了配送蔬菜的日期: 星期1-7 只少两天，并且提前两天选菜
-                
-                // 显示用户所选的配送日期
-                headerView.dateView.dispatchDate = dispatchDate
-                
+
                 debugPrints("是否可以选择菜--\(selectMenu())")
                 
-                /// 3. 判断当前能否有阔以选择的蔬菜日期
+                /// 2. 判断当前能否有阔以选择的蔬菜日期 -- 表示已经选择过了配送蔬菜的日期: 星期1-7 只少两天，并且提前两天选菜
                 if selectMenu() {
                     
-                    /// 4. 再去判断当前是否已经选择过了配送的蔬菜
+                    /// 3. 再去判断当前是否已经选择过了配送的蔬菜
                     fetchDispatchOrderList()
                     
                 }else {
@@ -76,7 +73,6 @@ class DeliveryViewController: ViewController {
                     headerView.dateView.tipsLab.text = ""
                     
                     /// 之前没有选择过的话今天就阔以选菜就直接选择
-                    collectionView.addSubview(headerView)
                     
                     /// 请求是否有已经选择过了配送的订单
                     let emptyV = EmptyView()
@@ -171,28 +167,46 @@ class DeliveryViewController: ViewController {
             if vegetablesInfo.count > 0 {
                 
                 /// 判断今天是否已经选择过了
-                var isSelected = false
+                var isTodaySelected = false
                 for item in vegetablesInfo {
                     if item.scheduleDay == deliveryday  {
-                        isSelected = true
+                        isTodaySelected = true
                         break
                     }
                 }
 
-                /// 表示已经选择过了
-                if isSelected {
+                /// 表示已经选择过了,就显示当天选择的蔬菜信息
+                if isTodaySelected {
 
-                    mainQueue {
-                        
-                        self.navigationItem.title = "进行中的订单"
-                        self.collectionView.isHidden = true
-                        self.view.addSubview(self.tableView)
-                        self.tableView.reloadData()
+//                    mainQueue {
+//                        self.collectionView.isHidden = true
+//                        self.view.addSubview(self.tableView)
+//                        self.tableView.reloadData()
+//                    }
+                    
+                    headerView.dateView.tipsLab.text = ""
+                    
+                    /// 请求是否有已经选择过了配送的订单
+                    let emptyV = EmptyView()
+                    view.addSubview(emptyV)
+                    emptyV.config = EmptyViewConfig(title: "您今天已经选择过配送的蔬菜了🥬,是否查看选择的蔬菜信息",
+                                                    image: UIImage(named: "farm_delivery_nonmember"),
+                                                    btnTitle: "确定")
+                    emptyV.snp.makeConstraints { (make) in
+                        make.top.equalTo(kNavBarH+155)
+                        make.left.bottom.right.equalTo(self.view)
+                    }
+                    
+                    emptyV.sureBtnClosure = {
+                        self.navigator.show(segue: .deliveryOrderInfo, sender: self)
                     }
 
                 }else {
+                    
                     /// 之前没有选择过的话今天就阔以选菜就直接选择
-                    collectionView.addSubview(headerView)
+                    
+                    headerView.dateView.dispatchDate = dispatchDate
+                    
                     view.addSubview(commitVew)
                     fetchDispatchMenu()
                 }
@@ -203,7 +217,7 @@ class DeliveryViewController: ViewController {
                 let emptyV = EmptyView()
                 view.addSubview(emptyV)
                 emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬,是否查看所选蔬菜的历史订单",
-                                                image: UIImage(named: "farm_delivery_nonmember"),
+                                                image: UIImage(named: "basket_paySuccess"),
                                                 btnTitle: "确定")
                 emptyV.snp.makeConstraints { (make) in
                     make.top.equalTo(kNavBarH+155)
@@ -233,12 +247,14 @@ class DeliveryViewController: ViewController {
         view.backgroundColor = UIColor.white
         
         /// 1. 判断是否是vip
-        if User.currentUser().isVip == 0 {
+        
+        // FIXME: 上架需要删除
+        if User.currentUser().isVip != 0 {
             
             navigationItem.title = "配送选货"
             navigationItem.rightBarButtonItem = rightRecordItem
             
-            //collectionView.addSubview(headerView)
+            collectionView.addSubview(headerView)
             view.addSubview(collectionView)
             
             // 加载数据
@@ -317,7 +333,11 @@ class DeliveryViewController: ViewController {
          0是非VIP 1是个人VIP 2是企业用户
          */
         
-        switch userInfo.isVip {
+        switch User.currentUser().isVip {
+            
+        case 0:
+            debugPrint("普通用户")
+            browseOrderVC.orderView.bottomView.numLab.text = "-\(deliverynum)"
         case 1:
             debugPrint("vip用户")
             browseOrderVC.orderView.bottomView.numLab.text = "-\(deliverynum)"
@@ -408,6 +428,7 @@ class DeliveryViewController: ViewController {
     
     /// 获取配送次数
     func fetchUserBalance() {
+        
         let params = ["userid": User.currentUser().userId]
         WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { [weak self] (model) in
             guard let self = self else { return }
@@ -430,7 +451,7 @@ class DeliveryViewController: ViewController {
             guard let self = self else { return }
             self.addressList = list
         }) { (error) in
-            ZYToast.showCenterWithText(text: error)
+            self.addressList = []
         }
     }
     
@@ -438,9 +459,22 @@ class DeliveryViewController: ViewController {
     func fetchDispatchDate() {
         
         let params = ["userid": User.currentUser().userId]
+        
+        debugPrints("获取配送的日期参数---\(params)")
+        
         WebAPITool.requestModel(WebAPI.fetchDispatchDate(params), model: DispatchDateInfo.self, complete: { [weak self] (model) in
             debugPrints("配送的时间---\(model)")
             guard let self = self else { return }
+            
+//            var info = DispatchDateInfo()
+//            info.monday = false
+//            info.tuesday = false
+//            info.wednesday = false
+//            info.thursday = false
+//            info.friday = false
+//            info.saturday = false
+//            info.sunday = false
+            
             self.dispatchDate = model
         }) { (error) in
             debugPrints("配送的时间失败---\(error)")
@@ -700,10 +734,25 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
     func calculateGoodsPrice() {
         
         var price: CGFloat = 0
+        var goodsNum = 0  // 表示购物的蔬菜数量
         
         dispatchMenuInfo.forEach { (item) in
             if item.num != 0 {
                 price += CGFloat(item.num) * item.unitweight
+                goodsNum += 1
+            }
+        }
+        
+        if goodsNum > 0 {
+            /// 设置Badge的偏移量, Badge中心点默认为其父视图的右上角 Set Badge offset, Badge center point defaults to the top right corner of its parent view
+            ///
+            /// - Parameters:
+            ///   - x: X轴偏移量 (x<0: 左移, x>0: 右移) axis offset (x <0: left, x> 0: right)
+            ///   - y: Y轴偏移量 (y<0: 上移, y>0: 下移) axis offset (Y <0: up,   y> 0: down)
+            commitVew.leftImg.pp.moveBadge(x: -10, y: 35)
+            commitVew.leftImg.pp.addBadge(number: goodsNum)
+            commitVew.leftImg.pp.setBadgeLabel { (lab) in
+                lab.backgroundColor = Color.theme1DD1A8
             }
         }
         
@@ -722,10 +771,13 @@ extension DeliveryViewController: UICollectionViewDataSource, UICollectionViewDe
          0是非VIP 1是个人VIP 2是企业用户
          */
         
-        switch userInfo.isVip {
+        switch User.currentUser().isVip {
+        case 0:
+            debugPrint("普通用户")
+            commitVew.timesLab.text = "配送次数：-\(deliverynum)"
         case 1:
             debugPrint("vip用户")
-            commitVew.timesLab.text = "-\(deliverynum)"
+            commitVew.timesLab.text = "配送次数：-\(deliverynum)"
         case 2:
             debugPrint("企业用户")
             commitVew.timesLab.text = "免配配送"

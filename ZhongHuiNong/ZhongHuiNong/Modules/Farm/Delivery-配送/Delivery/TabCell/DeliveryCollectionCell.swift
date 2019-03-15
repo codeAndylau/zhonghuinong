@@ -31,6 +31,7 @@ class DeliveryCollectionCell: CollectionViewCell, TabReuseIdentifier {
     let addView = AddSelectedView().then { (view) in
         view.backgroundColor = Color.whiteColor
         view.numLab.text = "0"
+        view.isNum = true  // 表示阔以减到0。就是不买这个蔬菜
     }
     
     override func makeUI() {

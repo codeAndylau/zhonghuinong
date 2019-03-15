@@ -34,6 +34,8 @@ class AddSelectedView: View {
         return lab
     }()
     
+    var isNum = false  // 是否阔以减到0
+    
     typealias ActionClosure = ((_ index: Int)->Void)
     
     var addDidClosure: ActionClosure?
@@ -48,11 +50,20 @@ class AddSelectedView: View {
     
     @objc func jianhaoAction() {
         var num = Int(numLab.text!)!
-        if num > 1 {
-            num -= 1
-            self.minusDidClosure?(num)
+        if isNum {
+            if num >= 1 {
+                num -= 1
+                self.minusDidClosure?(num)
+            }else {
+                num = 1
+            }
         }else {
-            num = 1
+            if num > 1 {
+                num -= 1
+                self.minusDidClosure?(num)
+            }else {
+                num = 1
+            }
         }
         self.numLab.text = "\(num)"
     }

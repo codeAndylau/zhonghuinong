@@ -21,6 +21,7 @@ class GoodsDetailViewController: ViewController {
         didSet {
             debugPrints("购物车数量---\(cartNum)")
             if cartNum > 0 {
+                buyView.caiLanBtn.pp.moveBadge(x: -15, y: 10)
                 buyView.caiLanBtn.pp.addBadge(number: cartNum)
                 buyView.caiLanBtn.pp.setBadgeLabel { (lab) in
                     lab.backgroundColor = Color.theme1DD1A8
@@ -209,6 +210,9 @@ class GoodsDetailViewController: ViewController {
             self.goodsDetailInfo = info
         }) { (error) in
             debugPrints("获取商品信息出错---\(error)")
+            //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E6%89%8B%E5%B7%A5%E9%85%B1%E6%B2%B9.png
+            //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E7%99%BD%E8%90%9D%E5%8D%9C.png
+            //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail\/%E5%AE%9D%E5%A1%94%E8%8F%9C%E8%8A%B1.png
         }
     }
     
@@ -217,7 +221,7 @@ class GoodsDetailViewController: ViewController {
 extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goodsDetailInfo.detailImgUrl != "" ? 1 : 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -236,14 +240,15 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.imgView.image = img
         }else {
             cell.activity.startAnimating()
-            downLoadImg(imgUrl: url, indexPath: indexPath)
+            downLoadImg(imgUrl: url, cell: cell)
         }
     }
     
-    func downLoadImg(imgUrl: String, indexPath: IndexPath) {
+    func downLoadImg(imgUrl: String, cell: GoodsDetailImgTabCell) {
         
         guard let url = URL(string: imgUrl) else {
             debugPrints("商品详情图片url不存在-----")
+            cell.activity.stopAnimating()
             return
         }
         

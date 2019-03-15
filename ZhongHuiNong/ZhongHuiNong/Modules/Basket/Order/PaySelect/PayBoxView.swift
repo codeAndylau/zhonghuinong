@@ -65,12 +65,14 @@ class PayBoxView: View, UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField:UITextField) {
-        
+
         for layer in roundLayerArray {
             layer.isHidden = true
         }
         
-        for i in 0..<textField.text!.count{
+        for i in 0..<textField.text!.count {
+            
+            debugPrints("输入的密码---\(String(describing: textField.text))")
             let layer = roundLayerArray[i]
             layer.isHidden = false
         }
@@ -79,9 +81,11 @@ class PayBoxView: View, UITextFieldDelegate {
             self.entryCompleteBlock?(textField.text!)
             self.tf.text = ""
         }
+        
     }
     
     func clearLayer() {
+        self.tf.text = ""
         roundLayerArray.forEach { (layer) in
             layer.isHidden = true
         }

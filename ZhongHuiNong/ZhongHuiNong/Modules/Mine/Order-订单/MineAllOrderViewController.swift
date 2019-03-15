@@ -13,7 +13,9 @@ class MineAllOrderViewController: ViewController {
 
     var orderList: [MineGoodsOrderInfo] = [] {
         didSet {
-            tableView.reloadData()
+            mainQueue {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -26,7 +28,6 @@ class MineAllOrderViewController: ViewController {
         super.bindViewModel()
         fetchAllOrder()
     }
-    
     
     // MARK: - Lazy
     lazy var tableView: TableView = {
@@ -63,7 +64,6 @@ class MineAllOrderViewController: ViewController {
         }) { (error) in
             debugPrints("获取所有订单失败---\(error)")
             self.orderList = []
-            //ZYToast.showCenterWithText(text: "服务器正在高速运转")
             if isRefresh {
                 self.tableView.uHead.endRefreshing()
             }

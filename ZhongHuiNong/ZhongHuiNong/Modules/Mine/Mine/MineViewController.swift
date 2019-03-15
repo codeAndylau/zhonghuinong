@@ -13,6 +13,8 @@ class MineViewController: TableViewController {
     
     // MARK: - Property
     
+    let window = Application.shared.window!
+    
     var balance: UserBanlance = UserBanlance() {
         didSet {
             debugPrints("用户的额度信息---\(balance)")
@@ -39,6 +41,7 @@ class MineViewController: TableViewController {
         
         tableView.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchUserBalance()
+            self.fetchUserInfo()
         })
         
         NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
@@ -46,7 +49,13 @@ class MineViewController: TableViewController {
             self.fetchUserBalance()
         }).disposed(by: rx.disposeBag)
         
+        NotificationCenter.default.rx.notification(.updateUserInfo).subscribe(onNext: { (_) in
+            debugPrints("刷新用户的信息")
+            self.fetchUserInfo()
+        }).disposed(by: rx.disposeBag)
+        
         fetchUserBalance()
+        fetchUserInfo()
     }
     
     func fetchUserBalance() {
@@ -60,6 +69,21 @@ class MineViewController: TableViewController {
             self.tableView.uHead.endRefreshing()
         }
 
+    }
+    
+    func fetchUserInfo() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        
+        WebAPITool.requestModel(WebAPI.fetchUserInfo(params), model: User.self, complete: { (model) in
+            model.save()
+            delay(by: 0.5, closure: {
+                self.navigationController?.popViewController(animated: true)
+            })
+        }) { (error) in
+            HudHelper.hideHUD()
+        }
     }
 
     override func bindViewModel() {
@@ -105,7 +129,7 @@ class MineViewController: TableViewController {
         }).disposed(by: rx.disposeBag)
         
         headerView.memberBtn.rx.tap.subscribe(onNext: { (_) in
-            guard userInfo.isVip == 0 else {return}
+            guard User.currentUser().isVip == 0 else {return}
             callUpWith(linkMan) // 填写运营人员的电话号码
             //self.navigator.show(segue: .mineMember(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
@@ -113,7 +137,7 @@ class MineViewController: TableViewController {
     }
     
     // MARK: - Lazy
-    lazy var titleArray = ["配送订单","我的收藏","联系客服","关于我们","设置"] // "我的地块",
+    lazy var titleArray = ["配送订单","我的收藏","联系客服","关于我们","设置","退出登录"]
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
@@ -156,9 +180,14 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigator.show(segue: .mineAbout, sender: self)
         case 4:
             self.navigator.show(segue: .mineSetting, sender: self)
+        case 5:
+            User.removeCurrentUser()
+            self.navigator.show(segue: .login, sender: self, transition: .root(window: window))
         default:
             break
         }
     }
+    
+    
     
 }

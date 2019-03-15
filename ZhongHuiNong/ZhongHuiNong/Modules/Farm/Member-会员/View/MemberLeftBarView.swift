@@ -15,7 +15,8 @@ class FarmHeaderView: Button {
     }
     
     let header = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait") // farm_head 
+        img.image = UIImage(named: "mine_default_ portrait") // farm_head
+        img.cuttingCorner(radius: 15)
     }
     
     let sureBtn = Button()

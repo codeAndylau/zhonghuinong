@@ -199,7 +199,9 @@ class MineHeaderView: View {
     }
     
     var user: User = User() {
+        
         didSet {
+            
             nameLab.text = user.username
             headerBtn.kf.setImage(with: URL(string: user.userImg), for: .normal, placeholder: UIImage(named: "mine_default_ portrait"))
             phoneLab.text = ""
@@ -214,7 +216,9 @@ class MineHeaderView: View {
             }else {
                 memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
             }
+            
         }
+        
     }
 
 }

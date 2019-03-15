@@ -126,7 +126,7 @@ class BasketViewController: TableViewController {
     func fetchShopingCartList(isRefresh: Bool = false) {
         
         var p = [String: Any]()
-        p["userid"] = userInfo.userId
+        p["userid"] = User.currentUser().userId
         
         WebAPITool.requestModelArrayWithData(WebAPI.fetchCart(p), model: CartGoodsInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }

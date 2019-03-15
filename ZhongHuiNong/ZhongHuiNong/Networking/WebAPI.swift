@@ -77,6 +77,8 @@ enum WebAPI {
     // MARK: Order-订单接口
     /// 购物车创建订单
     case createOrder(_ p: [String: Any])
+    /// 删除订单
+    case deleteOrder(_ p: [String: Any])
     /// 添加商品到购物车
     case addToCart(_ userId: Int, _ p: [[String: Any]])
     /// 清空购物车
@@ -128,7 +130,7 @@ extension WebAPI: TargetType, WebAPIType {
         switch self {
         case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_), .bindMobile(_), .fetchUserInfo(_),
             .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_),
-            .createOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
+            .createOrder(_), .deleteOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
             .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu, .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_), .dispatchTrackingList(_):
             
             
@@ -171,6 +173,7 @@ extension WebAPI: TargetType, WebAPIType {
         case .goodsRecommendList(_): return "/api/Shop/GoodsListRecommend"
             
         case .createOrder(_): return "/api/Order/createorder"
+        case .deleteOrder(_): return "/api/Order/deleteorder"
         case .addToCart(_, _): return "/api/Order/addtocart"
         case .removeCart(_, _): return "/api/Order/removecart"
         case .fetchCart(_): return "/api/Order/cart"
@@ -200,7 +203,7 @@ extension WebAPI: TargetType, WebAPIType {
         case .wechatLogin(_), .mobileLogin(_), .settingPayPassword(_), .verifyCode(_), .bindMobile(_),
              .farmWater(_), .farmFertilize(_), .farmKillbug(_),
              .createOrder(_), .addToCart(_, _), .removeCart(_,_), .cartOrderPayment(_),
-             .settingDispatchDate(_,_), .createDispatchOrder(_,_):
+             .settingDispatchDate(_,_), .createDispatchOrder(_,_), .deleteOrder(_):
             return .post
         default:
             return .get
@@ -259,12 +262,13 @@ extension WebAPI: TargetType, WebAPIType {
              .userOrderReceipt(let p),
              .userOrderReputation(let p),
              .userOrderReputationShow(let p),
-             .cancelOrder(let p):
+             .cancelOrder(let p),
+             .deleteOrder(let p):
             
             return .requestParameters(parameters: p, encoding: URLEncoding.default)
             
         // 拼接在url中
-        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .bindMobile(let p), .dispatchOrderList(let p), .fetchUserInfo(let p), .mobileLogin(let p):
+        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .bindMobile(let p), .dispatchOrderList(let p), .fetchUserInfo(let p), .mobileLogin(let p), .fetchDispatchDate(let p):
             return .requestCompositeData(bodyData: Data(), urlParameters: p)
             
         case .goodsDetail(_):
@@ -282,6 +286,8 @@ extension WebAPI: TargetType, WebAPIType {
             
         case .wechatLogin(_), .addToCart(_, _), .createOrder(_), .settingDispatchDate(_, _), .createDispatchOrder(_, _), .removeCart(_, _):
             return ["content-type" : "application/json-patch+json"]
+        case .validationPayPassword(_):
+            return ["content-type": "application/json; charset=utf-8"]
         default:
             return ["content-type" : "text/plain; charset=utf-8"] // application/json
         }

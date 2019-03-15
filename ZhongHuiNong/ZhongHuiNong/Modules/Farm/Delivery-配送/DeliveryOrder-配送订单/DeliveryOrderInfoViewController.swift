@@ -33,21 +33,22 @@ class DeliveryOrderInfoViewController: ViewController {
     
     func emptyData() {
         
-        guard vegetablesInfo.count == 0 && historyInfo.count == 0 else {
-            self.tableView.reloadData()
-            return
-        }
+        self.tableView.reloadData()
         
-        let emptyView = EmptyView()
-        view.addSubview(emptyView)
-        emptyView.config = EmptyViewConfig(title: "您暂时没有历史配送蔬菜订单信息", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "确认")
-        emptyView.snp.makeConstraints { (make) in
-            make.top.equalTo(kNavBarH)
-            make.left.bottom.right.equalTo(self.view)
-        }
-        emptyView.sureBtnClosure = {
-            self.navigationController?.popViewController(animated: true)
-        }
+        //        guard vegetablesInfo.isEmpty && historyInfo.isEmpty else {
+        //            let emptyView = EmptyView()
+        //            view.addSubview(emptyView)
+        //            emptyView.config = EmptyViewConfig(title: "您暂时没有历史配送蔬菜订单信息", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "确认")
+        //            emptyView.snp.makeConstraints { (make) in
+        //                make.top.equalTo(kNavBarH)
+        //                make.left.bottom.right.equalTo(self.view)
+        //            }
+        //            emptyView.sureBtnClosure = {
+        //                self.navigationController?.popViewController(animated: true)
+        //            }
+        //            return
+        //        }
+        
         
     }
     

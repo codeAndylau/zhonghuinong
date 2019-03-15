@@ -16,30 +16,30 @@ struct GoodsInfo: Mappable {
     var brandId : Int = defaultId
     var catalogId : Int = defaultId
     var categoryId : Int = defaultId
-    var costPrice : CGFloat = 0
+    var costPrice : Int = defaultId
     var descriptionField : String = ""
-    var expiryEndDate : String = ""
+    var detailImgUrl : String = ""
+    var expiryEndDate : AnyObject?
     var focusImgUrl : String = ""
-    var detailImgUrl: String = ""
-    var goodreputation_num : Int = defaultId
+    var goodreputationNum : Int = defaultId
     var hotsale : Bool = false
     var id : Int = defaultId
     var latest : Bool = false
-    var link_url : String = ""
+    var linkUrl : String = ""
     var marketPrice : CGFloat = 0
     var ordersNum : Int = defaultId
     var productName : String = ""
     var productCode : String = ""
-    var productionDate : String = ""
+    var productionDate : AnyObject?
     var recommended : Bool = false
     var salePrice : CGFloat = 0
-    var seo_description : String = ""
-    var seo_keywords : String = ""
-    var seo_title : String = ""
-    var share_num : Int = defaultId
+    var seoDescription : String = ""
+    var seoKeywords : String = ""
+    var seoTitle : String = ""
+    var shareNum : Int = defaultId
     var shortDesc : String = ""
     var sku : String = ""
-    var sort_id : Int = defaultId
+    var sortId : Int = defaultId
     var specialOffer : Bool = false
     var stock : Int = defaultId
     var thumbnailsUrll : String = ""
@@ -49,10 +49,9 @@ struct GoodsInfo: Mappable {
     var vistiCounts : Int = defaultId
     var weight : Int = defaultId
     var wid : Int = defaultId
+    var wordImgUrl : String = ""
     var youjia : Int = defaultId
     
-//    var checked: Bool = true   // 默认是被选中的
-//    var goodsNum: CGFloat = 1  // 默认只添加了一个
 
     init() {}
     init?(map: Map) {}
@@ -63,14 +62,14 @@ struct GoodsInfo: Mappable {
         categoryId <- map["categoryId"]
         costPrice <- map["costPrice"]
         descriptionField <- map["description"]
+        detailImgUrl <- map["detailImgUrl"]
         expiryEndDate <- map["expiryEndDate"]
         focusImgUrl <- map["focusImgUrl"]
-        detailImgUrl <- map["detailImgUrl"]
-        goodreputation_num <- map["goodreputation_num"]
+        goodreputationNum <- map["goodreputation_num"]
         hotsale <- map["hotsale"]
         id <- map["id"]
         latest <- map["latest"]
-        link_url <- map["link_url"]
+        linkUrl <- map["link_url"]
         marketPrice <- map["marketPrice"]
         ordersNum <- map["orders_num"]
         productName <- map["productName"]
@@ -78,13 +77,13 @@ struct GoodsInfo: Mappable {
         productionDate <- map["productionDate"]
         recommended <- map["recommended"]
         salePrice <- map["salePrice"]
-        seo_description <- map["seo_description"]
-        seo_keywords <- map["seo_keywords"]
-        seo_title <- map["seo_title"]
-        share_num <- map["share_num"]
+        seoDescription <- map["seo_description"]
+        seoKeywords <- map["seo_keywords"]
+        seoTitle <- map["seo_title"]
+        shareNum <- map["share_num"]
         shortDesc <- map["shortDesc"]
         sku <- map["sku"]
-        sort_id <- map["sort_id"]
+        sortId <- map["sort_id"]
         specialOffer <- map["specialOffer"]
         stock <- map["stock"]
         thumbnailsUrll <- map["thumbnailsUrll"]
@@ -94,6 +93,7 @@ struct GoodsInfo: Mappable {
         vistiCounts <- map["vistiCounts"]
         weight <- map["weight"]
         wid <- map["wid"]
+        wordImgUrl <- map["wordImgUrl"]
         youjia <- map["youjia"]
     }
 }

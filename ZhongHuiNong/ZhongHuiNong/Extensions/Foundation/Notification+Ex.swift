@@ -9,6 +9,9 @@
 import Foundation
 
 extension NSNotification.Name {
+    
+    /// 更新用户嘻嘻
+    static let updateUserInfo = NSNotification.Name(localized("updateUserInfo"))
     /// 首页商品分类点击
     static let HomeGoodsClassDid = NSNotification.Name(localized("HomeGoodsClassDid"))
     /// 微信登录通知

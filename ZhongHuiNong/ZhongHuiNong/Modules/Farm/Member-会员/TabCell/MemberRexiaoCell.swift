@@ -56,12 +56,23 @@ extension MemberRexiaoCell: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemberRexiaoSubCell.identifier, for: indexPath) as! MemberRexiaoSubCell
+        
+        if indexPath.item == 0 {
+            cell.tipsImg.lc_setLocalImage(with: "farm_rexiao_1")
+        }
+        
+        if indexPath.item == 1 {
+            cell.tipsImg.lc_setLocalImage(with: "farm_rexiao_2")
+        }
+        
+        if indexPath.item == 2 {
+            cell.tipsImg.lc_setLocalImage(with: "farm_rexiao_3")
+        }
+        
         cell.titleLab.text = hotsaleList[indexPath.row].productName
-        cell.detailLab.text = hotsaleList[indexPath.row].unit
+        //cell.detailLab.text = hotsaleList[indexPath.row].unit
         cell.topImg.lc_setImage(with: hotsaleList[indexPath.row].focusImgUrl)
-        //cell.topImg.image = UIImage(named: dataArray[indexPath.row])
-        //        cell.titleLab.text = ["高山土鸡","有机野香猪","绿壳鸡蛋"][indexPath.row]
-        //        cell.detailLab.text = ["高山散养","山野香味","自然产卵"][indexPath.row]
+        
         return cell
     }
     
@@ -87,6 +98,7 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
     
     let topImg = ImageView().then { (img) in
         img.backgroundColor = Color.whiteColor
+        img.cuttingCorner(radius: 10)
     }
     
     let tipsImg = ImageView().then { (img) in
@@ -94,13 +106,13 @@ class MemberRexiaoSubCell: CollectionViewCell, TabReuseIdentifier {
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "高山土鸡"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x333333)
         lab.font = UIFont.boldSystemFont(ofSize: 13)
     }
     
     let detailLab = Label().then { (lab) in
-        lab.text = "四川大竹，高山散养"
+        lab.text = ""
         lab.textAlignment = .center
         lab.textColor = UIColor.hexColor(0xFF9C6E)
         lab.font = UIFont.boldSystemFont(ofSize: 9)

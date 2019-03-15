@@ -16,6 +16,7 @@ class PaySelectViewController: SwiftPopup {
     var money: Double = 0 {
         didSet {
             let price = Keepfigures(text: CGFloat(money))
+            debugPrints("支付money000\(price)")
             paySelectView.moneyLab.text = price
         }
     }
@@ -73,7 +74,7 @@ class PaySelectViewController: SwiftPopup {
             self.paySelectView.status = .alipay
         }).disposed(by: rx.disposeBag)
         
-        /// 弹出密码支付框
+        /// 余额支付
         paySelectView.sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.validationMoney()

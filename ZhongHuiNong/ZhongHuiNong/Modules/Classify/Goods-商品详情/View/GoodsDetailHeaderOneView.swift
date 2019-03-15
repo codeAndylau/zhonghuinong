@@ -44,7 +44,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let vipChongzhiLab = Label().then { (lab) in
-        lab.text = "立即充值"
+        lab.text = "" // 立即充值
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
@@ -54,7 +54,7 @@ class GoodsDetailHeaderOneView: View {
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "新鲜红颜奶油草莓 约重1kg约30-40颗"
+        lab.text = "" // 新鲜红颜奶油草莓 约重1kg约30-40颗
         lab.textColor = UIColor.hexColor(0x333333)
         lab.font = UIFont.boldSystemFont(ofSize: 16)
     }

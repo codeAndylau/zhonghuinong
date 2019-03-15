@@ -91,75 +91,62 @@ class DeliveryDateView: View {
         
         day1Btn.snp.makeConstraints { (make) in
             make.left.centerY.equalTo(self).offset(10)
-            make.width.equalTo(kScreenW/7)
+            make.width.equalTo((kScreenW-50)/7)
             make.height.equalTo(30)
         }
         
         day2View.snp.makeConstraints { (make) in
-            make.left.equalTo(day1Btn.snp.right)
+            make.left.equalTo(day1Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day1Btn)
         }
         
         day2HeightView.snp.makeConstraints { (make) in
-            make.left.equalTo(day1Btn.snp.right)
+            make.left.equalTo(day1Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day1Btn)
         }
         
         day2Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day1Btn.snp.right)
+            make.left.equalTo(day1Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day1Btn)
         }
         
         day3Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day2Btn.snp.right)
+            make.left.equalTo(day2Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day2Btn)
         }
         
         day4Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day3Btn.snp.right)
+            make.left.equalTo(day3Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day3Btn)
         }
         
         day5View.snp.makeConstraints { (make) in
-            make.left.equalTo(day4Btn.snp.right)
+            make.left.equalTo(day4Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day4Btn)
         }
         
         day5HeightView.snp.makeConstraints { (make) in
-            make.left.equalTo(day4Btn.snp.right)
+            make.left.equalTo(day4Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day4Btn)
         }
         
         day5Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day4Btn.snp.right)
+            make.left.equalTo(day4Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day4Btn)
         }
         
         day6Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day5Btn.snp.right)
+            make.left.equalTo(day5Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day5Btn)
         }
         
         day7Btn.snp.makeConstraints { (make) in
-            make.left.equalTo(day6Btn.snp.right)
+            make.left.equalTo(day6Btn.snp.right).offset(5)
             make.centerY.width.height.equalTo(day6Btn)
         }
         
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        dayBtnAction(day2View)
-//        dayBtnHeightAction(day2HeightView)
-//
-//        dayBtnAction(day5View)
-//        dayBtnHeightAction(day5HeightView)
-        
-//        day2View.isHidden = true
-//        day5HeightView.isHidden = true
-    }
-    
+
     func day2Height() {
         day5HeightView.isHidden = true
         day2View.isHidden = true
@@ -179,8 +166,6 @@ class DeliveryDateView: View {
     
     func dayBtnAction(_ sender: Button) {
         
-        //day5Btn.setTitleColor(UIColor.white, for: .normal)
-        
         // strokeCode
         let borderLayer1 = CALayer()
         borderLayer1.frame = sender.bounds
@@ -196,8 +181,6 @@ class DeliveryDateView: View {
     }
     
     func dayBtnHeightAction(_ sender: Button) {
-        
-        //day2Btn.setTitleColor(UIColor.white, for: .normal)
         
         // strokeCode
         let borderLayer1 = CALayer()

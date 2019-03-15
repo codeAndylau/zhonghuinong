@@ -75,6 +75,17 @@ class GoodsDetailHeaderView: View {
             guard let self = self else { return }
             self.pageLab.text = "\(index)/\(self.ImgArray.count)"
         }
+        
+        switch User.currentUser().isVip {
+        case 1:
+            topView.vipLab.text = "您是尊享VIP,购买商品享受会员价格优惠"
+        case 2:
+            topView.vipLab.text = "您是企业VIP,商品可以直接购买"
+        default:
+            break
+        }
+        
+        
     }
     
     override func updateUI() {

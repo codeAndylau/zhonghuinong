@@ -51,6 +51,11 @@ class PayPasswordViewController: SwiftPopup {
         super.viewWillAppear(animated)
     }
     
+    override  func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        paySureView.boxView.clearLayer()
+    }
+    
     deinit {
         debugPrints("支付密码框界面已经销毁")
     }
@@ -71,9 +76,7 @@ class PayPasswordViewController: SwiftPopup {
         var params = [String: Any]()
         params["userid"] = User.currentUser().userId
         params["paymentpassword"] = psd
-        
-        paySureView.boxView.clearLayer()
-        
+
         WebAPITool.request(WebAPI.validationPayPassword(params), complete: { (value) in
             let success = value.boolValue
             if success {
@@ -81,6 +84,7 @@ class PayPasswordViewController: SwiftPopup {
                 self.cartOrderPayment()
             }else {
                 debugPrint("支付密码验失败")
+                self.paySureView.boxView.clearLayer()
                 ZYToast.showCenterWithText(text: "支付密码不正确，请重新输入密码！")
             }
         }) { (error) in
@@ -110,10 +114,10 @@ class PayPasswordViewController: SwiftPopup {
             if success {
                 debugPrints("订单支付成功---\(value)")
                 mainQueue {
-                    self.dismiss()
-                    self.paySuccessClosure?()
+                    self.dismiss(completion: {
+                        self.paySuccessClosure?()
+                    })
                 }
-                NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
             }else {
                 debugPrint("订单支付失败")
             }

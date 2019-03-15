@@ -61,11 +61,11 @@ class FarmMembersViewController: TableViewController {
         super.makeUI()
         
         if User.hasUser() && User.currentUser().isVip != 0 {
+            vipItem.header.lc_setImage(with: User.currentUser().headimgUrl)
             navigationItem.leftBarButtonItem = leftBarItem
         }
         
         navigationItem.rightBarButtonItem = rightMsgItem
-        
         
         view.addSubview(tableView_g)
         
@@ -159,7 +159,6 @@ class FarmMembersViewController: TableViewController {
             dropupView.showMenu()
         }
     }
-    
     
     func loadAllData() {
         fetchBannerList()
@@ -312,7 +311,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberRexiaoCell.identifier, for: indexPath) as! MemberRexiaoCell
             cell.hotsaleList = hotsaleList
             cell.cellDidClosure = { index in
-                let goodId = self.hotsaleList[indexPath.row].id
+                let goodId = self.hotsaleList[index].id
                 debugPrints("点击热销商品的id---\(goodId)")
                 self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
             }
@@ -320,7 +319,10 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MemberTuijianCell.identifier, for: indexPath) as! MemberTuijianCell
-        cell.imgView.lc_setImage(with: recommendList[indexPath.row].focusImgUrl)
+
+        debugPrints("测试url---\(recommendList[indexPath.row].wordImgUrl)")
+        
+        cell.imgView.lc_setImage(with: recommendList[indexPath.row].wordImgUrl)
         
         return cell
         

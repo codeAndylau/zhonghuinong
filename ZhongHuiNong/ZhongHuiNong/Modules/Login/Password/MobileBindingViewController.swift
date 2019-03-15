@@ -162,7 +162,6 @@ class MobileBindingViewController: ViewController {
         }) { (error) in
             HudHelper.hideHUD()
         }
-        
     }
 
 }

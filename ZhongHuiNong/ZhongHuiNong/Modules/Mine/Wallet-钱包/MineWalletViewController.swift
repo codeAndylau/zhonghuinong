@@ -9,8 +9,6 @@
 import UIKit
 
 class MineWalletViewController: TableViewController {
-
-    var isSettingPsd = false
     
     var banlance: UserBanlance = UserBanlance() {
         didSet {
@@ -23,7 +21,7 @@ class MineWalletViewController: TableViewController {
         
         navigationItem.title = localized("钱包")
         
-        if User.hasUser() && User.currentUser().isVip != 0 {
+        if User.hasUser() && User.currentUser().isVip == 0 {
             
             let emptyView = EmptyView()
             view.addSubview(emptyView)
@@ -36,7 +34,6 @@ class MineWalletViewController: TableViewController {
                 let phone = linkMan  // 填写运营人员的电话号码
                 callUpWith(phone)
             }
-            
         }else {
             
             tableView.dataSource = self
@@ -44,8 +41,7 @@ class MineWalletViewController: TableViewController {
             tableView.tableHeaderView = headerView
             tableView.tableFooterView = nomoreView
             tableView.register(MineWalletTabCell.self, forCellReuseIdentifier: MineWalletTabCell.identifier)
-            isSettingPsd = defaults.bool(forKey: Configs.Identifier.SettingPayPsd)
-            debugPrints("是否设置了支付密码---\(isSettingPsd)")
+            debugPrints("是否设置了支付密码---\(User.currentUser().isPayPassword)")
         }
         
     }
@@ -62,7 +58,7 @@ class MineWalletViewController: TableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if User.hasUser() && User.currentUser().isVip != 0 && !isSettingPsd  {
+        if User.hasUser() && User.currentUser().isVip != 0 && !User.currentUser().isPayPassword  {
             PayPasswordDemo.show()
         }
         
@@ -88,14 +84,31 @@ class MineWalletViewController: TableViewController {
             HudHelper.hideHUD()
             if value.boolValue {
                 defaults.set(true, forKey: Configs.Identifier.SettingPayPsd)
-                ZYToast.showCenterWithText(text: "设置支付密码成功!!!")
+                ZYToast.showCenterWithText(text: "设置支付密码成功")
+                NotificationCenter.default.post(name: .updateUserInfo, object: nil)
+                self.fetchUserInfo()
             }else {
-                ZYToast.showCenterWithText(text: "设置支付密码失败!!!")
+                ZYToast.showCenterWithText(text: "设置支付密码失败")
             }
             debugPrints("设置支付密码成功---\(value)")
         }) { (error) in
             HudHelper.hideHUD()
             debugPrints("设置支付密码失败---\(error)")
+        }
+    }
+    
+    func fetchUserInfo() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        
+        WebAPITool.requestModel(WebAPI.fetchUserInfo(params), model: User.self, complete: { (model) in
+            model.save()
+            delay(by: 0.5, closure: {
+                self.navigationController?.popViewController(animated: true)
+            })
+        }) { (error) in
+            HudHelper.hideHUD()
         }
     }
     

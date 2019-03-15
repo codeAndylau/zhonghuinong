@@ -14,6 +14,7 @@ class OrderViewController: TableViewController {
     
     // MARK: - Property
     
+    var isSettingPsd = false
     var isFreight = false // 是否免运费
     
     func refreshValue() {
@@ -81,7 +82,7 @@ class OrderViewController: TableViewController {
              0是非VIP 1是个人VIP 2是企业用户
              */
             
-            switch userInfo.isVip {
+            switch User.currentUser().isVip {
             case 0:
                 
                 debugPrints("普遍用户")
@@ -114,7 +115,6 @@ class OrderViewController: TableViewController {
             default: break
                 
             }
-
             paySureView.numLab.text = "共\(num)件"
         }
     }
@@ -122,6 +122,7 @@ class OrderViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         navigationItem.title = localized("确认订单")
+        isSettingPsd = User.currentUser().isPayPassword
         setupTab()
         fetchUserAddressList()
         fetchUserBalance()
@@ -163,6 +164,49 @@ class OrderViewController: TableViewController {
             debugPrints("订单支付成功回到提交订单界面")
             self.navigationController?.popViewController(animated: true)
         }).disposed(by: rx.disposeBag)
+        
+        
+        /// 弹出支付密码框，设置支付密码后，回调
+        PayPasswordDemo.inputCompleteClosure = { [weak self] psd in
+            guard let self = self else { return }
+            debugPrints("设置的支付密码---\(psd)")
+            self.settingPayPassword(psd: psd)
+        }
+        
+        /// 支付成功后退回根试图控制器
+        paySelectDemo.PayPasswordDemo.paySuccessClosure = {
+            // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
+        }
+        
+    }
+    
+    /// 设置支付密码
+    func settingPayPassword(psd: String) {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        params["paymentpassword"] = psd
+        
+        debugPrints("设置密码的参数---\(params)")
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        WebAPITool.request(WebAPI.settingPayPassword(params), complete: { (value) in
+            HudHelper.hideHUD()
+            if value.boolValue {
+                self.isSettingPsd = true
+                defaults.set(true, forKey: Configs.Identifier.SettingPayPsd)
+                ZYToast.showCenterWithText(text: "设置支付密码成功!!!")
+                NotificationCenter.default.post(name: .updateUserInfo, object: nil)
+                debugPrints("设置支付密码成功---\(value)")
+            }else {
+                ZYToast.showCenterWithText(text: "设置支付密码失败!!!")
+            }
+        }) { (error) in
+            HudHelper.hideHUD()
+            debugPrints("设置支付密码失败---\(error)")
+        }
     }
     
     /// 验证用户是否绑定了手机
@@ -171,10 +215,42 @@ class OrderViewController: TableViewController {
         if User.hasUser() && User.currentUser().mobile == "" {
             navigator.show(segue: .bindingMobile, sender: self)
         }else {
-            commitOrder()
+            
+            /// 1: 判断是否是vip
+            /// 2: 是否绑定了支付密码
+            /// 3: 然后在提交订单
+            
+            switch User.currentUser().isVip {
+                
+            case 0:
+                MBProgressHUD.showInfo("您还不是VIP会员,请先联系客服申请VIP")
+            case 1:
+                
+                debugPrints("您是VIP会员可以支付结算---\(isSettingPsd)")
+                if isSettingPsd {
+                    commitOrder()
+                }else {
+                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+                    PayPasswordDemo.show()
+                }
+                
+            case 2:
+                
+                debugPrints("您是企业VIP会员直接支付结算---\(isSettingPsd)")
+                if isSettingPsd {
+                    commitOrder()
+                }else {
+                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+                    PayPasswordDemo.show()
+                }
+                
+            default:
+                break
+            }
         }
     }
     
+    /// 提交订单
     func commitOrder() {
         
         guard headerView.addressView.addressInfo.id != defaultId else {
@@ -226,13 +302,10 @@ class OrderViewController: TableViewController {
         paySelectDemo.money = payMoney
         paySelectDemo.order_no = order_no
         paySelectDemo.show()
-        paySelectDemo.PayPasswordDemo.paySureView.payLab.text = "¥\(payMoney)"
         
-        /// 支付成功后退回根试图控制器
-        paySelectDemo.PayPasswordDemo.paySuccessClosure = {
-            // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
-            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        }
+        let payPrice = Keepfigures(text: CGFloat(payMoney))
+        paySelectDemo.PayPasswordDemo.paySureView.payLab.text = "¥\(payPrice)"
+        
     }
     
     // MARK: - Lazy
@@ -243,6 +316,8 @@ class OrderViewController: TableViewController {
     
     lazy var paySelectDemo = PaySelectViewController()
     
+    /// 设置支付密码框
+    lazy var PayPasswordDemo = MineSettingPayPsdViewController()
     
     // MARK: - Public methods
     

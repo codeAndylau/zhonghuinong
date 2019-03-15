@@ -70,6 +70,7 @@
 		1415106B222E72CD00EA9026 /* EZPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14151068222E72CD00EA9026 /* EZPlayerControlView.swift */; };
 		1415106C222E72CD00EA9026 /* EZPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14151069222E72CD00EA9026 /* EZPlayerView.swift */; };
 		1415106D222E72CD00EA9026 /* EZPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1415106A222E72CD00EA9026 /* EZPlayerOrientation.swift */; };
+		14280000223B573200ABA92F /* MineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1428FFFF223B573200ABA92F /* MineFooterView.swift */; };
 		142CE015222CD22C00F604B0 /* EmptyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE014222CD22C00F604B0 /* EmptyDataSet.swift */; };
 		142CE018222CEB3B00F604B0 /* Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE017222CEB3B00F604B0 /* Refresh.swift */; };
 		142CE01D222D0B0B00F604B0 /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE01C222D0B0B00F604B0 /* NoticeBar.swift */; };
@@ -365,6 +366,7 @@
 		14151068222E72CD00EA9026 /* EZPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZPlayerControlView.swift; sourceTree = "<group>"; };
 		14151069222E72CD00EA9026 /* EZPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZPlayerView.swift; sourceTree = "<group>"; };
 		1415106A222E72CD00EA9026 /* EZPlayerOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZPlayerOrientation.swift; sourceTree = "<group>"; };
+		1428FFFF223B573200ABA92F /* MineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFooterView.swift; sourceTree = "<group>"; };
 		142CE014222CD22C00F604B0 /* EmptyDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataSet.swift; sourceTree = "<group>"; };
 		142CE017222CEB3B00F604B0 /* Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refresh.swift; sourceTree = "<group>"; };
 		142CE01C222D0B0B00F604B0 /* NoticeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
@@ -1020,6 +1022,7 @@
 			isa = PBXGroup;
 			children = (
 				8B31B5BB221028F4003F475A /* MineHeaderView.swift */,
+				1428FFFF223B573200ABA92F /* MineFooterView.swift */,
 				14043D4C2212773B0023AA11 /* MineOrderView.swift */,
 				1468B1622215444D002B971F /* MineCenterView.swift */,
 				1448B0A722252A14009237E7 /* MineHeaderModifyView.swift */,
@@ -2158,6 +2161,7 @@
 				144F43D0222FC76E00218339 /* GoodsInfo.swift in Sources */,
 				14C251172223F03600F5CB53 /* FlashFourViewController.swift in Sources */,
 				14D5B336221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift in Sources */,
+				14280000223B573200ABA92F /* MineFooterView.swift in Sources */,
 				14043D5D2212AB080023AA11 /* OrderAddressView.swift in Sources */,
 				1414E0C921FACCE300347050 /* Button.swift in Sources */,
 				14C25101222388F400F5CB53 /* PrivatefarmTitleView.swift in Sources */,
@@ -2437,7 +2441,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/ZhongHuiNong/Application/Info.plist";
@@ -2464,7 +2468,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = LUMU7K5HBQ;
 				ENABLE_BITCODE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import Kingfisher
 
 class MineCenterView: View {
 
@@ -18,7 +19,7 @@ class MineCenterView: View {
     }
     
     let cancelBtn = Button().then { (btn) in
-        btn.setImage(UIImage(named: "basket_cancel"), for: .normal)
+        btn.setImage(UIImage(named: ""), for: .normal) // basket_cancel
     }
     
     let titleLab = Label().then { (lab) in
@@ -44,7 +45,7 @@ class MineCenterView: View {
     }
     
     let peisongSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_zhu")
+        view.imgView.image = UIImage(named: "mine_center_quan")
         view.titleLab.text = "优惠券（张））"
         view.detailLab.text = "0"
     }
@@ -56,7 +57,7 @@ class MineCenterView: View {
     }
     
     let zhurouSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_zhu")
+        view.imgView.image = UIImage(named: "mine_center_cart")
         view.titleLab.text = "免费配送（次）"
         view.detailLab.text = "0"
     }
@@ -148,8 +149,8 @@ class MineCenterView: View {
     class func loadView() -> MineCenterView {
         let view = MineCenterView()
         view.frame = CGRect(x: 0, y: kScreenH-500, width: kScreenW, height: 300)
-        //let corners: UIRectCorner = [.topLeft, .topRight]
-        //view.cuttingAnyCorner(roundingCorners: corners, corner: 16)
+//        let corners: UIRectCorner = [.topLeft, .topRight]
+//        view.cuttingAnyCorner(roundingCorners: corners, corner: 16)
         return view
     }
     
@@ -160,6 +161,8 @@ class MineCenterView: View {
             let user = User.currentUser()
             
             imgView.lc_setImage(with: user.userImg)
+            
+            
             titleLab.text = user.username
             
             bagSubView.detailLab.text = "\(balance.creditbalance)"

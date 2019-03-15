@@ -58,6 +58,7 @@ class StoreViewController: ViewController {
         navigationItem.rightBarButtonItem = rightMsgItem
         
         if User.hasUser() && User.currentUser().isVip != 0 {
+            vipItem.header.lc_setImage(with: User.currentUser().headimgUrl)
             navigationItem.leftBarButtonItem = leftBarItem
         }
         
