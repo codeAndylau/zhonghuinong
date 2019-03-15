@@ -13,7 +13,8 @@ import MJRefresh
 class StoreViewController: ViewController {
     
     // MARK: Property
-    let group = DispatchGroup()
+    
+    var dropupView: DropupMenu!
     
     /// 默认请求的第一个数据
     var currentIndexPath = IndexPath(row: 0, section: 0)
@@ -67,10 +68,16 @@ class StoreViewController: ViewController {
         view.addSubview(activityView)
         activityView.center = view.center
         activityView.startAnimating()
+        
+        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
     }
     
     override func bindViewModel() {
         super.bindViewModel()
+        
+        vipItem.sureBtn.rx.tap.subscribe(onNext: { (_) in
+            self.showCenterView()
+        }).disposed(by: rx.disposeBag)
         
         var isUp = true
         filterView.priceBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
@@ -120,6 +127,7 @@ class StoreViewController: ViewController {
     // MARK: - Lazy
     
     lazy var activityView = UIActivityIndicatorView(style: .gray)
+    lazy var mineCenterView = MineCenterView.loadView()
     lazy var searchView = MemberSearchView.loadView()
     lazy var filterView = StoreFilterView.loadView()
     lazy var vipItem = FarmHeaderView.loadView()
@@ -177,6 +185,14 @@ class StoreViewController: ViewController {
     }()
     
     // MARK: - Action
+    
+    func showCenterView() {
+        if dropupView.isShown {
+            dropupView.hideMenu()
+        }else {
+            dropupView.showMenu()
+        }
+    }
     
     @objc func messageAction() {
         navigator.show(segue: .mineMessage, sender: self)

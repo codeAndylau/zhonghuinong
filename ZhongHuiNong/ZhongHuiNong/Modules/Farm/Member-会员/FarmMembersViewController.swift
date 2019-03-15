@@ -402,7 +402,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     
     // 动画效果
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        guard indexPath.section == 3 else { return }
+        guard indexPath.section == 2 else { return }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         UIView.animate(withDuration: 0.1) {
             cell.transform = CGAffineTransform.identity.scaledBy(x: 0.96, y: 0.96)
@@ -410,7 +410,7 @@ extension FarmMembersViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        guard indexPath.section == 3 else { return }
+        guard indexPath.section == 2 else { return }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         UIView.animate(withDuration: 0.1) {
             cell.transform = CGAffineTransform.identity

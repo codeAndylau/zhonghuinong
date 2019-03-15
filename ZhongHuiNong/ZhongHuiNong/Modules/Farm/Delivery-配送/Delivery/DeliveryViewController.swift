@@ -488,6 +488,7 @@ class DeliveryViewController: ViewController {
         
         var params = [String: Any]()
         params["userid"] = userId
+        params["monday"] = false
         params["tuesday"] = false
         params["wednesday"] = false
         params["thursday"] = false
