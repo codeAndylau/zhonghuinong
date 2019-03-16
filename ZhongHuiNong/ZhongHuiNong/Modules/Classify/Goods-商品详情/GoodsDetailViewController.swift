@@ -16,6 +16,11 @@ class GoodsDetailViewController: ViewController {
 
     // MARK: - Property
     
+    var loadNum = 1
+    var loadImg = false
+    var cellHeight: CGFloat = 500
+    
+    
     // 购物车数量
     var cartNum = 0 {
         didSet {
@@ -226,7 +231,46 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GoodsDetailImgTabCell.identifier, for: indexPath) as! GoodsDetailImgTabCell
-        self.configureCell(cell: cell, indexPath: indexPath)
+        //self.configureCell(cell: cell, indexPath: indexPath)
+        
+        cell.imgView.kf.indicatorType = .activity
+        
+        let url = URL(string: goodsDetailInfo.detailImgUrl)
+        
+        // 图片加载失败后在重新尝试一次
+        if !self.loadImg && self.loadNum <= 2 {
+            
+            cell.imgView.kf.setImage(with: url, completionHandler: { (result) in
+                // `result` is either a `.success(RetrieveImageResult)` or a `.failure(KingfisherError)`
+                switch result {
+                case .success(let value):
+                    
+                    self.loadImg = true
+                    self.cellHeight = value.image.size.height/value.image.size.width*kScreenW
+                    
+                    mainQueue {
+                        self.tableView.reloadData()
+                    }
+                    
+                    // The image was set to image view:
+                    // From where the image was retrieved:
+                    // - .none - Just downloaded.
+                    // - .memory - Got from memory cache.
+                    // - .disk - Got from disk cache.
+                    // The source object which contains information like `url`.
+                    debugPrint("缓存的类型---\(value.image)---\(value.cacheType)---\(value.source)")
+
+                case .failure(let error):
+                    print(error) // The error happens
+                    self.loadImg = false
+                    self.loadNum += 1
+                    mainQueue {
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+        }
+
         return cell
     }
     
@@ -274,16 +318,18 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        
-        let url = goodsDetailInfo.detailImgUrl
-        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url)
+//        let url = goodsDetailInfo.detailImgUrl
+//        let cachedImg = ImageCache.default.retrieveImageInMemoryCache(forKey: url)
+//
+//        if let img = cachedImg {
+//            let imgH = img.size.height/img.size.width*kScreenW
+//            debugPrints("返回图片的高度---\(imgH)")
+//            return imgH
+//        }else {
+//            return 500
+//        }
         
-        if let img = cachedImg {
-            let imgH = img.size.height/img.size.width*kScreenW
-            debugPrints("返回图片的高度---\(imgH)")
-            return imgH
-        }else {
-            return 500
-        }
+        return cellHeight
     }
     
 }

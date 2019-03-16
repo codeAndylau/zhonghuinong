@@ -10,7 +10,7 @@ import UIKit
 
 class SearchEmptyView: View {
     
-    let imgView = ImageView().then { (img) in
+    var imgView = ImageView().then { (img) in
         img.image = UIImage(named: "search_empty")
         img.contentMode = .scaleAspectFit
     }
