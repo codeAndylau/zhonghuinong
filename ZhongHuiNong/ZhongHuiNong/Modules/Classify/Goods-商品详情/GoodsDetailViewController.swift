@@ -260,8 +260,7 @@ extension GoodsDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 
             case .success(let value):
                 debugPrints("商品详情页的图片下载成功---\(value.image)")
-                ImageCache.default.store(value.image, forKey: imgUrl)
-                ImageCache.default.store(value.image, original: value.originalData, forKey: imgUrl, options: KingfisherParsedOptionsInfo([KingfisherOptionsInfoItem.transition(ImageTransition.fade(1))]), toDisk: false, completionHandler: { (result) in
+                ImageCache.default.store(value.image, original: value.originalData, forKey: imgUrl, options: KingfisherParsedOptionsInfo([KingfisherOptionsInfoItem.transition(ImageTransition.fade(1))]), toDisk: true, completionHandler: { (result) in
                     mainQueue {
                         self.tableView.reloadData()
                     }
