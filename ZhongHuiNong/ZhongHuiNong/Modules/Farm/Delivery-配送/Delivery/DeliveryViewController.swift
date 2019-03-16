@@ -147,20 +147,24 @@ class DeliveryViewController: ViewController {
 
             }else {
                 
-                /// 请求是否有已经选择过了配送的订单
-                let emptyV = EmptyView()
-                view.addSubview(emptyV)
-                emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬,是否查看所选蔬菜的历史订单",
-                                                image: UIImage(named: "basket_paySuccess"),
-                                                btnTitle: "确定")
-                emptyV.snp.makeConstraints { (make) in
-                    make.top.equalTo(kNavBarH+155)
-                    make.left.bottom.right.equalTo(self.view)
-                }
+                ///  4. 之前没有选择过的话今天就阔以选选择蔬菜提交订单
+                view.addSubview(commitVew)
+                fetchDispatchMenu()
                 
-                emptyV.sureBtnClosure = {
-                    self.navigator.show(segue: .deliveryOrderInfo, sender: self)
-                }
+//                /// 请求是否有已经选择过了配送的订单
+//                let emptyV = EmptyView()
+//                view.addSubview(emptyV)
+//                emptyV.config = EmptyViewConfig(title: "只能提前两天选菜,根据你选择的配送日期，今天无法选择配送的蔬菜🥬,是否查看所选蔬菜的历史订单",
+//                                                image: UIImage(named: "basket_paySuccess"),
+//                                                btnTitle: "确定")
+//                emptyV.snp.makeConstraints { (make) in
+//                    make.top.equalTo(kNavBarH+155)
+//                    make.left.bottom.right.equalTo(self.view)
+//                }
+//
+//                emptyV.sureBtnClosure = {
+//                    self.navigator.show(segue: .deliveryOrderInfo, sender: self)
+//                }
             }
         }
     }
@@ -184,7 +188,6 @@ class DeliveryViewController: ViewController {
                 let phone = linkMan  // 填写运营人员的电话号码
                 callUpWith(phone)
             }
-            
             
         }else {
             
@@ -436,6 +439,32 @@ class DeliveryViewController: ViewController {
             debugPrints("配送的时间---\(model)")
             guard let self = self else { return }
             self.dispatchDate = model
+            
+//            var info = DispatchDateInfo()
+//
+//            info.monday = true
+//
+//            /// 星期二
+//            info.tuesday  = true
+//
+//            /// 星期三
+//            info.wednesday  = true
+//
+//            /// 星期四
+//            info.thursday = true
+//
+//            /// 星期五
+//            info.friday  = true
+//
+//            /// 星期六
+//            info.saturday  = true
+//
+//            /// 星期天
+//            info.sunday  = true
+//
+//
+//            self.dispatchDate = info
+            
         }) { (error) in
             self.dispatchDate = DispatchDateInfo()
         }

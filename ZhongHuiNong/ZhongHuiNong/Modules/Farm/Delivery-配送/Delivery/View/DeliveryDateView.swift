@@ -155,13 +155,13 @@ class DeliveryDateView: View {
         didSet {
             
             // FIXME: - 1. 显示用户选择配送的蔬菜日期
-            if dispatchDate.monday { dayBtnAction(day1Btn) }
-            if dispatchDate.tuesday { dayBtnAction(day2Btn) }
+            if dispatchDate.monday    { dayBtnAction(day1Btn) }
+            if dispatchDate.tuesday   { dayBtnAction(day2Btn) }
             if dispatchDate.wednesday { dayBtnAction(day3Btn) }
-            if dispatchDate.thursday { dayBtnAction(day4Btn) }
-            if dispatchDate.friday { dayBtnHeightAction(day1Btn) }
-            if dispatchDate.saturday { dayBtnAction(day6Btn) }
-            if dispatchDate.sunday { dayBtnAction(day7Btn) }
+            if dispatchDate.thursday  { dayBtnAction(day4Btn) }
+            if dispatchDate.friday    { dayBtnAction(day5Btn) }
+            if dispatchDate.saturday  { dayBtnAction(day6Btn) }
+            if dispatchDate.sunday    { dayBtnAction(day7Btn) }
             
             // FIXME: - 2. 判断今天能否可以选择（只能提前两天选择蔬菜）
             let week: Int = (Calendar.current as NSCalendar).components([NSCalendar.Unit.weekday], from: Date()).weekday! - 1
@@ -169,12 +169,12 @@ class DeliveryDateView: View {
             switch week {
                 
             case 0: if dispatchDate.wednesday { dayBtnHeightAction(day3Btn) }
-            case 1: if dispatchDate.thursday { dayBtnHeightAction(day4Btn) }
-            case 2: if dispatchDate.friday { dayBtnHeightAction(day5Btn) }
-            case 3: if dispatchDate.saturday { dayBtnHeightAction(day6Btn) }
-            case 4: if dispatchDate.sunday { dayBtnHeightAction(day7Btn) }
-            case 5: if dispatchDate.monday { dayBtnHeightAction(day1Btn) }
-            case 6: if dispatchDate.tuesday { dayBtnHeightAction(day2Btn) }
+            case 1: if dispatchDate.thursday  { dayBtnHeightAction(day4Btn) }
+            case 2: if dispatchDate.friday    { dayBtnHeightAction(day5Btn) }
+            case 3: if dispatchDate.saturday  { dayBtnHeightAction(day6Btn) }
+            case 4: if dispatchDate.sunday    { dayBtnHeightAction(day7Btn) }
+            case 5: if dispatchDate.monday    { dayBtnHeightAction(day1Btn) }
+            case 6: if dispatchDate.tuesday   { dayBtnHeightAction(day2Btn) }
                 
             default:
                 break

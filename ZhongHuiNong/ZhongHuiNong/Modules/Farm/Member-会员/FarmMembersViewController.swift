@@ -231,6 +231,7 @@ class FarmMembersViewController: TableViewController {
             }
             
             if isFooter {
+                
                 if list.count < 10 {
                     self.isData = false
                     self.tableView_g.uFoot.endRefreshingWithNoMoreData()

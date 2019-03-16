@@ -21,7 +21,7 @@ class MineMemberViewController: TableViewController {
         super.makeUI()
         navigationItem.title = localized("会员中心")
         
-        if User.hasUser() && User.currentUser().isVip != 0 {
+        if User.hasUser() && User.currentUser().isVip == 0 {
             let emptyView = EmptyView()
             view.addSubview(emptyView)
             emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
