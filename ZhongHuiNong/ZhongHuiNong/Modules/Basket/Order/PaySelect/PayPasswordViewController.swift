@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 /// 支付密码框的试图控制器
 class PayPasswordViewController: SwiftPopup {
@@ -109,20 +110,31 @@ class PayPasswordViewController: SwiftPopup {
         
         HudHelper.showWaittingHUD(msg: "请稍后...")
         WebAPITool.request(WebAPI.cartOrderPayment(params), complete: { (value) in
+            
             HudHelper.hideHUD()
-            let success = value.boolValue
-            if success {
-                debugPrints("订单支付成功---\(value)")
+            debugPrint("用账户余额支付后返回的参数--\(value)")
+            
+            let status = value["status"].intValue
+            let detail = value["detail"].stringValue
+            
+            if status == 1 {
                 mainQueue {
                     self.dismiss(completion: {
+                        self.paySureView.boxView.clearLayer()
                         self.paySuccessClosure?()
                     })
                 }
             }else {
-                debugPrint("订单支付失败")
+                self.dismiss()
+                self.paySureView.boxView.clearLayer()
+                MBProgressHUD.showError(detail)
             }
+            
         }) { (error) in
+            self.dismiss()
+            self.paySureView.boxView.clearLayer()
             HudHelper.hideHUD()
+            MBProgressHUD.showError("余额支付失败")
             debugPrint("订单支付失败---\(error)")
         }
         

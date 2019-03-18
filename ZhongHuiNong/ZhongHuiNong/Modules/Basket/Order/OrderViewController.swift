@@ -34,7 +34,7 @@ class OrderViewController: TableViewController {
             }else {
                 headerView.addressView.addressInfo = addressList[0]
             }
-            
+
             fadeInOnDisplay {
                 mainQueue {
                     self.tableView.reloadData()
@@ -54,6 +54,11 @@ class OrderViewController: TableViewController {
     
     var addressList: [UserAddressInfo] = [] {
         didSet {
+            if addressList.count == 0 {
+                headerView.addressView.tipLab.isHidden = false
+            }else {
+                headerView.addressView.tipLab.isHidden = true
+            }
             refreshValue()
         }
     }
@@ -61,6 +66,7 @@ class OrderViewController: TableViewController {
     var payMoney: Double = 0
     
     var goodsList: [CartGoodsInfo] = [] {
+        
         didSet {
             
             var salePrice: CGFloat = 0
@@ -136,6 +142,7 @@ class OrderViewController: TableViewController {
         tableView.tableHeaderView = headerView
         tableView.register(VegetableTabCell.self, forCellReuseIdentifier: VegetableTabCell.identifier)
         tableView.addSubview(paySureView)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: kBottomViewH, right: 0)
         view.addSubview(self.tableView)
     }
     
@@ -160,10 +167,10 @@ class OrderViewController: TableViewController {
             self.headerView.addressView.addressInfo = addressInfo
         }).disposed(by: rx.disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
-            debugPrints("订单支付成功回到提交订单界面")
-            self.navigationController?.popViewController(animated: true)
-        }).disposed(by: rx.disposeBag)
+//        NotificationCenter.default.rx.notification(.cartOrderPaySuccess).subscribe(onNext: { (_) in
+//            debugPrints("订单支付成功回到提交订单界面")
+//            self.navigationController?.popViewController(animated: true)
+//        }).disposed(by: rx.disposeBag)
         
         
         /// 弹出支付密码框，设置支付密码后，回调
@@ -175,9 +182,33 @@ class OrderViewController: TableViewController {
         
         /// 支付成功后退回根试图控制器
         paySelectDemo.PayPasswordDemo.paySuccessClosure = {
-            // MARK: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
-            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            
+            // 1: 订单支付成功。更新用户的信息
             NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
+            
+            // 2: 如何连续dismiss 2个VC视图控制器（以及直接跳回根视图）
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            
+            // 3: 显示支付成功的界面，给用户一个友好的提示
+            self.paySuccessDemo.show()
+            
+        }
+        
+        /// 支付成功后点击的支付界面的按钮的事件操作
+        paySuccessDemo.btnClosure = { index in
+            if index == 1 {
+                self.tabBarController?.selectedIndex = 3
+                self.navigationController?.popViewController(animated: false)
+            }
+            
+            if index == 2 {
+                self.tabBarController?.selectedIndex = 1
+                self.navigationController?.popViewController(animated: false)
+            }
+        }
+        
+        paySuccessDemo.disMissClosure = {
+            self.navigationController?.popViewController(animated: true)
         }
         
     }
@@ -220,33 +251,50 @@ class OrderViewController: TableViewController {
             /// 2: 是否绑定了支付密码
             /// 3: 然后在提交订单
             
-            switch User.currentUser().isVip {
-                
-            case 0:
-                MBProgressHUD.showInfo("您还不是VIP会员,请先联系客服申请VIP")
-            case 1:
-                
-                debugPrints("您是VIP会员可以支付结算---\(isSettingPsd)")
-                if isSettingPsd {
-                    commitOrder()
-                }else {
-                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
-                    PayPasswordDemo.show()
-                }
-                
-            case 2:
-                
-                debugPrints("您是企业VIP会员直接支付结算---\(isSettingPsd)")
-                if isSettingPsd {
-                    commitOrder()
-                }else {
-                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
-                    PayPasswordDemo.show()
-                }
-                
-            default:
-                break
+            if isSettingPsd {
+                commitOrder()
+            }else {
+                showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+                PayPasswordDemo.show()
             }
+            
+            //            switch User.currentUser().isVip {
+            //
+            //            case 0:
+            //
+            //                MBProgressHUD.showInfo("您还不是VIP会员,请先联系客服申请VIP")
+            //
+            //                if isSettingPsd {
+            //                    commitOrder()
+            //                }else {
+            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+            //                    PayPasswordDemo.show()
+            //                }
+            //
+            //            case 1:
+            //
+            //                debugPrints("您是VIP会员可以支付结算---\(isSettingPsd)")
+            //
+            //                if isSettingPsd {
+            //                    commitOrder()
+            //                }else {
+            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+            //                    PayPasswordDemo.show()
+            //                }
+            //
+            //            case 2:
+            //
+            //                debugPrints("您是企业VIP会员直接支付结算---\(isSettingPsd)")
+            //                if isSettingPsd {
+            //                    commitOrder()
+            //                }else {
+            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
+            //                    PayPasswordDemo.show()
+            //                }
+            //
+            //            default:
+            //                break
+            //            }
         }
     }
     
@@ -303,8 +351,8 @@ class OrderViewController: TableViewController {
         paySelectDemo.order_no = order_no
         paySelectDemo.show()
         
-        let payPrice = Keepfigures(text: CGFloat(payMoney))
-        paySelectDemo.PayPasswordDemo.paySureView.payLab.text = "¥\(payPrice)"
+        /// 应该支付的money
+        paySelectDemo.PayPasswordDemo.paySureView.payLab.text = "¥\(Keepfigures(text: CGFloat(payMoney)))"
         
     }
     
@@ -313,6 +361,9 @@ class OrderViewController: TableViewController {
     lazy var headerView = OrderHeaderView.loadView()
     
     lazy var paySureView = PaySureView.loadView()
+    
+    // 支付成功后显示的界面
+    lazy var paySuccessDemo = PaySuccessViewController()
     
     lazy var paySelectDemo = PaySelectViewController()
     

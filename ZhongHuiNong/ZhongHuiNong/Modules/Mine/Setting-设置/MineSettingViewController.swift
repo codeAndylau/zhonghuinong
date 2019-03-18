@@ -25,7 +25,7 @@ class MineSettingViewController: ViewController {
     // MARK: - Lazy
     
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kNavBarH-44), style: .plain)
+        let view = TableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH), style: .plain)
         view.backgroundColor = UIColor.hexColor(0xFAFAFA)
         view.separatorStyle = .none
         view.dataSource = self

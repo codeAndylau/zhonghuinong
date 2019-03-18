@@ -16,6 +16,11 @@ class MinePayOrderViewController: MineAllOrderViewController {
     
     var payOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
+            if payOrderList.count == 0 {
+                self.emptyView.isHidden = false
+            }else {
+                self.emptyView.isHidden = true
+            }
             tableView.reloadData()
         }
     }
@@ -30,8 +35,8 @@ class MinePayOrderViewController: MineAllOrderViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        fetchBalance()
         fetchPayOrder()
-        fetchUserBalance()
     }
     
     lazy var payDemo = PayPasswordViewController()
@@ -39,7 +44,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
     
     // MARK: - Action
 
-    func fetchUserBalance() {
+    func fetchBalance() {
         
         let params = ["userid": User.currentUser().userId]
         
@@ -109,6 +114,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
         payDemo.show()
         payDemo.paySuccessClosure = { [weak self] in
             self?.fetchPayOrder()
+            NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
         }
     }
 }

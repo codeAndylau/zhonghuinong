@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import MBProgressHUD
 
 class ViewController: UIViewController, Navigatable {
     
@@ -52,6 +53,10 @@ class ViewController: UIViewController, Navigatable {
     let statusBarStyle = BehaviorRelay(value: false)
     let navigationBarHidden = BehaviorRelay(value: false)
     
+    // MARK: - 无网络状态友好提示
+    var isNetwork = true // 默认是有网的
+    var netWorkStye = IDEmptyView.Style.loadDetail
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         get {
             if statusBarStyle.value {
@@ -74,11 +79,6 @@ class ViewController: UIViewController, Navigatable {
         navigationBarHidden.asObservable().subscribe(onNext: { [weak self] (flag) in
             guard let self = self else { return }
             self.navigationController?.navigationBar.isHidden = flag
-        }).disposed(by: rx.disposeBag)
-        
-        reachablitity.reachreplay.asObserver().subscribe(onNext: { (flag) in
-            debugPrints("当前网络状态---\(flag)")
-            //LoadingView.showView(view: self.view)
         }).disposed(by: rx.disposeBag)
         
     }

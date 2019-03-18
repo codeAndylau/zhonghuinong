@@ -42,13 +42,13 @@ class SettlementView: View {
     }
     
     let memberPriceLab = Label().then { (lab) in
-        lab.text = "¥388.0"
+        lab.text = "¥0.0"
         lab.textColor = UIColor.hexColor(0x1DD1A8)
         lab.font = UIFont.boldSystemFont(ofSize: 16)
     }
     
     let nonMemberPriceLab = Label().then { (lab) in
-        lab.text = "¥1188.0"
+        lab.text = "¥0.0"
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.systemFont(ofSize: 12)
     }
@@ -59,6 +59,7 @@ class SettlementView: View {
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         btn.backgroundColor = UIColor.hexColor(0x1DD1A8)
+        btn.isSelected = false
         return btn
     }()
     

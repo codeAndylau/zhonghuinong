@@ -54,7 +54,14 @@ extension User {
     static func hasUser() -> Bool {
         let user = User.currentUser()
         debugPrints("用户信息---\(String(describing: user))")
-        if user.userId == -1 && user.username == "" && user.userImg == "" && user.isVip == defaultId {
+        if  user.headimgUrl == "" &&
+            user.isVip == defaultId &&
+            user.mobile == "" &&
+            user.nickname == "" &&
+            user.userId == defaultId &&
+            user.userImg == "" &&
+            user.username == "" {
+            
             return false
         }
         return true

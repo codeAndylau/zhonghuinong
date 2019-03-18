@@ -145,6 +145,12 @@ class MinePayOrderTabCell: MineOrderTabCell {
                 
                 debugPrints("待支付商品图片信息---\(item.element.goodsPic)")
                 
+                vegetablesView.btn1.image = UIImage()
+                vegetablesView.btn2.image = UIImage()
+                vegetablesView.btn3.image = UIImage()
+                vegetablesView.btn4.image = UIImage()
+                vegetablesView.btn5.image = UIImage()
+                
                 if item.offset == 0 {
                     vegetablesView.btn1.lc_setImage(with: item.element.goodsPic)
                 }

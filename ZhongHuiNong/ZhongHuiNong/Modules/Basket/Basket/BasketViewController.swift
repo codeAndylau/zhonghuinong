@@ -12,9 +12,8 @@ import RxCocoa
 
 /// 购物车
 class BasketViewController: TableViewController {
-    
 
-    //let isEmptyCart = BehaviorRelay(value: true) // 默认为空的
+    var emptyView: EmptyView = EmptyView()
     
     var cartList: [CartGoodsInfo] = [] {
         didSet {
@@ -33,12 +32,23 @@ class BasketViewController: TableViewController {
         tableView.delegate = self
         tableView.register(CartTabCell.self, forCellReuseIdentifier: CartTabCell.identifier)
         tableView.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: { })
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
         
         tableView.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchShopingCartList(isRefresh: true)
         })
         
         view.addSubview(settleView)
+        
+        view.addSubview(emptyView)
+        emptyView.config = EmptyViewConfig(title: "购物车空空如也", image: UIImage(named: "basket_empty"), btnTitle: "去逛逛")
+        emptyView.snp.makeConstraints { (make) in
+            make.top.equalTo(kNavBarH)
+            make.left.bottom.right.equalTo(self.view)
+        }
+        emptyView.sureBtnClosure = {
+            self.tabBarController?.selectedIndex = 1
+        }
         
         fetchShopingCartList()
     }
@@ -62,6 +72,7 @@ class BasketViewController: TableViewController {
                     if item.checked { return true }
                     return false
                 })
+                guard !list.isEmpty else { return }
                 self.navigator.show(segue: .shoppingOrder(list: list), sender: self)
             }
             
@@ -91,8 +102,6 @@ class BasketViewController: TableViewController {
     
     // MARK: - Lazy
     lazy var cartItem = BarButtonItem.cartItem()
-    
-    lazy var emptyView = EmptyView.loadView()
     
     lazy var settleView = SettlementView.loadView()
     
@@ -135,6 +144,17 @@ class BasketViewController: TableViewController {
                 self.tableView.uHead.endRefreshing()
                 self.cartList.removeAll()
             }
+            
+            if list.count == 0 {
+                self.navigationItem.rightBarButtonItem = nil
+                self.emptyView.isHidden = false
+                self.emptyView.alpha = 1
+            }else {
+                self.navigationItem.rightBarButtonItem = self.editItem
+                self.emptyView.isHidden = true
+                self.emptyView.alpha = 0.1
+            }
+            
             self.cartList = list
             self.calculateGoodsPrice()
             self.checkSelectStatus()
@@ -146,23 +166,6 @@ class BasketViewController: TableViewController {
             }
         }
         
-    }
-    
-    func setupEmptyView() {
-        
-        let emptyV = EmptyView()
-        view.addSubview(emptyV)
-        emptyV.config = EmptyViewConfig(title: "购物车空空如也",
-                                        image: UIImage(named: "basket_empty"),
-                                        btnTitle: "去逛逛")
-        emptyV.snp.makeConstraints { (make) in
-            make.top.equalTo(kNavBarH)
-            make.left.bottom.right.equalTo(self.view)
-        }
-        
-        emptyV.sureBtnClosure = {
-            self.tabBarController?.selectedIndex = 1
-        }
     }
     
     // MARK: - 购物车购买逻辑
@@ -288,6 +291,16 @@ class BasketViewController: TableViewController {
                 self.cartList.remove(at: index)
             }
             
+            if self.cartList.count == 0 {
+                self.navigationItem.rightBarButtonItem = nil
+                self.emptyView.alpha = 1
+                self.emptyView.isHidden = false
+            }else {
+                self.navigationItem.rightBarButtonItem = self.editItem
+                self.emptyView.alpha = 0.1
+                self.emptyView.isHidden = true
+            }
+            
             self.calculateGoodsPrice()
             mainQueue {
                 self.tableView.reloadData()
@@ -310,12 +323,13 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
         let cell = tableView.dequeueReusableCell(withIdentifier: CartTabCell.identifier, for: indexPath) as! CartTabCell
         cell.goodsInfo = cartList[indexPath.row]
         cell.selectionStyle = .none
+        
+        // 选择
         cell.selectBtnClosure = {
             
             var model = self.cartList[indexPath.row]
             model.checked = !model.checked
             self.cartList[indexPath.row] = model
-            
             debugPrints("cell的选中状态---\(model.checked)")
             
             self.tableView.reloadData()
@@ -323,27 +337,55 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
             self.calculateGoodsPrice()
         }
         
+        // 加号
         cell.addView.addDidClosure = { num in
             
             var model = self.cartList[indexPath.row]
             model.quantity = num
             self.cartList[indexPath.row] = model
             
+            self.addToCart(info: model)
+            
             self.checkSelectStatus()
             self.calculateGoodsPrice()
+            
+            // 本地保存数据
+            // Defaults.shared.set(self.cartList, for: DefaultsKey.cartInfoKey)
         }
         
+        // 减号
         cell.addView.minusDidClosure = { num in
             
             var model = self.cartList[indexPath.row]
             model.quantity = num
             self.cartList[indexPath.row] = model
             
+            self.addToCart(info: model)
+            
             self.checkSelectStatus()
             self.calculateGoodsPrice()
+            
+            // 本地保存数据
+            // Defaults.shared.set(self.cartList, for: DefaultsKey.cartInfoKey)
         }
         
         return cell
+    }
+    
+    /// 加入购物车
+    func addToCart(info: CartGoodsInfo) {
+        
+        let productLists: [[String: Any]] = [["productid": info.productid, "quantity": info.quantity]]
+        let userId = User.currentUser().userId
+        
+        debugPrints("加入购物车参数--\(productLists)---\(userId)")
+        
+        WebAPITool.request(WebAPI.addToCart(userId, productLists), complete: { (value) in
+            debugPrints("购物车参数成功--\(value))")
+        }) { (error) in
+            debugPrints("购物车参数失败--\(error))")
+        }
+        
     }
     
     // MARK: TODO 购物车删除功能

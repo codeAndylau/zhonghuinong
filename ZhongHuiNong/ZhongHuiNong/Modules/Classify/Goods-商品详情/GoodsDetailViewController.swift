@@ -38,6 +38,9 @@ class GoodsDetailViewController: ViewController {
     var goodId: Int = defaultId
     var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
         didSet {
+            
+            isNetwork = true
+            
             fadeInOnDisplay {
                 self.activityVIew.stopAnimating()
                 self.tableView.alpha = 1
@@ -50,6 +53,17 @@ class GoodsDetailViewController: ViewController {
     }
     
     // MARK: - Override
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchShopingCartList()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        activityVIew.center = view.center
+    }
+    
     override func makeUI() {
         super.makeUI()
         
@@ -61,16 +75,6 @@ class GoodsDetailViewController: ViewController {
         view.addSubview(activityVIew)
         activityVIew.startAnimating()
         fetchGoodsInfo()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        fetchShopingCartList()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        activityVIew.center = view.center
     }
 
     override func bindViewModel() {
@@ -107,6 +111,34 @@ class GoodsDetailViewController: ViewController {
             self.navigationController?.popToRootViewController(animated: false)
         }).disposed(by: rx.disposeBag)
         
+        reachablitity.reachreplay.asObserver().subscribe(onNext: { [weak self] (flag) in
+            guard let _ = self else { return }
+            debugPrints("当前网络状态---\(flag)")
+        }).disposed(by: rx.disposeBag)
+        
+        
+        /// 不是会员 点击后 阔以直接点击打电话
+        headerView.topView.memberViewBtn.rx.tap.subscribe(onNext: { (_) in
+            
+            debugPrint("用的vip表示---\(User.currentUser().isVip)")
+            if User.currentUser().isVip == 0 {
+                let tips = SelectTipsView()
+                tips.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan)
+                    }
+                }
+            }
+            
+        }).disposed(by: rx.disposeBag)
+        
+    }
+    
+    func showNoNetwork() {
+        view.id_empty = IDEmptyView.create().configStyle(netWorkStye)
+        let _ = view.id_empty?.setOperatorAction { [weak self] in
+            self?.fetchGoodsInfo()
+        }
     }
     
     func bindingPhone() {
@@ -214,6 +246,8 @@ class GoodsDetailViewController: ViewController {
             guard let self = self else { return }
             self.goodsDetailInfo = info
         }) { (error) in
+            self.activityVIew.stopAnimating()
+            MBProgressHUD.showError(error)
             debugPrints("获取商品信息出错---\(error)")
             //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E6%89%8B%E5%B7%A5%E9%85%B1%E6%B2%B9.png
             //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E7%99%BD%E8%90%9D%E5%8D%9C.png

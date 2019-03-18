@@ -157,5 +157,6 @@ extension DefaultsKey {
     static let tokenKey = Key<String>("tokenKey")  // 用户的token
     static let userKey = Key<String>("userKey")    // 用户的info
     static let EZ_AccessToken = Key<EZAccessToken>("EZ_AccessToken")   // 视频播放的accesstoken
+    static let cartInfoKey = Key<[CartGoodsInfo]>("cartInfoKey")       // 购物车本地信息
 }
 

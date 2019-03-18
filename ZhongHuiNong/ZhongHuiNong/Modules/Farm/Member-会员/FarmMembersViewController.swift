@@ -90,8 +90,12 @@ class FarmMembersViewController: TableViewController {
             case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
             case 1: self.navigator.show(segue: .scan, sender: self)         // 扫码溯源
             case 2: self.navigator.show(segue: .privateFarm, sender: self)  // 私家农场
-            default:
-                break
+            case 3:
+                /// 这个是为了 上架的时候来用
+                if User.hasUser() && User.currentUser().mobile != developmentMan {
+                    let _ = FunctionTipsView()
+                }
+            default: break
             }
         }
         

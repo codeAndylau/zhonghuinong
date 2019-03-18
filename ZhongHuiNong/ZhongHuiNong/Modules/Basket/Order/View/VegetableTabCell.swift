@@ -41,7 +41,7 @@ class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource
         super.makeUI()
         
         backgroundColor = Color.backdropColor
-        tableView.backgroundColor = UIColor.orange
+        tableView.backgroundColor = UIColor.white
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none

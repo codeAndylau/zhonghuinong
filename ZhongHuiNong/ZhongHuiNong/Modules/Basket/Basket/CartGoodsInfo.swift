@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 /// 用户购物车信息
-struct CartGoodsInfo: Mappable {
+struct CartGoodsInfo: Codable, Mappable {
 
     var productid: Int = defaultId
     var quantity: Int = defaultId

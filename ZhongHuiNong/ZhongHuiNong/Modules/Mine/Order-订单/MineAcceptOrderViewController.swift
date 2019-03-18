@@ -12,6 +12,11 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
 
     var acceptOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
+            if acceptOrderList.count == 0 {
+                self.emptyView.isHidden = false
+            }else {
+                self.emptyView.isHidden = true
+            }
             tableView.reloadData()
         }
     }
@@ -35,7 +40,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
         
         var params = [String: Any]()
         params["user_id"] = User.currentUser().userId
-        params["status"] = 8  // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
+        params["status"] = 2  // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
         params["wid"] = 1
         
         WebAPITool.requestModelArrayWithData(WebAPI.fetchUserOrderList(params), model: MineGoodsOrderInfo.self, complete: { (list) in

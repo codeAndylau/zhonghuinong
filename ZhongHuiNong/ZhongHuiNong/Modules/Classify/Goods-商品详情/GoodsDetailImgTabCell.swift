@@ -15,7 +15,6 @@ class GoodsDetailImgTabCell: TableViewCell, TabReuseIdentifier {
     
     var imgView = ImageView().then { (img) in
         img.contentMode = UIView.ContentMode.scaleAspectFill
-        img.backgroundColor = Color.backdropColor
     }
     
     override func makeUI() {

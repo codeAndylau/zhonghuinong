@@ -12,6 +12,11 @@ class MineSendOrderViewController: MineAllOrderViewController {
 
     var sendOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
+            if sendOrderList.count == 0 {
+                self.emptyView.isHidden = false
+            }else {
+                self.emptyView.isHidden = true
+            }
             tableView.reloadData()
         }
     }

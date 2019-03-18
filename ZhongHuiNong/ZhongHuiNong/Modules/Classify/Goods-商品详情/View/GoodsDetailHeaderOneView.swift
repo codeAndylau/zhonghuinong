@@ -33,6 +33,8 @@ class GoodsDetailHeaderOneView: View {
         view.cuttingCorner(radius: 15)
     }
     
+    let memberViewBtn = Button()
+    
     let vipImg = ImageView().then { (img) in
         img.image = UIImage(named: "mine_vip")
     }
@@ -86,6 +88,7 @@ class GoodsDetailHeaderOneView: View {
         memberView.addSubview(vipLab)
         memberView.addSubview(vipArrowImg)
         memberView.addSubview(vipChongzhiLab)
+        memberView.addSubview(memberViewBtn)
         
         addSubview(titleLab)
         addSubview(detailLab)
@@ -118,6 +121,10 @@ class GoodsDetailHeaderOneView: View {
             make.centerX.equalTo(self)
             make.width.equalTo(kScreenW-30)
             make.height.equalTo(30)
+        }
+        
+        memberViewBtn.snp.makeConstraints { (make) in
+            make.edges.equalTo(memberView)
         }
         
         vipImg.snp.makeConstraints { (make) in

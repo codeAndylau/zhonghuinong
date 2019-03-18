@@ -113,6 +113,12 @@ class StoreViewController: ViewController {
             self.currentIndexPath = indexPath
             self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
             
+            if self.classInfos[indexPath.row].goodsInfo.count == 0 {
+                self.fetchGoodsInfos(category_id: self.classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false)
+            }else {
+                self.rightTableView.reloadData()
+            }
+            
             // FIXME: 没有数据的时候 会造成崩溃
             //self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
@@ -250,7 +256,8 @@ class StoreViewController: ViewController {
                 tempList += list
                 
                 debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
-                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
+                self.classInfos[self.currentIndexPath.row].goodsInfo = tempList //self.handleFilterArray(arr: tempList)
+                
             }
             
         }) { (error) in
@@ -302,7 +309,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoreRightCell.identifier, for: indexPath) as! StoreRightCell
-            cell.model = classInfos[currentIndexPath.row].goodsInfo[indexPath.row]
+            if classInfos[currentIndexPath.row].goodsInfo.count > 0 {
+                cell.model = classInfos[currentIndexPath.row].goodsInfo[indexPath.row]
+            }
             return cell
         }
     }

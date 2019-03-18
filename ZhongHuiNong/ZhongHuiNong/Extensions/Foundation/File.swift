@@ -9,8 +9,6 @@
 import Foundation
 import Kingfisher
 
-public let placeHolder =  UIImage().getImageWithColor(color: UIColor.hexColor(0xf3f3f3))
-
 class PlaceholderView: View {
     
     var loading:UIActivityIndicatorView!

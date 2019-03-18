@@ -127,7 +127,7 @@ class PaySuccessView: View {
     /// - Public methods
     class func loadView() -> PaySuccessView {
         let view = PaySuccessView()
-        view.frame = CGRect(x: 0, y: kScreenH*0.56, width: kScreenW, height: kScreenH*0.44)
+        view.frame = CGRect(x: 0, y: kScreenH*0.45, width: kScreenW, height: kScreenH*0.55)
         view.backgroundColor = Color.whiteColor
         let corners: UIRectCorner = [.topLeft, .topRight]
         view.cuttingAnyCorner(roundingCorners: corners, corner: 16)

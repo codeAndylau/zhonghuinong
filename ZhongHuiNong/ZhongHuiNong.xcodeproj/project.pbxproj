@@ -181,6 +181,15 @@
 		14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BF921F7160A0088ABC3 /* CollectionViewController.swift */; };
 		14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFB21F716DA0088ABC3 /* ImageView.swift */; };
 		14974BFE21F717080088ABC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFD21F717080088ABC3 /* Color.swift */; };
+		149E4568223F3D1A00FEA658 /* ic_empty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4561223F3D1900FEA658 /* ic_empty@3x.png */; };
+		149E4569223F3D1A00FEA658 /* ic_load_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */; };
+		149E456A223F3D1A00FEA658 /* ic_load_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */; };
+		149E456B223F3D1A00FEA658 /* ic_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4564223F3D1900FEA658 /* ic_empty@2x.png */; };
+		149E456C223F3D1A00FEA658 /* IDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4566223F3D1900FEA658 /* IDEmptyView.swift */; };
+		149E456D223F3D1A00FEA658 /* UIView+IDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4567223F3D1900FEA658 /* UIView+IDeal.swift */; };
+		149E4571223F531200FEA658 /* FunctionTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4570223F531200FEA658 /* FunctionTipsView.swift */; };
+		149E4573223F643E00FEA658 /* SelectTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4572223F643E00FEA658 /* SelectTipsView.swift */; };
+		149E4575223F965700FEA658 /* PaySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4574223F965700FEA658 /* PaySuccessViewController.swift */; };
 		14AE310C222112FF00302F89 /* MineAreaTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE310B222112FF00302F89 /* MineAreaTabCell.swift */; };
 		14AE310F222126BD00302F89 /* MineAddressTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE310E222126BD00302F89 /* MineAddressTitleView.swift */; };
 		14B27A46221BA20C0029648A /* DeliveryAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B27A45221BA20C0029648A /* DeliveryAddressViewController.swift */; };
@@ -478,6 +487,15 @@
 		14974BF921F7160A0088ABC3 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		14974BFB21F716DA0088ABC3 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		14974BFD21F717080088ABC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		149E4561223F3D1900FEA658 /* ic_empty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_empty@3x.png"; sourceTree = "<group>"; };
+		149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_load_failure@3x.png"; sourceTree = "<group>"; };
+		149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_load_failure@2x.png"; sourceTree = "<group>"; };
+		149E4564223F3D1900FEA658 /* ic_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_empty@2x.png"; sourceTree = "<group>"; };
+		149E4566223F3D1900FEA658 /* IDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDEmptyView.swift; sourceTree = "<group>"; };
+		149E4567223F3D1900FEA658 /* UIView+IDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+IDeal.swift"; sourceTree = "<group>"; };
+		149E4570223F531200FEA658 /* FunctionTipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionTipsView.swift; sourceTree = "<group>"; };
+		149E4572223F643E00FEA658 /* SelectTipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTipsView.swift; sourceTree = "<group>"; };
+		149E4574223F965700FEA658 /* PaySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessViewController.swift; sourceTree = "<group>"; };
 		14AE310B222112FF00302F89 /* MineAreaTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAreaTabCell.swift; sourceTree = "<group>"; };
 		14AE310E222126BD00302F89 /* MineAddressTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAddressTitleView.swift; sourceTree = "<group>"; };
 		14B27A45221BA20C0029648A /* DeliveryAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryAddressViewController.swift; sourceTree = "<group>"; };
@@ -669,6 +687,7 @@
 			children = (
 				14043D672212BF400023AA11 /* PaySelectViewController.swift */,
 				149445AC222905DC0048BF65 /* PayPasswordViewController.swift */,
+				149E4574223F965700FEA658 /* PaySuccessViewController.swift */,
 				14D8D8AE2213EA0000603D41 /* PaySureView.swift */,
 				14043D692212C5300023AA11 /* PaySelectView.swift */,
 				14D8D8A92213C41B00603D41 /* PaySuccessView.swift */,
@@ -1253,6 +1272,35 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
+		149E455F223F3D1900FEA658 /* IDEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				149E4560223F3D1900FEA658 /* Images */,
+				149E4565223F3D1900FEA658 /* Components */,
+			);
+			path = IDEmptyView;
+			sourceTree = "<group>";
+		};
+		149E4560223F3D1900FEA658 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				149E4561223F3D1900FEA658 /* ic_empty@3x.png */,
+				149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */,
+				149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */,
+				149E4564223F3D1900FEA658 /* ic_empty@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		149E4565223F3D1900FEA658 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				149E4566223F3D1900FEA658 /* IDEmptyView.swift */,
+				149E4567223F3D1900FEA658 /* UIView+IDeal.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		14AE310D2221268500302F89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1511,6 +1559,7 @@
 		14DC341321F170B6006EF1CF /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				149E455F223F3D1900FEA658 /* IDEmptyView */,
 				1412CD172239F63C0075C70B /* MMCache */,
 				14151067222E72CD00EA9026 /* MoviePlayer */,
 				14151064222E66F000EA9026 /* Hud */,
@@ -1603,6 +1652,8 @@
 				14974BE821F710230088ABC3 /* WebViewController.swift */,
 				14974BF121F713100088ABC3 /* ViewModel.swift */,
 				8B7F697B222FFC2B009A28C4 /* BarButtonItem.swift */,
+				149E4572223F643E00FEA658 /* SelectTipsView.swift */,
+				149E4570223F531200FEA658 /* FunctionTipsView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1843,13 +1894,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				149E456B223F3D1A00FEA658 /* ic_empty@2x.png in Resources */,
 				14DC33EE21F17060006EF1CF /* LaunchScreen.storyboard in Resources */,
 				14518A442234C26F00D3D257 /* ShoppingOrder.json in Resources */,
+				149E4569223F3D1A00FEA658 /* ic_load_failure@3x.png in Resources */,
 				14B849EF2220FBDE00F409B0 /* Example.json in Resources */,
 				14DC343321F175CF006EF1CF /* EmptyArray.json in Resources */,
 				14DC33EB21F17060006EF1CF /* Assets.xcassets in Resources */,
 				14B849ED2220F94700F409B0 /* Area.plist in Resources */,
+				149E456A223F3D1A00FEA658 /* ic_load_failure@2x.png in Resources */,
 				14DC343121F175CF006EF1CF /* EmptyObject.json in Resources */,
+				149E4568223F3D1A00FEA658 /* ic_empty@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2048,6 +2103,7 @@
 				1406D62B223234C70090C07F /* MobileBindingViewController.swift in Sources */,
 				14F35C62220294F9002122B6 /* FarmNonMemberViewController.swift in Sources */,
 				14043D6A2212C5300023AA11 /* PaySelectView.swift in Sources */,
+				149E4575223F965700FEA658 /* PaySuccessViewController.swift in Sources */,
 				1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
 				14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */,
@@ -2061,6 +2117,7 @@
 				14D5B347221FD69000D08DD1 /* MineAddressBottomView.swift in Sources */,
 				8BDCF2D02236D57C003D5D4E /* HotGoodsViewController.swift in Sources */,
 				146B74BC221E9B82005D2879 /* PageTitleView.swift in Sources */,
+				149E456C223F3D1A00FEA658 /* IDEmptyView.swift in Sources */,
 				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				14C251132223F00200F5CB53 /* FlashTwoViewController.swift in Sources */,
@@ -2072,6 +2129,7 @@
 				14B849F12220FE6500F409B0 /* MineAddressModel.swift in Sources */,
 				14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */,
 				1493B43E2203EB1C009E394E /* StoreLeftCell.swift in Sources */,
+				149E4573223F643E00FEA658 /* SelectTipsView.swift in Sources */,
 				14641B8621F57DBE00F4E032 /* FirstLaunch.swift in Sources */,
 				149445C0222923CB0048BF65 /* MineMemberViewController.swift in Sources */,
 				14DC344621F185A9006EF1CF /* Single+ObjectMapper.swift in Sources */,
@@ -2122,6 +2180,7 @@
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14C250FD2223856F00F5CB53 /* PrivatefarmViewController.swift in Sources */,
 				1412CD422239FD800075C70B /* RxMoyaProviderType+Cache.swift in Sources */,
+				149E456D223F3D1A00FEA658 /* UIView+IDeal.swift in Sources */,
 				14043D5A2212AA140023AA11 /* OrderViewController.swift in Sources */,
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
@@ -2241,6 +2300,7 @@
 				8BF9188C2239320500EEB345 /* StoreModel.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */,
+				149E4571223F531200FEA658 /* FunctionTipsView.swift in Sources */,
 				1415106B222E72CD00EA9026 /* EZPlayerControlView.swift in Sources */,
 				145138AF21F855D40038AFC6 /* AuthManager.swift in Sources */,
 				14D5B33B221FA3BD00D08DD1 /* MineLogisticsTablCell.swift in Sources */,
