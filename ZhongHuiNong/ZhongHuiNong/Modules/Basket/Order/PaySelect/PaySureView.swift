@@ -83,8 +83,8 @@ class PaySureView: View {
         }
         
         numLab.snp.makeConstraints { (make) in
-            make.right.equalTo(sureBtn.snp.left).offset(-8)
-            make.centerY.equalTo(contView)
+            make.left.equalTo(priceLab.snp.left)
+            make.top.equalTo(priceLab.snp.bottom)
         }
         
     }

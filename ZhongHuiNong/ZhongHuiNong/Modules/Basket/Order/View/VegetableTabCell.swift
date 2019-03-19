@@ -9,19 +9,21 @@
 import UIKit
 
 class VegetableTabCell: TableViewCell, TabReuseIdentifier, UITableViewDataSource, UITableViewDelegate {
-
-    var isFreight = false {
-        didSet {
-            if isFreight {
-                expressView.timeLab.text = "免运费"
-            }else {
-                expressView.timeLab.text = "8.0元"
-            }
-        }
-    }
     
     var goodsList: [CartGoodsInfo] = [] {
         didSet {
+            
+            switch User.currentUser().isVip {
+            case 0:
+                expressView.timeLab.text = "8.0元"
+            case 1:
+                expressView.timeLab.text = "VIP会员扣除一次配送次数"
+            case 2:
+                expressView.timeLab.text = "企业VIP会员免运费"
+            default:
+                break
+            }
+            
             tableView.reloadData()
         }
     }
@@ -125,8 +127,8 @@ class VegetableTabSubCell: TableViewCell, TabReuseIdentifier {
             leftImg.lc_setImage(with: goodsInfo.focusImgUrl)
             titleLab.text = goodsInfo.productname
             numLab.text = "x\(goodsInfo.quantity)"
-            priceLab.text = "\(goodsInfo.sellprice)"
-            nonPriceLab.text = "\(goodsInfo.marketprice)"
+            priceLab.text = "¥\(goodsInfo.sellprice)"
+            nonPriceLab.text = "¥\(goodsInfo.marketprice)"
         }
     }
     

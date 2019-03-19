@@ -21,7 +21,7 @@ class SelectTipsView: UIView {
     }
     
     let detailLab = UILabel().then { (lab) in
-        lab.text = "也可了解峻铭农场有机蔬菜"
+        lab.text = "即可了解峻铭农场有机蔬菜"
         lab.textColor = UIColor.hexColor(0x898989)
         lab.font = UIFont.systemFont(ofSize: 16)
     }

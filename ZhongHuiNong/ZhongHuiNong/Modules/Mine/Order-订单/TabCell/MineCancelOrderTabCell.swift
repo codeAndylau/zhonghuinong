@@ -1,70 +1,42 @@
 //
-//  MineOrderTabCell.swift
+//  MineCancelOrderTabCell.swift
 //  ZhongHuiNong
 //
-//  Created by Andylau on 2019/2/21.
+//  Created by Andylau on 2019/3/19.
 //  Copyright © 2019 Andylau. All rights reserved.
 //
 
 import UIKit
 
-class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
+class MineCancelOrderTabCell: MineOrderTabCell {
     
-    let contView = View().then { (view) in
+    let leftView = View().then { (view) in
         view.backgroundColor = UIColor.white
-        view.cuttingCorner(radius: 10)
-    }
-    
-    let titleLab = Label().then { (lab) in
-        lab.text = "峻铭自营"
-        lab.textColor = UIColor.hexColor(0x333333)
-        lab.textAlignment = .left
-        lab.font = UIFont.boldSystemFont(ofSize: 13)
-    }
-    
-    let arrowImg = ImageView().then { (img) in
-        img.image = UIImage(named: "farm_arrow")
-    }
-    
-    let statusLab = Label().then { (lab) in
-        lab.text = ""
-        lab.textColor = UIColor.hexColor(0x1DD1A8)
-        lab.textAlignment = .left
-        lab.font = UIFont.systemFont(ofSize: 12)
-    }
-    
-    let timeLab = Label().then { (lab) in
-        lab.text = ""
-        lab.textColor = UIColor.hexColor(0xC8C8C8)
-        lab.textAlignment = .left
-        lab.font = UIFont.systemFont(ofSize: 10)
     }
 
-    let vegetablesView = VegetablesView()
-    
-    let moneyLab = Label().then { (lab) in
-        lab.text = "0.0"
-        lab.textColor = UIColor.hexColor(0x1DD1A8)
-        lab.font = UIFont.boldSystemFont(ofSize: 16)
+    let cancelBtn = Button().then { (btn) in
+        btn.setTitle("删除订单", for: .normal)
+        btn.setTitleColor(UIColor.hexColor(0x999999), for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        btn.setupBorder(width: 1, color: UIColor.hexColor(0x999999))
+        btn.cuttingCorner(radius: 15)
+        
     }
     
-    let tipsLab = Label().then { (lab) in
-        lab.text = "实付："
-        lab.textColor = UIColor.hexColor(0x666666)
-        lab.font = UIFont.systemFont(ofSize: 12)
-    }
+    /// 1 是取消 2 是支付
+    var btnActionClosure:(()->Void)?
     
-    let numLab = Label().then { (lab) in
-        lab.text = ""
-        lab.textColor = UIColor.hexColor(0x999999)
-        lab.font = UIFont.systemFont(ofSize: 12)
+    @objc func cancelBtnAction() {
+        btnActionClosure?()
     }
     
     override func makeUI() {
-        super.makeUI()
+        
         selectionStyle = .none
         backgroundColor = UIColor.hexColor(0xFAFAFA)
+        statusLab.text = "等待付款"
         addSubview(contView)
+        contView.addSubview(leftView)
         contView.addSubview(titleLab)
         contView.addSubview(arrowImg)
         contView.addSubview(statusLab)
@@ -73,17 +45,26 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         contView.addSubview(moneyLab)
         contView.addSubview(tipsLab)
         contView.addSubview(numLab)
+        contView.addSubview(cancelBtn)
+        
+        cancelBtn.addTarget(self, action: #selector(cancelBtnAction), for: UIControl.Event.touchUpInside)
     }
     
     override func updateUI() {
-        super.updateUI()
         
         contView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsets.init(top: 10, left: 12, bottom: 0, right: 12))
         }
         
+        leftView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(8)
+            make.width.height.equalTo(30)
+        }
+
         titleLab.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(12)
+            make.left.equalToSuperview().offset(12)
+            make.centerY.equalTo(leftView)
         }
         
         arrowImg.snp.makeConstraints { (make) in
@@ -108,9 +89,16 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
             make.height.equalTo(50)
         }
         
+        cancelBtn.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-12)
+            make.bottom.equalToSuperview().offset(-12)
+            make.width.equalTo(78)
+            make.height.equalTo(30)
+        }
+        
         moneyLab.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-12)
-            make.bottom.equalToSuperview().offset(-10)
+            make.bottom.equalTo(cancelBtn.snp.top).offset(-10)
         }
         
         tipsLab.snp.makeConstraints { (make) in
@@ -125,31 +113,26 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
         
     }
     
-    var order: MineGoodsOrderInfo = MineGoodsOrderInfo() {
+    var payOrder: MineGoodsOrderInfo = MineGoodsOrderInfo() {
         didSet {
             
-            numLab.text = "共\(order.orderGoodsList.count)件"
+            numLab.text = "共\(payOrder.orderGoodsList.count)件"
             
-            statusLab.text = "已取消"
-            statusLab.textColor = UIColor.hexColor(0x999999)
-            
-            if order.add_time.components(separatedBy: "T").count > 1 {
-                timeLab.text = order.add_time.components(separatedBy: "T")[0]
+            if payOrder.add_time.components(separatedBy: "T").count > 1 {
+                timeLab.text = payOrder.add_time.components(separatedBy: "T")[0]
             }else {
-                timeLab.text = order.add_time
+                timeLab.text = payOrder.add_time
             }
             
-            for item in order.orderGoodsList.enumerated() {
+            for item in payOrder.orderGoodsList.enumerated() {
                 
-                debugPrints("商品图片信息---\(item.element.goodsPic)")
-                
+                debugPrints("待支付商品图片信息---\(item.element.goodsPic)")
                 
                 vegetablesView.btn1.image = UIImage()
                 vegetablesView.btn2.image = UIImage()
                 vegetablesView.btn3.image = UIImage()
                 vegetablesView.btn4.image = UIImage()
                 vegetablesView.btn5.image = UIImage()
-                
                 
                 if item.offset == 0 {
                     vegetablesView.btn1.lc_setImage(with: item.element.goodsPic)
@@ -173,13 +156,8 @@ class MineOrderTabCell: TableViewCell, TabReuseIdentifier {
                 
             }
             
-            var price: CGFloat = 0
-            order.orderGoodsList.forEach { (item) in
-                price += item.goodsPrice * CGFloat(item.quantity)
-            }
-            
-            moneyLab.text = "\(price)"
+            moneyLab.text = "\(payOrder.amountReal)"
         }
     }
-
+    
 }

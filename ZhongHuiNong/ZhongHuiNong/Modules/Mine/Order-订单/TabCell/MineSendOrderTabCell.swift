@@ -22,8 +22,9 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
         contView.addSubview(titleLab)
         contView.addSubview(arrowImg)
         contView.addSubview(statusLab)
+        contView.addSubview(timeLab)
         contView.addSubview(vegetablesView)
-        contView.addSubview(cancelBtn)
+        //contView.addSubview(cancelBtn)
         contView.addSubview(moneyLab)
         contView.addSubview(tipsLab)
         contView.addSubview(numLab)
@@ -49,6 +50,11 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
             make.right.equalToSuperview().offset(-12)
         }
         
+        timeLab.snp.makeConstraints { (make) in
+            make.right.equalTo(statusLab.snp.left).offset(-10)
+            make.centerY.equalTo(statusLab)
+        }
+        
         vegetablesView.snp.makeConstraints { (make) in
             make.top.equalTo(titleLab.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(12)
@@ -56,16 +62,16 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
             make.height.equalTo(50)
         }
         
-        cancelBtn.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-12)
-            make.bottom.equalToSuperview().offset(-12)
-            make.width.equalTo(78)
-            make.height.equalTo(30)
-        }
+//        cancelBtn.snp.makeConstraints { (make) in
+//            make.right.equalToSuperview().offset(-12)
+//            make.bottom.equalToSuperview().offset(-12)
+//            make.width.equalTo(78)
+//            make.height.equalTo(30)
+//        }
         
         moneyLab.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-12)
-            make.bottom.equalTo(cancelBtn.snp.top).offset(-10)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         tipsLab.snp.makeConstraints { (make) in
@@ -82,9 +88,13 @@ class MineSendOrderTabCell: MinePayOrderTabCell {
     var sendOrder: MineGoodsOrderInfo = MineGoodsOrderInfo() {
         didSet {
             
-            statusLab.text = "等待商家发货"
-            
             numLab.text = "共\(sendOrder.orderGoodsList.count)件"
+            
+            if sendOrder.add_time.components(separatedBy: "T").count > 1 {
+                timeLab.text = sendOrder.add_time.components(separatedBy: "T")[0]
+            }else {
+                timeLab.text = sendOrder.add_time
+            }
             
             for item in sendOrder.orderGoodsList.enumerated() {
                 

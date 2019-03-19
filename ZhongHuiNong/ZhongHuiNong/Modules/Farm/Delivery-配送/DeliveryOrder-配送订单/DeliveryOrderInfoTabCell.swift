@@ -103,12 +103,7 @@ class DeliveryOrderInfoTabCell: TableViewCell, TabReuseIdentifier {
             
             weekLab.text = info.scheduleDay
             
-            let dateString = info.createdat.components(separatedBy: "T")
-            if dateString.count > 0 {
-                dateLab.text = dateString[0]
-            }else {
-                dateLab.text = info.createdat
-            }
+            dateLab.text = info.createdat.replacingOccurrences(of: "T", with: " ")
             
             totalLab.text = Keepfigures(text: CGFloat(info.weight))
             numLab.text = "共\(info.dispatchOrderDetail.count)件"

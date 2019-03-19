@@ -68,7 +68,26 @@ class MinePayOrderViewController: MineAllOrderViewController {
                 self.tableView.uHead.endRefreshing()
                 self.payOrderList.removeAll()
             }
-            self.payOrderList = list
+            
+            // 按照时间排序
+            self.payOrderList = list.sorted(by: { (item1, item2) -> Bool in
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+                
+                let date1Str = item1.add_time.replacingOccurrences(of: "T", with: " ")
+                let date2Str = item2.add_time.replacingOccurrences(of: "T", with: " ")
+                
+                let date1 = dateFormatter.date(from: date1Str)
+                let date2 = dateFormatter.date(from: date2Str)
+                
+                if date1 != nil && date2 != nil {
+                    return date1!.compare(date2!) == .orderedDescending
+                }else {
+                    return false
+                }
+            })
+
         }) { (error) in
             debugPrints("获取支付订单失败---\(error)")
             self.payOrderList = []
@@ -88,14 +107,15 @@ class MinePayOrderViewController: MineAllOrderViewController {
         
         WebAPITool.request(WebAPI.cancelOrder(params), complete: { (value) in
             let status = value["status"].intValue
+            let detail = value["detail"].stringValue
             if status == 1 {
                 ZYToast.showCenterWithText(text: "取消订单成功")
                 self.payOrderList.remove(at: indexPath.row)
             }else{
-                ZYToast.showCenterWithText(text: "服务器正在高速运作中")
+                ZYToast.showCenterWithText(text: detail)
             }
         }) { (error) in
-            ZYToast.showCenterWithText(text: "服务器正在高速运作中")
+            ZYToast.showCenterWithText(text: "取消订单失败")
             debugPrints("确认收货失败 ----- \(error)")
         }
     }

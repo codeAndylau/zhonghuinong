@@ -66,8 +66,19 @@ class BasketViewController: TableViewController {
             guard let self = self else { return }
             
             if self.isEdit {
-                self.cartDeleteGoodsInfo(0, isRemoveAll: true)
+                
+                let tips = SelectTipsView()
+                tips.titleLab.text = "确认删除购物车商品信息?"
+                tips.detailLab.text = "删除商品后无法恢复哦"
+                
+                tips.btnClosure = { index in
+                    if index == 2 {
+                        self.cartDeleteGoodsInfo(0, isRemoveAll: true)
+                    }
+                }
+                
             }else {
+                
                 let list = self.cartList.filter({ (item) -> Bool in
                     if item.checked { return true }
                     return false
@@ -155,7 +166,7 @@ class BasketViewController: TableViewController {
                 self.emptyView.alpha = 0.1
             }
             
-            self.cartList = list
+            self.cartList = list.reversed()
             self.calculateGoodsPrice()
             self.checkSelectStatus()
             
@@ -207,7 +218,7 @@ class BasketViewController: TableViewController {
             if item.checked {
                 costPrice += item.marketprice * CGFloat(item.quantity)
                 salePrice += item.sellprice * CGFloat(item.quantity)
-                num += Int(item.quantity)
+                num += 1
             }
         }
         
@@ -226,14 +237,20 @@ class BasketViewController: TableViewController {
             }
         }
         
-        if isSettle {
-            settleView.settlementBtn.setTitle("去结算\(num)", for: .normal)
-            settleView.settlementBtn.isUserInteractionEnabled = true
-            settleView.settlementBtn.alpha = 1
+        if isEdit {
+            settleView.type = .edit
+            settleView.settlementBtn.setTitle("删除", for: .normal)
         }else {
-            settleView.settlementBtn.setTitle("去结算", for: .normal)
-            settleView.settlementBtn.isUserInteractionEnabled = false
-            settleView.settlementBtn.alpha = 0.5
+            settleView.type = .normal
+            if isSettle {
+                settleView.settlementBtn.setTitle("去结算\(num)", for: .normal)
+                settleView.settlementBtn.isUserInteractionEnabled = true
+                settleView.settlementBtn.alpha = 1
+            }else {
+                settleView.settlementBtn.setTitle("去结算", for: .normal)
+                settleView.settlementBtn.isUserInteractionEnabled = false
+                settleView.settlementBtn.alpha = 0.5
+            }
         }
         
     }
@@ -264,15 +281,26 @@ class BasketViewController: TableViewController {
         
         let remove = isRemoveAll == true ? "true" : "false"
         
-        let params: [String: Any] = ["userid": User.currentUser().userId, "isRemoveAll": remove]
+        var params: [String: Any] = ["userid": User.currentUser().userId, "isRemoveAll": remove]
         
         var body = [[String: Any]]()
         
         if isRemoveAll {
+            
+            var list: [CartGoodsInfo] = []
+            
             for item in cartList {
-                let dict = ["productid": item.productid, "quantity": item.quantity]
-                body.append(dict)
+                if item.checked {
+                    let dict = ["productid": item.productid, "quantity": item.quantity]
+                    body.append(dict)
+                    list.append(item)
+                }
             }
+            
+            if list.count == cartList.count {
+                params["isRemoveAll"] = false
+            }
+            
         }else {
             let info = cartList[index]
             body = [["productid": info.productid, "quantity": info.quantity]]
@@ -285,8 +313,13 @@ class BasketViewController: TableViewController {
             debugPrints("购物车单个商品删除成功---\(value)")
             
             if isRemoveAll {
-                self.cartList.removeAll()
-                self.cartList = []
+                var list: [CartGoodsInfo] = []
+                for item in self.cartList {
+                    if !item.checked {
+                        list.append(item)
+                    }
+                }
+                self.cartList = list
             }else {
                 self.cartList.remove(at: index)
             }

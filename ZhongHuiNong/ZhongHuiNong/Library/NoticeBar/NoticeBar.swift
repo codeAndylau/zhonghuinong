@@ -205,7 +205,7 @@ extension NoticeBarStyle {
         var properties: NoticeBarProperties
         switch self {
         case .onNavigationBar:
-            properties = NoticeBarProperties(shadowOffsetY: 3, fontSizeScaleFactor: 0.55, textFont: UIFont.systemFont(ofSize: 18), viewFrame: CGRect(origin: CGPoint.zero, size: CGSize(width: screenWidth, height: 64.0))) // + edgeInsets.top
+            properties = NoticeBarProperties(shadowOffsetY: 3, fontSizeScaleFactor: 0.55, textFont: UIFont.boldSystemFont(ofSize: 15), viewFrame: CGRect(origin: CGPoint.zero, size: CGSize(width: screenWidth, height: 64.0))) // + edgeInsets.top
         case .onStatusBar:
             properties = NoticeBarProperties(shadowOffsetY: 2, fontSizeScaleFactor: 0.75, textFont: UIFont.systemFont(ofSize: 13), viewFrame: CGRect(origin: CGPoint.zero, size: CGSize(width: screenWidth, height: 20.0)))
         case .onTabbar:

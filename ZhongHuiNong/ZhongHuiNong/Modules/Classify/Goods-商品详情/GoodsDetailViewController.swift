@@ -20,7 +20,6 @@ class GoodsDetailViewController: ViewController {
     var loadImg = false
     var cellHeight: CGFloat = 500
     
-    
     // 购物车数量
     var cartNum = 0 {
         didSet {
@@ -40,6 +39,18 @@ class GoodsDetailViewController: ViewController {
         didSet {
             
             isNetwork = true
+            
+            // 库存不够的时候 提示用户
+            if goodsDetailInfo.stock <= 0 {
+                buyView.buyBtn.alpha = 0.5
+                buyView.buyBtn.isEnabled = false
+                buyView.buyBtn.setTitle("已售罄", for: .normal)
+                
+                
+                buyView.cartBtn.alpha = 0.5
+                buyView.cartBtn.isEnabled = false
+                buyView.cartBtn.setTitle("备货中0.0", for: .normal)
+            }
             
             fadeInOnDisplay {
                 self.activityVIew.stopAnimating()
@@ -95,14 +106,15 @@ class GoodsDetailViewController: ViewController {
             debugPrints("点击了分享")
         }).disposed(by: rx.disposeBag)
         
-        // 底部操作试图
-        buyView.cartBtn.rx.tap.subscribe(onNext: { (_) in
-            self.addToCart()
-        }).disposed(by: rx.disposeBag)
-        
+        // 立即购买
         buyView.buyBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.bindingPhone()
+            self.goodsInfoSelected(type: 1)
+        }).disposed(by: rx.disposeBag)
+        
+        // 加入购物车
+        buyView.cartBtn.rx.tap.subscribe(onNext: { (_) in
+            self.goodsInfoSelected(type: 2)
         }).disposed(by: rx.disposeBag)
         
         buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
@@ -140,33 +152,47 @@ class GoodsDetailViewController: ViewController {
             self?.fetchGoodsInfo()
         }
     }
-    
-    func bindingPhone() {
+
+    /// 商品选择规格
+    func goodsInfoSelected(type: Int) {
         
-        if User.hasUser() && User.currentUser().mobile != "" {
-            buyCart()
-        }else {
-            navigator.show(segue: .bindingMobile, sender: self)
-        }
-    }
-    
-    func buyCart() {
+        goodsInfoDemo.specificationView.goodsInfo = goodsDetailInfo
+        goodsInfoDemo.show()
         
-        var goodsInfo = CartGoodsInfo()
-        goodsInfo.productid = self.goodsDetailInfo.id
-        goodsInfo.quantity = 1
-        goodsInfo.productname = self.goodsDetailInfo.productName
-        goodsInfo.marketprice = CGFloat(self.goodsDetailInfo.marketPrice)
-        goodsInfo.sellprice = self.goodsDetailInfo.salePrice
-        goodsInfo.focusImgUrl = self.goodsDetailInfo.focusImgUrl
-        self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
+        goodsInfoDemo.specificationView.sureBtn.rx.tap.subscribe(onNext: { (_) in
+           
+            self.goodsInfoDemo.dismiss()
+            
+            let num = Int(self.goodsInfoDemo.specificationView.addView.numLab.text!)!
+            
+            // 立即购买
+            if type == 1 {
+                
+                var goodsInfo = CartGoodsInfo()
+                goodsInfo.productid = self.goodsDetailInfo.id
+                goodsInfo.quantity = num
+                goodsInfo.productname = self.goodsDetailInfo.productName
+                goodsInfo.marketprice = CGFloat(self.goodsDetailInfo.marketPrice)
+                goodsInfo.sellprice = self.goodsDetailInfo.salePrice
+                goodsInfo.focusImgUrl = self.goodsDetailInfo.focusImgUrl
+                self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
+            }
+            
+            // 加入购物车
+            if type == 2 {
+                
+                debugPrints("购物的数量为---\(num)")
+                self.addToCart(num: num)
+            }
+            
+        }).disposed(by: rx.disposeBag)
         
     }
     
     /// 加入购物车
-    func addToCart() {
+    func addToCart(num: Int) {
         
-        let productLists: [[String: Any]] = [["productid": goodsDetailInfo.id, "quantity": 1]]
+        let productLists: [[String: Any]] = [["productid": goodsDetailInfo.id, "quantity": num]]
         let userId = User.currentUser().userId
         
         debugPrints("加入购物车参数--\(productLists)---\(userId)")
@@ -212,8 +238,10 @@ class GoodsDetailViewController: ViewController {
     lazy var buyView = GoodsDetailBuyView.loadView()
     lazy var rightBarView = GoodsDetailRightView.loadView()
     
+    lazy var goodsInfoDemo = SpecificationViewController()
+    
     lazy var headerView: GoodsDetailHeaderView = {
-        let view = GoodsDetailHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: GoodsDetailHeaderH))
+        let view = GoodsDetailHeaderView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenW+320))
         view.backgroundColor = UIColor.white
         return view
     }()
@@ -246,8 +274,11 @@ class GoodsDetailViewController: ViewController {
             guard let self = self else { return }
             self.goodsDetailInfo = info
         }) { (error) in
-            self.activityVIew.stopAnimating()
+            
             MBProgressHUD.showError(error)
+            self.activityVIew.stopAnimating()
+            self.navigationController?.navigationBar.tintColor = UIColor.black
+            
             debugPrints("获取商品信息出错---\(error)")
             //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E6%89%8B%E5%B7%A5%E9%85%B1%E6%B2%B9.png
             //https://smartfarm-1257690229.cos.ap-shanghai.myqcloud.com/Image/Product/Detail/%E7%99%BD%E8%90%9D%E5%8D%9C.png
@@ -378,7 +409,7 @@ extension GoodsDetailViewController: UIScrollViewDelegate {
             //let totalOffset: CGFloat = GoodsDetailBannerH
             //self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
         }else {
-            let totalOffset: CGFloat = GoodsDetailBannerH - abs(offset/2)
+            let totalOffset: CGFloat = kScreenW - abs(offset/2)
             self.headerView.bannerView.frame = CGRect(x: 0, y: offset/2, width: kScreenW, height: totalOffset)
         }
         

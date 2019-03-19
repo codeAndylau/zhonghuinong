@@ -63,7 +63,7 @@ class OrderViewController: TableViewController {
         }
     }
     
-    var payMoney: Double = 0
+    var payMoney: CGFloat = 0
     
     var goodsList: [CartGoodsInfo] = [] {
         
@@ -77,7 +77,7 @@ class OrderViewController: TableViewController {
             goodsList.forEach { (item) in
                 costPrice += item.marketprice * CGFloat(item.quantity)
                 salePrice += item.sellprice * CGFloat(item.quantity)
-                num += Int(item.quantity)
+                num += 1
             }
             
             debugPrints("订单销售价格和成本价格总和----\(Keepfigures(text: salePrice))---\(Keepfigures(text: costPrice))")
@@ -96,7 +96,7 @@ class OrderViewController: TableViewController {
                 if costPrice > 98 {
                     isFreight = true
                 }
-                payMoney = Double(costPrice)
+                payMoney = CGFloat(costPrice)
                 paySureView.moneyLab.text = "¥" + Keepfigures(text: costPrice)
                 paySureView.priceLab.text = ""
                 
@@ -105,7 +105,7 @@ class OrderViewController: TableViewController {
                 debugPrints("VIP用户")
                 
                 isFreight = true
-                payMoney = Double(salePrice)
+                payMoney = CGFloat(salePrice)
                 paySureView.moneyLab.text = "¥" + Keepfigures(text: salePrice)
                 paySureView.priceLab.text = "已优惠¥" + "\(Keepfigures(text: costPrice - salePrice))"
                 
@@ -190,12 +190,14 @@ class OrderViewController: TableViewController {
             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             
             // 3: 显示支付成功的界面，给用户一个友好的提示
+            self.paySuccessDemo.paySuccessView.moneyLab.text = "实付:¥\(Keepfigures(text: self.payMoney))"
             self.paySuccessDemo.show()
             
         }
         
         /// 支付成功后点击的支付界面的按钮的事件操作
         paySuccessDemo.btnClosure = { index in
+            
             if index == 1 {
                 self.tabBarController?.selectedIndex = 3
                 self.navigationController?.popViewController(animated: false)
@@ -243,58 +245,20 @@ class OrderViewController: TableViewController {
     /// 验证用户是否绑定了手机
     func bindingPhone() {
         
+        /// 0: 判断是否绑定了手机号码
+        /// 1: 判断是否是vip
+        /// 2: 是否绑定了支付密码
+        /// 3: 然后在提交订单
+        
         if User.hasUser() && User.currentUser().mobile == "" {
             navigator.show(segue: .bindingMobile, sender: self)
         }else {
-            
-            /// 1: 判断是否是vip
-            /// 2: 是否绑定了支付密码
-            /// 3: 然后在提交订单
-            
-            if isSettingPsd {
+                 if isSettingPsd {
                 commitOrder()
             }else {
                 showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
                 PayPasswordDemo.show()
             }
-            
-            //            switch User.currentUser().isVip {
-            //
-            //            case 0:
-            //
-            //                MBProgressHUD.showInfo("您还不是VIP会员,请先联系客服申请VIP")
-            //
-            //                if isSettingPsd {
-            //                    commitOrder()
-            //                }else {
-            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
-            //                    PayPasswordDemo.show()
-            //                }
-            //
-            //            case 1:
-            //
-            //                debugPrints("您是VIP会员可以支付结算---\(isSettingPsd)")
-            //
-            //                if isSettingPsd {
-            //                    commitOrder()
-            //                }else {
-            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
-            //                    PayPasswordDemo.show()
-            //                }
-            //
-            //            case 2:
-            //
-            //                debugPrints("您是企业VIP会员直接支付结算---\(isSettingPsd)")
-            //                if isSettingPsd {
-            //                    commitOrder()
-            //                }else {
-            //                    showNoticebar(text: "请先设置支付密码", type: NoticeBarDefaultType.info)
-            //                    PayPasswordDemo.show()
-            //                }
-            //
-            //            default:
-            //                break
-            //            }
         }
     }
     
@@ -324,10 +288,8 @@ class OrderViewController: TableViewController {
         
         debugPrints("创建订单参数---\(params)")
         
-        HudHelper.showWaittingHUD(msg: "创建订单中...")
         WebAPITool.requestModel(WebAPI.createOrder(params), model: CartOrderInfo.self, complete: { (model) in
             debugPrints("创建订单成功---\(model)")
-            HudHelper.hideHUD()
             MBProgressHUD.showSuccess("订单创建成功")
 
             if model.orderNumber != "" {
@@ -339,7 +301,7 @@ class OrderViewController: TableViewController {
 
         }) { (error) in
             debugPrints("创建订单出错---\(error)")
-            HudHelper.hideHUD()
+            MBProgressHUD.showError("订单创建失败")
         }
         
     }
@@ -408,7 +370,6 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: VegetableTabCell.identifier, for: indexPath) as! VegetableTabCell
         cell.selectionStyle = .none
         cell.goodsList = goodsList
-        cell.isFreight = isFreight
         return cell
     }
     

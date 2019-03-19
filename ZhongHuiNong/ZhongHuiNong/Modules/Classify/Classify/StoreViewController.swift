@@ -256,7 +256,7 @@ class StoreViewController: ViewController {
                 tempList += list
                 
                 debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
-                self.classInfos[self.currentIndexPath.row].goodsInfo = tempList //self.handleFilterArray(arr: tempList)
+                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
                 
             }
             

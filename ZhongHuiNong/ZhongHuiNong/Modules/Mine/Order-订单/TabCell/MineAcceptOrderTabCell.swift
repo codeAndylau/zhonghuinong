@@ -22,6 +22,7 @@ class MineAcceptOrderTabCell: MinePayOrderTabCell {
         contView.addSubview(titleLab)
         contView.addSubview(arrowImg)
         contView.addSubview(statusLab)
+        contView.addSubview(timeLab)
         contView.addSubview(vegetablesView)
         contView.addSubview(payBtn)
         contView.addSubview(cancelBtn)
@@ -62,6 +63,11 @@ class MineAcceptOrderTabCell: MinePayOrderTabCell {
         statusLab.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
+        }
+        
+        timeLab.snp.makeConstraints { (make) in
+            make.right.equalTo(statusLab.snp.left).offset(-10)
+            make.centerY.equalTo(statusLab)
         }
         
         vegetablesView.snp.makeConstraints { (make) in
@@ -105,6 +111,12 @@ class MineAcceptOrderTabCell: MinePayOrderTabCell {
         didSet {
             
             numLab.text = "共\(acceptOrder.orderGoodsList.count)件"
+            
+            if acceptOrder.add_time.components(separatedBy: "T").count > 1 {
+                timeLab.text = acceptOrder.add_time.components(separatedBy: "T")[0]
+            }else {
+                timeLab.text = acceptOrder.add_time
+            }
             
             for item in acceptOrder.orderGoodsList.enumerated() {
                 

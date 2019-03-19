@@ -202,6 +202,8 @@ class DeliveryViewController: ViewController {
             loadData()
         }
         
+        fetchDispatchMenu()
+        
     }
     
     override func bindViewModel() {
@@ -599,6 +601,7 @@ class DeliveryViewController: ViewController {
             }
         }) { (error) in
             HudHelper.hideHUD()
+            MBProgressHUD.showError("订单提交失败,请稍后再试")
             debugPrints("创建配送订单失败")
         }
         

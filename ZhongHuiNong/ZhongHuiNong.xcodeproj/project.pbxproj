@@ -226,6 +226,7 @@
 		14C3EBD4221D3BEE003029EB /* GoodsDetailHeaderOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */; };
 		14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */; };
 		14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */; };
+		14C800FE2240E73600AE23B9 /* MineCancelOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C800FD2240E73600AE23B9 /* MineCancelOrderTabCell.swift */; };
 		14D5B332221F945300D08DD1 /* MinePayOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */; };
 		14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */; };
 		14D5B336221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */; };
@@ -532,6 +533,7 @@
 		14C3EBD3221D3BEE003029EB /* GoodsDetailHeaderOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailHeaderOneView.swift; sourceTree = "<group>"; };
 		14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailBuyView.swift; sourceTree = "<group>"; };
 		14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRowView.swift; sourceTree = "<group>"; };
+		14C800FD2240E73600AE23B9 /* MineCancelOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCancelOrderTabCell.swift; sourceTree = "<group>"; };
 		14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinePayOrderTabCell.swift; sourceTree = "<group>"; };
 		14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSendOrderTabCell.swift; sourceTree = "<group>"; };
 		14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAcceptOrderTabCell.swift; sourceTree = "<group>"; };
@@ -951,7 +953,6 @@
 				14C250FB2223853600F5CB53 /* Privatefarm-私家农场 */,
 				1468B154221508F8002B971F /* Search-搜索 */,
 				1492DD96221A4A9300C79D88 /* Delivery-配送 */,
-				1492DDA9221A67C700C79D88 /* Specification-规格选择 */,
 				14C251092223D93800F5CB53 /* Hot-热销排行 */,
 				14ED110D2216ADB70021D185 /* Flash-限时抢购 */,
 				14F35C60220294AF002122B6 /* NonMember-非会员 */,
@@ -964,6 +965,7 @@
 			children = (
 				1492DDA0221A5A4F00C79D88 /* Classify */,
 				14C3EBCE221D1D26003029EB /* Goods-商品详情 */,
+				1492DDA9221A67C700C79D88 /* Specification-规格选择 */,
 			);
 			path = Classify;
 			sourceTree = "<group>";
@@ -1099,6 +1101,7 @@
 				14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */,
 				14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */,
 				14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */,
+				14C800FD2240E73600AE23B9 /* MineCancelOrderTabCell.swift */,
 			);
 			path = TabCell;
 			sourceTree = "<group>";
@@ -2311,6 +2314,7 @@
 				14ED110C22169D510021D185 /* DropupMenu.swift in Sources */,
 				8B25C88522314FFF00A2D0C7 /* MineAddressDefaultView.swift in Sources */,
 				1448B09922250A6B009237E7 /* HotFruitViewController.swift in Sources */,
+				14C800FE2240E73600AE23B9 /* MineCancelOrderTabCell.swift in Sources */,
 				1492DDAE221A763600C79D88 /* SpecificationSelectedView.swift in Sources */,
 				1412CD4B2239FD800075C70B /* MMCache+Response.swift in Sources */,
 				1492DD9D221A546100C79D88 /* DeliveryCollectionCell.swift in Sources */,

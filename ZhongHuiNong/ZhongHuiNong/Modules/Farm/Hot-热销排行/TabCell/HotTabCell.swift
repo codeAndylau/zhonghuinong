@@ -48,8 +48,8 @@ class HotTabCell: FlashOneTabCell {
         didSet {
             ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
             titleLab.text = goodsInfo.productName 
-            priceLab.text = Keepfigures(text: goodsInfo.salePrice)
-            discountLab.text = Keepfigures(text: goodsInfo.marketPrice)
+            priceLab.text = "¥" + Keepfigures(text: goodsInfo.salePrice)
+            discountLab.text = "¥" + Keepfigures(text: goodsInfo.marketPrice)
         }
     }
 

@@ -211,14 +211,13 @@ class MineHeaderView: View {
                 memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
             }else if user.isVip == 1 {
                 memberBtn.set(image: UIImage(named: "mine_vip"), title: "尊享VIP", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+                memberBtn.setTitleColor(UIColor.hexColor(0xFFC000), for: .normal)
             }else if user.isVip == 2 {
                 memberBtn.set(image: UIImage(named: "mine_vip"), title: "企业VIP", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
+                memberBtn.setTitleColor(UIColor.hexColor(0xFFC000), for: .normal)
             }else {
                 memberBtn.set(image: UIImage(named: "mine_nonvip"), title: "开通会员", titlePosition: .bottom, additionalSpacing: 5, state: .normal)
             }
-            
         }
-        
     }
-
 }

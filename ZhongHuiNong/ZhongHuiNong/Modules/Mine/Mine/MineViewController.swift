@@ -33,6 +33,7 @@ class MineViewController: TableViewController {
     
     override func makeUI() {
         super.makeUI()
+        
         navigationItem.rightBarButtonItems = [settingItem,messageItem]
         tableView.dataSource = self
         tableView.delegate = self

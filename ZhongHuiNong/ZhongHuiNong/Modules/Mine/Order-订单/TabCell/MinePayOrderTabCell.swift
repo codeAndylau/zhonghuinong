@@ -14,9 +14,9 @@ class MinePayOrderTabCell: MineOrderTabCell {
         view.backgroundColor = UIColor.white
     }
     
-    let leftImg = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_order_selected")
-    }
+//    let leftImg = ImageView().then { (img) in
+//        img.image = UIImage(named: "mine_order_selected")
+//    }
     
     let cancelBtn = Button().then { (btn) in
         btn.setTitle("取消订单", for: .normal)
@@ -47,15 +47,17 @@ class MinePayOrderTabCell: MineOrderTabCell {
     }
     
     override func makeUI() {
+        
         selectionStyle = .none
         backgroundColor = UIColor.hexColor(0xFAFAFA)
         statusLab.text = "等待付款"
         addSubview(contView)
         contView.addSubview(leftView)
-        leftView.addSubview(leftImg)
+        //leftView.addSubview(leftImg)
         contView.addSubview(titleLab)
         contView.addSubview(arrowImg)
         contView.addSubview(statusLab)
+        contView.addSubview(timeLab)
         contView.addSubview(vegetablesView)
         contView.addSubview(moneyLab)
         contView.addSubview(tipsLab)
@@ -79,12 +81,12 @@ class MinePayOrderTabCell: MineOrderTabCell {
             make.width.height.equalTo(30)
         }
         
-        leftImg.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-        }
+//        leftImg.snp.makeConstraints { (make) in
+//            make.center.equalToSuperview()
+//        }
         
         titleLab.snp.makeConstraints { (make) in
-            make.left.equalTo(leftView.snp.right).offset(2)
+            make.left.equalToSuperview().offset(12)
             make.centerY.equalTo(leftView)
         }
         
@@ -96,6 +98,11 @@ class MinePayOrderTabCell: MineOrderTabCell {
         statusLab.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
+        }
+        
+        timeLab.snp.makeConstraints { (make) in
+            make.right.equalTo(statusLab.snp.left).offset(-10)
+            make.centerY.equalTo(statusLab)
         }
         
         vegetablesView.snp.makeConstraints { (make) in
@@ -140,6 +147,12 @@ class MinePayOrderTabCell: MineOrderTabCell {
         didSet {
             
             numLab.text = "共\(payOrder.orderGoodsList.count)件"
+            
+            if payOrder.add_time.components(separatedBy: "T").count > 1 {
+                timeLab.text = payOrder.add_time.components(separatedBy: "T")[0]
+            }else {
+                timeLab.text = payOrder.add_time
+            }
             
             for item in payOrder.orderGoodsList.enumerated() {
                 

@@ -51,7 +51,7 @@ class Navigator {
         case mineMessage
         case mineSetting
         case mineOrder(index: Int)
-        case mineLogistics
+        case mineLogistics(order_no: String)
         case mineAddress
         case mineAddressModify(info: UserAddressInfo)
         
@@ -116,7 +116,10 @@ class Navigator {
         case .mineMessage: return MineMessageViewController()
         case .mineSetting: return MineSettingViewController()
             
-        case .mineLogistics: return MineLogisticsViewController()
+        case .mineLogistics(let orderId):
+            let vc = MineLogisticsViewController()
+            vc.order_no = orderId
+            return vc
             
         case .mineVegetables(let banlance):
             let vc = MineVegetablesViewController()

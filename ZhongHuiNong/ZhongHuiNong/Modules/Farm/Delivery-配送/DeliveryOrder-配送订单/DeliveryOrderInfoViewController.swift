@@ -98,7 +98,6 @@ class DeliveryOrderInfoViewController: ViewController {
     }()
     
     
-    
     // MARK: - Method
     
     /// 获取配送订单列表（正在进行中，历史记录）

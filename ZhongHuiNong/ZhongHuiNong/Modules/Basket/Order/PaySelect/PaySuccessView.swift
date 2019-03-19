@@ -31,7 +31,7 @@ class PaySuccessView: View {
     }
     
     let moneyLab = Label().then { (lab) in
-        lab.text = "实付¥1188.0"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x4A4A4A)
         lab.font = UIFont.systemFont(ofSize: 14)
     }

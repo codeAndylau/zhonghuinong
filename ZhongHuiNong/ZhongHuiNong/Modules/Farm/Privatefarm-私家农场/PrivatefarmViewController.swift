@@ -12,7 +12,7 @@ import MBProgressHUD
 /// 私家农场
 class PrivatefarmViewController: ViewController {
 
-    var isValue = false
+    var isValue = true
     
     lazy var dataArray = [
         PrivatefarmCropsModel(color: 0x0BC7D8, title: "水份", total: 35.6, unit: "ppi", start: "0%", end: 100),

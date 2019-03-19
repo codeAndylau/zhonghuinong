@@ -19,7 +19,7 @@ class FunctionTipsView: UIView {
     }
     
     let titleLab = UILabel().then { (lab) in
-        lab.text = "暂未开通改功能"
+        lab.text = "暂未开通该功能"
         lab.textColor = UIColor.hexColor(0x444444)
         lab.font = UIFont.boldSystemFont(ofSize: 23)
     }

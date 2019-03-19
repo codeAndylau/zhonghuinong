@@ -26,7 +26,7 @@ struct GoodsDetailInfo: Mappable {
     var hotsale : Bool = false
     var id : Int = defaultId
     var latest : Bool = false
-    var marketPrice : Int = defaultId
+    var marketPrice : CGFloat = 0
     var ordersNum : Int = defaultId
     var productName : String = ""
     var productCode : String = ""

@@ -110,7 +110,9 @@ extension BannerView: TYCyclePagerViewDataSource, TYCyclePagerViewDelegate {
 
 class BannerCell: CollectionViewCell {
     
-    lazy var imageView: UIImageView = UIImageView()
+    lazy var imageView: UIImageView = UIImageView().then { (img) in
+        img.contentMode = UIView.ContentMode.scaleAspectFill
+    }
     
     static let reuseIndentifier = "BannerCell"
     

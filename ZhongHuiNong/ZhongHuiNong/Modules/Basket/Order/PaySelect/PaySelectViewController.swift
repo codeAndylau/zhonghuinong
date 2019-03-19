@@ -13,9 +13,9 @@ class PaySelectViewController: SwiftPopup {
     
     var order_no: String = ""
     
-    var money: Double = 0 {
+    var money: CGFloat = 0 {
         didSet {
-            let price = Keepfigures(text: CGFloat(money))
+            let price = Keepfigures(text: money)
             debugPrints("支付money---\(price)")
             paySelectView.moneyLab.text = price
         }
@@ -108,7 +108,7 @@ class PaySelectViewController: SwiftPopup {
     
     func validationMoney() {
         
-        if balance >= money {
+        if CGFloat(balance) >= money {
             self.PayPasswordDemo.order_no = self.order_no
             self.PayPasswordDemo.show(above: topVC, completion: nil)
         }else {

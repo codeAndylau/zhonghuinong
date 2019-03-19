@@ -133,7 +133,6 @@ extension WebAPI: TargetType, WebAPIType {
             .createOrder(_), .deleteOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
             .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu, .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_), .dispatchTrackingList(_):
             
-            
             return Configs.Network.debugUrl
         default:
             return URL(string: "https://api.smartfarm.villagetechnology.cn")!
@@ -262,13 +261,14 @@ extension WebAPI: TargetType, WebAPIType {
              .userOrderReceipt(let p),
              .userOrderReputation(let p),
              .userOrderReputationShow(let p),
-             .cancelOrder(let p),
-             .deleteOrder(let p):
+             .cancelOrder(let p):
             
             return .requestParameters(parameters: p, encoding: URLEncoding.default)
             
         // 拼接在url中
-        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .bindMobile(let p), .dispatchOrderList(let p), .fetchUserInfo(let p), .mobileLogin(let p), .fetchDispatchDate(let p):
+        case .cartOrderPayment(let p), .validationPayPassword(let p), .verifyCode(let p), .bindMobile(let p),
+             .dispatchOrderList(let p), .fetchUserInfo(let p), .mobileLogin(let p),
+             .fetchDispatchDate(let p), .deleteOrder(let p):
             return .requestCompositeData(bodyData: Data(), urlParameters: p)
             
         case .goodsDetail(_):
@@ -286,10 +286,10 @@ extension WebAPI: TargetType, WebAPIType {
             
         case .wechatLogin(_), .addToCart(_, _), .createOrder(_), .settingDispatchDate(_, _), .createDispatchOrder(_, _), .removeCart(_, _):
             return ["content-type" : "application/json-patch+json"]
-        case .validationPayPassword(_):
+        case .validationPayPassword(_), .deleteOrder(_):
             return ["content-type": "application/json; charset=utf-8"]
         default:
-            return ["content-type" : "text/plain; charset=utf-8"] // application/json
+            return ["content-type": "text/plain; charset=utf-8"]
         }
         
     }

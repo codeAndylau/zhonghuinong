@@ -10,20 +10,58 @@ import UIKit
 
 /// 商品选规格view
 class SpecificationSelectedView: View {
+    
+    
+    var goodsInfo: GoodsDetailInfo = GoodsDetailInfo() {
+        didSet {
+            leftImg.lc_setImage(with: goodsInfo.focusImgUrl)
+            titleLab.text = goodsInfo.productName
+            priceLab.text = "¥\(goodsInfo.marketPrice)"
+            vipPriceLab.text = "¥\(goodsInfo.salePrice)"
+            stockLab.text = "库存\(goodsInfo.stock)"
+            collectionView.reloadData()
+        }
+    }
+    
 
     let topView = View().then { (view) in
         view.backgroundColor = Color.whiteColor
     }
+    
+    let guigeLab = Label().then { (lab) in
+        lab.text = "规格" // 新鲜红颜奶油草莓
+        lab.textColor = UIColor.hexColor(0x9B9B9B)
+        lab.font = UIFont.boldSystemFont(ofSize: 14)
+    }
 
     let leftImg = ImageView().then { (img) in
-        img.image = UIImage(named: "basket_paySuccess")
         img.backgroundColor = Color.backdropColor
+        img.cuttingCorner(radius: 5)
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "新鲜红颜奶油草莓"
+        lab.text = "" // 新鲜红颜奶油草莓
         lab.textColor = UIColor.hexColor(0x333333)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
+    }
+    
+    let vipPriceLab = Label().then { (lab) in
+        lab.text = "" // 新鲜红颜奶油草莓
+        lab.textColor = UIColor.hexColor(0x1DD1A8)
+        lab.font = UIFont.boldSystemFont(ofSize: 20)
+    }
+    
+    let priceLab = Label().then { (lab) in
+        lab.text = "" // 新鲜红颜奶油草莓
+        lab.textColor = UIColor.hexColor(0xB1B1B1)
+        lab.font = UIFont.systemFont(ofSize: 12)
+    }
+    
+    // 库存
+    let stockLab = Label().then { (lab) in
+        lab.text = "" // 新鲜红颜奶油草莓
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 12)
     }
     
     let cancelBtn = Button().then { (btn) in
@@ -53,12 +91,16 @@ class SpecificationSelectedView: View {
     override func makeUI() {
         super.makeUI()
         addSubview(topView)
+        addSubview(guigeLab)
         addSubview(collectionView)
         addSubview(bottomView)
         
         topView.addSubview(cancelBtn)
         topView.addSubview(leftImg)
         topView.addSubview(titleLab)
+        topView.addSubview(vipPriceLab)
+        topView.addSubview(priceLab)
+        topView.addSubview(stockLab)
         
         bottomView.addSubview(numLab)
         bottomView.addSubview(addView)
@@ -74,20 +116,26 @@ class SpecificationSelectedView: View {
     }
     
     func viewConstraints() {
+       
         topView.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self)
             make.height.equalTo(120)
         }
         
+        guigeLab.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(15)
+            make.top.equalTo(topView.snp.bottom).offset(10)
+        }
+        
         collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(guigeLab.snp.bottom).offset(15)
             make.left.right.equalTo(self)
             make.bottom.equalTo(bottomView.snp.top)
         }
         
         bottomView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self)
-            make.height.equalTo(200)
+            make.height.equalTo(150)
         }
     }
     
@@ -107,6 +155,21 @@ class SpecificationSelectedView: View {
         
         cancelBtn.snp.makeConstraints { (make) in
             make.top.right.equalToSuperview()
+        }
+        
+        priceLab.snp.makeConstraints { (make) in
+            make.left.equalTo(leftImg.snp.right).offset(15)
+            make.bottom.equalTo(leftImg)
+        }
+        
+        vipPriceLab.snp.makeConstraints { (make) in
+            make.left.equalTo(leftImg.snp.right).offset(15)
+            make.bottom.equalTo(priceLab.snp.top)
+        }
+        
+        stockLab.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-15)
+            make.centerY.equalTo(priceLab)
         }
         
     }
@@ -134,7 +197,7 @@ class SpecificationSelectedView: View {
     /// - Public methods
     class func loadView() -> SpecificationSelectedView {
         let view = SpecificationSelectedView()
-        view.frame = CGRect(x: 0, y: kScreenH*0.44, width: kScreenW, height: kScreenH*0.56)
+        view.frame = CGRect(x: 0, y: kScreenH*0.4, width: kScreenW, height: kScreenH*0.6)
         view.backgroundColor = Color.whiteColor
         let corners: UIRectCorner = [.topLeft, .topRight]
         view.cuttingAnyCorner(roundingCorners: corners, corner: 16)
@@ -164,20 +227,18 @@ class SpecificationSelectedView: View {
 extension SpecificationSelectedView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecificationCollectionCell.identifier, for: indexPath) as! SpecificationCollectionCell
-        if indexPath.item == 0 {
-            cell.titleBtn.backgroundColor = Color.theme1DD1A8
-        }
+        cell.titleBtn.setTitle(goodsInfo.unit, for: .normal)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let specificationVC = SpecificationViewController()
-        specificationVC.show()
+//        let specificationVC = SpecificationViewController()
+//        specificationVC.show()
     }
     
     //定义每个Cell的大小

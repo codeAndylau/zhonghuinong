@@ -9,9 +9,6 @@
 import UIKit
 import SnapKit
 
-let GoodsDetailBannerH: CGFloat = 300
-let GoodsDetailHeaderH: CGFloat = 750 - 130
-
 class GoodsDetailHeaderView: View {
 
     var bannerView = BannerView().then { (view) in
@@ -90,9 +87,10 @@ class GoodsDetailHeaderView: View {
     
     override func updateUI() {
         super.updateUI()
+        
         bannerView.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self)
-            make.height.equalTo(GoodsDetailBannerH)
+            make.height.equalTo(kScreenW)
         }
         
         pageLab.snp.makeConstraints { (make) in
@@ -171,6 +169,9 @@ class GoodsDetailHeaderView: View {
             
             // 3 .商品已选规格
             selectView.detailLab.text = goodsDetailInfo.unit
+            
+            // 4. 库存
+            topView.stockLab.text = "库存\(goodsDetailInfo.stock)"
             
         }
     }

@@ -44,11 +44,31 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
         params["wid"] = 1
         
         WebAPITool.requestModelArrayWithData(WebAPI.fetchUserOrderList(params), model: MineGoodsOrderInfo.self, complete: { (list) in
+           
             if isRefresh {
                 self.acceptOrderList.removeAll()
                 self.tableView.uHead.endRefreshing()
             }
-            self.acceptOrderList = list
+            
+            // 按照时间排序
+            self.acceptOrderList = list.sorted(by: { (item1, item2) -> Bool in
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+                
+                let date1Str = item1.add_time.replacingOccurrences(of: "T", with: " ")
+                let date2Str = item2.add_time.replacingOccurrences(of: "T", with: " ")
+                
+                let date1 = dateFormatter.date(from: date1Str)
+                let date2 = dateFormatter.date(from: date2Str)
+                
+                if date1 != nil && date2 != nil {
+                    return date1!.compare(date2!) == .orderedDescending
+                }else {
+                    return false
+                }
+            })
+            
         }) { (error) in
             debugPrints("获取所有订单失败---\(error)")
             self.acceptOrderList = []
@@ -71,7 +91,10 @@ extension MineAcceptOrderViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineAcceptOrderTabCell.identifier, for: indexPath) as! MineAcceptOrderTabCell
         // orderstatus, 1待付款（可以取消订单），  2, 待发货或者待收货， 3 待评价，已完成
         // paymentstatus =1 未支付， =2 已支付，  expressstatus = 1未发货，  =2 已发货
-        cell.acceptOrder = acceptOrderList[indexPath.row]
+   
+        let info = acceptOrderList[indexPath.row]
+        
+        cell.acceptOrder = info
         
         cell.AcceptBtnActionClosure = { [weak self] index in
             guard let self = self else { return }
@@ -79,7 +102,7 @@ extension MineAcceptOrderViewController {
             debugPrints("点击的是第\(index)个")
             
             if index == 1 {
-                self.navigator.show(segue: .mineLogistics, sender: topVC)
+                self.navigator.show(segue: .mineLogistics(order_no: info.orderNumber), sender: topVC)
             }
             
             if index == 2 {

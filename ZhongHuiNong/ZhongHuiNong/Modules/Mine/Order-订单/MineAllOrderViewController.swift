@@ -30,16 +30,19 @@ class MineAllOrderViewController: ViewController {
         super.makeUI()
         
         view.addSubview(tableView)
-        
         view.addSubview(emptyView)
+        
         emptyView.config = EmptyViewConfig(title: "一条订单都没有哦", image: UIImage(named: "mine_message_empty"), btnTitle: "去逛逛")
         emptyView.snp.makeConstraints { (make) in
             make.top.left.bottom.right.equalTo(self.view)
         }
-        emptyView.sureBtnClosure = {
+        
+        ///  点击的空白按钮
+        emptyView.sureBtn.rx.tap.subscribe(onNext: { (_) in
             topVC?.navigationController?.popToRootViewController(animated: false)
             topVC?.tabBarController?.selectedIndex = 1
-        }
+        }).disposed(by: rx.disposeBag)
+        
     }
 
     override func bindViewModel() {
@@ -63,6 +66,7 @@ class MineAllOrderViewController: ViewController {
         view.register(MinePayOrderTabCell.self, forCellReuseIdentifier: MinePayOrderTabCell.identifier)
         view.register(MineSendOrderTabCell.self, forCellReuseIdentifier: MineSendOrderTabCell.identifier)
         view.register(MineAcceptOrderTabCell.self, forCellReuseIdentifier: MineAcceptOrderTabCell.identifier)
+        view.register(MineCancelOrderTabCell.self, forCellReuseIdentifier: MineCancelOrderTabCell.identifier)
         view.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchAllOrder(isRefresh: true)
         })
@@ -96,7 +100,26 @@ class MineAllOrderViewController: ViewController {
                 self.tableView.uHead.endRefreshing()
                 self.orderList.removeAll()
             }
-            self.orderList = list
+            
+            // 按照时间排序
+            self.orderList = list.sorted(by: { (item1, item2) -> Bool in
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+                
+                let date1Str = item1.add_time.replacingOccurrences(of: "T", with: " ")
+                let date2Str = item2.add_time.replacingOccurrences(of: "T", with: " ")
+                
+                let date1 = dateFormatter.date(from: date1Str)
+                let date2 = dateFormatter.date(from: date2Str)
+                
+                if date1 != nil && date2 != nil {
+                    return date1!.compare(date2!) == .orderedDescending
+                }else {
+                    return false
+                }
+            })
+            
         }) { (error) in
             debugPrints("获取所有订单失败---\(error)")
             self.orderList = []
@@ -120,12 +143,40 @@ class MineAllOrderViewController: ViewController {
                 ZYToast.showCenterWithText(text: "取消订单成功")
                 self.orderList.remove(at: indexPath.row)
             }else{
-                ZYToast.showCenterWithText(text: "服务器正在高速运作中")
+                ZYToast.showCenterWithText(text: "取消订单失败")
             }
         }) { (error) in
-            ZYToast.showCenterWithText(text: "服务器正在高速运作中")
-            debugPrints("确认收货失败 ----- \(error)")
+            ZYToast.showCenterWithText(text: "取消订单失败")
         }
+    }
+    
+    
+    /// 删除订单
+    func deleteOrder(_ orderId: String, indexPath: IndexPath) {
+        
+        var params = [String: Any]()
+        params["order_no"] = orderId
+        params["user_id"] = User.currentUser().userId
+        
+        debugPrint("删除订单的参数---\(params)")
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        WebAPITool.request(WebAPI.deleteOrder(params), complete: { (value) in
+            HudHelper.hideHUD()
+            debugPrints("删除订单失败 ----- \(value)")
+            let status = value["status"].intValue
+            if status == 1 {
+                ZYToast.showCenterWithText(text: "删除订单成功")
+                self.orderList.remove(at: indexPath.row)
+            }else{
+                ZYToast.showCenterWithText(text: "删除订单失败")
+            }
+        }) { (error) in
+            HudHelper.hideHUD()
+            ZYToast.showCenterWithText(text: "删除订单失败")
+            debugPrints("删除订单失败 ----- \(error)")
+        }
+        
     }
     
     /// 支付订单
@@ -159,35 +210,78 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
         // paymentstatus =1 未支付， =2 已支付，  expressstatus = 1未发货，  =2 已发货
         let order = orderList[indexPath.row]
         
-        debugPrints("o订单状态--\(indexPath.row)-\(order.status)")
+        debugPrints("订单状态-----\(order.status)--\(order.payment_status)")
         
         switch (order.status, order.payment_status) {
+
         case (1,1):
+            
+            /// 待支付
             let cell = tableView.dequeueReusableCell(withIdentifier: MinePayOrderTabCell.identifier, for: indexPath) as! MinePayOrderTabCell
             cell.btnActionClosure = { [weak self] index in
                 guard let self = self else { return }
                 
-                let info = self.orderList[indexPath.row]
-                debugPrints("点击了第\(index)---\(info.orderNumber)个")
+                
+                debugPrints("点击了第\(index)---\(order.orderNumber)个")
                 
                 if index == 1 {
-                    self.cancelIndexOrder(info.orderNumber, indexPath: indexPath)
+                    
+                    let tips = SelectTipsView()
+                    tips.titleLab.text = "是否取消此订单?"
+                    tips.detailLab.text = ""
+                    
+                    tips.btnClosure = { index in
+                        
+                        if index == 2 {
+                            self.cancelIndexOrder(order.orderNumber, indexPath: indexPath)
+                        }
+                    }
                 }
                 
                 if index == 2 {
-                    self.payIndexOrder(info.orderNumber, amountReal: info.amountReal)
+                    self.payIndexOrder(order.orderNumber, amountReal: order.amountReal)
                 }
             }
+            
             cell.payOrder = order
             return cell
+            
+            /// 待发货
         case (2,2):
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: MineSendOrderTabCell.identifier, for: indexPath) as! MineSendOrderTabCell
             cell.sendOrder = order
             return cell
+            
+            /// 待收货
         case (2,2):
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: MineAcceptOrderTabCell.identifier, for: indexPath) as! MineAcceptOrderTabCell
             cell.acceptOrder = order
             return cell
+            
+            /// 已经取消的订单
+        case (4,_):
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: MineCancelOrderTabCell.identifier, for: indexPath) as! MineCancelOrderTabCell
+            
+            cell.order = order
+            cell.btnActionClosure = {
+                
+                let tips = SelectTipsView()
+                tips.titleLab.text = "确认删除此订单?"
+                tips.detailLab.text = "删除订单后无法恢复哦"
+                
+                tips.btnClosure = { index in
+                    
+                    if index == 2 {
+                        self.deleteOrder(order.orderNumber, indexPath: indexPath)
+                    }
+                }
+            }
+            
+            return cell
+            
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: MineOrderTabCell.identifier, for: indexPath) as! MineOrderTabCell
             cell.order = order

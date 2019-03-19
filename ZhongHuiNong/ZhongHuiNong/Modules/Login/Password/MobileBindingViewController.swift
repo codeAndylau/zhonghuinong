@@ -40,7 +40,7 @@ class MobileBindingViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //ZYToast.showCenterWithText(text: "请先绑定手机号")
+        showNoticebar(text: "您还未绑定手机号,请先绑定手机号", type: NoticeBarDefaultType.info)
     }
     
     // MARK: - Lazy

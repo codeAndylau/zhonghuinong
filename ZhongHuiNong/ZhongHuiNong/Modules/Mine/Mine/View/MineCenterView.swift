@@ -12,8 +12,12 @@ import Kingfisher
 
 class MineCenterView: View {
 
+    let topImg = ImageView().then { (img) in
+        img.lc_setLocalImage(with: "mine_center_topImg")
+    }
+    
     let imgView = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait")
+        img.lc_setLocalImage(with: "mine_default_ portrait")
         img.cuttingCorner(radius: 40)
         
     }
@@ -39,7 +43,7 @@ class MineCenterView: View {
     }
     
     let bagSubView = MineCenterSubView().then { (view) in
-        view.imgView.image = UIImage(named: "mine_center_zhu")
+        view.imgView.image = UIImage(named: "mine_center_bag")
         view.titleLab.text = "钱包余额（元）"
         view.detailLab.text = "0"
     }
@@ -64,6 +68,8 @@ class MineCenterView: View {
     
     override func makeUI() {
         super.makeUI()
+        
+        addSubview(topImg)
         addSubview(imgView)
         addSubview(titleLab)
         addSubview(cancelBtn)
@@ -84,8 +90,15 @@ class MineCenterView: View {
     override func updateUI() {
         super.updateUI()
         
+        topImg.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(-21)
+            make.centerX.equalTo(self)
+            make.width.equalTo(kScreenW)
+            make.height.equalTo(42)
+        }
+        
         imgView.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(-78/2)
+            make.top.equalTo(self).offset(-60)
             make.centerX.equalTo(self)
             make.width.height.equalTo(80)
         }

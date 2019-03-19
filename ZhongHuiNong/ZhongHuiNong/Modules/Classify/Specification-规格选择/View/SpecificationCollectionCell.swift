@@ -12,9 +12,10 @@ import UIKit
 class SpecificationCollectionCell: CollectionViewCell,TabReuseIdentifier {
     
     let titleBtn = Button(type: .custom).then { (btn) in
-        btn.setTitle("100g", for: .normal)
-        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.setTitle("", for: .normal)
+        btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        btn.backgroundColor = Color.theme1DD1A8
     }
     
     override func makeUI() {
@@ -32,7 +33,7 @@ class SpecificationCollectionCell: CollectionViewCell,TabReuseIdentifier {
     override func layoutSubviews() {
         super.layoutSubviews()
         titleBtn.cuttingCorner(radius: 15)
-        titleBtn.setupBorder(width: 1, color: UIColor.hexColor(0x979797))
+        //titleBtn.setupBorder(width: 1, color: UIColor.hexColor(0x979797))
     }
     
 }

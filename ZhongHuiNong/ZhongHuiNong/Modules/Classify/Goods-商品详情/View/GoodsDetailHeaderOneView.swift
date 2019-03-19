@@ -11,15 +11,21 @@ import UIKit
 class GoodsDetailHeaderOneView: View {
 
     let priceLab = Label().then { (lab) in
-        lab.text = "¥98.6"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x1DD1A8)
         lab.font = UIFont.boldSystemFont(ofSize: 26)
     }
     
     let nonPriceLab = Label().then { (lab) in
-        lab.text = "¥169.9"
+        lab.text = ""
         lab.textColor = UIColor.hexColor(0x9B9B9B)
         lab.font = UIFont.boldSystemFont(ofSize: 14)
+    }
+    
+    let stockLab = Label().then { (lab) in
+        lab.text = "库存0件"
+        lab.textColor = UIColor.hexColor(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 12)
     }
     
     let jifenLab = Label().then { (lab) in
@@ -81,6 +87,7 @@ class GoodsDetailHeaderOneView: View {
         super.makeUI()
         addSubview(priceLab)
         addSubview(nonPriceLab)
+        addSubview(stockLab)
         addSubview(jifenLab)
         addSubview(memberView)
         
@@ -109,6 +116,11 @@ class GoodsDetailHeaderOneView: View {
         nonPriceLab.snp.makeConstraints { (make) in
             make.left.equalTo(priceLab.snp.right).offset(10)
             make.bottom.equalTo(priceLab).offset(-3)
+        }
+        
+        stockLab.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-25)
+            make.centerY.equalTo(priceLab)
         }
         
         jifenLab.snp.makeConstraints { (make) in

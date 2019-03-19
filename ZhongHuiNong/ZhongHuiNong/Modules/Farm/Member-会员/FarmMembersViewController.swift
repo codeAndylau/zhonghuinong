@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Reachability
 
 /// 农场会员
 class FarmMembersViewController: TableViewController {
@@ -64,6 +65,8 @@ class FarmMembersViewController: TableViewController {
             vipItem.header.lc_setImage(with: User.currentUser().headimgUrl)
             navigationItem.leftBarButtonItem = leftBarItem
         }
+        
+        let reachability = Reachability()
         
         navigationItem.rightBarButtonItem = rightMsgItem
         

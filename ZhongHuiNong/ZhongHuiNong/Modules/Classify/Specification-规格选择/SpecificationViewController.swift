@@ -8,9 +8,15 @@
 
 import UIKit
 
+/// 商品规格选择
 class SpecificationViewController: SwiftPopup {
 
     lazy var specificationView = SpecificationSelectedView.loadView()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        specificationView.addView.numLab.text = "1"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
