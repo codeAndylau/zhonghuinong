@@ -128,14 +128,18 @@ extension WebAPI: TargetType, WebAPIType {
     
     var baseURL: URL {
         switch self {
-        case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_), .sendCode(_), .verifyCode(_), .bindMobile(_), .fetchUserInfo(_),
+        case.wechatLogin(_),.mobileLogin(_), .settingPayPassword(_), .userBalance(_),
+            .sendCode(_), .verifyCode(_), .bindMobile(_), .fetchUserInfo(_),
             .farmLand(_),.farmWater(_),.farmKillbug(_),.farmFertilize(_),
-            .createOrder(_), .deleteOrder(_), .addToCart(_, _), .fetchCart(_), .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
-            .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu, .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_), .dispatchTrackingList(_):
+            .createOrder(_), .deleteOrder(_), .addToCart(_, _), .fetchCart(_),
+            .removeCart(_, _), .cartOrderPayment(_), .validationPayPassword(_),
+            .fetchDispatchDate(_), .settingDispatchDate(_,_), .fetchDispatchMenu,
+            .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_),
+            .dispatchTrackingList(_):
             
-            return Configs.Network.debugUrl
+            return Configs.Network.smartFarmAPI1 // Configs.Network.debugUrl1
         default:
-            return URL(string: "https://api.smartfarm.villagetechnology.cn")!
+            return Configs.Network.smartFarmAPI2 // Configs.Network.debugUrl2
         }
     }
     
@@ -286,7 +290,7 @@ extension WebAPI: TargetType, WebAPIType {
             
         case .wechatLogin(_), .addToCart(_, _), .createOrder(_), .settingDispatchDate(_, _), .createDispatchOrder(_, _), .removeCart(_, _):
             return ["content-type" : "application/json-patch+json"]
-        case .validationPayPassword(_), .deleteOrder(_):
+        case .validationPayPassword(_): //
             return ["content-type": "application/json; charset=utf-8"]
         default:
             return ["content-type": "text/plain; charset=utf-8"]
@@ -343,6 +347,8 @@ struct WebAPITool {
             switch result {
             case let .success(response):
                 debugPrints("text接口数据---\(response)")
+                let json = JSON()
+                complete(json)
             case let .failure(error):
                 failure(error.localizedDescription) // 服务器连接不上，网络异常等（同时会返回错误信息。必要的话，还可以在此增加自动重新请求的机制。）
             }

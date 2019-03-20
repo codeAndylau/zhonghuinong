@@ -131,7 +131,15 @@ class MineViewController: TableViewController {
         
         headerView.memberBtn.rx.tap.subscribe(onNext: { (_) in
             guard User.currentUser().isVip == 0 else {return}
-            callUpWith(linkMan) // 填写运营人员的电话号码
+            
+            let tipsView = SelectTipsView()
+            tipsView.titleLab.text = "立即联系客服申请VIP服务"
+            tipsView.detailLab.text = ""
+            tipsView.btnClosure = { index in
+                if index  == 2 {
+                    callUpWith(linkMan) // 填写运营人员的电话号码
+                }
+            }
             //self.navigator.show(segue: .mineMember(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
         
@@ -176,14 +184,42 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             self.navigator.show(segue: .deliveryOrderInfo, sender: self)
         case 2:
-            callUpWith(linkMan)
+            
+            if User.hasUser() && User.currentUser().isVip == 0 {
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
+            }else {
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服咨询售后服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
+            }
+            
         case 3:
             self.navigator.show(segue: .mineAbout, sender: self)
         case 4:
             self.navigator.show(segue: .mineSetting, sender: self)
         case 5:
-            User.removeCurrentUser()
-            self.navigator.show(segue: .login, sender: self, transition: .root(window: window))
+            
+            let tipsView = SelectTipsView()
+            tipsView.titleLab.text = "是否退出账号登录?"
+            tipsView.detailLab.text = ""
+            tipsView.btnClosure = { index in
+                if index  == 2 {
+                    User.removeCurrentUser()
+                    self.navigator.show(segue: .login, sender: self, transition: .root(window: self.window))
+                }
+            }
         default:
             break
         }

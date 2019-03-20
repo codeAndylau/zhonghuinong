@@ -325,9 +325,11 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
     }
     
     @objc func photoAction() {
+        
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized:
+            
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 let picker = UIImagePickerController()
                 picker.delegate = self
@@ -337,11 +339,26 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
             }else {
                 ZYToast.showCenterWithText(text: "读取相册失败!")
             }
+
+        case .denied:
+            debugPrints("用户已明确拒绝此应用程序访问照片数据。")
+            showAlertWithTitle(title: "无法使用相册", message: "请在iPhone的\"设置－隐私－相册\"中允许访问相册", openSettingsURLString: UIApplication.openSettingsURLString, isShowOKBtn: true)
             
-        case .notDetermined,.denied,.restricted:
+        case .notDetermined, .restricted:
+            debugPrints("用户尚未对该应用程序做出选择")
+            debugPrints("此应用程序无权访问照片数据。")
+            
             PHPhotoLibrary.requestAuthorization({ [weak self] (status) in
                 if let strongSelf = self {
+                    
+                    debugPrints("授权后的状态---\(status)")
+                    
                     if status == PHPhotoLibrary.authorizationStatus()  {
+                        
+                        if status.hashValue == 0 {
+                            strongSelf.showAlertWithTitle(title: "无法使用相册", message: "请在iPhone的\"设置－隐私－相册\"中允许访问相册", openSettingsURLString: UIApplication.openSettingsURLString, isShowOKBtn: true)
+                        }
+                        
                         if status.hashValue == 3 {
                             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                                 let picker = UIImagePickerController()
@@ -352,8 +369,6 @@ class ScanViewController: ViewController, UIImagePickerControllerDelegate , UINa
                             }else {
                                 ZYToast.showCenterWithText(text: "读取相册失败!")
                             }
-                        }else {
-                            strongSelf.showAlertWithTitle(title: "无法使用相册", message: "请在iPhone的\"设置－隐私－相册\"中允许访问相册", openSettingsURLString: UIApplication.openSettingsURLString, isShowOKBtn: true)
                         }
                     }
                 }

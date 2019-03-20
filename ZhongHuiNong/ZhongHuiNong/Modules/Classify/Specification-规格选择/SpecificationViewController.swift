@@ -13,6 +13,10 @@ class SpecificationViewController: SwiftPopup {
 
     lazy var specificationView = SpecificationSelectedView.loadView()
     
+    var index: Int = 0 // 0 : 立即购买  1: 加入购物车
+    
+    var closure: ((Int)->())?
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         specificationView.addView.numLab.text = "1"
@@ -25,6 +29,7 @@ class SpecificationViewController: SwiftPopup {
         
         specificationView.sureBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
+            self.closure?(self.index)
         }).disposed(by: rx.disposeBag)
         
         specificationView.cancelBtn.rx.tap.subscribe(onNext: { (_) in

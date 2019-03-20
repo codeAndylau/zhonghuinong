@@ -12,6 +12,7 @@ struct StoreModel  {
 
     var page = 1
     var goodsId = 1
+    var end = true  // 默认是有数据的
     
     /// 商品列表信息
     var goodsInfo: [GoodsInfo] = [] 

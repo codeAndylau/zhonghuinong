@@ -30,8 +30,14 @@ class MineMemberViewController: TableViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                let phone = linkMan  // 填写运营人员的电话号码
-                callUpWith(phone)
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
             }
         }else {
             tableView.dataSource = self

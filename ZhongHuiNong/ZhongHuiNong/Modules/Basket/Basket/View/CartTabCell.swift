@@ -78,8 +78,8 @@ class CartTabCell: StoreRightCell {
         didSet {
             ImgView.lc_setImage(with: goodsInfo.focusImgUrl)
             titleLab.text = goodsInfo.productname
-            priceLab.text = "\(goodsInfo.sellprice)"
-            discountLab.text = "\(goodsInfo.marketprice)"
+            priceLab.text = "¥\(goodsInfo.sellprice)"
+            discountLab.text = "¥\(goodsInfo.marketprice)"
             selectBtn.isSelected = goodsInfo.checked
             addView.numLab.text = "\(goodsInfo.quantity)"
         }

@@ -40,10 +40,16 @@ struct Configs {
     }
     
     struct Network {
+        
         static let kWindlessViewTag = 91997
         static let loggingEnabled = false
-        static let debugUrl   = URL(string: "http://212.64.91.248:80/")!     // 测试服务器
-        static let releaseUrl = URL(string: "http://212.64.52.253:8080/")!   // 正是服务器
+        
+        static let debugUrl1 = URL(string: "http://212.64.91.248:80/")!                    // 测试服务器
+        static let debugUrl2 = URL(string: "https://api.smartfarm.villagetechnology.cn")!    // 测试服务器
+        
+        static let smartFarmAPI1 = URL(string: "http://testapi.smartfarm.villagetechnology.cn")!
+        static let smartFarmAPI2 = URL(string: "http://testmxapi.smartfarm.villagetechnology.cn:8080")!
+        
     }
     
     struct Size {

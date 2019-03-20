@@ -25,14 +25,23 @@ class MineWalletViewController: TableViewController {
             
             let emptyView = EmptyView()
             view.addSubview(emptyView)
+            
             emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
             emptyView.snp.makeConstraints { (make) in
                 make.top.equalTo(kNavBarH)
                 make.left.bottom.right.equalTo(self.view)
             }
+            
             emptyView.sureBtnClosure = {
-                let phone = linkMan  // 填写运营人员的电话号码
-                callUpWith(phone)
+           
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
             }
         }else {
             
@@ -48,6 +57,21 @@ class MineWalletViewController: TableViewController {
     
     override func bindViewModel() {
         super.bindViewModel()
+        
+        headerView.chongzhiBtn.rx.tap.subscribe(onNext: { (_) in
+           
+            let tipsView = SelectTipsView()
+            tipsView.titleLab.text = "立即联系客服充值"
+            tipsView.detailLab.text = ""
+            tipsView.btnClosure = { index in
+                if index  == 2 {
+                    callUpWith(linkMan)
+                }
+            }
+            
+        }).disposed(by: rx.disposeBag)
+        
+        
         PayPasswordDemo.inputCompleteClosure = { [weak self] psd in
             guard let self = self else { return }
             debugPrints("设置的支付密码---\(psd)")

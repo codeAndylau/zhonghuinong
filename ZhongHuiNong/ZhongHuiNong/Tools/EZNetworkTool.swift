@@ -44,14 +44,10 @@ class EZNetworkTool {
         }
     }
     
+    /// 请求地址 
     func requestAddress(_ url: String, params: [String: Any]) {
-        
         let request = Alamofire.request(url, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default)
         debugPrints("请求的data--\(request)")
-        
-//        http://212.64.91.248   /api/User/verifycode?msgid=711586707391&code=567508&userid=3266&phonenumber=18782967728
-//        http://212.64.91.248:80/api/User/verifycode?code=567508&msgid=711586707391&phonenumber=18782967728&userid=3266
-//        
         request.responseJSON { (response) in
             guard let result = response.result.value else {
                 debugPrints("fuck失败---\(String(describing: response.result.error))")
@@ -63,6 +59,31 @@ class EZNetworkTool {
         }
     }
     
+    /// 删除订单
+    func requestDeleteOrder(_ url: String, completion: @escaping (Bool) ->Void, failure: @escaping (String) ->Void) {
+        let request = Alamofire.request(url, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default)
+        debugPrints("请求的data--\(request)")
+        request.responseJSON { (response) in
+            guard let result = response.result.value else {
+                failure(String(describing: response.result.error))
+                return
+            }
+            // 直接解析
+            let dict = JSON(result)
+            debugPrints("删除订单---\(dict)")
+            let status = dict["status"].intValue
+            let detail = dict["detail"].stringValue
+            
+            if status == 1 {
+                completion(true)
+            }else {
+                failure(detail)
+            }
+        }
+    }
+    
+    
+    /// 绑定手机
     func requestBindPhone(_ url: String,completion: @escaping (Bool) ->Void, failure: @escaping (String) ->Void) {
         let request = Alamofire.request(url, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default)
         debugPrints("请求的data--\(request)")

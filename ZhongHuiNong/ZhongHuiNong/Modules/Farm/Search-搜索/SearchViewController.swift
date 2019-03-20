@@ -199,7 +199,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         let goodId = goodsList[indexPath.row].id
         debugPrints("点击搜索商品的id---\(goodId)")
         self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
-        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

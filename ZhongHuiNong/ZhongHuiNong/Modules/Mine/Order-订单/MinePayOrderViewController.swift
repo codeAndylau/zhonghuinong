@@ -105,6 +105,8 @@ class MinePayOrderViewController: MineAllOrderViewController {
         params["user_id"] = User.currentUser().userId
         params["wid"] = wid
         
+        debugPrint("取消订单的参数---\(params)")
+        
         WebAPITool.request(WebAPI.cancelOrder(params), complete: { (value) in
             let status = value["status"].intValue
             let detail = value["detail"].stringValue

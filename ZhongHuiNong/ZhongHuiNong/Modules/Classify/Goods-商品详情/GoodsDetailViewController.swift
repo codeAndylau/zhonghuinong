@@ -67,7 +67,9 @@ class GoodsDetailViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetchShopingCartList()
+        delay(by: 0.5) {
+            self.fetchShopingCartList()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -109,12 +111,12 @@ class GoodsDetailViewController: ViewController {
         // 立即购买
         buyView.buyBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
-            self.goodsInfoSelected(type: 1)
+            self.lijiBuy(0)
         }).disposed(by: rx.disposeBag)
         
         // 加入购物车
         buyView.cartBtn.rx.tap.subscribe(onNext: { (_) in
-            self.goodsInfoSelected(type: 2)
+            self.lijiBuy(1)
         }).disposed(by: rx.disposeBag)
         
         buyView.caiLanBtn.rx.tap.subscribe(onNext: { (_) in
@@ -152,22 +154,18 @@ class GoodsDetailViewController: ViewController {
             self?.fetchGoodsInfo()
         }
     }
-
-    /// 商品选择规格
-    func goodsInfoSelected(type: Int) {
+    
+    func lijiBuy(_ index: Int) {
         
         goodsInfoDemo.specificationView.goodsInfo = goodsDetailInfo
+        goodsInfoDemo.index = index
         goodsInfoDemo.show()
         
-        goodsInfoDemo.specificationView.sureBtn.rx.tap.subscribe(onNext: { (_) in
-           
-            self.goodsInfoDemo.dismiss()
-            
-            let num = Int(self.goodsInfoDemo.specificationView.addView.numLab.text!)!
+        goodsInfoDemo.closure = { index in
             
             // 立即购买
-            if type == 1 {
-                
+            if index == 0 {
+                let num = Int(self.goodsInfoDemo.specificationView.addView.numLab.text!)!
                 var goodsInfo = CartGoodsInfo()
                 goodsInfo.productid = self.goodsDetailInfo.id
                 goodsInfo.quantity = num
@@ -178,16 +176,45 @@ class GoodsDetailViewController: ViewController {
                 self.navigator.show(segue: Navigator.Scene.shoppingOrder(list: [goodsInfo]), sender: self)
             }
             
-            // 加入购物车
-            if type == 2 {
+            
+            if index == 1 {
                 
-                debugPrints("购物的数量为---\(num)")
+                let num = Int(self.goodsInfoDemo.specificationView.addView.numLab.text!)!
+                
                 self.addToCart(num: num)
             }
+            
+        }
+        
+        goodsInfoDemo.specificationView.sureBtn.rx.tap.subscribe(onNext: { (_) in
+            
+            self.goodsInfoDemo.dismiss()
+            
+            
+            
+        }).disposed(by: rx.disposeBag)
+    }
+    
+
+    /// 商品选择规格
+    func addCart() {
+        
+        goodsInfoDemo.specificationView.goodsInfo = goodsDetailInfo
+        goodsInfoDemo.show()
+        
+        goodsInfoDemo.specificationView.sureBtn.rx.tap.subscribe(onNext: { (_) in
+           
+            self.goodsInfoDemo.dismiss()
+            
+            let num = Int(self.goodsInfoDemo.specificationView.addView.numLab.text!)!
+            
+            self.addToCart(num: num)
             
         }).disposed(by: rx.disposeBag)
         
     }
+    
+  
     
     /// 加入购物车
     func addToCart(num: Int) {

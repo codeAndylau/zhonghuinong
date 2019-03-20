@@ -137,6 +137,8 @@ class MineAllOrderViewController: ViewController {
         params["user_id"] = User.currentUser().userId
         params["wid"] = wid
         
+        debugPrint("取消订单的参数---\(params)")
+        
         WebAPITool.request(WebAPI.cancelOrder(params), complete: { (value) in
             let status = value["status"].intValue
             if status == 1 {
@@ -150,6 +152,22 @@ class MineAllOrderViewController: ViewController {
         }
     }
     
+    /// tool
+    func deleteOrderInfo(_ orderId: String, indexPath: IndexPath) {
+        
+        let url = "http://212.64.91.248/api/Order/deleteorder?order_no=\(orderId)&userid=\(User.currentUser().userId)"
+        
+        HudHelper.showWaittingHUD(msg: "请稍后...")
+        EZNetworkTool.shared.requestDeleteOrder(url, completion: { (value) in
+            HudHelper.hideHUD()
+            ZYToast.showCenterWithText(text: "删除订单成功")
+            self.orderList.remove(at: indexPath.row)
+        }) { (error) in
+            debugPrints("删除订单失败---\(error)")
+            HudHelper.hideHUD()
+        }
+        
+    }
     
     /// 删除订单
     func deleteOrder(_ orderId: String, indexPath: IndexPath) {
@@ -158,7 +176,7 @@ class MineAllOrderViewController: ViewController {
         params["order_no"] = orderId
         params["user_id"] = User.currentUser().userId
         
-        debugPrint("删除订单的参数---\(params)")
+        debugPrints("删除订单的参数---\(params)")
         
         HudHelper.showWaittingHUD(msg: "请稍后...")
         WebAPITool.request(WebAPI.deleteOrder(params), complete: { (value) in
@@ -275,7 +293,7 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
                 tips.btnClosure = { index in
                     
                     if index == 2 {
-                        self.deleteOrder(order.orderNumber, indexPath: indexPath)
+                        self.deleteOrderInfo(order.orderNumber, indexPath: indexPath)
                     }
                 }
             }

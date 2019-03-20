@@ -31,7 +31,14 @@ class MineVegetablesViewController: TableViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                callUpWith(linkMan) // 填写运营人员的电话号码
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
             }
         }else {
             tableView.dataSource = self
@@ -45,6 +52,21 @@ class MineVegetablesViewController: TableViewController {
     
     override func bindViewModel() {
         super.bindViewModel()
+        
+        //
+        headerView.chongzhiBtn.rx.tap.subscribe(onNext: { (_) in
+           
+            let tipsView = SelectTipsView()
+            tipsView.titleLab.text = "立即联系客服充值"
+            tipsView.detailLab.text = ""
+            tipsView.btnClosure = { index in
+                if index  == 2 {
+                    callUpWith(linkMan)
+                }
+            }
+            
+        }).disposed(by: rx.disposeBag)
+        
     }
     
     // MARK: - Lzay

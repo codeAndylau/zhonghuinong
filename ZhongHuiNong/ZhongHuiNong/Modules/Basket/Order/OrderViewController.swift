@@ -54,11 +54,6 @@ class OrderViewController: TableViewController {
     
     var addressList: [UserAddressInfo] = [] {
         didSet {
-            if addressList.count == 0 {
-                headerView.addressView.tipLab.isHidden = false
-            }else {
-                headerView.addressView.tipLab.isHidden = true
-            }
             refreshValue()
         }
     }
@@ -164,15 +159,10 @@ class OrderViewController: TableViewController {
             guard let self = self else { return }
             let addressInfo = notification.userInfo?[NSNotification.Name.userOrderAddressEdit.rawValue] as! UserAddressInfo
             debugPrints("用户选择地址信息---\(addressInfo)")
+            self.headerView.addressView.tipLab.isHidden = true
             self.headerView.addressView.addressInfo = addressInfo
         }).disposed(by: rx.disposeBag)
-        
-//        NotificationCenter.default.rx.notification(.cartOrderPaySuccess).subscribe(onNext: { (_) in
-//            debugPrints("订单支付成功回到提交订单界面")
-//            self.navigationController?.popViewController(animated: true)
-//        }).disposed(by: rx.disposeBag)
-        
-        
+
         /// 弹出支付密码框，设置支付密码后，回调
         PayPasswordDemo.inputCompleteClosure = { [weak self] psd in
             guard let self = self else { return }
@@ -245,10 +235,17 @@ class OrderViewController: TableViewController {
     /// 验证用户是否绑定了手机
     func bindingPhone() {
         
-        /// 0: 判断是否绑定了手机号码
-        /// 1: 判断是否是vip
-        /// 2: 是否绑定了支付密码
-        /// 3: 然后在提交订单
+        /// 0: 判断是否是在审核中
+        /// 1: 判断是否绑定了手机号码
+        /// 2: 判断是否是vip
+        /// 3: 是否绑定了支付密码
+        /// 4: 然后在提交订单
+        
+        // FIXME: - 为了审核做此判断
+//        guard User.hasUser() && User.currentUser().mobile != developmentMan else {
+//            ZYToast.showCenterWithText(text: "您当前不是VIP会员，无法进行支付")
+//            return
+//        }
         
         if User.hasUser() && User.currentUser().mobile == "" {
             navigator.show(segue: .bindingMobile, sender: self)
@@ -343,8 +340,14 @@ class OrderViewController: TableViewController {
         
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
+            mainQueue {
+                self.headerView.addressView.tipLab.isHidden = true
+            }
             self.addressList = list
         }) { (error) in
+            mainQueue {
+                self.headerView.addressView.tipLab.isHidden = false
+            }
             self.addressList = []
         }
     }

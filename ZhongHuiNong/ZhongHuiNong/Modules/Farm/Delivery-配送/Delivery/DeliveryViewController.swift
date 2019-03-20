@@ -38,9 +38,7 @@ class DeliveryViewController: ViewController {
                 }else {
                     headerView.addressView.addressInfo = addressList[0]
                 }
-            }else {
-                /// 都没有地址就提示新增地址信息
-                headerView.addressView.tipLab.isHidden = false
+                
             }
         }
     }
@@ -185,8 +183,14 @@ class DeliveryViewController: ViewController {
                 make.left.bottom.right.equalTo(self.view)
             }
             emptyView.sureBtnClosure = {
-                let phone = linkMan  // 填写运营人员的电话号码
-                callUpWith(phone)
+                let tipsView = SelectTipsView()
+                tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                tipsView.detailLab.text = ""
+                tipsView.btnClosure = { index in
+                    if index  == 2 {
+                        callUpWith(linkMan) // 填写运营人员的电话号码
+                    }
+                }
             }
             
         }else {
@@ -202,7 +206,7 @@ class DeliveryViewController: ViewController {
             loadData()
         }
         
-        fetchDispatchMenu()
+        // fetchDispatchMenu()
         
     }
     
@@ -218,6 +222,7 @@ class DeliveryViewController: ViewController {
         NotificationCenter.default.rx.notification(.userOrderAddressEdit).subscribe(onNext: { [weak self] (notification) in
             guard let self = self else { return }
             let addressInfo = notification.userInfo?[NSNotification.Name.userOrderAddressEdit.rawValue] as! UserAddressInfo
+            self.headerView.addressView.tipLab.isHidden = true
             self.headerView.addressView.addressInfo = addressInfo
         }).disposed(by: rx.disposeBag)
         
@@ -426,8 +431,14 @@ class DeliveryViewController: ViewController {
         
         WebAPITool.requestModelArrayWithData(WebAPI.userAddressList(p), model: UserAddressInfo.self, complete: { [weak self] (list) in
             guard let self = self else { return }
+            mainQueue {
+                self.headerView.addressView.tipLab.isHidden = true
+            }
             self.addressList = list
         }) { (error) in
+            mainQueue {
+                self.headerView.addressView.tipLab.isHidden = false
+            }
             self.addressList = []
         }
     }
@@ -468,7 +479,7 @@ class DeliveryViewController: ViewController {
 //            self.dispatchDate = info
             
         }) { (error) in
-            self.dispatchDate = DispatchDateInfo()
+            debugPrints("获取配送日期失败---\(error)")
         }
     }
     

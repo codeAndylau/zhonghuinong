@@ -27,7 +27,7 @@ class MineCenterView: View {
     }
     
     let titleLab = Label().then { (lab) in
-        lab.text = "Sofietje Boksem"
+        lab.text = "***"
         lab.textColor = UIColor.hexColor(0x333333)
         lab.font = UIFont.boldSystemFont(ofSize: 13)
     }

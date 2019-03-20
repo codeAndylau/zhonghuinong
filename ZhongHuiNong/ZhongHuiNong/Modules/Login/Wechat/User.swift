@@ -55,13 +55,13 @@ extension User {
         let user = User.currentUser()
         debugPrints("用户信息---\(String(describing: user))")
         if  user.headimgUrl == "" &&
+            user.isPayPassword == false &&
             user.isVip == defaultId &&
             user.mobile == "" &&
             user.nickname == "" &&
             user.userId == defaultId &&
             user.userImg == "" &&
             user.username == "" {
-            
             return false
         }
         return true

@@ -140,6 +140,13 @@ class StoreViewController: ViewController {
     lazy var leftBarItem = BarButtonItem(customView: vipItem)
     lazy var rightMsgItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
+    lazy var footerView: NoMoreFooterView = {
+        let footer = NoMoreFooterView.loadView()
+        footer.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 50)
+        footer.titleLab.text = "没有更多了~"
+        return footer
+    }()
+    
     //左侧表格
     lazy var leftTableView : UITableView = {
         let leftTableView = UITableView()
@@ -157,7 +164,8 @@ class StoreViewController: ViewController {
     
     //右侧表格
     lazy var rightTableView : UITableView = {
-        let rightTableView = UITableView(frame: CGRect.zero, style: UITableView.Style.grouped)
+        
+        let rightTableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
         rightTableView.frame = CGRect(x: 88, y: kNavBarH, width: UIScreen.main.bounds.width - 88, height: kScreenH-kNavBarH-kTabBarH)
         rightTableView.alpha = 0
         rightTableView.delegate = self
@@ -166,7 +174,8 @@ class StoreViewController: ViewController {
         rightTableView.showsVerticalScrollIndicator = false
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
-        rightTableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+        
+        //rightTableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
         
         /// 解决刷新的时候存在都用的问题
@@ -175,23 +184,28 @@ class StoreViewController: ViewController {
         rightTableView.estimatedSectionHeaderHeight = 0
         
         rightTableView.uHead = MJDIYHeader(refreshingBlock: {
-            self.classInfos[self.currentIndexPath.row].page = 1
-            self.isData = true
+            
+            /// 重置上啦刷新
+            self.classInfos[self.currentIndexPath.row].end = true
+            self.rightTableView.tableFooterView = nil
             self.rightTableView.uFoot.isHidden = false
             self.rightTableView.uFoot.resetNoMoreData()
+            
+            self.classInfos[self.currentIndexPath.row].page = 1
             self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: true, isFooter: false)
         })
 
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
             self.classInfos[self.currentIndexPath.row].page += 1
-            self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: false, isFooter: true)
+            if self.classInfos[self.currentIndexPath.row].end {
+                self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: false, isFooter: true)
+            }
         })
         
         return rightTableView
     }()
     
     // MARK: - Action
-    
     func showCenterView() {
         if dropupView.isShown {
             dropupView.hideMenu()
@@ -231,23 +245,31 @@ class StoreViewController: ViewController {
         WebAPITool.requestModelArrayWithData(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { (list) in
             
             if isHeader {
+                
                 self.rightTableView.uHead.endRefreshing()
                 self.classInfos[self.currentIndexPath.row].goodsInfo.removeAll()
                 self.classInfos[self.currentIndexPath.row].goodsInfo = list
+                
+                if list.count < 10 {
+                    
+                    self.classInfos[self.currentIndexPath.row].end = false
+                    self.rightTableView.uFoot.endRefreshingWithNoMoreData()
+                    
+                    self.rightTableView.uFoot.isHidden = true
+                    self.rightTableView.tableFooterView = self.footerView
+                }
             }
             
             if isFooter {
                 
                 if list.count < 10 {
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    debugPrints("数据已经加载完毕了")
-                    self.isData = false
+                    
+                    self.classInfos[self.currentIndexPath.row].end = false
+                    
                     self.rightTableView.uFoot.endRefreshingWithNoMoreData()
                     self.rightTableView.uFoot.isHidden = true
+                    
+                    self.rightTableView.tableFooterView = self.footerView
                     self.rightTableView.reloadData()
                 }
                 
@@ -344,10 +366,17 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             currentIndexPath = indexPath
             leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
             
+            rightTableView.reloadData()
+            if classInfos[self.currentIndexPath.row].end == true {
+                rightTableView.tableFooterView = nil
+            }else {
+                rightTableView.uFoot.endRefreshingWithNoMoreData()
+                rightTableView.uFoot.isHidden = true
+                rightTableView.tableFooterView = footerView
+            }
+            
             if classInfos[indexPath.row].goodsInfo.count == 0 {
                 fetchGoodsInfos(category_id: classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false)
-            }else {
-                rightTableView.reloadData()
             }
 
             // FIXME: 没有数据的时候 会造成崩溃
@@ -363,23 +392,21 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
-        if rightTableView == tableView && isData == false {
-            return 50
-        }
-
-        return  0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if rightTableView == tableView && isData == false {
-            let view = NoMoreFooterView.loadView()
-            view.titleLab.text = "没有更多了~"
-            return view
-        }
-        return UIView()
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        if rightTableView == tableView && isData == false {
+//            return 50
+//        }
+//        return  0.01
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        if rightTableView == tableView && isData == false {
+//            let view = NoMoreFooterView.loadView()
+//            view.titleLab.text = "没有更多了~"
+//            return view
+//        }
+//        return UIView()
+//    }
     
 }
 

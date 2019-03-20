@@ -287,6 +287,7 @@ class BasketViewController: TableViewController {
         
         if isRemoveAll {
             
+            /// 用于计算的临时array
             var list: [CartGoodsInfo] = []
             
             for item in cartList {
@@ -298,7 +299,7 @@ class BasketViewController: TableViewController {
             }
             
             if list.count == cartList.count {
-                params["isRemoveAll"] = false
+                params["isRemoveAll"] = "true"
             }
             
         }else {
@@ -350,6 +351,13 @@ extension BasketViewController: UITableViewDataSource, UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cartList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let goodId = cartList[indexPath.row].productid
+        debugPrints("点击购物车商品的id---\(goodId)")
+        self.navigator.show(segue: .goodsDetail(id: goodId), sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

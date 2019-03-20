@@ -66,8 +66,6 @@ class FarmMembersViewController: TableViewController {
             navigationItem.leftBarButtonItem = leftBarItem
         }
         
-        let reachability = Reachability()
-        
         navigationItem.rightBarButtonItem = rightMsgItem
         
         view.addSubview(tableView_g)

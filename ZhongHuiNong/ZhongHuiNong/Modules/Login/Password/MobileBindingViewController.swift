@@ -38,9 +38,18 @@ class MobileBindingViewController: ViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if User.hasUser() && User.currentUser().mobile != "" {
+            navigationItem.title = localized("更换手机号")
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showNoticebar(text: "您还未绑定手机号,请先绑定手机号", type: NoticeBarDefaultType.info)
+        if User.hasUser() && User.currentUser().mobile == "" {
+            showNoticebar(text: "您还未绑定手机号,请先绑定手机号", type: NoticeBarDefaultType.info)
+        }
     }
     
     // MARK: - Lazy
