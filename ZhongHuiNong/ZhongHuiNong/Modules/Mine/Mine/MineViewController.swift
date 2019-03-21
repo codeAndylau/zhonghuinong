@@ -34,7 +34,14 @@ class MineViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.rightBarButtonItems = [settingItem,messageItem]
+        /// 上架的时候隐藏
+        if User.hasUser() && User.currentUser().mobile == developmentMan {
+            navigationItem.rightBarButtonItems = [settingItem]
+            headerView.memberBtn.isHidden = true
+        }else {
+            navigationItem.rightBarButtonItems = [settingItem,messageItem]
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = headerView
@@ -44,6 +51,17 @@ class MineViewController: TableViewController {
             self.fetchUserBalance()
             self.fetchUserInfo()
         })
+        
+        if User.hasUser() {
+            headerView.user = User.currentUser()
+        }
+        
+        fetchUserBalance()
+        fetchUserInfo()
+    }
+
+    override func bindViewModel() {
+        super.bindViewModel()
         
         NotificationCenter.default.rx.notification(Notification.Name.cartOrderPaySuccess).subscribe(onNext: { (_) in
             debugPrints("订单支付成功-刷新用户的账户余额信息")
@@ -55,81 +73,58 @@ class MineViewController: TableViewController {
             self.fetchUserInfo()
         }).disposed(by: rx.disposeBag)
         
-        fetchUserBalance()
-        fetchUserInfo()
-    }
-    
-    func fetchUserBalance() {
         
-        let params = ["userid": User.currentUser().userId]
-        
-        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
-            self.tableView.uHead.endRefreshing()
-            self.balance = model
-        }) { (error) in
-            self.tableView.uHead.endRefreshing()
-        }
-
-    }
-    
-    func fetchUserInfo() {
-        
-        var params = [String: Any]()
-        params["userid"] = User.currentUser().userId
-        
-        WebAPITool.requestModel(WebAPI.fetchUserInfo(params), model: User.self, complete: { (model) in
-            model.save()
-            delay(by: 0.5, closure: {
-                self.navigationController?.popViewController(animated: true)
-            })
-        }) { (error) in
-            HudHelper.hideHUD()
-        }
-    }
-
-    override func bindViewModel() {
-        super.bindViewModel()
-        
-        if User.hasUser() {
-            headerView.user = User.currentUser()
-        }
-        
+        // 头像点击
         headerView.headerBtn.rx.tap.subscribe(onNext: {  (_) in
             let hud = MineHeaderModifyView()
             hud.imageView.lc_setImage(with: User.currentUser().userImg)
         }).disposed(by: rx.disposeBag)
         
+        // 付款
         headerView.orderView.fukuanBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder(index: 0), sender: self)
         }).disposed(by: rx.disposeBag)
         
+        // 配送
         headerView.orderView.peisongBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder(index: 1), sender: self)
         }).disposed(by: rx.disposeBag)
         
+        // 收货
         headerView.orderView.shouhuoBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder(index: 2), sender: self)
         }).disposed(by: rx.disposeBag)
         
+        // 全部订单
         headerView.orderView.orderBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
             self.navigator.show(segue: .mineOrder(index: 3), sender: self)
         }).disposed(by: rx.disposeBag)
         
+        // 钱包
         headerView.walletBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
+            
+            guard User.hasUser() && User.currentUser().mobile != developmentMan else { return }
             self.navigator.show(segue: .mineWallet(info: self.balance), sender: self)
+            
         }).disposed(by: rx.disposeBag)
         
+        // 蔬菜
         headerView.vegetablesBtn.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
+            
+            guard User.hasUser() && User.currentUser().mobile != developmentMan else { return }
             self.navigator.show(segue: .mineVegetables(info: self.balance), sender: self)
+            
         }).disposed(by: rx.disposeBag)
         
+        // 会员点击
         headerView.memberBtn.rx.tap.subscribe(onNext: { (_) in
+            
             guard User.currentUser().isVip == 0 else {return}
             
             let tipsView = SelectTipsView()
@@ -140,7 +135,6 @@ class MineViewController: TableViewController {
                     callUpWith(linkMan) // 填写运营人员的电话号码
                 }
             }
-            //self.navigator.show(segue: .mineMember(info: self.balance), sender: self)
         }).disposed(by: rx.disposeBag)
         
     }
@@ -152,12 +146,40 @@ class MineViewController: TableViewController {
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
     
     // MARK: - Public methods
+    
     @objc func settingAction() {
         navigator.show(segue: .mineSetting, sender: self)
     }
     
     @objc func messageAction() {
         navigator.show(segue: .mineMessage, sender: self)
+    }
+    
+    /// 获取用户余额
+    func fetchUserBalance() {
+        
+        let params = ["userid": User.currentUser().userId]
+        
+        WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
+            self.tableView.uHead.endRefreshing()
+            self.balance = model
+        }) { (error) in
+            self.tableView.uHead.endRefreshing()
+        }
+        
+    }
+    
+    /// 获取用户信息
+    func fetchUserInfo() {
+        
+        var params = [String: Any]()
+        params["userid"] = User.currentUser().userId
+        
+        WebAPITool.requestModel(WebAPI.fetchUserInfo(params), model: User.self, complete: { (model) in
+            model.save()
+        }) { (error) in
+            HudHelper.hideHUD()
+        }
     }
     
 }
@@ -180,6 +202,7 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch indexPath.row {
         case 0:
             self.navigator.show(segue: .deliveryOrderInfo, sender: self)

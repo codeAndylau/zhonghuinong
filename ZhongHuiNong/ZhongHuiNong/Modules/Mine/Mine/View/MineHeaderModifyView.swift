@@ -25,6 +25,7 @@ class MineHeaderModifyView: View {
         view.setTitle("更换头像", for: .normal)
         view.setTitleColor(UIColor.white, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        view.isHidden = true
         return view
     }()
     

@@ -81,7 +81,6 @@ extension MineOrderViewController: JXCategoryViewDelegate {
     
     // 点击选中的情况才会调用该方法
     func categoryView(_ categoryView: JXCategoryBaseView!, didClickSelectedItemAt index: Int) {
-        debugPrints("点击了第\(index)个")
         listContainerView.didClickSelectedItem(at: index)
     }
     

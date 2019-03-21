@@ -25,7 +25,6 @@ class GoodsDetailViewController: ViewController {
         didSet {
             debugPrints("购物车数量---\(cartNum)")
             if cartNum > 0 {
-                buyView.caiLanBtn.pp.moveBadge(x: -15, y: 10)
                 buyView.caiLanBtn.pp.addBadge(number: cartNum)
                 buyView.caiLanBtn.pp.setBadgeLabel { (lab) in
                     lab.backgroundColor = Color.theme1DD1A8
@@ -74,7 +73,15 @@ class GoodsDetailViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         activityVIew.center = view.center
+        
+        // 菜篮
+        buyView.caiLanBtn.pp.moveBadge(x: -15, y: 10)
+        buyView.caiLanBtn.pp.setBadgeLabel { (lab) in
+            lab.backgroundColor = Color.clearColor
+        }
+        
     }
     
     override func makeUI() {
@@ -84,7 +91,9 @@ class GoodsDetailViewController: ViewController {
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.view.insertSubview(barView, belowSubview: navigationController!.navigationBar)
+        
         //navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarView)
+        
         view.addSubview(activityVIew)
         activityVIew.startAnimating()
         fetchGoodsInfo()
@@ -93,7 +102,7 @@ class GoodsDetailViewController: ViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
-        extendedLayoutIncludesOpaqueBars = true
+        //extendedLayoutIncludesOpaqueBars = true
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         }else {
@@ -130,10 +139,12 @@ class GoodsDetailViewController: ViewController {
             debugPrints("当前网络状态---\(flag)")
         }).disposed(by: rx.disposeBag)
         
+        if User.hasUser() && User.currentUser().mobile == developmentMan {
+            headerView.topView.memberView.isHidden = true
+        }
         
         /// 不是会员 点击后 阔以直接点击打电话
         headerView.topView.memberViewBtn.rx.tap.subscribe(onNext: { (_) in
-            
             debugPrint("用的vip表示---\(User.currentUser().isVip)")
             if User.currentUser().isVip == 0 {
                 let tips = SelectTipsView()

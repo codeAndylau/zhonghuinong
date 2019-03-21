@@ -137,9 +137,17 @@ extension WebAPI: TargetType, WebAPIType {
             .createDispatchOrder(_,_), .dispatchOrderList(_), .dispatchOrderDetail(_),
             .dispatchTrackingList(_):
             
-            return Configs.Network.smartFarmAPI1 // Configs.Network.debugUrl1
+            // 开发环境
+            // 测试环境
+            // 生产环境
+            
+            //return Configs.Network.smartFarmAPI1_dev
+            return Configs.Network.smartFarmAPI1_text
+            //return Configs.Network.smartFarmAPI1_pro
         default:
-            return Configs.Network.smartFarmAPI2 // Configs.Network.debugUrl2
+            //return Configs.Network.smartFarmAPI2_dev
+            return Configs.Network.smartFarmAPI2_text
+            //return Configs.Network.smartFarmAPI2_pro
         }
     }
     

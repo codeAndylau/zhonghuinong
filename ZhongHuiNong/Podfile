@@ -23,6 +23,7 @@ target 'ZhongHuiNong' do
     # UI
     pod 'SnapKit'
     pod 'MJRefresh'
+    pod 'EmptyPage'
     pod 'MBProgressHUD'
     pod 'JXCategoryView'
     pod 'PPBadgeViewSwift'

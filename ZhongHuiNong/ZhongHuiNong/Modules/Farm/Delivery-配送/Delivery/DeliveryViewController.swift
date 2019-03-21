@@ -284,7 +284,7 @@ class DeliveryViewController: ViewController {
             if dispatchDate.sunday {
                 isSelect = true
                 scheduleday = 7
-                deliveryday = "星期天"
+                deliveryday = "星期日"
             }
         case 5:
             if dispatchDate.monday {

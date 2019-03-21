@@ -12,11 +12,6 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
 
     var acceptOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
-            if acceptOrderList.count == 0 {
-                self.emptyView.isHidden = false
-            }else {
-                self.emptyView.isHidden = true
-            }
             tableView.reloadData()
         }
     }
@@ -31,11 +26,15 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchAcceptOrder()
     }
     
     // MARK: - Action
-    
     func fetchAcceptOrder(isRefresh: Bool = false) {
         
         var params = [String: Any]()
@@ -69,13 +68,47 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
                 }
             })
             
+            if self.acceptOrderList.count == 0 {
+                self.emptyView.isHidden = false
+            }else {
+                self.emptyView.isHidden = true
+            }
+            
         }) { (error) in
-            debugPrints("获取所有订单失败---\(error)")
             self.acceptOrderList = []
-            //ZYToast.showCenterWithText(text: "服务器正在高速运转")
             if isRefresh {
                 self.tableView.uHead.endRefreshing()
             }
+        }
+    }
+    
+    // 确认收货
+    func orderAccept(_ orderId: String, indexPath: IndexPath) {
+        
+        var params = [String: Any]()
+        params["order_no"] = orderId
+        params["user_id"] = User.currentUser().userId
+        params["wid"] = wid
+        
+        // 这个统一格式的返回 ，status = 1成功， 0 就是失败
+        WebAPITool.request(WebAPI.userOrderReceipt(params), complete: { (value) in
+            let status = value["status"].intValue
+            if status == 1 {
+                ZYToast.showCenterWithText(text: "确认收货成功")
+                
+                /// 删除某一条数据
+                self.tableView.beginUpdates()
+                self.acceptOrderList.remove(at: indexPath.row)
+                let index = IndexPath(row: indexPath.row, section: 0)
+                self.tableView.deleteRows(at: [index], with: .none)
+                self.tableView.endUpdates()
+                
+            }else{
+                ZYToast.showCenterWithText(text: "服务器正在高速运作中")
+            }
+            
+        }) { (error) in
+            ZYToast.showCenterWithText(text: "服务器正在高速运作中")
         }
     }
 
@@ -120,27 +153,4 @@ extension MineAcceptOrderViewController {
         return 200
     }
     
-    
-    func orderAccept(_ orderId: String, indexPath: IndexPath) {
-        
-        var params = [String: Any]()
-        params["order_no"] = orderId
-        params["user_id"] = User.currentUser().userId
-        params["wid"] = wid
-        
-        // 这个统一格式的返回 ，status = 1成功， 0 就是失败
-        WebAPITool.request(WebAPI.userOrderReceipt(params), complete: { (value) in
-            let status = value["status"].intValue
-            if status == 1 {
-                ZYToast.showCenterWithText(text: "确认收货成功")
-                self.acceptOrderList.remove(at: indexPath.row)
-            }else{
-                ZYToast.showCenterWithText(text: "服务器正在高速运作中")
-            }
-        
-        }) { (error) in
-            ZYToast.showCenterWithText(text: "服务器正在高速运作中")
-            debugPrints("确认收货失败 ----- \(error)")
-        }
-    }
 }

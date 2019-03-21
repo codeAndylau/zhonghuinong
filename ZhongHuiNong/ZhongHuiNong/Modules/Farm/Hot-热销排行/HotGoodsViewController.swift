@@ -42,22 +42,33 @@ class HotGoodsViewController: ViewController {
     lazy var titleView = UIImageView(image: UIImage(named: "farm_hot_icon"))
     
     lazy var topView = HotView.loadView()
+    
+    lazy var footerView: NoMoreFooterView = {
+        let footer = NoMoreFooterView.loadView()
+        footer.frame = CGRect(x: 0, y: 0, width: kScreenW, height: 50)
+        footer.titleLab.text = "没有更多了~"
+        return footer
+    }()
 
     lazy var tableView: TableView = {
-        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .grouped)
+        let view = TableView(frame: CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH), style: .plain)
         view.backgroundColor = UIColor.white
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.register(HotTabCell.self, forCellReuseIdentifier: HotTabCell.identifier)
-        view.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
+        
+        /// 解决刷新的时候存在都用的问题
+        view.estimatedRowHeight = 0
+        view.estimatedSectionFooterHeight = 0
+        view.estimatedSectionHeaderHeight = 0
         
         view.uHead = MJDIYHeader(refreshingBlock: {
             self.page = 1
-            self.isData = true
             self.tableView.uFoot.isHidden = false
             self.tableView.uFoot.resetNoMoreData()
+            self.tableView.tableFooterView = nil
             self.fetchHotsaleList(true)
         })
         
@@ -86,22 +97,27 @@ class HotGoodsViewController: ViewController {
 
             if self.page > 1 {
                 
-                if list.count == 0 {
-                    self.isData = false
+                if list.count < 10 {
+                    
+                    self.tableView.tableFooterView = self.footerView
                     self.tableView.uFoot.endRefreshingWithNoMoreData()
                     self.tableView.uFoot.isHidden = true
                     self.tableView.reloadData()
-                }else {
-                    self.hotsaleList += list
-                    self.hotsaleList = self.handleFilterArray(arr: self.hotsaleList)
-                    if self.hotsaleList.count == self.handleFilterArray(arr: self.hotsaleList).count {
-                        self.isData = false
-                        self.tableView.uFoot.endRefreshingWithNoMoreData()
-                        self.tableView.uFoot.isHidden = true
-                        self.tableView.reloadData()
-                    }
+                    
                 }
+                
+                self.hotsaleList += list
+                self.hotsaleList = self.handleFilterArray(arr: self.hotsaleList)
+                
             }else {
+                
+                if list.count < 10 {
+                    self.tableView.tableFooterView = self.footerView
+                    self.tableView.uFoot.endRefreshingWithNoMoreData()
+                    self.tableView.uFoot.isHidden = true
+                    self.tableView.reloadData()
+                }
+                
                 self.hotsaleList.removeAll()
                 self.hotsaleList = list
             }

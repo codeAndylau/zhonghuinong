@@ -31,6 +31,11 @@ class MineSendOrderViewController: MineAllOrderViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchSendOrder()
     }
     

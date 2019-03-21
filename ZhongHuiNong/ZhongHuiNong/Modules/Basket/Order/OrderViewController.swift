@@ -262,6 +262,8 @@ class OrderViewController: TableViewController {
     /// 提交订单
     func commitOrder() {
         
+        
+        
         guard headerView.addressView.addressInfo.id != defaultId else {
             ZYToast.showCenterWithText(text: "您还没有填写收货地址")
             return
@@ -285,8 +287,12 @@ class OrderViewController: TableViewController {
         
         debugPrints("创建订单参数---\(params)")
         
+        ///  防止多次点击
+        self.paySureView.sureBtn.isEnabled = false
+        
         WebAPITool.requestModel(WebAPI.createOrder(params), model: CartOrderInfo.self, complete: { (model) in
             debugPrints("创建订单成功---\(model)")
+            self.paySureView.sureBtn.isEnabled = true
             MBProgressHUD.showSuccess("订单创建成功")
 
             if model.orderNumber != "" {
@@ -330,7 +336,6 @@ class OrderViewController: TableViewController {
     lazy var PayPasswordDemo = MineSettingPayPsdViewController()
     
     // MARK: - Public methods
-    
     func fetchUserAddressList() {
         
         var p = [String: Any]()

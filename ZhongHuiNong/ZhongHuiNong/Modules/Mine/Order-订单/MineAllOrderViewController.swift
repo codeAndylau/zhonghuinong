@@ -47,8 +47,18 @@ class MineAllOrderViewController: ViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchUserBalance()
         fetchAllOrder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        HudHelper.hideHUD()
     }
     
     // MARK: - Lazy
@@ -139,34 +149,27 @@ class MineAllOrderViewController: ViewController {
         
         debugPrint("取消订单的参数---\(params)")
         
+        HudHelper.showWaittingHUD(msg: "请稍后...")
         WebAPITool.request(WebAPI.cancelOrder(params), complete: { (value) in
+            HudHelper.hideHUD()
             let status = value["status"].intValue
             if status == 1 {
                 ZYToast.showCenterWithText(text: "取消订单成功")
+                
+                /// 删除某一条数据
+                self.tableView.beginUpdates()
                 self.orderList.remove(at: indexPath.row)
+                let index = IndexPath(row: indexPath.row, section: 0)
+                self.tableView.deleteRows(at: [index], with: .none)
+                self.tableView.endUpdates()
+                
             }else{
                 ZYToast.showCenterWithText(text: "取消订单失败")
             }
         }) { (error) in
+            HudHelper.hideHUD()
             ZYToast.showCenterWithText(text: "取消订单失败")
         }
-    }
-    
-    /// tool
-    func deleteOrderInfo(_ orderId: String, indexPath: IndexPath) {
-        
-        let url = "http://212.64.91.248/api/Order/deleteorder?order_no=\(orderId)&userid=\(User.currentUser().userId)"
-        
-        HudHelper.showWaittingHUD(msg: "请稍后...")
-        EZNetworkTool.shared.requestDeleteOrder(url, completion: { (value) in
-            HudHelper.hideHUD()
-            ZYToast.showCenterWithText(text: "删除订单成功")
-            self.orderList.remove(at: indexPath.row)
-        }) { (error) in
-            debugPrints("删除订单失败---\(error)")
-            HudHelper.hideHUD()
-        }
-        
     }
     
     /// 删除订单
@@ -174,7 +177,7 @@ class MineAllOrderViewController: ViewController {
         
         var params = [String: Any]()
         params["order_no"] = orderId
-        params["user_id"] = User.currentUser().userId
+        params["userid"] = User.currentUser().userId
         
         debugPrints("删除订单的参数---\(params)")
         
@@ -185,7 +188,14 @@ class MineAllOrderViewController: ViewController {
             let status = value["status"].intValue
             if status == 1 {
                 ZYToast.showCenterWithText(text: "删除订单成功")
+                
+                /// 删除某一条数据
+                self.tableView.beginUpdates()
                 self.orderList.remove(at: indexPath.row)
+                let index = IndexPath(row: indexPath.row, section: 0)
+                self.tableView.deleteRows(at: [index], with: .none)
+                self.tableView.endUpdates()
+                
             }else{
                 ZYToast.showCenterWithText(text: "删除订单失败")
             }
@@ -198,7 +208,7 @@ class MineAllOrderViewController: ViewController {
     }
     
     /// 支付订单
-    func payIndexOrder(_ orderId: String, amountReal: Double) {
+    func payIndexOrder(_ orderId: String, amountReal: Double, indexPath: IndexPath) {
         
         debugPrint("商品价格--用户账户余额---\(amountReal)---\(userBalance.creditbalance)")
         
@@ -211,7 +221,12 @@ class MineAllOrderViewController: ViewController {
         payPasswordDemo.order_no = orderId
         payPasswordDemo.show()
         payPasswordDemo.paySuccessClosure = { [weak self] in
-            self?.fetchAllOrder()
+            /// 删除某一条数据
+            self?.tableView.beginUpdates()
+            self?.orderList.remove(at: indexPath.row)
+            let index = IndexPath(row: indexPath.row, section: 0)
+            self?.tableView.deleteRows(at: [index], with: .none)
+            self?.tableView.endUpdates()
         }
     }
 }
@@ -257,7 +272,7 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
                 }
                 
                 if index == 2 {
-                    self.payIndexOrder(order.orderNumber, amountReal: order.amountReal)
+                    self.payIndexOrder(order.orderNumber, amountReal: order.amountReal, indexPath: indexPath)
                 }
             }
             
@@ -293,7 +308,7 @@ extension MineAllOrderViewController: UITableViewDataSource, UITableViewDelegate
                 tips.btnClosure = { index in
                     
                     if index == 2 {
-                        self.deleteOrderInfo(order.orderNumber, indexPath: indexPath)
+                        self.deleteOrder(order.orderNumber, indexPath: indexPath)
                     }
                 }
             }

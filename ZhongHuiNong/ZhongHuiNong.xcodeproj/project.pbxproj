@@ -42,7 +42,6 @@
 		1411F74E21F9433E0076D763 /* MainTabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */; };
 		1411F75221F943940076D763 /* FarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75121F943940076D763 /* FarmViewModel.swift */; };
 		1411F75821F943DD0076D763 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75721F943DD0076D763 /* BasketViewController.swift */; };
-		1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75B21F943FA0076D763 /* MineViewModel.swift */; };
 		1411F75E21F944040076D763 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75D21F944040076D763 /* MineViewController.swift */; };
 		1411F76021F948770076D763 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F75F21F948770076D763 /* RootNavigationController.swift */; };
 		1411F76221F982BC0076D763 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1411F76121F982BC0076D763 /* Image.swift */; };
@@ -77,6 +76,8 @@
 		142CE020222D12AA00F604B0 /* MBProgressHUD+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE01F222D12AA00F604B0 /* MBProgressHUD+Ex.swift */; };
 		142CE027222D239A00F604B0 /* DeliveryDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE026222D239A00F604B0 /* DeliveryDateViewController.swift */; };
 		142CE02B222D247E00F604B0 /* DeliveryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142CE02A222D247E00F604B0 /* DeliveryTimeView.swift */; };
+		143AF03E224341560086367F /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143AF03D224341560086367F /* StoreView.swift */; };
+		143AF0402243887F0086367F /* EmptyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143AF03F2243887F0086367F /* EmptyStore.swift */; };
 		1448B0912224ECA7009237E7 /* HotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0902224ECA7009237E7 /* HotView.swift */; };
 		1448B0932224F444009237E7 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B0922224F444009237E7 /* ComponentViewController.swift */; };
 		1448B09522250892009237E7 /* HotTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1448B09422250892009237E7 /* HotTabCell.swift */; };
@@ -348,7 +349,6 @@
 		1411F74D21F9433E0076D763 /* MainTabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewModel.swift; sourceTree = "<group>"; };
 		1411F75121F943940076D763 /* FarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewModel.swift; sourceTree = "<group>"; };
 		1411F75721F943DD0076D763 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
-		1411F75B21F943FA0076D763 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		1411F75D21F944040076D763 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1411F75F21F948770076D763 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		1411F76121F982BC0076D763 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -384,6 +384,8 @@
 		142CE021222D19A100F604B0 /* ZhongHuiNong-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZhongHuiNong-Bridging-Header.h"; sourceTree = "<group>"; };
 		142CE026222D239A00F604B0 /* DeliveryDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryDateViewController.swift; sourceTree = "<group>"; };
 		142CE02A222D247E00F604B0 /* DeliveryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTimeView.swift; sourceTree = "<group>"; };
+		143AF03D224341560086367F /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		143AF03F2243887F0086367F /* EmptyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStore.swift; sourceTree = "<group>"; };
 		1448B0902224ECA7009237E7 /* HotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotView.swift; sourceTree = "<group>"; };
 		1448B0922224F444009237E7 /* ComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		1448B09422250892009237E7 /* HotTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTabCell.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 			isa = PBXGroup;
 			children = (
 				145100B62227DB0700031FE2 /* StoreFilterView.swift */,
+				143AF03D224341560086367F /* StoreView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1212,7 +1215,6 @@
 			isa = PBXGroup;
 			children = (
 				1411F75D21F944040076D763 /* MineViewController.swift */,
-				1411F75B21F943FA0076D763 /* MineViewModel.swift */,
 				1406D627223220650090C07F /* Model */,
 				1492DDBD221AAEE100C79D88 /* TabCell */,
 				1468B1612215441A002B971F /* View */,
@@ -1280,6 +1282,7 @@
 			children = (
 				149E4560223F3D1900FEA658 /* Images */,
 				149E4565223F3D1900FEA658 /* Components */,
+				143AF03F2243887F0086367F /* EmptyStore.swift */,
 			);
 			path = IDEmptyView;
 			sourceTree = "<group>";
@@ -1617,11 +1620,11 @@
 			isa = PBXGroup;
 			children = (
 				145138A721F851490038AFC6 /* Main */,
-				145138B221F8594E0038AFC6 /* Login */,
 				145138AA21F853D60038AFC6 /* Farm */,
 				145138AB21F8541A0038AFC6 /* Classify */,
 				145138AC21F854570038AFC6 /* Basket */,
 				145138AD21F854690038AFC6 /* Mine */,
+				145138B221F8594E0038AFC6 /* Login */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1958,11 +1961,12 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${PODS_ROOT}/EZOpenSDK/dist/EZOpenSDK/dynamicSDK/EZOpenSDKFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/EmptyDataSet-Swift/EmptyDataSet_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/EmptyPage/EmptyPage.framework",
 				"${BUILT_PRODUCTS_DIR}/JXCategoryView/JXCategoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
@@ -1990,6 +1994,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZOpenSDKFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyDataSet_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyPage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXCategoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
@@ -2011,7 +2016,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABBE84CE2BD52BC317448F49 /* [CP] Check Pods Manifest.lock */ = {
@@ -2109,6 +2114,7 @@
 				149E4575223F965700FEA658 /* PaySuccessViewController.swift in Sources */,
 				1448B0A822252A14009237E7 /* MineHeaderModifyView.swift in Sources */,
 				14974BD721F6F49D0088ABC3 /* String.swift in Sources */,
+				143AF03E224341560086367F /* StoreView.swift in Sources */,
 				14B27A56221BF2CD0029648A /* DeliveryOrderViewController.swift in Sources */,
 				1408746B221E7AD10051B7C3 /* MineSettingTabCell.swift in Sources */,
 				1406D629223220780090C07F /* UserBanlance.swift in Sources */,
@@ -2189,7 +2195,6 @@
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
 				14043D51221298B10023AA11 /* CartTabCell.swift in Sources */,
 				14C3EBCD221D046C003029EB /* VegetablesView.swift in Sources */,
-				1411F75C21F943FA0076D763 /* MineViewModel.swift in Sources */,
 				1448B0A622252517009237E7 /* MineAboutHeaderView.swift in Sources */,
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */,
@@ -2300,6 +2305,7 @@
 				1412CD452239FD800075C70B /* MapperParameter.swift in Sources */,
 				146B74C1221EA0F7005D2879 /* MineAllOrderViewController.swift in Sources */,
 				144F43CC222F9F6C00218339 /* File.swift in Sources */,
+				143AF0402243887F0086367F /* EmptyStore.swift in Sources */,
 				8BF9188C2239320500EEB345 /* StoreModel.swift in Sources */,
 				14974BEF21F711730088ABC3 /* Observable+Operators.swift in Sources */,
 				14C3EBD2221D2536003029EB /* GoodsDetailHeaderView.swift in Sources */,

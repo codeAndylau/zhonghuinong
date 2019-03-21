@@ -53,7 +53,7 @@ extension User {
     
     static func hasUser() -> Bool {
         let user = User.currentUser()
-        debugPrints("用户信息---\(String(describing: user))")
+        //debugPrints("用户信息---\(String(describing: user))")
         if  user.headimgUrl == "" &&
             user.isPayPassword == false &&
             user.isVip == defaultId &&

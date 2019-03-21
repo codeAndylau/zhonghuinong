@@ -43,6 +43,7 @@ class MineWalletViewController: TableViewController {
                     }
                 }
             }
+            
         }else {
             
             tableView.dataSource = self

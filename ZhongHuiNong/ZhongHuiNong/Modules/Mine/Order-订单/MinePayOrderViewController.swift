@@ -35,6 +35,11 @@ class MinePayOrderViewController: MineAllOrderViewController {
 
     override func bindViewModel() {
         super.bindViewModel()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchBalance()
         fetchPayOrder()
     }
@@ -112,7 +117,13 @@ class MinePayOrderViewController: MineAllOrderViewController {
             let detail = value["detail"].stringValue
             if status == 1 {
                 ZYToast.showCenterWithText(text: "取消订单成功")
+                
+                /// 删除某一条数据
+                self.tableView.beginUpdates()
                 self.payOrderList.remove(at: indexPath.row)
+                let index = IndexPath(row: indexPath.row, section: 0)
+                self.tableView.deleteRows(at: [index], with: .none)
+                self.tableView.endUpdates()
             }else{
                 ZYToast.showCenterWithText(text: detail)
             }
@@ -122,7 +133,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
         }
     }
     
-    func payOrder(_ orderId: String, amountReal: Double) {
+    func payOrder(_ orderId: String, amountReal: Double, indexPath: IndexPath) {
         
         debugPrint("商品价格--用户账户余额---\(amountReal)---\(balance.creditbalance)")
         
@@ -135,7 +146,14 @@ class MinePayOrderViewController: MineAllOrderViewController {
         payDemo.order_no = orderId
         payDemo.show()
         payDemo.paySuccessClosure = { [weak self] in
-            self?.fetchPayOrder()
+            
+            /// 删除某一条数据
+            self?.tableView.beginUpdates()
+            self?.payOrderList.remove(at: indexPath.row)
+            let index = IndexPath(row: indexPath.row, section: 0)
+            self?.tableView.deleteRows(at: [index], with: .none)
+            self?.tableView.endUpdates()
+            
             NotificationCenter.default.post(name: .cartOrderPaySuccess, object: nil)
         }
     }
@@ -164,7 +182,7 @@ extension MinePayOrderViewController {
             }
             
             if index == 2 {
-                self.payOrder(info.orderNumber, amountReal: info.amountReal)
+                self.payOrder(info.orderNumber, amountReal: info.amountReal, indexPath: indexPath)
             }
         }
         

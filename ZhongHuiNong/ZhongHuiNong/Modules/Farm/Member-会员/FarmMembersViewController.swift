@@ -61,16 +61,20 @@ class FarmMembersViewController: TableViewController {
     override func makeUI() {
         super.makeUI()
         
+        /// 是否是VIP
         if User.hasUser() && User.currentUser().isVip != 0 {
             vipItem.header.lc_setImage(with: User.currentUser().headimgUrl)
             navigationItem.leftBarButtonItem = leftBarItem
         }
         
-        navigationItem.rightBarButtonItem = rightMsgItem
-        
-        view.addSubview(tableView_g)
+        /// 上架的时候隐藏
+        if User.hasUser() && User.currentUser().mobile != developmentMan {
+            navigationItem.rightBarButtonItem = rightMsgItem
+        }
         
         dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
+        
+        view.addSubview(tableView_g)
     
         loadAllData()
     }

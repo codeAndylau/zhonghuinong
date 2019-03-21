@@ -31,7 +31,7 @@ class StoreViewController: ViewController {
         didSet {
 
             for item in catagoryList {
-                let model = StoreModel(page: 1, goodsId: item.id)
+                let model = StoreModel(page: 1, goodsId: item.id, index: 0, end: true)
                 classInfos.append(model)
             }
             
@@ -56,11 +56,15 @@ class StoreViewController: ViewController {
         super.makeUI()
 
         navigationItem.titleView = searchView
-        navigationItem.rightBarButtonItem = rightMsgItem
         
         if User.hasUser() && User.currentUser().isVip != 0 {
             vipItem.header.lc_setImage(with: User.currentUser().headimgUrl)
             navigationItem.leftBarButtonItem = leftBarItem
+        }
+        
+        /// 上架的时候隐藏
+        if User.hasUser() && User.currentUser().mobile != developmentMan {
+            navigationItem.rightBarButtonItem = rightMsgItem
         }
         
         fetchCatagoryList()
@@ -98,8 +102,10 @@ class StoreViewController: ViewController {
         
         NotificationCenter.default.rx.notification(Notification.Name.HomeGoodsClassDid).subscribe(onNext: { [weak self] (notification) in
             guard let self = self else { return }
+            
             let value = notification.userInfo?[Notification.Name.HomeGoodsClassDid.rawValue] as! Int
             let indexPath = IndexPath(row: value, section: 0)
+            
             guard value < self.catagoryList.count else { return }
             
             if self.currentIndexPath != indexPath {
@@ -112,12 +118,30 @@ class StoreViewController: ViewController {
             
             self.currentIndexPath = indexPath
             self.leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
+
+            // 0: 先复制
+            self.classInfos[self.currentIndexPath.row].index = indexPath.row
+
+            // 1: 先刷新数据
+            self.rightTableView.reloadData()
+
+            // 2: 判断是否数据价值完成
+            if self.classInfos[self.currentIndexPath.row].end == true {
+                self.emptyView.isHidden = true
+                self.rightTableView.tableFooterView = nil
+            }else {
+                self.rightTableView.uFoot.endRefreshingWithNoMoreData()
+                self.rightTableView.uFoot.isHidden = true
+                self.rightTableView.tableFooterView = self.footerView
+            }
             
             if self.classInfos[indexPath.row].goodsInfo.count == 0 {
-                self.fetchGoodsInfos(category_id: self.classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false)
-            }else {
-                self.rightTableView.reloadData()
+                self.fetchGoodsInfos(category_id: self.classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false, index: indexPath.row)
             }
+            
+//            else {
+//                self.rightTableView.reloadData()
+//            }
             
             // FIXME: 没有数据的时候 会造成崩溃
             //self.rightTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -147,6 +171,19 @@ class StoreViewController: ViewController {
         return footer
     }()
     
+    lazy var emptyView: EmptyView = {
+        let emptyView = EmptyView()
+        emptyView.config = EmptyViewConfig(title: "该类商品暂时缺货了哟", image: UIImage(named: "basket_empty"), btnTitle: "")
+        emptyView.sureBtn.isHidden = true
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { (make) in
+            make.top.equalTo(kNavBarH)
+            make.left.equalTo(88)
+            make.right.bottom.equalTo(self.view)
+        }
+        return emptyView
+    }()
+    
     //左侧表格
     lazy var leftTableView : UITableView = {
         let leftTableView = UITableView()
@@ -174,8 +211,6 @@ class StoreViewController: ViewController {
         rightTableView.showsVerticalScrollIndicator = false
         rightTableView.separatorColor = UIColor.clear
         rightTableView.backgroundColor = UIColor.white
-        
-        //rightTableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
         rightTableView.register(StoreRightCell.self, forCellReuseIdentifier: StoreRightCell.identifier)
         
         /// 解决刷新的时候存在都用的问题
@@ -192,13 +227,15 @@ class StoreViewController: ViewController {
             self.rightTableView.uFoot.resetNoMoreData()
             
             self.classInfos[self.currentIndexPath.row].page = 1
-            self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: true, isFooter: false)
+            self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: true, isFooter: false, index: self.currentIndexPath.row)
         })
 
         rightTableView.uFoot = MJDIYAutoFooter(refreshingBlock: {
+            
             self.classInfos[self.currentIndexPath.row].page += 1
+            
             if self.classInfos[self.currentIndexPath.row].end {
-                self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: false, isFooter: true)
+                self.fetchGoodsInfos(category_id: self.classInfos[self.currentIndexPath.row].goodsId, isHeader: false, isFooter: true, index: self.currentIndexPath.row)
             }
         })
         
@@ -231,7 +268,7 @@ class StoreViewController: ViewController {
         }
     }
     
-    func fetchGoodsInfos(category_id: Int, isHeader: Bool = true, isFooter: Bool = false) {
+    func fetchGoodsInfos(category_id: Int, isHeader: Bool = true, isFooter: Bool = false, index: Int = 0) {
         
         var p = [String: Any]()
         p["keywords"] = ""
@@ -244,12 +281,21 @@ class StoreViewController: ViewController {
         
         WebAPITool.requestModelArrayWithData(WebAPI.goodsList(p), model: GoodsInfo.self, complete: { (list) in
             
+            if list.count == 0 {
+                self.emptyView.isHidden = false
+            }else {
+                self.emptyView.isHidden = true
+            }
+            
             if isHeader {
                 
                 self.rightTableView.uHead.endRefreshing()
                 self.classInfos[self.currentIndexPath.row].goodsInfo.removeAll()
-                self.classInfos[self.currentIndexPath.row].goodsInfo = list
                 
+                if index == self.classInfos[self.currentIndexPath.row].index {
+                    self.classInfos[self.currentIndexPath.row].goodsInfo = list
+                }
+
                 if list.count < 10 {
                     
                     self.classInfos[self.currentIndexPath.row].end = false
@@ -274,12 +320,16 @@ class StoreViewController: ViewController {
                 }
                 
                 self.rightTableView.uFoot.endRefreshing()
-                var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
-                tempList += list
                 
-                debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
-                self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
-                
+                /// 避免数据混乱的现象
+                if index == self.classInfos[self.currentIndexPath.row].index {
+                    
+                    var tempList = self.classInfos[self.currentIndexPath.row].goodsInfo
+                    tempList += list
+                    
+                    debugPrints("之前总个数---\(tempList.count)---\(self.handleFilterArray(arr: tempList).count)")
+                    self.classInfos[self.currentIndexPath.row].goodsInfo = self.handleFilterArray(arr: tempList)
+                }
             }
             
         }) { (error) in
@@ -293,6 +343,8 @@ class StoreViewController: ViewController {
             if isFooter {
                 self.rightTableView.uFoot.endRefreshing()
             }
+            
+            self.emptyView.isHidden = false
         }
     }
     
@@ -366,8 +418,15 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
             currentIndexPath = indexPath
             leftTableView.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
             
+            // 0: 先复制
+            self.classInfos[self.currentIndexPath.row].index = indexPath.row
+            
+            // 1: 先刷新数据
             rightTableView.reloadData()
+            
+            // 2: 判断是否数据价值完成
             if classInfos[self.currentIndexPath.row].end == true {
+                emptyView.isHidden = true
                 rightTableView.tableFooterView = nil
             }else {
                 rightTableView.uFoot.endRefreshingWithNoMoreData()
@@ -375,8 +434,9 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
                 rightTableView.tableFooterView = footerView
             }
             
+            // 3: 如果还没有请求数据择先去请求
             if classInfos[indexPath.row].goodsInfo.count == 0 {
-                fetchGoodsInfos(category_id: classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false)
+                fetchGoodsInfos(category_id: classInfos[indexPath.row].goodsId, isHeader: true, isFooter: false, index: indexPath.row)
             }
 
             // FIXME: 没有数据的时候 会造成崩溃
@@ -391,22 +451,6 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
     }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        if rightTableView == tableView && isData == false {
-//            return 50
-//        }
-//        return  0.01
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if rightTableView == tableView && isData == false {
-//            let view = NoMoreFooterView.loadView()
-//            view.titleLab.text = "没有更多了~"
-//            return view
-//        }
-//        return UIView()
-//    }
     
 }
 

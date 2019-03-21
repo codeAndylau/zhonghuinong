@@ -44,11 +44,21 @@ struct Configs {
         static let kWindlessViewTag = 91997
         static let loggingEnabled = false
         
-        static let debugUrl1 = URL(string: "http://212.64.91.248:80/")!                    // 测试服务器
-        static let debugUrl2 = URL(string: "https://api.smartfarm.villagetechnology.cn")!    // 测试服务器
+        // 开发服务器
+        static let smartFarmAPI01_dev = URL(string: "http://212.64.91.248:80/")!
+        static let smartFarmAPI02_dev = URL(string: "https://api.smartfarm.villagetechnology.cn")!
         
-        static let smartFarmAPI1 = URL(string: "http://testapi.smartfarm.villagetechnology.cn")!
-        static let smartFarmAPI2 = URL(string: "http://testmxapi.smartfarm.villagetechnology.cn:8080")!
+        // 开发环境
+        static let smartFarmAPI1_dev = URL(string: "http://devapi.smartfarm.villagetechnology.cn")!
+        static let smartFarmAPI2_dev = URL(string: "http://devmxapi.smartfarm.villagetechnology.cn:8080")!
+        
+        // 测试环境
+        static let smartFarmAPI1_text = URL(string: "http://testapi.smartfarm.villagetechnology.cn")!
+        static let smartFarmAPI2_text = URL(string: "http://testmxapi.smartfarm.villagetechnology.cn:8080")!
+        
+        // 生产环境
+        static let smartFarmAPI1_pro = URL(string: "http://proapi.smartfarm.villagetechnology.cn")!
+        static let smartFarmAPI2_pro = URL(string: "https://promxapi.smartfarm.villagetechnology.cn")!
         
     }
     
