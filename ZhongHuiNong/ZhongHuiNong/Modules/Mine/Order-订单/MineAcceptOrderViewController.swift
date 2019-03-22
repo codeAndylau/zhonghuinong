@@ -18,10 +18,16 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
     
     override func makeUI() {
         super.makeUI()
+
         tableView.register(MineAcceptOrderTabCell.self, forCellReuseIdentifier: MineAcceptOrderTabCell.identifier)
         tableView.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchAcceptOrder(isRefresh: true)
         })
+        
+        tableView.setEmpty(view: EmptyStore.orderEmpty(block: {
+            topVC?.navigationController?.popToRootViewController(animated: false)
+            topVC?.tabBarController?.selectedIndex = 1
+        }))
     }
 
     override func bindViewModel() {
@@ -41,7 +47,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
         params["user_id"] = User.currentUser().userId
         params["status"] = 2  // 这是从小程序端来的数据。 0：待付款； 1：待发货； 2：待收货； 3：待评价； 4：已完成；
         params["wid"] = 1
-        
+
         WebAPITool.requestModelArrayWithData(WebAPI.fetchUserOrderList(params), model: MineGoodsOrderInfo.self, complete: { (list) in
            
             if isRefresh {
@@ -67,13 +73,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
                     return false
                 }
             })
-            
-            if self.acceptOrderList.count == 0 {
-                self.emptyView.isHidden = false
-            }else {
-                self.emptyView.isHidden = true
-            }
-            
+
         }) { (error) in
             self.acceptOrderList = []
             if isRefresh {

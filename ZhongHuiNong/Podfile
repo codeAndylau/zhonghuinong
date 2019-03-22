@@ -20,15 +20,16 @@ target 'ZhongHuiNong' do
     pod 'RxCocoa'
     pod 'NSObject+Rx'
     
+    
     # UI
     pod 'SnapKit'
     pod 'MJRefresh'
-    pod 'EmptyPage'
     pod 'MBProgressHUD'
     pod 'JXCategoryView'
     pod 'PPBadgeViewSwift'
     pod 'TYCyclePagerView'
-    pod 'EmptyDataSet-Swift'
+    pod 'EmptyPage'
+    
     
     # Tools
     pod 'Then'

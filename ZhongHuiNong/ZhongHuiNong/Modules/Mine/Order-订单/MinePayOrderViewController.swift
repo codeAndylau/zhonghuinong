@@ -16,21 +16,22 @@ class MinePayOrderViewController: MineAllOrderViewController {
     
     var payOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
-            if payOrderList.count == 0 {
-                self.emptyView.isHidden = false
-            }else {
-                self.emptyView.isHidden = true
-            }
             tableView.reloadData()
         }
     }
     
     override func makeUI() {
         super.makeUI()
+        
         tableView.register(MinePayOrderTabCell.self, forCellReuseIdentifier: MinePayOrderTabCell.identifier)
         tableView.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchPayOrder(isRefresh: true)
         })
+        
+        tableView.setEmpty(view: EmptyStore.orderEmpty(block: {
+            topVC?.navigationController?.popToRootViewController(animated: false)
+            topVC?.tabBarController?.selectedIndex = 1
+        }))
     }
 
     override func bindViewModel() {
@@ -192,4 +193,6 @@ extension MinePayOrderViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+
 }
+

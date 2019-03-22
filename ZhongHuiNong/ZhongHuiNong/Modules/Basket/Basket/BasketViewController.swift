@@ -12,8 +12,6 @@ import RxCocoa
 
 /// 购物车
 class BasketViewController: TableViewController {
-
-    var emptyView: EmptyView = EmptyView()
     
     var cartList: [CartGoodsInfo] = [] {
         didSet {
@@ -31,7 +29,6 @@ class BasketViewController: TableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CartTabCell.self, forCellReuseIdentifier: CartTabCell.identifier)
-        tableView.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: { })
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
         
         tableView.uHead = MJDIYHeader(refreshingBlock: {
@@ -40,23 +37,12 @@ class BasketViewController: TableViewController {
         
         view.addSubview(settleView)
         
-        view.addSubview(emptyView)
-        emptyView.config = EmptyViewConfig(title: "购物车空空如也", image: UIImage(named: "basket_empty"), btnTitle: "去逛逛")
-        emptyView.snp.makeConstraints { (make) in
-            make.top.equalTo(kNavBarH)
-            make.left.bottom.right.equalTo(self.view)
-        }
-        emptyView.sureBtnClosure = {
+        // 设置空白页
+        tableView.setEmpty(view: EmptyStore.cartEmpty(block: {
             self.tabBarController?.selectedIndex = 1
-        }
-        
+        }))
+
         fetchShopingCartList()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        debugPrints("即将进入购物车")
-        //fetchShopingCartList()
     }
     
     override func bindViewModel() {
@@ -158,12 +144,10 @@ class BasketViewController: TableViewController {
             
             if list.count == 0 {
                 self.navigationItem.rightBarButtonItem = nil
-                self.emptyView.isHidden = false
-                self.emptyView.alpha = 1
+                self.settleView.isHidden = true
             }else {
                 self.navigationItem.rightBarButtonItem = self.editItem
-                self.emptyView.isHidden = true
-                self.emptyView.alpha = 0.1
+                self.settleView.isHidden = false
             }
             
             self.cartList = list.reversed()
@@ -327,12 +311,10 @@ class BasketViewController: TableViewController {
             
             if self.cartList.count == 0 {
                 self.navigationItem.rightBarButtonItem = nil
-                self.emptyView.alpha = 1
-                self.emptyView.isHidden = false
+                self.settleView.isHidden = true
             }else {
                 self.navigationItem.rightBarButtonItem = self.editItem
-                self.emptyView.alpha = 0.1
-                self.emptyView.isHidden = true
+                self.settleView.isHidden = false
             }
             
             self.calculateGoodsPrice()

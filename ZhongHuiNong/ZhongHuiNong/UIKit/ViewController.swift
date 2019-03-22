@@ -28,7 +28,6 @@ class ViewController: UIViewController, Navigatable {
         view.backgroundColor = UIColor.orange
         self.view.addSubview(view)
         view.snp.makeConstraints { (make) in
-            //make.edges.equalTo(self.view)
             if #available(iOS 11.0, *) {
                 make.edges.equalTo(self.view.safeAreaLayoutGuide)
             } else {
@@ -53,9 +52,6 @@ class ViewController: UIViewController, Navigatable {
     let statusBarStyle = BehaviorRelay(value: false)
     let navigationBarHidden = BehaviorRelay(value: false)
     
-    // MARK: - 无网络状态友好提示
-    var isNetwork = true // 默认是有网的
-    var netWorkStye = IDEmptyView.Style.loadDetail
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         get {
@@ -70,6 +66,7 @@ class ViewController: UIViewController, Navigatable {
         super.viewDidLoad()
         makeUI()
         bindViewModel()
+        
         // 更改状态栏的颜色
         statusBarStyle.asObservable().subscribe(onNext: { [weak self] (flag) in
             guard let self = self else { return }
@@ -92,41 +89,8 @@ class ViewController: UIViewController, Navigatable {
 
 extension ViewController {
     static let emptyTitle = "暂无数据显示"
-    static let emptyImage = "图片显示"
+    static let emptyImage = UIImage(named: "mine_message_empty")
 }
 
-//extension ViewController: DZNEmptyDataSetSource {
-//
-//    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-//        return NSAttributedString(string: emptyDataSetTitle)
-//    }
-//
-//    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-//        return emptyDataSetImage
-//    }
-//
-//    func imageTintColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-//        return emptyDataSetImageTintColor.value
-//    }
-//
-//    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-//        return .clear
-//    }
-//
-//    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-//        return -60
-//    }
-//}
-
-//extension ViewController: DZNEmptyDataSetDelegate {
-//
-//    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-//        return !isLoading.value
-//    }
-//
-//    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
-//        return true
-//    }
-//}
 
 

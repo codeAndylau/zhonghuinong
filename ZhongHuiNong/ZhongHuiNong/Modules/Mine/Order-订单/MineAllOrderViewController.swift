@@ -13,15 +13,9 @@ import MBProgressHUD
 class MineAllOrderViewController: ViewController {
     
     var userBalance: UserBanlance = UserBanlance()
-    var emptyView: EmptyView = EmptyView()
 
     var orderList: [MineGoodsOrderInfo] = [] {
         didSet {
-            if orderList.count == 0 {
-                self.emptyView.isHidden = false
-            }else {
-                self.emptyView.isHidden = true
-            }
             self.tableView.reloadData()
         }
     }
@@ -30,18 +24,11 @@ class MineAllOrderViewController: ViewController {
         super.makeUI()
         
         view.addSubview(tableView)
-        view.addSubview(emptyView)
-        
-        emptyView.config = EmptyViewConfig(title: "一条订单都没有哦", image: UIImage(named: "mine_message_empty"), btnTitle: "去逛逛")
-        emptyView.snp.makeConstraints { (make) in
-            make.top.left.bottom.right.equalTo(self.view)
-        }
-        
-        ///  点击的空白按钮
-        emptyView.sureBtn.rx.tap.subscribe(onNext: { (_) in
+
+        tableView.setEmpty(view: EmptyStore.orderEmpty(block: {
             topVC?.navigationController?.popToRootViewController(animated: false)
             topVC?.tabBarController?.selectedIndex = 1
-        }).disposed(by: rx.disposeBag)
+        }))
         
     }
 
@@ -71,6 +58,8 @@ class MineAllOrderViewController: ViewController {
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
+//        view.emptyDataSetSource = self
+//        view.emptyDataSetDelegate = self
         view.showsVerticalScrollIndicator = false
         view.register(MineOrderTabCell.self, forCellReuseIdentifier: MineOrderTabCell.identifier)
         view.register(MinePayOrderTabCell.self, forCellReuseIdentifier: MinePayOrderTabCell.identifier)
@@ -87,7 +76,6 @@ class MineAllOrderViewController: ViewController {
     func fetchUserBalance() {
         
         let params = ["userid": User.currentUser().userId]
-        
         WebAPITool.requestModel(WebAPI.userBalance(params), model: UserBanlance.self, complete: { (model) in
             self.tableView.uHead.endRefreshing()
             self.userBalance = model
@@ -334,3 +322,4 @@ extension MineAllOrderViewController: JXCategoryListContentViewDelegate {
     func listDidAppear() {}
     func listDidDisappear() {}
 }
+

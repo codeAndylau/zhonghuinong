@@ -66,9 +66,9 @@ class TableViewController: ViewController {
         //        tableView.footRefreshControl.autoRefreshOnFoot = false
         //
         //        let updateEmptyDataSet = Observable.of(isLoading.mapToVoid().asObservable(), emptyDataSetImageTintColor.mapToVoid()).merge()
-        //        updateEmptyDataSet.subscribe(onNext: { [weak self] () in
-        //            self?.tableView.reloadEmptyDataSet()
-        //        }).disposed(by: rx.disposeBag)
+//        updateEmptyDataSet.subscribe(onNext: { [weak self] () in
+//            self?.tableView.reloadEmptyDataSet()
+//        }).disposed(by: rx.disposeBag)
     }
     
 }

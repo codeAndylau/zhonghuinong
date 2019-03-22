@@ -15,7 +15,7 @@ class FarmHeaderView: Button {
     }
     
     let header = ImageView().then { (img) in
-        img.image = UIImage(named: "mine_default_ portrait") // farm_head
+        img.image = UIImage(named: "mine_default_ portrait")
         img.cuttingCorner(radius: 15)
     }
     
@@ -26,6 +26,11 @@ class FarmHeaderView: Button {
         addSubview(header)
         addSubview(vip)
         addSubview(sureBtn)
+        
+        /// 上架的时候隐藏
+        if User.hasUser() && User.currentUser().mobile == developmentMan {
+            vip.image = UIImage()
+        }
     }
     
     override func updateUI() {

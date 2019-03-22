@@ -12,21 +12,22 @@ class MineSendOrderViewController: MineAllOrderViewController {
 
     var sendOrderList: [MineGoodsOrderInfo] = [] {
         didSet {
-            if sendOrderList.count == 0 {
-                self.emptyView.isHidden = false
-            }else {
-                self.emptyView.isHidden = true
-            }
             tableView.reloadData()
         }
     }
     
     override func makeUI() {
         super.makeUI()
+        
         tableView.register(MineSendOrderTabCell.self, forCellReuseIdentifier: MineSendOrderTabCell.identifier)
         tableView.uHead = MJDIYHeader(refreshingBlock: {
             self.fetchSendOrder(isRefresh: true)
         })
+        
+        tableView.setEmpty(view: EmptyStore.orderEmpty(block: {
+            topVC?.navigationController?.popToRootViewController(animated: false)
+            topVC?.tabBarController?.selectedIndex = 1
+        }))
     }
 
     override func bindViewModel() {
@@ -102,4 +103,6 @@ extension MineSendOrderViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
+
 }
+

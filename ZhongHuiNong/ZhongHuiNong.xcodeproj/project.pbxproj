@@ -182,12 +182,6 @@
 		14974BFA21F7160A0088ABC3 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BF921F7160A0088ABC3 /* CollectionViewController.swift */; };
 		14974BFC21F716DA0088ABC3 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFB21F716DA0088ABC3 /* ImageView.swift */; };
 		14974BFE21F717080088ABC3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14974BFD21F717080088ABC3 /* Color.swift */; };
-		149E4568223F3D1A00FEA658 /* ic_empty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4561223F3D1900FEA658 /* ic_empty@3x.png */; };
-		149E4569223F3D1A00FEA658 /* ic_load_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */; };
-		149E456A223F3D1A00FEA658 /* ic_load_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */; };
-		149E456B223F3D1A00FEA658 /* ic_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 149E4564223F3D1900FEA658 /* ic_empty@2x.png */; };
-		149E456C223F3D1A00FEA658 /* IDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4566223F3D1900FEA658 /* IDEmptyView.swift */; };
-		149E456D223F3D1A00FEA658 /* UIView+IDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4567223F3D1900FEA658 /* UIView+IDeal.swift */; };
 		149E4571223F531200FEA658 /* FunctionTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4570223F531200FEA658 /* FunctionTipsView.swift */; };
 		149E4573223F643E00FEA658 /* SelectTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4572223F643E00FEA658 /* SelectTipsView.swift */; };
 		149E4575223F965700FEA658 /* PaySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149E4574223F965700FEA658 /* PaySuccessViewController.swift */; };
@@ -228,6 +222,8 @@
 		14C3EBD6221D48A1003029EB /* GoodsDetailBuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */; };
 		14C3EBD8221D539A003029EB /* GoodsDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */; };
 		14C800FE2240E73600AE23B9 /* MineCancelOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C800FD2240E73600AE23B9 /* MineCancelOrderTabCell.swift */; };
+		14CE0F4722447ABA005442D2 /* EmptyPageForOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CE0F4622447ABA005442D2 /* EmptyPageForOrder.swift */; };
+		14CE0F4922447AC7005442D2 /* EmptyPageForOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CE0F4822447AC7005442D2 /* EmptyPageForOrder.xib */; };
 		14D5B332221F945300D08DD1 /* MinePayOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */; };
 		14D5B334221F9A7400D08DD1 /* MineSendOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */; };
 		14D5B336221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */; };
@@ -490,12 +486,6 @@
 		14974BF921F7160A0088ABC3 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		14974BFB21F716DA0088ABC3 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		14974BFD21F717080088ABC3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		149E4561223F3D1900FEA658 /* ic_empty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_empty@3x.png"; sourceTree = "<group>"; };
-		149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_load_failure@3x.png"; sourceTree = "<group>"; };
-		149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_load_failure@2x.png"; sourceTree = "<group>"; };
-		149E4564223F3D1900FEA658 /* ic_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_empty@2x.png"; sourceTree = "<group>"; };
-		149E4566223F3D1900FEA658 /* IDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDEmptyView.swift; sourceTree = "<group>"; };
-		149E4567223F3D1900FEA658 /* UIView+IDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+IDeal.swift"; sourceTree = "<group>"; };
 		149E4570223F531200FEA658 /* FunctionTipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionTipsView.swift; sourceTree = "<group>"; };
 		149E4572223F643E00FEA658 /* SelectTipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTipsView.swift; sourceTree = "<group>"; };
 		149E4574223F965700FEA658 /* PaySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessViewController.swift; sourceTree = "<group>"; };
@@ -536,6 +526,8 @@
 		14C3EBD5221D48A1003029EB /* GoodsDetailBuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailBuyView.swift; sourceTree = "<group>"; };
 		14C3EBD7221D539A003029EB /* GoodsDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRowView.swift; sourceTree = "<group>"; };
 		14C800FD2240E73600AE23B9 /* MineCancelOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCancelOrderTabCell.swift; sourceTree = "<group>"; };
+		14CE0F4622447ABA005442D2 /* EmptyPageForOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPageForOrder.swift; sourceTree = "<group>"; };
+		14CE0F4822447AC7005442D2 /* EmptyPageForOrder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPageForOrder.xib; sourceTree = "<group>"; };
 		14D5B331221F945300D08DD1 /* MinePayOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinePayOrderTabCell.swift; sourceTree = "<group>"; };
 		14D5B333221F9A7400D08DD1 /* MineSendOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSendOrderTabCell.swift; sourceTree = "<group>"; };
 		14D5B335221F9D7300D08DD1 /* MineAcceptOrderTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAcceptOrderTabCell.swift; sourceTree = "<group>"; };
@@ -1277,36 +1269,6 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		149E455F223F3D1900FEA658 /* IDEmptyView */ = {
-			isa = PBXGroup;
-			children = (
-				149E4560223F3D1900FEA658 /* Images */,
-				149E4565223F3D1900FEA658 /* Components */,
-				143AF03F2243887F0086367F /* EmptyStore.swift */,
-			);
-			path = IDEmptyView;
-			sourceTree = "<group>";
-		};
-		149E4560223F3D1900FEA658 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				149E4561223F3D1900FEA658 /* ic_empty@3x.png */,
-				149E4562223F3D1900FEA658 /* ic_load_failure@3x.png */,
-				149E4563223F3D1900FEA658 /* ic_load_failure@2x.png */,
-				149E4564223F3D1900FEA658 /* ic_empty@2x.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		149E4565223F3D1900FEA658 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				149E4566223F3D1900FEA658 /* IDEmptyView.swift */,
-				149E4567223F3D1900FEA658 /* UIView+IDeal.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		14AE310D2221268500302F89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1445,6 +1407,16 @@
 			path = "Goods-商品详情";
 			sourceTree = "<group>";
 		};
+		14CE0F4A224481F3005442D2 /* EmptyPage */ = {
+			isa = PBXGroup;
+			children = (
+				143AF03F2243887F0086367F /* EmptyStore.swift */,
+				14CE0F4622447ABA005442D2 /* EmptyPageForOrder.swift */,
+				14CE0F4822447AC7005442D2 /* EmptyPageForOrder.xib */,
+			);
+			path = EmptyPage;
+			sourceTree = "<group>";
+		};
 		14D5B337221FA1BF00D08DD1 /* Logistics-物流信息 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1565,7 +1537,7 @@
 		14DC341321F170B6006EF1CF /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				149E455F223F3D1900FEA658 /* IDEmptyView */,
+				14CE0F4A224481F3005442D2 /* EmptyPage */,
 				1412CD172239F63C0075C70B /* MMCache */,
 				14151067222E72CD00EA9026 /* MoviePlayer */,
 				14151064222E66F000EA9026 /* Hud */,
@@ -1900,17 +1872,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				149E456B223F3D1A00FEA658 /* ic_empty@2x.png in Resources */,
 				14DC33EE21F17060006EF1CF /* LaunchScreen.storyboard in Resources */,
 				14518A442234C26F00D3D257 /* ShoppingOrder.json in Resources */,
-				149E4569223F3D1A00FEA658 /* ic_load_failure@3x.png in Resources */,
 				14B849EF2220FBDE00F409B0 /* Example.json in Resources */,
+				14CE0F4922447AC7005442D2 /* EmptyPageForOrder.xib in Resources */,
 				14DC343321F175CF006EF1CF /* EmptyArray.json in Resources */,
 				14DC33EB21F17060006EF1CF /* Assets.xcassets in Resources */,
 				14B849ED2220F94700F409B0 /* Area.plist in Resources */,
-				149E456A223F3D1A00FEA658 /* ic_load_failure@2x.png in Resources */,
 				14DC343121F175CF006EF1CF /* EmptyObject.json in Resources */,
-				149E4568223F3D1A00FEA658 /* ic_empty@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1961,11 +1930,10 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${PODS_ROOT}/EZOpenSDK/dist/EZOpenSDK/dynamicSDK/EZOpenSDKFramework.framework",
-				"${BUILT_PRODUCTS_DIR}/EmptyDataSet-Swift/EmptyDataSet_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/EmptyPage/EmptyPage.framework",
 				"${BUILT_PRODUCTS_DIR}/JXCategoryView/JXCategoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -1993,7 +1961,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZOpenSDKFramework.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyDataSet_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyPage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXCategoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -2016,7 +1983,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZhongHuiNong/Pods-ZhongHuiNong-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABBE84CE2BD52BC317448F49 /* [CP] Check Pods Manifest.lock */ = {
@@ -2126,7 +2093,6 @@
 				14D5B347221FD69000D08DD1 /* MineAddressBottomView.swift in Sources */,
 				8BDCF2D02236D57C003D5D4E /* HotGoodsViewController.swift in Sources */,
 				146B74BC221E9B82005D2879 /* PageTitleView.swift in Sources */,
-				149E456C223F3D1A00FEA658 /* IDEmptyView.swift in Sources */,
 				14C3EBC6221CF36E003029EB /* DeliveryOrderSuccessView.swift in Sources */,
 				1468B15622150953002B971F /* SearchViewController.swift in Sources */,
 				14C251132223F00200F5CB53 /* FlashTwoViewController.swift in Sources */,
@@ -2189,7 +2155,6 @@
 				14974BF821F715F40088ABC3 /* CollectionViewCell.swift in Sources */,
 				14C250FD2223856F00F5CB53 /* PrivatefarmViewController.swift in Sources */,
 				1412CD422239FD800075C70B /* RxMoyaProviderType+Cache.swift in Sources */,
-				149E456D223F3D1A00FEA658 /* UIView+IDeal.swift in Sources */,
 				14043D5A2212AA140023AA11 /* OrderViewController.swift in Sources */,
 				14DC343721F1771F006EF1CF /* Application.swift in Sources */,
 				14DC33E921F1705E006EF1CF /* ZhongHuiNong.xcdatamodeld in Sources */,
@@ -2199,6 +2164,7 @@
 				1492DD9B221A4BE300C79D88 /* DeliveryHeaderView.swift in Sources */,
 				14D5B351221FED9300D08DD1 /* MineAddressPickerViewController.swift in Sources */,
 				140FFEC822368EB700EB90DD /* DispatchVegetablesInfo.swift in Sources */,
+				14CE0F4722447ABA005442D2 /* EmptyPageForOrder.swift in Sources */,
 				14ED110F2216ADD80021D185 /* FlashViewController.swift in Sources */,
 				14C251152223F01600F5CB53 /* FlashThreeViewController.swift in Sources */,
 				14043D552212A5A70023AA11 /* CartSectionHeaderView.swift in Sources */,

@@ -37,8 +37,6 @@ class GoodsDetailViewController: ViewController {
     var goodsDetailInfo: GoodsDetailInfo = GoodsDetailInfo() {
         didSet {
             
-            isNetwork = true
-            
             // 库存不够的时候 提示用户
             if goodsDetailInfo.stock <= 0 {
                 buyView.buyBtn.alpha = 0.5
@@ -157,13 +155,6 @@ class GoodsDetailViewController: ViewController {
             
         }).disposed(by: rx.disposeBag)
         
-    }
-    
-    func showNoNetwork() {
-        view.id_empty = IDEmptyView.create().configStyle(netWorkStye)
-        let _ = view.id_empty?.setOperatorAction { [weak self] in
-            self?.fetchGoodsInfo()
-        }
     }
     
     func lijiBuy(_ index: Int) {

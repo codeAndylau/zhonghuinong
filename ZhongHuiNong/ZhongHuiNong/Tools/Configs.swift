@@ -50,11 +50,11 @@ struct Configs {
         
         // 开发环境
         static let smartFarmAPI1_dev = URL(string: "http://devapi.smartfarm.villagetechnology.cn")!
-        static let smartFarmAPI2_dev = URL(string: "http://devmxapi.smartfarm.villagetechnology.cn:8080")!
+        static let smartFarmAPI2_dev = URL(string: "https://devmxapi.smartfarm.villagetechnology.cn")!
         
         // 测试环境
         static let smartFarmAPI1_text = URL(string: "http://testapi.smartfarm.villagetechnology.cn")!
-        static let smartFarmAPI2_text = URL(string: "http://testmxapi.smartfarm.villagetechnology.cn:8080")!
+        static let smartFarmAPI2_text = URL(string: "https://testmxapi.smartfarm.villagetechnology.cn")!
         
         // 生产环境
         static let smartFarmAPI1_pro = URL(string: "http://proapi.smartfarm.villagetechnology.cn")!
