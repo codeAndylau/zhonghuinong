@@ -18,7 +18,6 @@ class DeliveryViewController: ViewController {
     var goodsWeight: CGFloat = 0  // 商品总重量
     var deliverynum: Int = 1      // 配送需要减去的次数
     var scheduleday: Int = 0      // 配送的日期： 星期一
-    var deliveryday: String = ""
     
     var addressList: [UserAddressInfo] = [] {
         didSet {
@@ -101,10 +100,20 @@ class DeliveryViewController: ViewController {
             
             if vegetablesInfo.count > 0 {
                 
+                //字符串 -> 日期
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.locale = Locale.init(identifier: "zh_CN")
+
                 /// 判断今天是否已经选择过了
                 var isTodaySelected = false
                 for item in vegetablesInfo {
-                    if item.scheduleDay == deliveryday  {
+                    
+                    let dateString = item.createdat.replacingOccurrences(of: "T", with: " ").components(separatedBy: " ")[0]
+                    let today = formatter.string(from: Date())
+                    
+                    if dateString == today {
+                        debugPrint("今天是否选过菜2--\(dateString)---\(today)")
                         isTodaySelected = true
                         break
                     }
@@ -260,43 +269,36 @@ class DeliveryViewController: ViewController {
             if dispatchDate.wednesday {
                 isSelect = true
                 scheduleday = 3
-                deliveryday = "星期三"
             }
         case 1:
             if dispatchDate.thursday {
                 isSelect = true
                 scheduleday = 4
-                deliveryday = "星期四"
             }
         case 2:
             if dispatchDate.friday {
                 isSelect = true
                 scheduleday = 5
-                deliveryday = "星期五"
             }
         case 3:
             if dispatchDate.saturday {
                 isSelect = true
                 scheduleday = 6
-                deliveryday = "星期六"
             }
         case 4:
             if dispatchDate.sunday {
                 isSelect = true
                 scheduleday = 7
-                deliveryday = "星期日"
             }
         case 5:
             if dispatchDate.monday {
                 isSelect = true
                 scheduleday = 1
-                deliveryday = "星期一"
             }
         case 6:
             if dispatchDate.tuesday {
                 isSelect = true
                 scheduleday = 2
-                deliveryday = "星期二"
             }
         default:
             break
