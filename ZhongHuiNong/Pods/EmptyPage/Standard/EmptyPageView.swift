@@ -42,7 +42,7 @@ open class EmptyPageView: UIView {
   
   // MARK: - Public property
   /// 预设默认背景色
-  public static var backColor: UIColor = UIColor.white
+  public static var backColor: UIColor = UIColor.orange
   /// backgroundView
   open class var backgroundView: EmptyPageView {
     let view = EmptyPageView(frame: UIScreen.main.bounds)
@@ -61,7 +61,8 @@ open class EmptyPageView: UIView {
     let lay1 = NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: view.superview, attribute: .centerX, multiplier: 1, constant: 0)
     let lay2 = NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: view.superview, attribute: .centerY, multiplier: 1, constant: 0)
     let lay3 = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: view.superview, attribute: .width, multiplier: 1, constant: 0)
-    backView.addConstraints([lay1,lay2,lay3])
+    let lay4 = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: view.superview, attribute: .height, multiplier: 1, constant: 0)
+    backView.addConstraints([lay1,lay2,lay3,lay4])
     return backView
   }
   

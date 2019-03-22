@@ -33,7 +33,6 @@ class SearchViewController: ViewController {
                 
                 sectionView.titleLab.text = "共\(goodsList.count)件商品"
                 
-                
                 DispatchQueue.main.async {
                     
                     // 2. 隐藏scrollView

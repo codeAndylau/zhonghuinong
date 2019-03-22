@@ -236,9 +236,6 @@ class PrivatefarmViewController: ViewController {
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.register(PrivatefarmTabCell.self, forCellReuseIdentifier: PrivatefarmTabCell.identifier)
-        view.uempty = UEmptyView(verticalOffset: -kNavBarH, tapClosure: { [weak self] in
-            self?.fetchFarmLand()
-        })
         return view
     }()
 
