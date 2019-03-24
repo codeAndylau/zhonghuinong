@@ -61,8 +61,8 @@ class WechatLoginView: View {
         addSubview(titleImg)
         addSubview(titleLab)
         addSubview(backImg)
-        addSubview(tipsLab)
-        addSubview(serviceBtn)
+        //addSubview(tipsLab)
+        //addSubview(serviceBtn)
         addSubview(otherBtn)
         addSubview(wechatBtn)
     }
@@ -88,18 +88,18 @@ class WechatLoginView: View {
             make.width.equalTo(kScreenW)
         }
         
-        tipsLab.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-60)
-            make.centerX.equalTo(self).offset(-20)
-        }
-        
-        serviceBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(tipsLab.snp.right)
-            make.centerY.equalTo(tipsLab)
-        }
+//        tipsLab.snp.makeConstraints { (make) in
+//            make.bottom.equalTo(self).offset(-60)
+//            make.centerX.equalTo(self).offset(-20)
+//        }
+//
+//        serviceBtn.snp.makeConstraints { (make) in
+//            make.left.equalTo(tipsLab.snp.right)
+//            make.centerY.equalTo(tipsLab)
+//        }
         
         otherBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(tipsLab).offset(-40)
+            make.bottom.equalTo(self).offset(-120)
             make.centerX.equalTo(self)
         }
         

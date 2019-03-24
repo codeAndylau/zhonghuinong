@@ -23,11 +23,6 @@ class MineViewController: TableViewController {
             headerView.cardLab.text = "\(balance.weightbalance)"
             headerView.timesLab.text = "\(balance.deliverybalance)"
             
-            //            if User.hasUser() && User.currentUser().isVip != 0 {
-            //                headerView.priceLab.text = "\(balance.creditbalance)"
-            //                headerView.cardLab.text = "\(balance.weightbalance)"
-            //                headerView.timesLab.text = "\(balance.deliverybalance)"
-            //            }
         }
     }
     
@@ -38,6 +33,11 @@ class MineViewController: TableViewController {
         if User.hasUser() && User.currentUser().mobile == developmentMan {
             navigationItem.rightBarButtonItems = [settingItem]
             headerView.memberBtn.isHidden = true
+            headerView.priceNameLab.text = "种子数"
+            headerView.priceLab.text = "0"
+            headerView.cardLab.text = "48"
+            headerView.timesLab.text = "96"
+            
         }else {
             navigationItem.rightBarButtonItems = [settingItem,messageItem]
         }
@@ -140,7 +140,7 @@ class MineViewController: TableViewController {
     }
     
     // MARK: - Lazy
-    lazy var titleArray = ["配送订单","我的收藏","联系客服","关于我们","设置","退出登录"]
+    lazy var titleArray = ["配送订单","联系客服","关于我们","设置","退出登录"] // "我的收藏"
     lazy var headerView = MineHeaderView.loadView()
     lazy var settingItem = BarButtonItem(image: UIImage(named: "mine_setting"), target: self, action: #selector(settingAction))
     lazy var messageItem = BarButtonItem(image: UIImage(named: "farm_message"), target: self, action: #selector(messageAction))
@@ -206,33 +206,36 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             self.navigator.show(segue: .deliveryOrderInfo, sender: self)
-        case 2:
+        case 1:
             
-            if User.hasUser() && User.currentUser().isVip == 0 {
-                let tipsView = SelectTipsView()
-                tipsView.titleLab.text = "立即联系客服申请VIP服务"
-                tipsView.detailLab.text = ""
-                tipsView.btnClosure = { index in
-                    if index  == 2 {
-                        callUpWith(linkMan) // 填写运营人员的电话号码
-                    }
-                }
+            if User.hasUser() && User.currentUser().mobile == developmentMan {
+                callUpWith(linkMan) // 填写运营人员的电话号码
             }else {
-                let tipsView = SelectTipsView()
-                tipsView.titleLab.text = "立即联系客服咨询售后服务"
-                tipsView.detailLab.text = ""
-                tipsView.btnClosure = { index in
-                    if index  == 2 {
-                        callUpWith(linkMan) // 填写运营人员的电话号码
+                if User.hasUser() && User.currentUser().isVip == 0 {
+                    let tipsView = SelectTipsView()
+                    tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                    tipsView.detailLab.text = ""
+                    tipsView.btnClosure = { index in
+                        if index  == 2 {
+                            callUpWith(linkMan) // 填写运营人员的电话号码
+                        }
+                    }
+                }else {
+                    let tipsView = SelectTipsView()
+                    tipsView.titleLab.text = "立即联系客服咨询售后服务"
+                    tipsView.detailLab.text = ""
+                    tipsView.btnClosure = { index in
+                        if index  == 2 {
+                            callUpWith(linkMan) // 填写运营人员的电话号码
+                        }
                     }
                 }
             }
-            
-        case 3:
+        case 2:
             self.navigator.show(segue: .mineAbout, sender: self)
-        case 4:
+        case 3:
             self.navigator.show(segue: .mineSetting, sender: self)
-        case 5:
+        case 4:
             
             let tipsView = SelectTipsView()
             tipsView.titleLab.text = "是否退出账号登录?"

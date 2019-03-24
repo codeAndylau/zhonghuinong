@@ -28,10 +28,19 @@ class PaySelectViewController: SwiftPopup {
         }
     }
     
+    /// 支付成功毁掉
+    var payCancelClosure: (()->Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(paySelectView)
+        
+        /// 判断 如果是测试账号 就给隐藏
+        if User.currentUser().mobile == developmentMan {
+            paySelectView.otherLab.isHidden = true
+            paySelectView.otherView.isHidden = true
+        }
         
         paySuccessView.cancelBtn.rx.tap.subscribe(onNext: { (_) in
             self.dismiss()
@@ -48,12 +57,14 @@ class PaySelectViewController: SwiftPopup {
         paySelectView.cancelBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.dismiss()
+            self.payCancelClosure?()
         }).disposed(by: rx.disposeBag)
         
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe(onNext: { (gesture) in
             if !self.paySuccessView.frame.contains(gesture.location(in: self.view)) {
                 self.dismiss()
+                self.payCancelClosure?()
             }
         }).disposed(by: rx.disposeBag)
         view.addGestureRecognizer(tap)
@@ -112,7 +123,7 @@ class PaySelectViewController: SwiftPopup {
             self.PayPasswordDemo.order_no = self.order_no
             self.PayPasswordDemo.show(above: topVC, completion: nil)
         }else {
-            ZYToast.showCenterWithText(text: "您的余额不足,请联系客服充值")
+            ZYToast.showCenterWithText(text: "您的余额不足")
         }
         
     }

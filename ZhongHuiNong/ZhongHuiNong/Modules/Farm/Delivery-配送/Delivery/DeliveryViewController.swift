@@ -184,20 +184,28 @@ class DeliveryViewController: ViewController {
         /// 1. 判断是否是vip
         if User.currentUser().isVip == 0 {
             
-            // 不是vip提示联系客服 充值
-            view.addSubview(emptyView)
-            emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务,可联系我们的工作人员申请开通VIP", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
-            emptyView.snp.makeConstraints { (make) in
-                make.top.equalTo(kNavBarH)
-                make.left.bottom.right.equalTo(self.view)
-            }
-            emptyView.sureBtnClosure = {
-                let tipsView = SelectTipsView()
-                tipsView.titleLab.text = "立即联系客服申请VIP服务"
-                tipsView.detailLab.text = ""
-                tipsView.btnClosure = { index in
-                    if index  == 2 {
-                        callUpWith(linkMan) // 填写运营人员的电话号码
+            if User.currentUser().mobile == developmentMan {
+                let emptyView = EmptyPageForOrder.initFromNib
+                emptyView.frame = CGRect(x: 0, y: kNavBarH, width: kScreenW, height: kScreenH-kNavBarH)
+                emptyView.titleLab.text = "今天还不能配送选菜哦"
+                emptyView.sureBtn.isHidden = true
+                view.addSubview(emptyView)
+            }else {
+                // 不是vip提示联系客服 充值
+                view.addSubview(emptyView)
+                emptyView.config = EmptyViewConfig(title: "您暂不是会员用户,还没有该项服务,可联系我们的工作人员申请开通VIP", image: UIImage(named: "farm_delivery_nonmember"), btnTitle: "去开通")
+                emptyView.snp.makeConstraints { (make) in
+                    make.top.equalTo(kNavBarH)
+                    make.left.bottom.right.equalTo(self.view)
+                }
+                emptyView.sureBtnClosure = {
+                    let tipsView = SelectTipsView()
+                    tipsView.titleLab.text = "立即联系客服申请VIP服务"
+                    tipsView.detailLab.text = ""
+                    tipsView.btnClosure = { index in
+                        if index  == 2 {
+                            callUpWith(linkMan) // 填写运营人员的电话号码
+                        }
                     }
                 }
             }
@@ -206,7 +214,6 @@ class DeliveryViewController: ViewController {
             
             navigationItem.title = "配送选货"
             navigationItem.rightBarButtonItem = rightRecordItem
-            
             
             view.addSubview(collectionView)
             view.addSubview(headerView)

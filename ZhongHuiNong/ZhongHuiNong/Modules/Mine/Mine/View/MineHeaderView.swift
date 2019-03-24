@@ -41,7 +41,7 @@ class MineHeaderView: View {
     }
     
     let priceNameLab = Label().then { (lab) in
-        lab.text = "钱包余额(元)"
+        lab.text = "账户余额(元)"
         lab.textColor = UIColor.hexColor(0x757882)
         lab.textAlignment = .center
         lab.font = UIFont.boldSystemFont(ofSize: 13)

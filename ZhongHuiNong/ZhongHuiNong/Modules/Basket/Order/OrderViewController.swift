@@ -185,6 +185,12 @@ class OrderViewController: TableViewController {
             
         }
         
+        /// 支付取消
+        paySelectDemo.payCancelClosure = {
+            ZYToast.showCenterWithText(text: "已取消支付")
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         /// 支付成功后点击的支付界面的按钮的事件操作
         paySuccessDemo.btnClosure = { index in
             
@@ -235,17 +241,20 @@ class OrderViewController: TableViewController {
     /// 验证用户是否绑定了手机
     func bindingPhone() {
         
-        /// 0: 判断是否是在审核中
-        /// 1: 判断是否绑定了手机号码
-        /// 2: 判断是否是vip
-        /// 3: 是否绑定了支付密码
-        /// 4: 然后在提交订单
+        /// a: 判断账户余额是否充足
+        /// b: 判断是否是在审核中
+        /// c: 判断是否绑定了手机号码
+        /// d: 判断是否是vip
+        /// e: 是否绑定了支付密码
+        /// f: 然后在提交订单
         
-        // FIXME: - 为了审核做此判断
-//        guard User.hasUser() && User.currentUser().mobile != developmentMan else {
-//            ZYToast.showCenterWithText(text: "您当前不是VIP会员，无法进行支付")
-//            return
-//        }
+        guard CGFloat(balance.creditbalance) >= payMoney else {
+            ZYToast.showTopWithText(text: "账户余额不足")
+            delay(by: 0.5) {
+                self.navigationController?.popViewController(animated: true)
+            }
+            return
+        }
         
         if User.hasUser() && User.currentUser().mobile == "" {
             navigator.show(segue: .bindingMobile, sender: self)
@@ -261,9 +270,7 @@ class OrderViewController: TableViewController {
     
     /// 提交订单
     func commitOrder() {
-        
-        
-        
+
         guard headerView.addressView.addressInfo.id != defaultId else {
             ZYToast.showCenterWithText(text: "您还没有填写收货地址")
             return

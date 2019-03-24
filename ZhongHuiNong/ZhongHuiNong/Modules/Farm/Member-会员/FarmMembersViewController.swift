@@ -70,10 +70,18 @@ class FarmMembersViewController: TableViewController {
         /// 上架的时候隐藏
         if User.hasUser() && User.currentUser().mobile != developmentMan {
             navigationItem.rightBarButtonItem = rightMsgItem
+            tableView_g.tableHeaderView = headerView
         }
         
-        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView) // 上啦
+        /// 判断是否是测试账户 
+        if User.hasUser() && User.currentUser().mobile == developmentMan {
+            tableView_g.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
+            navigationItem.title = "峻铭健康"
+        }
         
+        // 上啦
+        dropupView = DropupMenu(containerView: self.navigationController!.view, contentView: mineCenterView)
+
         view.addSubview(tableView_g)
     
         loadAllData()
@@ -91,6 +99,7 @@ class FarmMembersViewController: TableViewController {
         }).disposed(by: rx.disposeBag)
         
         headerView.cellDidSelectedClosure = { index in
+            
             switch index {
             case 0: self.navigator.show(segue: .delivery, sender: self)     // 配送选货
             case 1: self.navigator.show(segue: .scan, sender: self)         // 扫码溯源
@@ -128,7 +137,6 @@ class FarmMembersViewController: TableViewController {
         view.separatorStyle = .none
         view.dataSource = self
         view.delegate = self
-        view.tableHeaderView = headerView
         view.register(MemberXinpinCell.self, forCellReuseIdentifier: MemberXinpinCell.identifier)       // 新品cell
         view.register(MemberQianggouCell.self, forCellReuseIdentifier: MemberQianggouCell.identifier)   // 抢购cell
         view.register(MemberRexiaoCell.self, forCellReuseIdentifier: MemberRexiaoCell.identifier)       // 热销cell

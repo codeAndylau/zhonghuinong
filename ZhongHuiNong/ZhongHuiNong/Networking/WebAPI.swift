@@ -142,12 +142,12 @@ extension WebAPI: TargetType, WebAPIType {
             // 生产环境
             
             //return Configs.Network.smartFarmAPI1_dev
-            return Configs.Network.smartFarmAPI1_text
-            //return Configs.Network.smartFarmAPI1_pro
+            //return Configs.Network.smartFarmAPI1_text
+            return Configs.Network.smartFarmAPI1_pro
         default:
             //return Configs.Network.smartFarmAPI2_dev
-            return Configs.Network.smartFarmAPI2_text
-            //return Configs.Network.smartFarmAPI2_pro
+            //return Configs.Network.smartFarmAPI2_text
+            return Configs.Network.smartFarmAPI2_pro
         }
     }
     

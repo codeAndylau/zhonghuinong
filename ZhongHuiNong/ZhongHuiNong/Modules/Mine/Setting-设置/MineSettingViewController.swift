@@ -44,9 +44,9 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0, 1:
+        case 0:
             return 2
-        case 2:
+        case 1,2:
             return 1
         default:
             return 3
@@ -62,7 +62,7 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             if indexPath.row == 0 {
                 cell.isHeader = true
                 cell.titleLab.text = "头像"
-                cell.headerImg.lc_setImage(with: user.userImg)
+                cell.headerImg.lc_setImage(with: user.userImg, placeholderImage: UIImage(named: "mine_default_ portrait"), isAnimate: true)
             }
             if indexPath.row == 1 {
                 cell.lineView.isHidden = true
@@ -82,7 +82,7 @@ extension MineSettingViewController: UITableViewDataSource, UITableViewDelegate 
             if indexPath.row == 1 {
                 cell.arrowImg.isHidden = true
                 cell.titleLab.text = "微信号"
-                cell.detailLab.text = "已绑定"
+                cell.detailLab.text = user.mobile == "" ? "暂未绑定" : "已绑定"
             }
         }
         

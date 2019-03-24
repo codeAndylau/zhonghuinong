@@ -57,7 +57,7 @@ struct Configs {
         static let smartFarmAPI2_text = URL(string: "https://testmxapi.smartfarm.villagetechnology.cn")!
         
         // 生产环境
-        static let smartFarmAPI1_pro = URL(string: "http://proapi.smartfarm.villagetechnology.cn")!
+        static let smartFarmAPI1_pro = URL(string: "https://proapi.smartfarm.villagetechnology.cn")!
         static let smartFarmAPI2_pro = URL(string: "https://promxapi.smartfarm.villagetechnology.cn")!
         
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 待收货
 class MineAcceptOrderViewController: MineAllOrderViewController {
 
     var acceptOrderList: [MineGoodsOrderInfo] = [] {
@@ -94,6 +95,7 @@ class MineAcceptOrderViewController: MineAllOrderViewController {
         WebAPITool.request(WebAPI.userOrderReceipt(params), complete: { (value) in
             let status = value["status"].intValue
             if status == 1 {
+                
                 ZYToast.showCenterWithText(text: "确认收货成功")
                 
                 /// 删除某一条数据
@@ -139,8 +141,7 @@ extension MineAcceptOrderViewController {
             }
             
             if index == 2 {
-                debugPrints("点击了立即支付")
-                
+                debugPrints("点击了确认收货")
                 let orderId = "\(self.acceptOrderList[indexPath.row])"
                 self.orderAccept(orderId, indexPath: indexPath)
             }

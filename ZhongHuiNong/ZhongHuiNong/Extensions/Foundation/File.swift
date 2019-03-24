@@ -39,7 +39,7 @@ extension UIImageView {
     }
     
     /// 原图片
-    func lc_setImage(with url: String?, placeholderImage placeholder: UIImage = placeHolder, isAnimate: Bool = true) {
+    func lc_setImage(with url: String?, placeholderImage placeholder: UIImage? = placeHolder, isAnimate: Bool = true) {
         guard let url = url, let Url = URL(string: url) else {
             self.image = placeholder
             self.contentMode = .scaleAspectFill

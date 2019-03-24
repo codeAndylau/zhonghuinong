@@ -55,7 +55,7 @@ class DeliveryOrderInfoViewController: ViewController {
     override func makeUI() {
         super.makeUI()
         
-        navigationItem.title = "配送历史订单"
+        navigationItem.title = "配送订单"
         view.addSubview(tableView)
         
         fetchDispatchOrderList(1)

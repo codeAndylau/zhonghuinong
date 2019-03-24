@@ -76,10 +76,10 @@ class MineLogisticsViewController: ViewController {
     
     func fetchData() {
         
-//        guard order_no != "" else {
-//            ZYToast.showCenterWithText(text: "请输入快递单号")
-//            return
-//        }
+        guard order_no != "" else {
+            ZYToast.showCenterWithText(text: "您的订单编号有误,请联系客服")
+            return
+        }
         
         HudHelper.showWaittingHUD(msg: "请稍后")
         EZNetworkTool.shared.aliwuliuQuery(order: order_no, completion: { (model) in
@@ -90,7 +90,6 @@ class MineLogisticsViewController: ViewController {
             ZYToast.showCenterWithText(text: msg)
         }
     }
-    
     
 }
 

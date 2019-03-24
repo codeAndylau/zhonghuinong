@@ -33,6 +33,7 @@ class WechatLoginViewController: ViewController {
     ///
     /// - Returns: bool
     func appstore() -> Bool {
+        // 微信已安装返回YES，未安装返回NO。
         if !WXApi.isWXAppInstalled() || isIPad() {
             return true
         }
@@ -161,6 +162,13 @@ class WechatLoginViewController: ViewController {
     // 4. 通过获取微信用户信息后 请求微信登录
     func wechatLogin(_ parameters: [String: Any]) {
         HudHelper.showWaittingHUD(msg: "登录中...")
+        
+//        WebAPITool.requestText(.wechatLogin(parameters), complete: { (value) in
+//            debugPrint("成功登录----\(value)")
+//        }) { (error) in
+//            debugPrint("成功失败----\(error)")
+//        }
+        
         WebAPITool.requestModel(WebAPI.wechatLogin(parameters), model: User.self, complete: { (user) in
             HudHelper.hideHUD()
             user.save()

@@ -139,7 +139,7 @@ class MinePayOrderViewController: MineAllOrderViewController {
         debugPrint("商品价格--用户账户余额---\(amountReal)---\(balance.creditbalance)")
         
         guard amountReal < balance.creditbalance else {
-            MBProgressHUD.showInfo("您的余额不足,请联系运营人员进行充值")
+            MBProgressHUD.showInfo("您的余额不足")
             return
         }
         
