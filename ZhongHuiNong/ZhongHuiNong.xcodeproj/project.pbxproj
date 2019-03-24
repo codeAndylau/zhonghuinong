@@ -2488,6 +2488,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cnkj.SmartFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZhongHuiNong/Application/ZhongHuiNong-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -2516,6 +2517,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cnkj.SmartFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZhongHuiNong/Application/ZhongHuiNong-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
